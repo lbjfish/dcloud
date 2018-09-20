@@ -18,6 +18,9 @@ server:
   contextPath: /
   tomcat:
     basedir: ${user.home}/deployer/tomcat
+  session:
+    cookie:
+      name: @security-edge-service@
 feign:
   hystrix:
     enabled: true # 默认false，hystrix必须enabled=TRUE
@@ -34,9 +37,6 @@ zuul:
   ignored-services: '*'
   add-proxy-headers: true
   routes:
-    workflow-service:
-      serviceId: @workflow-service@
-      path: /apis/workflow/**
     system-module:
       serviceId: @system-module@
       path: /apis/system/**
@@ -46,6 +46,15 @@ zuul:
     schedule-module:
       serviceId: @schedule-service@
       path: /apis/schedule/**
+    activity-module:
+      serviceId: @activity-module@
+      path: /apis/activity/**
+    content-module:
+      serviceId: @content-module@
+      path: /apis/content/**
+    operation-module:
+      serviceId: @operation-module@
+      path: /apis/operation/**
 hystrix:
   command:
     default:

@@ -65,6 +65,9 @@ spring:
 server:
   port: ${module.content.port}
   contextPath: /
+  session:
+    cookie:
+      name: @content-module@
 feign:
     hystrix:
       enabled: false  # 默认false，hystrix必须enabled=TRUE

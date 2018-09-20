@@ -1,5 +1,6 @@
-package com.sida.security.edge.swagger;
+package com.sida.dcloud.content.swagger;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -20,8 +21,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
 
-   // @Value("${swagger.enable}")
-    private String swaggerEnable="true";
+    @Value("${swagger.enable}")
+    private String swaggerEnable;
 
 
     @Bean
@@ -39,14 +40,14 @@ public class SwaggerConfig {
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select()
-                .apis(RequestHandlerSelectors.basePackage("com.sida.security.edge.controller")).paths(PathSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("com.sida.dcloud.content.controller")).paths(PathSelectors.any())
                 .build();
     }
 
     private ApiInfo apiInfo() {
         ApiInfoBuilder apiInfoBuilder = new ApiInfoBuilder();
-        apiInfoBuilder.title(  "网关模块API");
-        apiInfoBuilder.version("V1.0").contact(new Contact("Xiruo.Jiang", "", ""));
+        apiInfoBuilder.title("内容服务模块API");
+        apiInfoBuilder.version("V1.0").contact(new Contact("Xiruo", "", ""));
         return apiInfoBuilder.build();
     }
 }

@@ -60,6 +60,9 @@ server:
   port: ${service.security.auth.port}
   contextPath: /sec
   use-forward-headers: false
+  session:
+    cookie:
+      name: @auth-service@
 
 feign:
   hystrix:

@@ -1,7 +1,4 @@
-package com.sida.xiruo.xframework.cache.redis.aop;
-
-import java.lang.reflect.Method;
-import java.util.Arrays;
+package com.sida.xiruo.xframework.lock.redis.aop;
 
 import com.sida.xiruo.xframework.cache.redis.DistributedLockAutoConfiguration;
 import com.sida.xiruo.xframework.lock.DistributedLock;
@@ -18,6 +15,9 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
+
+import java.lang.reflect.Method;
+import java.util.Arrays;
 
 import static com.sida.xiruo.xframework.lock.redis.RedisLock.LockFailAction;
 

@@ -47,11 +47,14 @@ positon:
 server:
   port: ${module.system.port}
   contextPath: /
+  session:
+    cookie:
+      name: @system-module@
 feign:
-    hystrix:
-      enabled: false  # 默认false，hystrix必须enabled=TRUE
-    httpclient:
-      enabled: true
+  hystrix:
+    enabled: false  # 默认false，hystrix必须enabled=TRUE
+  httpclient:
+    enabled: true
 
 
 mybatis:

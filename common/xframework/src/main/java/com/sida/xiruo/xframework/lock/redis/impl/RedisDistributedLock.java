@@ -7,10 +7,12 @@ import java.util.UUID;
 import com.sida.xiruo.xframework.lock.AbstractDistributedLock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import redis.clients.jedis.Jedis;
@@ -23,6 +25,7 @@ import redis.clients.jedis.JedisCommands;
  * @date 2017年6月14日 下午3:11:14
  * @version 1.0.0
  */
+@Component
 public class RedisDistributedLock extends AbstractDistributedLock {
 
     private final static Logger LOG = LoggerFactory.getLogger(RedisDistributedLock.class);
@@ -44,6 +47,7 @@ public class RedisDistributedLock extends AbstractDistributedLock {
         UNLOCK_LUA = sb.toString();
     }
 
+    @Autowired
     public RedisDistributedLock(RedisTemplate<Object, Object> redisTemplate) {
         super();
         this.redisTemplate = redisTemplate;

@@ -6,7 +6,7 @@ spring:
       discovery:
         enabled: true
         service-id: @config-service@
-      name: chelizi
+      name: @svn.name@
       profile: @profile.name@
 
 eureka:
