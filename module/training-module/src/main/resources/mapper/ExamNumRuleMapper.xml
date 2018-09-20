@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.training.dao.ExamNumRuleMapper" >
+  <resultMap id="ExamNumRuleResultMap" type="com.sida.dcloud.training.po.ExamNumRule" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="subject" property="subject" jdbcType="VARCHAR" />
+    <result column="exercise_sum" property="exerciseSum" jdbcType="INTEGER" />
+    <result column="qualified_score" property="qualifiedScore" jdbcType="INTEGER" />
+    <result column="exam_minutes" property="examMinutes" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="ExamNumRule_Column_List" >
+    id, subject, exercise_sum, qualified_score, exam_minutes
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ExamNumRuleResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="ExamNumRule_Column_List" />
+    from exam_num_rule
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from exam_num_rule
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.sida.dcloud.training.po.ExamNumRule" >
+    insert into exam_num_rule (id, subject, exercise_sum, qualified_score, exam_minutes)
+    values (#{id}, #{subject}, #{exerciseSum}, #{qualifiedScore}, #{examMinutes})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.training.po.ExamNumRule" >
+    insert into exam_num_rule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="subject != null" >
+        subject,
+      </if>
+      <if test="exerciseSum != null" >
+        exercise_sum,
+      </if>
+      <if test="qualifiedScore != null" >
+        qualified_score,
+      </if>
+      <if test="examMinutes != null" >
+        exam_minutes,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="subject != null" >
+        #{subject},
+      </if>
+      <if test="exerciseSum != null" >
+        #{exerciseSum},
+      </if>
+      <if test="qualifiedScore != null" >
+        #{qualifiedScore},
+      </if>
+      <if test="examMinutes != null" >
+        #{examMinutes},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sida.dcloud.training.po.ExamNumRule" >
+    update exam_num_rule
+    <set >
+      <if test="subject != null" >
+        subject = #{subject},
+      </if>
+      <if test="exerciseSum != null" >
+        exercise_sum = #{exerciseSum},
+      </if>
+      <if test="qualifiedScore != null" >
+        qualified_score = #{qualifiedScore},
+      </if>
+      <if test="examMinutes != null" >
+        exam_minutes = #{examMinutes},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sida.dcloud.training.po.ExamNumRule" >
+    update exam_num_rule
+    set subject = #{subject},
+      exercise_sum = #{exerciseSum},
+      qualified_score = #{qualifiedScore},
+      exam_minutes = #{examMinutes}
+    where id = #{id}
+  </update>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="subject != null and subject != ''" >
+        subject = #{subject}
+      </if>
+      <if test="exerciseSum != null" >
+        AND exercise_sum = #{exerciseSum}
+      </if>
+      <if test="qualifiedScore != null" >
+        AND qualified_score = #{qualifiedScore}
+      </if>
+      <if test="examMinutes != null" >
+        AND exam_minutes = #{examMinutes}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.training.po.ExamNumRule" resultMap="ExamNumRuleResultMap" >
+    select 
+    <include refid="ExamNumRule_Column_List" />
+    from exam_num_rule
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update exam_num_rule
+    <set >
+      <if test="po.subject != null" >
+        subject = #{po.subject},
+      </if>
+      <if test="po.exerciseSum != null" >
+        exercise_sum = #{po.exerciseSum},
+      </if>
+      <if test="po.qualifiedScore != null" >
+        qualified_score = #{po.qualifiedScore},
+      </if>
+      <if test="po.examMinutes != null" >
+        exam_minutes = #{po.examMinutes},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <select id="loadRuleBySubject" resultMap="ExamNumRuleResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="ExamNumRule_Column_List" />
+    from exam_num_rule
+    where subject = #{subject}
+  </select>
+</mapper>

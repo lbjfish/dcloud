@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.system.dao.SysAppFunctionGroupMapper" >
+  <resultMap id="SysAppFunctionGroupResultMap" type="com.sida.dcloud.system.po.SysAppFunctionGroup" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+    <result column="group_name" property="groupName" jdbcType="VARCHAR" />
+    <result column="app_id" property="appId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="SysAppFunctionGroup_Column_List" >
+    id, parent_id, group_name, app_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="SysAppFunctionGroupResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="SysAppFunctionGroup_Column_List" />
+    from sys_app_function_group
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_app_function_group
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.sida.dcloud.system.po.SysAppFunctionGroup" >
+    insert into sys_app_function_group (id, parent_id, group_name, app_id)
+    values (#{id}, #{parentId}, #{groupName}, #{appId})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.system.po.SysAppFunctionGroup" >
+    insert into sys_app_function_group
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="groupName != null" >
+        group_name,
+      </if>
+      <if test="appId != null" >
+        app_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="parentId != null" >
+        #{parentId},
+      </if>
+      <if test="groupName != null" >
+        #{groupName},
+      </if>
+      <if test="appId != null" >
+        #{appId},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sida.dcloud.system.po.SysAppFunctionGroup" >
+    update sys_app_function_group
+    <set >
+      <if test="parentId != null" >
+        parent_id = #{parentId},
+      </if>
+      <if test="groupName != null" >
+        group_name = #{groupName},
+      </if>
+      <if test="appId != null" >
+        app_id = #{appId},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sida.dcloud.system.po.SysAppFunctionGroup" >
+    update sys_app_function_group
+    set parent_id = #{parentId},
+      group_name = #{groupName},
+      app_id = #{appId}
+    where id = #{id}
+  </update>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="parentId != null and parentId != ''" >
+        parent_id = #{parentId}
+      </if>
+      <if test="groupName != null and groupName != ''" >
+        AND group_name = #{groupName}
+      </if>
+      <if test="appId != null and appId != ''" >
+        AND app_id = #{appId}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.system.po.SysAppFunctionGroup" resultMap="SysAppFunctionGroupResultMap" >
+    select 
+    <include refid="SysAppFunctionGroup_Column_List" />
+    from sys_app_function_group
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+    <update id="updateByIdsSelective" >
+    update sys_app_function_group
+    <set >
+      <if test="po.parentId != null" >
+        parent_id = #{po.parentId},
+      </if>
+      <if test="po.groupName != null" >
+        group_name = #{po.groupName},
+      </if>
+      <if test="po.appId != null" >
+        app_id = #{po.appId},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <select id="finSysAppFunctionGroupList"  resultType="hashmap">
+      SELECT
+        g.id as groupId,
+        g.parent_id as parentId,
+        g.group_name as groupName,
+        f.app_id as appId,
+        f.function_code as functionCode,
+        f.id as functionId,
+        f.function_name as functionName,
+        f.function_type as functionType,
+        f.herf,
+        f.source_url as sourceUrl,
+        f.icon,
+        r.role_id as roleId
+    FROM
+        sys_app_function_group g,
+        sys_app_role_function r,
+        sys_app_function  f
+    WHERE
+       f.app_id=#{appId}
+    <foreach collection="roleIds" item="listItem" open="and r.role_id in(" close=")" separator="," >
+      #{listItem}
+    </foreach>
+       and  g.id=r.group_id
+       and  f.id=r.function_id
+  </select>
+
+</mapper>

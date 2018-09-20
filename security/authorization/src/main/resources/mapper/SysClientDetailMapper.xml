@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.auth.dao.SysClientDetailMapper" >
+  <resultMap id="SysClientDetailResultMap" type="com.sida.dcloud.auth.po.SysClientDetail" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="client_id" property="clientId" jdbcType="VARCHAR" />
+    <result column="client_secret" property="clientSecret" jdbcType="VARCHAR" />
+    <result column="scope" property="scope" jdbcType="VARCHAR" />
+    <result column="authorized_grant_types" property="authorizedGrantTypes" jdbcType="VARCHAR" />
+    <result column="web_server_redirect_uri" property="webServerRedirectUri" jdbcType="VARCHAR" />
+    <result column="authorities" property="authorities" jdbcType="VARCHAR" />
+    <result column="access_token_validity" property="accessTokenValidity" jdbcType="INTEGER" />
+    <result column="refresh_token_validity" property="refreshTokenValidity" jdbcType="INTEGER" />
+    <result column="additional_information" property="additionalInformation" jdbcType="VARCHAR" />
+    <result column="autoapprove" property="autoapprove" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="SysClientDetail_Column_List" >
+    id, user_id, client_id, client_secret, scope, authorized_grant_types, web_server_redirect_uri, 
+    authorities, access_token_validity, refresh_token_validity, additional_information, 
+    autoapprove
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="SysClientDetailResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="SysClientDetail_Column_List" />
+    from sys_client_detail
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_client_detail
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.sida.dcloud.auth.po.SysClientDetail" >
+    insert into sys_client_detail (id, user_id, client_id, client_secret, scope, authorized_grant_types, 
+      web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, 
+      additional_information, autoapprove)
+    values (#{id}, #{userId}, #{clientId}, #{clientSecret}, #{scope}, #{authorizedGrantTypes}, 
+      #{webServerRedirectUri}, #{authorities}, #{accessTokenValidity}, #{refreshTokenValidity}, 
+      #{additionalInformation}, #{autoapprove})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.auth.po.SysClientDetail" >
+    insert into sys_client_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="clientId != null" >
+        client_id,
+      </if>
+      <if test="clientSecret != null" >
+        client_secret,
+      </if>
+      <if test="scope != null" >
+        scope,
+      </if>
+      <if test="authorizedGrantTypes != null" >
+        authorized_grant_types,
+      </if>
+      <if test="webServerRedirectUri != null" >
+        web_server_redirect_uri,
+      </if>
+      <if test="authorities != null" >
+        authorities,
+      </if>
+      <if test="accessTokenValidity != null" >
+        access_token_validity,
+      </if>
+      <if test="refreshTokenValidity != null" >
+        refresh_token_validity,
+      </if>
+      <if test="additionalInformation != null" >
+        additional_information,
+      </if>
+      <if test="autoapprove != null" >
+        autoapprove,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="userId != null" >
+        #{userId},
+      </if>
+      <if test="clientId != null" >
+        #{clientId},
+      </if>
+      <if test="clientSecret != null" >
+        #{clientSecret},
+      </if>
+      <if test="scope != null" >
+        #{scope},
+      </if>
+      <if test="authorizedGrantTypes != null" >
+        #{authorizedGrantTypes},
+      </if>
+      <if test="webServerRedirectUri != null" >
+        #{webServerRedirectUri},
+      </if>
+      <if test="authorities != null" >
+        #{authorities},
+      </if>
+      <if test="accessTokenValidity != null" >
+        #{accessTokenValidity},
+      </if>
+      <if test="refreshTokenValidity != null" >
+        #{refreshTokenValidity},
+      </if>
+      <if test="additionalInformation != null" >
+        #{additionalInformation},
+      </if>
+      <if test="autoapprove != null" >
+        #{autoapprove},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sida.dcloud.auth.po.SysClientDetail" >
+    update sys_client_detail
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId},
+      </if>
+      <if test="clientId != null" >
+        client_id = #{clientId},
+      </if>
+      <if test="clientSecret != null" >
+        client_secret = #{clientSecret},
+      </if>
+      <if test="scope != null" >
+        scope = #{scope},
+      </if>
+      <if test="authorizedGrantTypes != null" >
+        authorized_grant_types = #{authorizedGrantTypes},
+      </if>
+      <if test="webServerRedirectUri != null" >
+        web_server_redirect_uri = #{webServerRedirectUri},
+      </if>
+      <if test="authorities != null" >
+        authorities = #{authorities},
+      </if>
+      <if test="accessTokenValidity != null" >
+        access_token_validity = #{accessTokenValidity},
+      </if>
+      <if test="refreshTokenValidity != null" >
+        refresh_token_validity = #{refreshTokenValidity},
+      </if>
+      <if test="additionalInformation != null" >
+        additional_information = #{additionalInformation},
+      </if>
+      <if test="autoapprove != null" >
+        autoapprove = #{autoapprove},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sida.dcloud.auth.po.SysClientDetail" >
+    update sys_client_detail
+    set user_id = #{userId},
+      client_id = #{clientId},
+      client_secret = #{clientSecret},
+      scope = #{scope},
+      authorized_grant_types = #{authorizedGrantTypes},
+      web_server_redirect_uri = #{webServerRedirectUri},
+      authorities = #{authorities},
+      access_token_validity = #{accessTokenValidity},
+      refresh_token_validity = #{refreshTokenValidity},
+      additional_information = #{additionalInformation},
+      autoapprove = #{autoapprove}
+    where id = #{id}
+  </update>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="userId != null and userId != ''" >
+        user_id = #{userId}
+      </if>
+      <if test="clientId != null and clientId != ''" >
+        AND client_id = #{clientId}
+      </if>
+      <if test="clientSecret != null and clientSecret != ''" >
+        AND client_secret = #{clientSecret}
+      </if>
+      <if test="scope != null and scope != ''" >
+        AND scope = #{scope}
+      </if>
+      <if test="authorizedGrantTypes != null and authorizedGrantTypes != ''" >
+        AND authorized_grant_types = #{authorizedGrantTypes}
+      </if>
+      <if test="webServerRedirectUri != null and webServerRedirectUri != ''" >
+        AND web_server_redirect_uri = #{webServerRedirectUri}
+      </if>
+      <if test="authorities != null and authorities != ''" >
+        AND authorities = #{authorities}
+      </if>
+      <if test="accessTokenValidity != null" >
+        AND access_token_validity = #{accessTokenValidity}
+      </if>
+      <if test="refreshTokenValidity != null" >
+        AND refresh_token_validity = #{refreshTokenValidity}
+      </if>
+      <if test="additionalInformation != null and additionalInformation != ''" >
+        AND additional_information = #{additionalInformation}
+      </if>
+      <if test="autoapprove != null and autoapprove != ''" >
+        AND autoapprove = #{autoapprove}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.auth.po.SysClientDetail" resultMap="SysClientDetailResultMap" >
+    select 
+    <include refid="SysClientDetail_Column_List" />
+    from sys_client_detail
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update sys_client_detail
+    <set >
+      <if test="po.userId != null" >
+        user_id = #{po.userId},
+      </if>
+      <if test="po.clientId != null" >
+        client_id = #{po.clientId},
+      </if>
+      <if test="po.clientSecret != null" >
+        client_secret = #{po.clientSecret},
+      </if>
+      <if test="po.scope != null" >
+        scope = #{po.scope},
+      </if>
+      <if test="po.authorizedGrantTypes != null" >
+        authorized_grant_types = #{po.authorizedGrantTypes},
+      </if>
+      <if test="po.webServerRedirectUri != null" >
+        web_server_redirect_uri = #{po.webServerRedirectUri},
+      </if>
+      <if test="po.authorities != null" >
+        authorities = #{po.authorities},
+      </if>
+      <if test="po.accessTokenValidity != null" >
+        access_token_validity = #{po.accessTokenValidity},
+      </if>
+      <if test="po.refreshTokenValidity != null" >
+        refresh_token_validity = #{po.refreshTokenValidity},
+      </if>
+      <if test="po.additionalInformation != null" >
+        additional_information = #{po.additionalInformation},
+      </if>
+      <if test="po.autoapprove != null" >
+        autoapprove = #{po.autoapprove},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <!--自定义sql-->
+  <select id="selectClientDetailByClientId" resultMap="SysClientDetailResultMap" parameterType="java.lang.String">
+    select
+    <include refid="SysClientDetail_Column_List" />
+    from sys_client_detail
+    where client_id = #{clientId,jdbcType=VARCHAR}
+
+  </select>
+</mapper>

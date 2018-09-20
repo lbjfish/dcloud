@@ -1,0 +1,24 @@
+spring:
+  profiles:
+    active: default
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: @config-service@
+      name: chelizi
+      profile: @profile.name@
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 80000
+ribbon:
+  ConnectTimeout: 6000
+  ReadTimeout: 80000
+eureka:
+  client:
+    service-url:
+     defaultZone: @default-zone@
+
+swagger:
+  enable: @swagger.enable@
+provider:
+  training-module: @training-module@
+

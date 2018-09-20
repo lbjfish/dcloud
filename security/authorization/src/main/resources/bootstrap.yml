@@ -1,0 +1,31 @@
+spring:
+  profiles:
+    active: default
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: @config-service@
+      name: chelizi
+      profile: @profile.name@
+
+eureka:
+ instance:
+#    nonSecurePort: 8181
+    lease-expiration-duration-in-seconds: @lease-expiration-duration-in-seconds@
+    lease-renewal-interval-in-seconds: @lease-renewal-interval-in-seconds@
+    status-page-url-path: /info
+    health-check-url-path: /health
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+    status-page-url: http://${spring.cloud.client.ipAddress}:${server.port}/sec/swagger-ui.html
+    ip-address: ${spring.cloud.client.ipAddress}
+
+
+ client:
+#    healthcheck:
+#      enabled: true # 开启健康检查（需要spring-boot-starter-actuator依赖）
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: @default-zone@

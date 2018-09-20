@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.system.dao.SysCacheVersionMapper" >
+  <resultMap id="SysCacheVersionResultMap" type="com.sida.dcloud.system.po.SysCacheVersion" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="redis_key" property="redisKey" jdbcType="VARCHAR" />
+    <result column="last_updated_time" property="lastUpdatedTime" jdbcType="TIMESTAMP" />
+    <result column="last_updated_version" property="lastUpdatedVersion" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="SysCacheVersion_Column_List" >
+    id, redis_key, last_updated_time, last_updated_version
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="SysCacheVersionResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="SysCacheVersion_Column_List" />
+    from sys_cache_version
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_cache_version
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.sida.dcloud.system.po.SysCacheVersion" >
+    insert into sys_cache_version (id, redis_key, last_updated_time, last_updated_version)
+    values (#{id}, #{redisKey}, #{lastUpdatedTime}, #{lastUpdatedVersion})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.system.po.SysCacheVersion" >
+    insert into sys_cache_version
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="redisKey != null" >
+        redis_key,
+      </if>
+      <if test="lastUpdatedTime != null" >
+        last_updated_time,
+      </if>
+      <if test="lastUpdatedVersion != null" >
+        last_updated_version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="redisKey != null" >
+        #{redisKey},
+      </if>
+      <if test="lastUpdatedTime != null" >
+        #{lastUpdatedTime},
+      </if>
+      <if test="lastUpdatedVersion != null" >
+        #{lastUpdatedVersion},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sida.dcloud.system.po.SysCacheVersion" >
+    update sys_cache_version
+    <set >
+      <if test="redisKey != null" >
+        redis_key = #{redisKey},
+      </if>
+      <if test="lastUpdatedTime != null" >
+        last_updated_time = #{lastUpdatedTime},
+      </if>
+      <if test="lastUpdatedVersion != null" >
+        last_updated_version = #{lastUpdatedVersion},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sida.dcloud.system.po.SysCacheVersion" >
+    update sys_cache_version
+    set redis_key = #{redisKey},
+      last_updated_time = #{lastUpdatedTime},
+      last_updated_version = #{lastUpdatedVersion}
+    where id = #{id}
+  </update>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="redisKey != null and redisKey != ''" >
+        redis_key = #{redisKey}
+      </if>
+      <if test="lastUpdatedTime != null" >
+        AND last_updated_time = #{lastUpdatedTime}
+      </if>
+      <if test="lastUpdatedVersion != null and lastUpdatedVersion != ''" >
+        AND last_updated_version = #{lastUpdatedVersion}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.system.po.SysCacheVersion" resultMap="SysCacheVersionResultMap" >
+    select
+    <include refid="SysCacheVersion_Column_List" />
+    from sys_cache_version
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update sys_cache_version
+    <set >
+      <if test="redisKey != null" >
+        redis_key = #{redisKey},
+      </if>
+      <if test="lastUpdatedTime != null" >
+        last_updated_time = #{lastUpdatedTime},
+      </if>
+      <if test="lastUpdatedVersion != null" >
+        last_updated_version = #{lastUpdatedVersion},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+</mapper>

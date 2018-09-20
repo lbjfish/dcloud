@@ -1,0 +1,71 @@
+
+---
+spring:
+  profiles: @discovery1.address@  #用ip地址标识启用相应的配置
+  application:
+    name: @discovery-service@
+server:
+  port: @discovery1.port@
+eureka:
+  instance:
+    instance-id: @discovery1.address@:@discovery1.port@
+    ip-address: @discovery1.address@
+    hostname: @discovery1.address@
+    lease-renewal-interval-in-seconds: @lease-renewal-interval-in-seconds@
+    lease-expiration-duration-in-seconds: @lease-expiration-duration-in-seconds@ # Server注册中心端默认多少秒没有收到client端心跳就认为client失效了，失效后会将对应client从注册中心移除（默认90秒）
+    status-page-url-path: /info
+    health-check-url-path: /health
+  server:
+    enable-self-preservation: @enableSelfPreservation@
+    eviction-interval-timer-in-ms: @eviction-interval-timer-in-ms@ # 定期扫描间隔（单位毫秒，默认是6*1000）
+  client:
+    serviceUrl:
+      defaultZone: @discovery-zone1@
+    fetch-registry: true
+    register-with-eureka: true
+
+---
+spring:
+  profiles: @discovery2.address@
+  application:
+    name: @discovery-service@
+server:
+  port: @discovery2.port@
+eureka:
+  instance:
+    instance-id: @discovery2.address@:@discovery2.port@
+    ip-address: @discovery2.address@
+    hostname: @discovery2.address@
+    lease-renewal-interval-in-seconds: @lease-renewal-interval-in-seconds@
+    lease-expiration-duration-in-seconds: @lease-expiration-duration-in-seconds@ # Server注册中心端默认多少秒没有收到client端心跳就认为client失效了，失效后会将对应client从注册中心移除（默认90秒）
+    status-page-url-path: /info
+    health-check-url-path: /health
+  server:
+    enable-self-preservation: @enableSelfPreservation@
+    eviction-interval-timer-in-ms: @eviction-interval-timer-in-ms@ # 定期扫描间隔（单位毫秒，默认是6*1000）
+  client:
+    serviceUrl:
+      defaultZone: @discovery-zone2@
+
+---
+spring:
+  profiles: @discovery3.address@
+  application:
+   name: @discovery-service@
+server:
+  port: @discovery3.port@
+eureka:
+  instance:
+    instance-id: @discovery3.address@:@discovery3.port@
+    ip-address: @discovery3.address@
+    hostname:  @discovery3.address@
+    lease-renewal-interval-in-seconds: @lease-renewal-interval-in-seconds@
+    lease-expiration-duration-in-seconds: @lease-expiration-duration-in-seconds@ # Server注册中心端默认多少秒没有收到client端心跳就认为client失效了，失效后会将对应client从注册中心移除（默认90秒）
+    status-page-url-path: /info
+    health-check-url-path: /health
+  server:
+    enable-self-preservation: @enableSelfPreservation@
+    eviction-interval-timer-in-ms: @eviction-interval-timer-in-ms@ # 定期扫描间隔（单位毫秒，默认是6*1000）
+  client:
+    serviceUrl:
+      defaultZone: @discovery-zone3@

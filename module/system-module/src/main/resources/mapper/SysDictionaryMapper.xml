@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.system.dao.SysDictionaryMapper" >
+  <resultMap id="SysDictionaryResultMap" type="com.sida.dcloud.system.po.SysDictionary" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="last_updated" property="lastUpdated" jdbcType="TIMESTAMP" />
+    <result column="created_user" property="createdUser" jdbcType="VARCHAR" />
+    <result column="updated_user" property="updatedUser" jdbcType="VARCHAR" />
+    <result column="disable" property="disable" jdbcType="BIT" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
+    <result column="dic_key" property="dicKey" jdbcType="VARCHAR" />
+    <result column="dic_value" property="dicValue" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+    <result column="level_id" property="levelId" jdbcType="VARCHAR" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="SysDictionary_Column_List" >
+    id, org_id, created_at, last_updated, created_user, updated_user, disable, delete_flag, 
+    dic_key, dic_value, parent_id, level_id, path, remark, sort, type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="SysDictionaryResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="SysDictionary_Column_List" />
+    from sys_dictionary
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_dictionary
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.sida.dcloud.system.po.SysDictionary" >
+    insert into sys_dictionary (id, org_id, created_at, last_updated, created_user, updated_user, 
+      disable, delete_flag, dic_key, dic_value, parent_id, level_id, path, 
+      remark, sort, type)
+    values (#{id}, #{orgId}, #{createdAt}, #{lastUpdated}, #{createdUser}, #{updatedUser}, 
+      #{disable}, #{deleteFlag}, #{dicKey}, #{dicValue}, #{parentId}, #{levelId}, #{path}, 
+      #{remark}, #{sort}, #{type})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.system.po.SysDictionary" >
+    insert into sys_dictionary
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="lastUpdated != null" >
+        last_updated,
+      </if>
+      <if test="createdUser != null" >
+        created_user,
+      </if>
+      <if test="updatedUser != null" >
+        updated_user,
+      </if>
+      <if test="disable != null" >
+        disable,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="dicKey != null" >
+        dic_key,
+      </if>
+      <if test="dicValue != null" >
+        dic_value,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="levelId != null" >
+        level_id,
+      </if>
+      <if test="path != null" >
+        path,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="orgId != null" >
+        #{orgId},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="lastUpdated != null" >
+        #{lastUpdated},
+      </if>
+      <if test="createdUser != null" >
+        #{createdUser},
+      </if>
+      <if test="updatedUser != null" >
+        #{updatedUser},
+      </if>
+      <if test="disable != null" >
+        #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag},
+      </if>
+      <if test="dicKey != null" >
+        #{dicKey},
+      </if>
+      <if test="dicValue != null" >
+        #{dicValue},
+      </if>
+      <if test="parentId != null" >
+        #{parentId},
+      </if>
+      <if test="levelId != null" >
+        #{levelId},
+      </if>
+      <if test="path != null" >
+        #{path},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+      <if test="sort != null" >
+        #{sort},
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sida.dcloud.system.po.SysDictionary" >
+    update sys_dictionary
+    <set >
+      <if test="orgId != null" >
+        org_id = #{orgId},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt},
+      </if>
+      <if test="lastUpdated != null" >
+        last_updated = #{lastUpdated},
+      </if>
+      <if test="createdUser != null" >
+        created_user = #{createdUser},
+      </if>
+      <if test="updatedUser != null" >
+        updated_user = #{updatedUser},
+      </if>
+      <if test="disable != null" >
+        disable = #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag = #{deleteFlag},
+      </if>
+      <if test="dicKey != null" >
+        dic_key = #{dicKey},
+      </if>
+      <if test="dicValue != null" >
+        dic_value = #{dicValue},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId},
+      </if>
+      <if test="levelId != null" >
+        level_id = #{levelId},
+      </if>
+      <if test="path != null" >
+        path = #{path},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort},
+      </if>
+      <if test="type != null" >
+        type = #{type},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sida.dcloud.system.po.SysDictionary" >
+    update sys_dictionary
+    set org_id = #{orgId},
+      created_at = #{createdAt},
+      last_updated = #{lastUpdated},
+      created_user = #{createdUser},
+      updated_user = #{updatedUser},
+      disable = #{disable},
+      delete_flag = #{deleteFlag},
+      dic_key = #{dicKey},
+      dic_value = #{dicValue},
+      parent_id = #{parentId},
+      level_id = #{levelId},
+      path = #{path},
+      remark = #{remark},
+      sort = #{sort},
+      type = #{type}
+    where id = #{id}
+  </update>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="orgId != null and orgId != ''" >
+        org_id = #{orgId}
+      </if>
+      <if test="createdAt != null" >
+        AND created_at = #{createdAt}
+      </if>
+      <if test="lastUpdated != null" >
+        AND last_updated = #{lastUpdated}
+      </if>
+      <if test="createdUser != null and createdUser != ''" >
+        AND created_user = #{createdUser}
+      </if>
+      <if test="updatedUser != null and updatedUser != ''" >
+        AND updated_user = #{updatedUser}
+      </if>
+      <if test="disable != null" >
+        AND disable = #{disable}
+      </if>
+      <if test="deleteFlag != null" >
+        AND delete_flag = #{deleteFlag}
+      </if>
+      <if test="dicKey != null and dicKey != ''" >
+        AND dic_key = #{dicKey}
+      </if>
+      <if test="dicValue != null and dicValue != ''" >
+        AND dic_value = #{dicValue}
+      </if>
+      <if test="parentId != null and parentId != ''" >
+        AND parent_id = #{parentId}
+      </if>
+      <if test="levelId != null and levelId != ''" >
+        AND level_id = #{levelId}
+      </if>
+      <if test="path != null and path != ''" >
+        AND path = #{path}
+      </if>
+      <if test="remark != null and remark != ''" >
+        AND remark = #{remark}
+      </if>
+      <if test="sort != null" >
+        AND sort = #{sort}
+      </if>
+      <if test="type != null and type != ''" >
+        AND type = #{type}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.system.po.SysDictionary" resultMap="SysDictionaryResultMap" >
+    select 
+    <include refid="SysDictionary_Column_List" />
+    from sys_dictionary
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update sys_dictionary
+    <set >
+      <if test="po.orgId != null" >
+        org_id = #{po.orgId},
+      </if>
+      <if test="po.createdAt != null" >
+        created_at = #{po.createdAt},
+      </if>
+      <if test="po.lastUpdated != null" >
+        last_updated = #{po.lastUpdated},
+      </if>
+      <if test="po.createdUser != null" >
+        created_user = #{po.createdUser},
+      </if>
+      <if test="po.updatedUser != null" >
+        updated_user = #{po.updatedUser},
+      </if>
+      <if test="po.disable != null" >
+        disable = #{po.disable},
+      </if>
+      <if test="po.deleteFlag != null" >
+        delete_flag = #{po.deleteFlag},
+      </if>
+      <if test="po.dicKey != null" >
+        dic_key = #{po.dicKey},
+      </if>
+      <if test="po.dicValue != null" >
+        dic_value = #{po.dicValue},
+      </if>
+      <if test="po.parentId != null" >
+        parent_id = #{po.parentId},
+      </if>
+      <if test="po.levelId != null" >
+        level_id = #{po.levelId},
+      </if>
+      <if test="po.path != null" >
+        path = #{po.path},
+      </if>
+      <if test="po.remark != null" >
+        remark = #{po.remark},
+      </if>
+      <if test="po.sort != null" >
+        sort = #{po.sort},
+      </if>
+      <if test="po.type != null" >
+        type = #{po.type},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <!--自定义sql-->
+  <!--根据id删除资源-->
+  <update id="deleteById" >
+    update sys_dictionary
+    set delete_flag = 1
+    where path like concat(#{id},'.%')
+    or path like concat('%.',#{id},'.%')
+  </update>
+
+  <select id="selectByPCode" resultMap="SysDictionaryResultMap" >
+    select
+    t.id, t.org_id, t.created_at, t.last_updated, t.created_user, t.updated_user, t.disable, t.delete_flag,
+    t.dic_key, t.dic_value, t.parent_id, t.level_id, t.path, t.remark, t.sort, t.type
+    from sys_dictionary t
+    where t.parent_id = (
+    select d.id from sys_dictionary d where d.dic_key = #{pCode}
+    )
+    and t.delete_flag = false and t.disable = false
+    order by t.created_at asc
+  </select>
+
+  <select id="selectByPid" resultMap="SysDictionaryResultMap" >
+    select
+    <include refid="SysDictionary_Column_List" />
+    from sys_dictionary
+    where parent_id = #{pid}
+    and delete_flag = false and disable = false
+    order by created_at asc
+  </select>
+
+
+  <select id="findAllDicts" resultMap="SysDictionaryResultMap" >
+    select
+      id, dic_key, dic_value, parent_id, type
+    from sys_dictionary where delete_flag = false
+  </select>
+</mapper>

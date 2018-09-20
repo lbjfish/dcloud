@@ -1,0 +1,931 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.system.dao.SysOrgMapper" >
+  <resultMap id="SysOrgResultMap" type="com.sida.dcloud.auth.po.SysOrg" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="last_updated" property="lastUpdated" jdbcType="TIMESTAMP" />
+    <result column="created_user" property="createdUser" jdbcType="VARCHAR" />
+    <result column="updated_user" property="updatedUser" jdbcType="VARCHAR" />
+    <result column="disable" property="disable" jdbcType="BIT" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="alias" property="alias" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+    <result column="id_path" property="idPath" jdbcType="VARCHAR" />
+    <result column="name_path" property="namePath" jdbcType="VARCHAR" />
+    <result column="code_path" property="codePath" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="logo" property="logo" jdbcType="VARCHAR" />
+    <result column="has_personnel_system" property="hasPersonnelSystem" jdbcType="BIT" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="third_party_id" property="thirdPartyId" jdbcType="BIGINT" />
+    <result column="is_school" property="isSchool" jdbcType="BIT" />
+    <result column="source_type" property="sourceType" jdbcType="INTEGER" />
+    <result column="business_status" property="businessStatus" jdbcType="VARCHAR" />
+    <result column="store_code" property="storeCode" jdbcType="VARCHAR"/>
+  </resultMap>
+  <sql id="SysOrg_Column_List" >
+    id, org_id, created_at, last_updated, created_user, updated_user, disable, delete_flag,
+    name, code, alias, parent_id, id_path, name_path, code_path, description, logo, has_personnel_system,
+    sort, type,third_party_id,is_school,source_type,business_status,store_code
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="SysOrgResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="SysOrg_Column_List" />
+    from sys_org
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_org
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.sida.dcloud.auth.po.SysOrg" >
+    insert into sys_org (id, org_id, created_at, last_updated, created_user, updated_user,
+    disable, delete_flag, name, code, alias, parent_id, id_path,
+    name_path, code_path, description, logo, has_personnel_system, sort,
+    type,third_party_id,is_school,source_type,business_status,store_code)
+    values (#{id}, #{orgId}, #{createdAt}, #{lastUpdated}, #{createdUser}, #{updatedUser},
+    #{disable}, #{deleteFlag}, #{name}, #{code}, #{alias}, #{parentId}, #{idPath},
+    #{namePath}, #{codePath}, #{description}, #{logo}, #{hasPersonnelSystem}, #{sort},
+    #{type},#{thirdPartyId},#{is_school},#{sourceType},#{businessStatus},#{storeCode})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.auth.po.SysOrg" >
+    insert into sys_org
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="lastUpdated != null" >
+        last_updated,
+      </if>
+      <if test="createdUser != null" >
+        created_user,
+      </if>
+      <if test="updatedUser != null" >
+        updated_user,
+      </if>
+      <if test="disable != null" >
+        disable,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="alias != null" >
+        alias,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="idPath != null" >
+        id_path,
+      </if>
+      <if test="namePath != null" >
+        name_path,
+      </if>
+      <if test="codePath != null" >
+        code_path,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="logo != null" >
+        logo,
+      </if>
+      <if test="hasPersonnelSystem != null" >
+        has_personnel_system,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="thirdPartyId != null" >
+        third_party_id,
+      </if>
+      <if test="isSchool != null" >
+        is_school,
+      </if>
+      <if test="sourceType != null" >
+        source_type,
+      </if>
+      <if test="businessStatus != null" >
+        business_status,
+      </if>
+      <if test="storeCode != null" >
+        store_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="orgId != null" >
+        #{orgId},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="lastUpdated != null" >
+        #{lastUpdated},
+      </if>
+      <if test="createdUser != null" >
+        #{createdUser},
+      </if>
+      <if test="updatedUser != null" >
+        #{updatedUser},
+      </if>
+      <if test="disable != null" >
+        #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="code != null" >
+        #{code},
+      </if>
+      <if test="alias != null" >
+        #{alias},
+      </if>
+      <if test="parentId != null" >
+        #{parentId},
+      </if>
+      <if test="idPath != null" >
+        #{idPath},
+      </if>
+      <if test="namePath != null" >
+        #{namePath},
+      </if>
+      <if test="codePath != null" >
+        #{codePath},
+      </if>
+      <if test="description != null" >
+        #{description},
+      </if>
+      <if test="logo != null" >
+        #{logo},
+      </if>
+      <if test="hasPersonnelSystem != null" >
+        #{hasPersonnelSystem},
+      </if>
+      <if test="sort != null" >
+        #{sort},
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+      <if test="thirdPartyId != null" >
+        #{thirdPartyId},
+      </if>
+      <if test="isSchool != null" >
+        #{isSchool},
+      </if>
+      <if test="sourceType != null" >
+        #{sourceType},
+      </if>
+      <if test="businessStatus != null" >
+        #{businessStatus},
+      </if>
+      <if test="storeCode != null" >
+        #{storeCode},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sida.dcloud.auth.po.SysOrg" >
+    update sys_org
+    <set >
+      <if test="orgId != null" >
+        org_id = #{orgId},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt},
+      </if>
+      <if test="lastUpdated != null" >
+        last_updated = #{lastUpdated},
+      </if>
+      <if test="createdUser != null" >
+        created_user = #{createdUser},
+      </if>
+      <if test="updatedUser != null" >
+        updated_user = #{updatedUser},
+      </if>
+      <if test="disable != null" >
+        disable = #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag = #{deleteFlag},
+      </if>
+      <if test="name != null" >
+        name = #{name},
+      </if>
+      <if test="code != null" >
+        code = #{code},
+      </if>
+      <if test="alias != null" >
+        alias = #{alias},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId},
+      </if>
+      <if test="idPath != null" >
+        id_path = #{idPath},
+      </if>
+      <if test="namePath != null" >
+        name_path = #{namePath},
+      </if>
+      <if test="codePath != null" >
+        code_path = #{codePath},
+      </if>
+      <if test="description != null" >
+        description = #{description},
+      </if>
+      <if test="logo != null" >
+        logo = #{logo},
+      </if>
+      <if test="hasPersonnelSystem != null" >
+        has_personnel_system = #{hasPersonnelSystem},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort},
+      </if>
+      <if test="type != null" >
+        type = #{type},
+      </if>
+
+      <if test="thirdPartyId != null" >
+        third_party_id = #{thirdPartyId},
+      </if>
+      <if test="isSchool != null" >
+        is_school = #{isSchool},
+      </if>
+      <if test="sourceType != null" >
+        source_type = #{sourceType},
+      </if>
+      <if test="businessStatus != null" >
+        business_status = #{businessStatus},
+      </if>
+      <if test="storeCode != null" >
+        store_code = #{storeCode},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sida.dcloud.auth.po.SysOrg" >
+    update sys_org
+    set org_id = #{orgId},
+    created_at = #{createdAt},
+    last_updated = #{lastUpdated},
+    created_user = #{createdUser},
+    updated_user = #{updatedUser},
+    disable = #{disable},
+    delete_flag = #{deleteFlag},
+    name = #{name},
+    code = #{code},
+    alias = #{alias},
+    parent_id = #{parentId},
+    id_path = #{idPath},
+    name_path = #{namePath},
+    code_path = #{codePath},
+    description = #{description},
+    logo = #{logo},
+    has_personnel_system = #{hasPersonnelSystem},
+    sort = #{sort},
+    type = #{type},
+    third_party_id = #{thirdPartyId},
+    is_school = #{isSchool},
+    source_type = #{sourceType},
+    business_status = #{businessStatus},
+    store_code=#{storeCode}
+    where id = #{id}
+  </update>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="orgId != null and orgId != ''" >
+        org_id = #{orgId}
+      </if>
+      <if test="createdAt != null" >
+        AND created_at = #{createdAt}
+      </if>
+      <if test="lastUpdated != null" >
+        AND last_updated = #{lastUpdated}
+      </if>
+      <if test="createdUser != null and createdUser != ''" >
+        AND created_user = #{createdUser}
+      </if>
+      <if test="updatedUser != null and updatedUser != ''" >
+        AND updated_user = #{updatedUser}
+      </if>
+      <if test="disable != null" >
+        AND disable = #{disable}
+      </if>
+      <if test="deleteFlag != null" >
+        AND delete_flag = #{deleteFlag}
+      </if>
+      <if test="name != null and name != ''" >
+        AND name = #{name}
+      </if>
+      <if test="code != null and code != ''" >
+        AND code = #{code}
+      </if>
+      <if test="alias != null and alias != ''" >
+        AND alias = #{alias}
+      </if>
+      <if test="parentId != null and parentId != ''" >
+        AND parent_id = #{parentId}
+      </if>
+      <if test="idPath != null and idPath != ''" >
+        AND id_path = #{idPath}
+      </if>
+      <if test="namePath != null and namePath != ''" >
+        AND name_path = #{namePath}
+      </if>
+      <if test="codePath != null and codePath != ''" >
+        AND code_path = #{codePath}
+      </if>
+      <if test="description != null and description != ''" >
+        AND description = #{description}
+      </if>
+      <if test="logo != null and logo != ''" >
+        AND logo = #{logo}
+      </if>
+      <if test="hasPersonnelSystem != null" >
+        AND has_personnel_system = #{hasPersonnelSystem}
+      </if>
+      <if test="sort != null" >
+        AND sort = #{sort}
+      </if>
+      <if test="type != null" >
+        AND type = #{type}
+      </if>
+      <if test="thirdPartyId != null" >
+        AND third_party_id = #{thirdPartyId}
+      </if>
+      <if test="isSchool != null" >
+        AND is_school = #{isSchool}
+      </if>
+      <if test="sourceType != null" >
+        AND source_type = #{sourceType}
+      </if>
+      <if test="businessStatus != null" >
+        AND business_status = #{businessStatus}
+      </if>
+      <if test="storeCode != null" >
+        AND store_code = #{storeCode}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.auth.po.SysOrg" resultMap="SysOrgResultMap" >
+    select
+    <include refid="SysOrg_Column_List" />
+    from sys_org
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+        ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update sys_org
+    <set >
+      <if test="po.orgId != null" >
+        org_id = #{po.orgId},
+      </if>
+      <if test="po.createdAt != null" >
+        created_at = #{po.createdAt},
+      </if>
+      <if test="po.lastUpdated != null" >
+        last_updated = #{po.lastUpdated},
+      </if>
+      <if test="po.createdUser != null" >
+        created_user = #{po.createdUser},
+      </if>
+      <if test="po.updatedUser != null" >
+        updated_user = #{po.updatedUser},
+      </if>
+      <if test="po.disable != null" >
+        disable = #{po.disable},
+      </if>
+      <if test="po.deleteFlag != null" >
+        delete_flag = #{po.deleteFlag},
+      </if>
+      <if test="po.name != null" >
+        name = #{po.name},
+      </if>
+      <if test="po.code != null" >
+        code = #{po.code},
+      </if>
+      <if test="po.alias != null" >
+        alias = #{po.alias},
+      </if>
+      <if test="po.parentId != null" >
+        parent_id = #{po.parentId},
+      </if>
+      <if test="po.idPath != null" >
+        id_path = #{po.idPath},
+      </if>
+      <if test="po.namePath != null" >
+        name_path = #{po.namePath},
+      </if>
+      <if test="po.codePath != null" >
+        code_path = #{po.codePath},
+      </if>
+      <if test="po.description != null" >
+        description = #{po.description},
+      </if>
+      <if test="po.logo != null" >
+        logo = #{po.logo},
+      </if>
+      <if test="po.hasPersonnelSystem != null" >
+        has_personnel_system = #{po.hasPersonnelSystem},
+      </if>
+      <if test="po.sort != null" >
+        sort = #{po.sort},
+      </if>
+      <if test="po.type != null" >
+        type = #{po.type},
+      </if>
+      <if test="po.thirdPartyId != null" >
+        third_party_id = #{po.thirdPartyId},
+      </if>
+      <if test="po.isSchool != null" >
+        is_school = #{po.isSchool},
+      </if>
+      <if test="po.sourceType != null" >
+        source_type = #{po.sourceType},
+      </if>
+      <if test="po.businessStatus != null" >
+        business_status = #{po.businessStatus},
+      </if>
+      <if test="po.storeCode != null" >
+        store_code = #{po.storeCode},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <!--自定义sql-->
+  <resultMap id="SysOrgVoResultMap" type="com.sida.dcloud.auth.vo.SysOrgVo" extends="SysOrgResultMap">
+    <result column="area_id" property="areaId" jdbcType="VARCHAR"/>
+    <result column="area_name" property="areaName" jdbcType="VARCHAR"/>
+  </resultMap>
+  <resultMap id="EmpDTOMap" type="com.sida.dcloud.auth.vo.EmpDTO" >
+    <result column="emp_id" property="empId" jdbcType="VARCHAR" />
+    <result column="emp_name" property="empName" jdbcType="VARCHAR" />
+    <result column="position_name" property="positionName" jdbcType="VARCHAR" />
+  </resultMap>
+  <!--根据路径删除组织及下级组织-->
+  <update id="deleteById" >
+    update sys_org
+    set delete_flag = 1
+    where (id_path like concat(#{id},'.%')
+    OR id_path like concat('%.',#{id},'.%'))
+  </update>
+
+  <!--根据路径删除组织及下级组织 与 员工 的关联关系（物理删除）-->
+  <delete id="deleteEmployeePositionRela">
+    delete seo
+    from sys_employee_org seo
+    where
+    EXISTS (select 1 from sys_org so WHERE so.id = seo.org_id AND (so.id_path like concat(#{id},'.%')
+    OR so.id_path like concat('%.',#{id},'.%')))
+  </delete>
+
+  <select id="findByIds" parameterType="java.util.List" resultMap="SysOrgResultMap" >
+    select
+    <include refid="SysOrg_Column_List" />
+    from sys_org
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+    order by id_path desc
+  </select>
+
+  <select id="findListByVo" parameterType="com.sida.dcloud.auth.vo.SysOrgVo" resultMap="SysOrgResultMap" >
+    select
+    t.*
+    from sys_org t
+    left join sys_area a on t.id = a.id
+    where t.disable = false and t.delete_flag = false
+    <if test="orgId != null and orgId != ''" >
+      and t.org_id = #{orgId}
+    </if>
+    <if test="type != null and type != ''" >
+      and t.type = #{type}
+    </if>
+    <if test="areaStatus != null and areaStatus != ''" >
+      AND (1=2 OR a.status = #{areaStatus}
+      <!--<if test="storeStatus != null and storeStatus != ''">
+        or b.status = #{storeStatus}
+      </if>-->
+      )
+    </if>
+    <if test="typeIn != null and typeIn.size() > 0" >
+      <foreach collection="typeIn" item="listItem" open="and t.type in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+    <if test="ids != null and ids.size() > 0" >
+      <foreach collection="ids" item="listItem" open="and t.id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+        ${orderString}
+      </if>
+    </if>
+  </select>
+
+  <select id="findOrgsByIds" parameterType="com.sida.dcloud.auth.vo.SysOrgVo" resultMap="SysOrgResultMap" >
+    select
+    <include refid="SysOrg_Column_List" />
+    from sys_org
+    WHERE 1 = 2
+    <if test="idIn != null and idIn.size() > 0" >
+      <foreach collection="idIn" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+        ${orderString}
+      </if>
+    </if>
+  </select>
+
+  <select id="findStoresByAreaId" resultMap="SysOrgResultMap" >
+      select
+      t.*
+      from sys_org t
+      WHERE t.delete_flag = false and t.disable = false
+      and t.id_path like concat('%,',#{areaId},',%')
+      and t.type = 3
+      order by t.created_at asc
+  </select>
+
+  <select id="findStoresByAreaPath" resultMap="SysOrgResultMap" >
+      select
+      t.*
+      from sys_org t
+      WHERE t.delete_flag = false
+      and t.disable = false
+      and t.business_status = '1001'
+      and t.id_path like concat(#{areaPath},',%')
+      and t.type = #{type}
+      order by t.created_at asc
+  </select>
+
+  <select id="findAllOrg" resultMap="SysOrgResultMap" >
+      select id,name,store_code from sys_org where delete_flag = false
+  </select>
+
+  <select id="findModifyOrg" resultMap="SysOrgResultMap" >
+      select id,org_id,created_at,last_updated,created_user,updated_user,
+            disable,delete_flag,name,code,delete_flag status,description,id_path
+      from sys_org
+      where type = #{type}
+      and id in (select id from sys_area)
+  </select>
+
+  <select id="findModifyStore" resultMap="SysOrgVoResultMap" >
+      select o.id,o.org_id,o.created_at,o.last_updated,o.created_user,o.updated_user,
+            o.disable,o.delete_flag,o.name,o.code,
+            case when area.type = #{type} then area.id when area2.type = #{type} then area2.id end area_id,
+            case when area.type = #{type} then area.name when area2.type = #{type} then area2.name end area_name
+      from sys_org o
+      left join sys_org area on o.parent_id = area.id
+      left join sys_org area2 on area.parent_id = area2.id
+      where o.type = #{type}
+      and o.id in (select id from marketing.market_store)
+  </select>
+
+  <select id="findVoByIds" resultMap="SysOrgVoResultMap" >
+      select o.id,o.org_id,o.created_at,o.last_updated,o.created_user,o.updated_user,
+            o.disable,o.delete_flag,o.name,o.code,o.type,
+            area.id area_id,area.name area_name,o.business_status
+      from sys_org o
+      left join sys_org area on o.parent_id = area.id
+      where 1=2
+      <if test="ids != null and ids.size > 0" >
+        <foreach collection="ids" item="listItem" open="or o.id in(" close=")" separator="," >
+          #{listItem}
+        </foreach>
+      </if>
+  </select>
+
+  <update id="updateStoreByModifyOrg">
+    update marketing.market_store
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix=" org_id = case " suffix=" end," >
+        <foreach collection="orgList" item="org" open="" close="" separator="" >
+          <if test="org.orgId != null ">
+            when id = #{org.id} then #{org.orgId}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix=" created_at = case " suffix=" end," >
+        <foreach collection="orgList" item="org" open="" close="" separator="" >
+          <if test="org.createdAt != null ">
+            when id = #{org.id} then #{org.createdAt}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix=" last_updated = case " suffix=" end," >
+        <foreach collection="orgList" item="org" open="" close="" separator="" >
+          <if test="org.lastUpdated != null ">
+            when id = #{org.id} then #{org.lastUpdated}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix=" created_user = case " suffix=" end," >
+        <foreach collection="orgList" item="org" open="" close="" separator="" >
+          <if test="org.createdUser != null ">
+            when id = #{org.id} then #{org.createdUser}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix=" updated_user = case " suffix=" end," >
+        <foreach collection="orgList" item="org" open="" close="" separator="" >
+          <if test="org.updatedUser != null ">
+            when id = #{org.id} then #{org.updatedUser}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix=" disable = case " suffix=" end," >
+        <foreach collection="orgList" item="org" open="" close="" separator="" >
+          <if test="org.disable != null ">
+            when id = #{org.id} then #{org.disable}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix=" delete_flag = case " suffix=" end," >
+        <foreach collection="orgList" item="org" open="" close="" separator="" >
+          <if test="org.deleteFlag != null ">
+            when id = #{org.id} then #{org.deleteFlag}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix=" name = case " suffix=" end," >
+        <foreach collection="orgList" item="org" open="" close="" separator="" >
+          <if test="org.name != null ">
+            when id = #{org.id} then #{org.name}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix=" store_code = case " suffix=" end," >
+        <foreach collection="orgList" item="org" open="" close="" separator="" >
+          <if test="org.code != null ">
+            when id = #{org.id} then #{org.code}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix=" area_id = case " suffix=" end," >
+        <foreach collection="orgList" item="org" open="" close="" separator="" >
+          <if test="org.areaId != null ">
+            when id = #{org.id} then #{org.areaId}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix=" area_name = case " suffix=" end," >
+        <foreach collection="orgList" item="org" open="" close="" separator="" >
+          <if test="org.areaName != null ">
+            when id = #{org.id} then #{org.areaName}
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where
+    <foreach collection="orgList" item="org" open="id in (" close=")" separator=",">
+      #{org.id}
+    </foreach>
+  </update>
+
+  <insert id="insertStoreByNewOrg" parameterType="java.lang.Integer" >
+    insert into marketing.market_store(id,org_id,created_at,last_updated,created_user,updated_user,
+            disable,delete_flag,name,store_code,area_id,area_name)
+    select o.id,o.org_id,o.created_at,o.last_updated,o.created_user,o.updated_user,
+          o.disable,o.delete_flag,o.name,o.code store_code,
+          case when area.type = #{areaType} then area.id when area2.type = #{areaType} then area2.id end area_id,
+          case when area.type = #{areaType} then area.name when area2.type = #{areaType} then area2.name end area_name
+    from sys_org o
+    left join sys_org area on o.parent_id = area.id
+    left join sys_org area2 on area.parent_id = area2.id
+    where o.type = #{type}
+		and (area.type = #{areaType} or area2.type = #{areaType})
+    and o.id not in (select id from marketing.market_store)
+  </insert>
+
+  <select id="selectAreasAndStores" resultMap="SysOrgResultMap" parameterType="java.lang.String" >
+    select
+    t.id, t.org_id, t.created_at, t.last_updated, t.created_user, t.updated_user, t.disable, t.delete_flag,
+    t.name, t.code, t.alias,
+    case when area.type = #{areaType} then area.id when area2.type = #{areaType} then area2.id end parent_id,
+    t.id_path, t.name_path, t.code_path, t.description, t.logo, t.has_personnel_system,
+    t.sort, t.type, t.third_party_id, t.is_school, t.source_type, t.business_status,
+    t.store_code
+    from sys_org t
+    left join sys_org area on t.parent_id = area.id
+    left join sys_org area2 on area.parent_id = area2.id
+    where t.org_id = #{orgId}
+    and t.delete_flag = false and t.disable = false
+    and (t.business_status is null or t.business_status = '' or t.business_status = '1001')
+    and t.type in (${areaType}, ${storeType})
+  </select>
+
+  <select id="findVoByCondition" parameterType="com.sida.dcloud.auth.vo.SysOrgVo" resultMap="SysOrgVoResultMap" >
+    select
+    t.*
+    from sys_org t
+    where t.delete_flag = false and t.disable = false
+    <if test="id != null and id != ''" >
+      and t.id = #{id}
+    </if>
+    <if test="idIn != null and idIn.size() > 0" >
+      <foreach collection="idIn" item="listItem" open="and t.id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+        ${orderString}
+      </if>
+    </if>
+  </select>
+
+  <select id="findStoresByAreaIds" resultMap="SysOrgResultMap">
+    select
+    t.id, t.org_id, t.created_at, t.last_updated, t.created_user, t.updated_user, t.disable, t.delete_flag,
+    t.name, t.code, t.alias,
+    case when area.type = #{areaType} then area.id when area2.type = #{areaType} then area2.id end parent_id,
+    t.id_path, t.name_path, t.code_path, t.description, t.logo, t.has_personnel_system,
+    t.sort, t.type, t.third_party_id, t.is_school, t.source_type, t.business_status,
+    t.store_code
+    from sys_org t
+    left join sys_org area on t.parent_id = area.id
+    left join sys_org area2 on area.parent_id = area2.id
+    where t.delete_flag = false and t.disable = false
+    and (t.business_status is null or t.business_status = '' or t.business_status = '1001')
+    <if test="areaIds != null and areaIds.size() > 0" >
+      and (1=2
+      <foreach collection="areaIds" item="listItem" open="or area.id in(" close=")" separator=",">
+        #{listItem}
+      </foreach>
+      <foreach collection="areaIds" item="listItem" open="or area2.id in(" close=")" separator=",">
+        #{listItem}
+      </foreach>)
+    </if>
+    and t.type = ${storeType}
+  </select>
+
+  <select id="findAllStores" resultMap="SysOrgResultMap">
+    select
+    t.id, t.org_id, t.created_at, t.last_updated, t.created_user, t.updated_user, t.disable, t.delete_flag,
+    t.name, t.code, t.alias,
+    case when area.type = 2 then area.id when area2.type = 2 then area2.id end parent_id,
+    t.id_path, t.name_path, t.code_path, t.description, t.logo, t.has_personnel_system,
+    t.sort, t.type, t.third_party_id, t.is_school, t.source_type, t.business_status,
+    t.store_code
+    from sys_org t
+    left join sys_org area on t.parent_id = area.id
+    left join sys_org area2 on area.parent_id = area2.id
+    where t.delete_flag = false and t.disable = false
+    and (t.business_status is null or t.business_status = '' or t.business_status = '1001')
+    and t.type = 3
+  </select>
+
+  <select id="findTreeFrom" resultMap="SysOrgResultMap">
+    select
+    id, name,type,
+    case when id = #{orgId} then null ELSE parent_id END parent_id
+    from sys_org
+    where delete_flag = false and disable = false
+    and (type is null or type != 3 or (type = 3 and business_status = '1001'))
+    and id_path like concat((select id_path from sys_org o where id = #{orgId}),'%')
+    order by sort asc
+  </select>
+
+  <select id="findOrgEmps" resultMap="EmpDTOMap">
+    select
+    e.id as emp_id,e.name as emp_name,p.name as position_name
+    from sys_employee e
+    left join sys_employee_org eo on e.id = eo.employee_id
+    left join sys_org o on eo.org_id = o.id
+    left join sys_employee_position ep on e.id = ep.employee_id
+    left join sys_position p on ep.position_id = p.id
+    where e.delete_flag = false and e.disable = false
+    and o.id = #{orgId}
+  </select>
+
+  <select id="findAllOrgsByType" resultMap="SysOrgVoResultMap" >
+    select o.id,o.org_id,o.created_at,o.last_updated,o.created_user,o.updated_user,
+          o.disable,o.delete_flag,o.name,o.code,
+          o.parent_id area_id,area.name area_name,o.business_status
+    from sys_org o
+    left join sys_org area on o.parent_id = area.id
+    where o.type = #{type} and o.third_party_id is not null and o.third_party_id != ''
+  </select>
+
+  <update id="updateStoreBusinessStatus" >
+    update sys_org
+    set business_status = case when disable = false then '1001' when disable = true then '1003' end
+    where type = 3 and third_party_id is not null and third_party_id != ''
+  </update>
+
+  <update id="updateSchoolFlag" >
+    update sys_org
+    set is_school = true
+    where id = org_id and third_party_id is not null and third_party_id != ''
+  </update>
+
+  <select id="findOrgsBySchoolFlag" resultMap="SysOrgResultMap" >
+    select
+    <include refid="SysOrg_Column_List" />
+    from sys_org
+    where is_school = true and third_party_id is not null and third_party_id != ''
+  </select>
+
+  <update id="updateSchoolFlagWithIds" parameterType="java.util.List">
+    update sys_org
+    set is_school = case when id = org_id then true when id != org_id then false end
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <select id="findOrgByEmpId" resultMap="SysOrgResultMap" >
+    select
+    t.*
+    from sys_employee_org o
+    left join sys_org t on o.org_id = t.id
+    where o.employee_id = #{employeeId}
+    limit 1
+  </select>
+
+  <select id="orgEmpsForCar" parameterType="com.sida.dcloud.auth.po.SysOrg" resultMap="EmpDTOMap">
+    select
+    e.id as emp_id,e.name as emp_name,p.name as position_name
+    from sys_employee e
+    left join sys_employee_org eo on e.id = eo.employee_id
+    left join sys_org o on eo.org_id = o.id
+    left join sys_employee_position ep on e.id = ep.employee_id
+    left join sys_position p on ep.position_id = p.id
+    where e.delete_flag = false and e.disable = false
+    <if test="id != null and id != ''" >
+      AND o.id = #{id}
+    </if>
+    <if test="idPath != null and idPath != ''" >
+      AND o.id_path like concat(#{idPath},'%')
+    </if>
+    <if test="orderField != null and orderField != ''" >
+      ${orderField}
+    </if>
+  </select>
+
+    <select id="findSysOrgByThirdPartyIds" resultMap="SysOrgResultMap">
+      select * from sys_org where delete_flag =0 and disable =0
+      <if test="list != null and list.size > 0" >
+        <foreach collection="list" item="listItem" open="and third_party_id in(" close=")" separator="," >
+          #{listItem}
+        </foreach>
+      </if>
+    </select>
+
+  <select id="findDeptsByOrgId" parameterType="java.lang.String" resultMap="SysOrgResultMap">
+    select * from sys_org where delete_flag=false and org_id =#{orgId} and type is null and is_school=0
+  </select>
+</mapper>

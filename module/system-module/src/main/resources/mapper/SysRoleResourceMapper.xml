@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.system.dao.SysRoleResourceMapper" >
+  <resultMap id="SysRoleResourceResultMap" type="com.sida.dcloud.auth.po.SysRoleResource" >
+    <result column="role_id" property="roleId" jdbcType="VARCHAR" />
+    <result column="resource_id" property="resourceId" jdbcType="VARCHAR" />
+    <result column="identifier" property="identifier" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="SysRoleResource_Column_List" >
+    role_id, resource_id, identifier
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.auth.po.SysRoleResource" >
+    insert into sys_role_resource (role_id, resource_id, identifier)
+    values (#{roleId}, #{resourceId}, #{identifier})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.auth.po.SysRoleResource" >
+    insert into sys_role_resource
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="resourceId != null" >
+        resource_id,
+      </if>
+      <if test="identifier != null" >
+        identifier,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        #{roleId},
+      </if>
+      <if test="resourceId != null" >
+        #{resourceId},
+      </if>
+      <if test="identifier != null" >
+        #{identifier},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="roleId != null and roleId != ''" >
+        role_id = #{roleId}
+      </if>
+      <if test="resourceId != null and resourceId != ''" >
+        AND resource_id = #{resourceId}
+      </if>
+      <if test="identifier != null and identifier != ''" >
+        AND identifier = #{identifier}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.auth.po.SysRoleResource" resultMap="SysRoleResourceResultMap" >
+    select 
+    <include refid="SysRoleResource_Column_List" />
+    from sys_role_resource
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update sys_role_resource
+    <set >
+      <if test="po.roleId != null" >
+        role_id = #{po.roleId},
+      </if>
+      <if test="po.resourceId != null" >
+        resource_id = #{po.resourceId},
+      </if>
+      <if test="po.identifier != null" >
+        identifier = #{po.identifier},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <!--自定义sql-->
+  <delete id="deleteByRoleIdAndType" >
+    delete t
+    from sys_role_resource t
+    where t.role_id = #{roleId}
+    <if test="typeList != null and typeList.size > 0" >
+      <foreach collection="typeList" item="listItem" open="and exists (select 1 from sys_resource r where r.id = t.resource_id and r.type in(" close="))" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </delete>
+
+  <insert id="addManyRoleResource" >
+    insert into sys_role_resource (role_id, resource_id, identifier)
+    values
+    <foreach collection="roleResources" item="item" index="index" separator="," >
+      (#{item.roleId},#{item.resourceId},#{item.identifier})
+    </foreach>
+  </insert>
+
+  <delete id="deleteByRoleIdAndParentId" >
+    delete t
+    from sys_role_resource t
+    where t.role_id = #{roleId} and (1=2
+    <if test="parentIdList != null and parentIdList.size > 0">
+      <foreach collection="parentIdList" item="listItem"
+               open="or exists (select 1 from sys_resource r where r.id = t.resource_id and r.parent_id in(" close="))"
+               separator=",">
+        #{listItem}
+      </foreach>
+    </if>)
+  </delete>
+
+  <insert id="addByRoleIdAndChildrenResIds" >
+    insert into sys_role_resource (role_id, resource_id, identifier)
+    values
+    SELECT #{roleId},r.id,null
+    from sys_resource r where r.delete_flag = false and r.disable = false
+    <foreach collection="resourceIds" item="item" open="and ( 1=2 " close=")"  index="index" separator="," >
+      or exists (select 1 from sys_resource r2 where r2.id = r.id and r2.path like concat('%',#{item},'.'))
+    </foreach>
+    group by r.id
+  </insert>
+
+  <select id="findUserButtons" resultMap="SysRoleResourceResultMap" >
+    select
+    t.role_id, t.resource_id, t.identifier
+    from sys_role_resource t
+    left join sys_role r on t.role_id = r.id
+    left join sys_user_role ur on r.id = ur.role_id
+    left join sys_user u on ur.user_id = u.id
+    left join sys_resource res on t.resource_id = res.id
+    left join sys_button b on res.id = b.id
+    WHERE b.disable = FALSE AND b.delete_flag = FALSE
+    AND u.id = #{userId}
+    and b.page_code = #{pageCode}
+  </select>
+</mapper>

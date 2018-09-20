@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.auth.dao.SysFieldMapper" >
+  <resultMap id="SysFieldResultMap" type="com.sida.dcloud.auth.po.SysField" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="last_updated" property="lastUpdated" jdbcType="TIMESTAMP" />
+    <result column="created_user" property="createdUser" jdbcType="VARCHAR" />
+    <result column="updated_user" property="updatedUser" jdbcType="VARCHAR" />
+    <result column="disable" property="disable" jdbcType="BIT" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="eng_name" property="engName" jdbcType="VARCHAR" />
+    <result column="action" property="action" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="alias" property="alias" jdbcType="VARCHAR" />
+    <result column="page_code" property="pageCode" jdbcType="VARCHAR" />
+    <result column="id_path" property="idPath" jdbcType="VARCHAR" />
+    <result column="name_path" property="namePath" jdbcType="VARCHAR" />
+    <result column="code_path" property="codePath" jdbcType="VARCHAR" />
+    <result column="sort_order" property="sortOrder" jdbcType="INTEGER" />
+    <result column="resource_id" property="resourceId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="SysField_Column_List" >
+    id, org_id, created_at, last_updated, created_user, updated_user, disable, delete_flag, 
+    name, eng_name, action, code, alias, page_code, id_path, name_path, code_path, sort_order, 
+    resource_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="SysFieldResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="SysField_Column_List" />
+    from sys_field
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_field
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.sida.dcloud.auth.po.SysField" >
+    insert into sys_field (id, org_id, created_at, last_updated, created_user, updated_user, 
+      disable, delete_flag, name, eng_name, action, code, alias, page_code, 
+      id_path, name_path, code_path, sort_order, resource_id)
+    values (#{id}, #{orgId}, #{createdAt}, #{lastUpdated}, #{createdUser}, #{updatedUser}, 
+      #{disable}, #{deleteFlag}, #{name}, #{engName}, #{action}, #{code}, #{alias}, #{pageCode}, 
+      #{idPath}, #{namePath}, #{codePath}, #{sortOrder}, #{resourceId})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.auth.po.SysField" >
+    insert into sys_field
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="lastUpdated != null" >
+        last_updated,
+      </if>
+      <if test="createdUser != null" >
+        created_user,
+      </if>
+      <if test="updatedUser != null" >
+        updated_user,
+      </if>
+      <if test="disable != null" >
+        disable,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="engName != null" >
+        eng_name,
+      </if>
+      <if test="action != null" >
+        action,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="alias != null" >
+        alias,
+      </if>
+      <if test="pageCode != null" >
+        page_code,
+      </if>
+      <if test="idPath != null" >
+        id_path,
+      </if>
+      <if test="namePath != null" >
+        name_path,
+      </if>
+      <if test="codePath != null" >
+        code_path,
+      </if>
+      <if test="sortOrder != null" >
+        sort_order,
+      </if>
+      <if test="resourceId != null" >
+        resource_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="orgId != null" >
+        #{orgId},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="lastUpdated != null" >
+        #{lastUpdated},
+      </if>
+      <if test="createdUser != null" >
+        #{createdUser},
+      </if>
+      <if test="updatedUser != null" >
+        #{updatedUser},
+      </if>
+      <if test="disable != null" >
+        #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="engName != null" >
+        #{engName},
+      </if>
+      <if test="action != null" >
+        #{action},
+      </if>
+      <if test="code != null" >
+        #{code},
+      </if>
+      <if test="alias != null" >
+        #{alias},
+      </if>
+      <if test="pageCode != null" >
+        #{pageCode},
+      </if>
+      <if test="idPath != null" >
+        #{idPath},
+      </if>
+      <if test="namePath != null" >
+        #{namePath},
+      </if>
+      <if test="codePath != null" >
+        #{codePath},
+      </if>
+      <if test="sortOrder != null" >
+        #{sortOrder},
+      </if>
+      <if test="resourceId != null" >
+        #{resourceId},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sida.dcloud.auth.po.SysField" >
+    update sys_field
+    <set >
+      <if test="orgId != null" >
+        org_id = #{orgId},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt},
+      </if>
+      <if test="lastUpdated != null" >
+        last_updated = #{lastUpdated},
+      </if>
+      <if test="createdUser != null" >
+        created_user = #{createdUser},
+      </if>
+      <if test="updatedUser != null" >
+        updated_user = #{updatedUser},
+      </if>
+      <if test="disable != null" >
+        disable = #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag = #{deleteFlag},
+      </if>
+      <if test="name != null" >
+        name = #{name},
+      </if>
+      <if test="engName != null" >
+        eng_name = #{engName},
+      </if>
+      <if test="action != null" >
+        action = #{action},
+      </if>
+      <if test="code != null" >
+        code = #{code},
+      </if>
+      <if test="alias != null" >
+        alias = #{alias},
+      </if>
+      <if test="pageCode != null" >
+        page_code = #{pageCode},
+      </if>
+      <if test="idPath != null" >
+        id_path = #{idPath},
+      </if>
+      <if test="namePath != null" >
+        name_path = #{namePath},
+      </if>
+      <if test="codePath != null" >
+        code_path = #{codePath},
+      </if>
+      <if test="sortOrder != null" >
+        sort_order = #{sortOrder},
+      </if>
+      <if test="resourceId != null" >
+        resource_id = #{resourceId},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sida.dcloud.auth.po.SysField" >
+    update sys_field
+    set org_id = #{orgId},
+      created_at = #{createdAt},
+      last_updated = #{lastUpdated},
+      created_user = #{createdUser},
+      updated_user = #{updatedUser},
+      disable = #{disable},
+      delete_flag = #{deleteFlag},
+      name = #{name},
+      eng_name = #{engName},
+      action = #{action},
+      code = #{code},
+      alias = #{alias},
+      page_code = #{pageCode},
+      id_path = #{idPath},
+      name_path = #{namePath},
+      code_path = #{codePath},
+      sort_order = #{sortOrder},
+      resource_id = #{resourceId}
+    where id = #{id}
+  </update>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="orgId != null and orgId != ''" >
+        org_id = #{orgId}
+      </if>
+      <if test="createdAt != null" >
+        AND created_at = #{createdAt}
+      </if>
+      <if test="lastUpdated != null" >
+        AND last_updated = #{lastUpdated}
+      </if>
+      <if test="createdUser != null and createdUser != ''" >
+        AND created_user = #{createdUser}
+      </if>
+      <if test="updatedUser != null and updatedUser != ''" >
+        AND updated_user = #{updatedUser}
+      </if>
+      <if test="disable != null" >
+        AND disable = #{disable}
+      </if>
+      <if test="deleteFlag != null" >
+        AND delete_flag = #{deleteFlag}
+      </if>
+      <if test="name != null and name != ''" >
+        AND name = #{name}
+      </if>
+      <if test="engName != null and engName != ''" >
+        AND eng_name = #{engName}
+      </if>
+      <if test="action != null and action != ''" >
+        AND action = #{action}
+      </if>
+      <if test="code != null and code != ''" >
+        AND code = #{code}
+      </if>
+      <if test="alias != null and alias != ''" >
+        AND alias = #{alias}
+      </if>
+      <if test="pageCode != null and pageCode != ''" >
+        AND page_code = #{pageCode}
+      </if>
+      <if test="idPath != null and idPath != ''" >
+        AND id_path = #{idPath}
+      </if>
+      <if test="namePath != null and namePath != ''" >
+        AND name_path = #{namePath}
+      </if>
+      <if test="codePath != null and codePath != ''" >
+        AND code_path = #{codePath}
+      </if>
+      <if test="sortOrder != null" >
+        AND sort_order = #{sortOrder}
+      </if>
+      <if test="resourceId != null and resourceId != ''" >
+        AND resource_id = #{resourceId}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.auth.po.SysField" resultMap="SysFieldResultMap" >
+    select 
+    <include refid="SysField_Column_List" />
+    from sys_field
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update sys_field
+    <set >
+      <if test="po.orgId != null" >
+        org_id = #{po.orgId},
+      </if>
+      <if test="po.createdAt != null" >
+        created_at = #{po.createdAt},
+      </if>
+      <if test="po.lastUpdated != null" >
+        last_updated = #{po.lastUpdated},
+      </if>
+      <if test="po.createdUser != null" >
+        created_user = #{po.createdUser},
+      </if>
+      <if test="po.updatedUser != null" >
+        updated_user = #{po.updatedUser},
+      </if>
+      <if test="po.disable != null" >
+        disable = #{po.disable},
+      </if>
+      <if test="po.deleteFlag != null" >
+        delete_flag = #{po.deleteFlag},
+      </if>
+      <if test="po.name != null" >
+        name = #{po.name},
+      </if>
+      <if test="po.engName != null" >
+        eng_name = #{po.engName},
+      </if>
+      <if test="po.action != null" >
+        action = #{po.action},
+      </if>
+      <if test="po.code != null" >
+        code = #{po.code},
+      </if>
+      <if test="po.alias != null" >
+        alias = #{po.alias},
+      </if>
+      <if test="po.pageCode != null" >
+        page_code = #{po.pageCode},
+      </if>
+      <if test="po.idPath != null" >
+        id_path = #{po.idPath},
+      </if>
+      <if test="po.namePath != null" >
+        name_path = #{po.namePath},
+      </if>
+      <if test="po.codePath != null" >
+        code_path = #{po.codePath},
+      </if>
+      <if test="po.sortOrder != null" >
+        sort_order = #{po.sortOrder},
+      </if>
+      <if test="po.resourceId != null" >
+        resource_id = #{po.resourceId},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+</mapper>

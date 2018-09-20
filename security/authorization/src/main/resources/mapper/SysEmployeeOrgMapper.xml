@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.auth.dao.SysEmployeeOrgMapper" >
+  <resultMap id="SysEmployeeOrgResultMap" type="com.sida.dcloud.auth.po.SysEmployeeOrg" >
+    <result column="employee_id" property="employeeId" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="SysEmployeeOrg_Column_List" >
+    employee_id, org_id
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.auth.po.SysEmployeeOrg" >
+    insert into sys_employee_org (employee_id, org_id)
+    values (#{employeeId}, #{orgId})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.auth.po.SysEmployeeOrg" >
+    insert into sys_employee_org
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="employeeId != null" >
+        employee_id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="employeeId != null" >
+        #{employeeId},
+      </if>
+      <if test="orgId != null" >
+        #{orgId},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="employeeId != null and employeeId != ''" >
+        employee_id = #{employeeId}
+      </if>
+      <if test="orgId != null and orgId != ''" >
+        AND org_id = #{orgId}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.auth.po.SysEmployeeOrg" resultMap="SysEmployeeOrgResultMap" >
+    select 
+    <include refid="SysEmployeeOrg_Column_List" />
+    from sys_employee_org
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update sys_employee_org
+    <set >
+      <if test="po.employeeId != null" >
+        employee_id = #{po.employeeId},
+      </if>
+      <if test="po.orgId != null" >
+        org_id = #{po.orgId},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+</mapper>

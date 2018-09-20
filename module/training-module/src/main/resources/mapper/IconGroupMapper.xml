@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sida.dcloud.training.dao.IconGroupMapper">
+  <resultMap id="IconGroupResultMap" type="com.sida.dcloud.training.po.IconGroup">
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="org_id" jdbcType="VARCHAR" property="orgId" />
+    <result column="created_user" jdbcType="VARCHAR" property="createdUser" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_user" jdbcType="VARCHAR" property="updatedUser" />
+    <result column="last_updated" jdbcType="TIMESTAMP" property="lastUpdated" />
+    <result column="disable" jdbcType="BIT" property="disable" />
+    <result column="delete_flag" jdbcType="BIT" property="deleteFlag" />
+    <result column="red_string1" jdbcType="VARCHAR" property="redString1" />
+    <result column="red_string2" jdbcType="VARCHAR" property="redString2" />
+    <result column="red_string3" jdbcType="VARCHAR" property="redString3" />
+    <result column="red_string4" jdbcType="VARCHAR" property="redString4" />
+    <result column="red_string5" jdbcType="VARCHAR" property="redString5" />
+    <result column="red_string6" jdbcType="VARCHAR" property="redString6" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+    <result column="id_path" jdbcType="VARCHAR" property="idPath" />
+    <result column="total" jdbcType="INTEGER" property="total" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <resultMap id="IconGroupVoResultMap" type="com.sida.dcloud.training.vo.IconGroupVo">
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="created_user" jdbcType="VARCHAR" property="createdUser" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="IconGroup_Column_List">
+    id, org_id, created_user, created_at, updated_user, last_updated, disable, delete_flag, 
+    red_string1, red_string2, red_string3, red_string4, red_string5, red_string6, name, 
+    code, parent_id, id_path, total, sort, remark
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.training.po.IconGroup">
+    insert into icon_group (id, org_id, created_user, created_at, updated_user, last_updated, 
+      disable, delete_flag, red_string1, red_string2, red_string3, red_string4, 
+      red_string5, red_string6, name, code, parent_id, id_path, total, 
+      sort, remark)
+    values (#{id}, #{orgId}, #{createdUser}, #{createdAt}, #{updatedUser}, #{lastUpdated}, 
+      #{disable}, #{deleteFlag}, #{redString1}, #{redString2}, #{redString3}, #{redString4}, 
+      #{redString5}, #{redString6}, #{name}, #{code}, #{parentId}, #{idPath}, #{total}, 
+      #{sort}, #{remark})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.training.po.IconGroup">
+    insert into icon_group
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orgId != null">
+        org_id,
+      </if>
+      <if test="createdUser != null">
+        created_user,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedUser != null">
+        updated_user,
+      </if>
+      <if test="lastUpdated != null">
+        last_updated,
+      </if>
+      <if test="disable != null">
+        disable,
+      </if>
+      <if test="deleteFlag != null">
+        delete_flag,
+      </if>
+      <if test="redString1 != null">
+        red_string1,
+      </if>
+      <if test="redString2 != null">
+        red_string2,
+      </if>
+      <if test="redString3 != null">
+        red_string3,
+      </if>
+      <if test="redString4 != null">
+        red_string4,
+      </if>
+      <if test="redString5 != null">
+        red_string5,
+      </if>
+      <if test="redString6 != null">
+        red_string6,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="idPath != null">
+        id_path,
+      </if>
+      <if test="total != null">
+        total,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="orgId != null">
+        #{orgId},
+      </if>
+      <if test="createdUser != null">
+        #{createdUser},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt},
+      </if>
+      <if test="updatedUser != null">
+        #{updatedUser},
+      </if>
+      <if test="lastUpdated != null">
+        #{lastUpdated},
+      </if>
+      <if test="disable != null">
+        #{disable},
+      </if>
+      <if test="deleteFlag != null">
+        #{deleteFlag},
+      </if>
+      <if test="redString1 != null">
+        #{redString1},
+      </if>
+      <if test="redString2 != null">
+        #{redString2},
+      </if>
+      <if test="redString3 != null">
+        #{redString3},
+      </if>
+      <if test="redString4 != null">
+        #{redString4},
+      </if>
+      <if test="redString5 != null">
+        #{redString5},
+      </if>
+      <if test="redString6 != null">
+        #{redString6},
+      </if>
+      <if test="name != null">
+        #{name},
+      </if>
+      <if test="code != null">
+        #{code},
+      </if>
+      <if test="parentId != null">
+        #{parentId},
+      </if>
+      <if test="idPath != null">
+        #{idPath},
+      </if>
+      <if test="total != null">
+        #{total},
+      </if>
+      <if test="sort != null">
+        #{sort},
+      </if>
+      <if test="remark != null">
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Where_Condition">
+    <where>
+      delete_flag = 0
+      <if test="po.id != null and po.id != ''">
+        and id = #{po.id}
+      </if>
+      <if test="po.orgId != null and po.orgId != ''">
+        AND org_id = #{po.orgId}
+      </if>
+      <if test="po.createdUser != null and po.createdUser != ''">
+        AND created_user = #{po.createdUser}
+      </if>
+      <if test="po.createdAt != null">
+        AND created_at = #{po.createdAt}
+      </if>
+      <if test="po.updatedUser != null and po.updatedUser != ''">
+        AND updated_user = #{po.updatedUser}
+      </if>
+      <if test="po.lastUpdated != null">
+        AND last_updated = #{po.lastUpdated}
+      </if>
+      <if test="po.disable != null">
+        AND disable = #{disable}
+      </if>
+      <if test="po.deleteFlag != null">
+        AND delete_flag = #{po.deleteFlag}
+      </if>
+      <if test="po.redString1 != null and po.redString1 != ''">
+        AND red_string1 = #{po.redString1}
+      </if>
+      <if test="po.redString2 != null and po.redString2 != ''">
+        AND red_string2 = #{po.redString2}
+      </if>
+      <if test="po.redString3 != null and po.redString3 != ''">
+        AND red_string3 = #{po.redString3}
+      </if>
+      <if test="po.redString4 != null and po.redString4 != ''">
+        AND red_string4 = #{po.redString4}
+      </if>
+      <if test="po.redString5 != null and po.redString5 != ''">
+        AND red_string5 = #{po.redString5}
+      </if>
+      <if test="po.redString6 != null and po.redString6 != ''">
+        AND red_string6 = #{po.redString6}
+      </if>
+      <if test="po.name != null and po.name != ''">
+        AND name = #{po.name}
+      </if>
+      <if test="po.code != null and po.code != ''">
+        AND code = #{po.code}
+      </if>
+      <if test="po.parentId != null and po.parentId != ''">
+        AND parent_id = #{parentId}
+      </if>
+      <if test="po.idPath != null and po.idPath != ''">
+        AND id_path = #{po.idPath}
+      </if>
+      <if test="po.total != null">
+        AND total = #{po.total}
+      </if>
+      <if test="po.sort != null">
+        AND sort = #{po.sort}
+      </if>
+      <if test="po.remark != null and po.remark != ''">
+        AND remark = #{po.remark}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.training.po.IconGroup" resultMap="IconGroupResultMap">
+    select 
+    <include refid="IconGroup_Column_List" />
+    from icon_group
+    <include refid="Where_Condition" />
+    <if test="po.orderField != null and po.orderField != ''">
+      ORDER BY ${po.orderField}
+      <if test="po.orderString != null and po.orderString != ''">
+         ${po.orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective">
+    update icon_group
+    <set>
+      <if test="po.id != null">
+        id = #{po.id},
+      </if>
+      <if test="po.orgId != null">
+        org_id = #{po.orgId},
+      </if>
+      <if test="po.createdUser != null">
+        created_user = #{po.createdUser},
+      </if>
+      <if test="po.createdAt != null">
+        created_at = #{po.createdAt},
+      </if>
+      <if test="po.updatedUser != null">
+        updated_user = #{po.updatedUser},
+      </if>
+      <if test="po.lastUpdated != null">
+        last_updated = #{po.lastUpdated},
+      </if>
+      <if test="po.disable != null">
+        disable = #{po.disable},
+      </if>
+      <if test="po.deleteFlag != null">
+        delete_flag = #{po.deleteFlag},
+      </if>
+      <if test="po.redString1 != null">
+        red_string1 = #{po.redString1},
+      </if>
+      <if test="po.redString2 != null">
+        red_string2 = #{po.redString2},
+      </if>
+      <if test="po.redString3 != null">
+        red_string3 = #{po.redString3},
+      </if>
+      <if test="po.redString4 != null">
+        red_string4 = #{po.redString4},
+      </if>
+      <if test="po.redString5 != null">
+        red_string5 = #{po.redString5},
+      </if>
+      <if test="po.redString6 != null">
+        red_string6 = #{po.redString6},
+      </if>
+      <if test="po.name != null">
+        name = #{po.name},
+      </if>
+      <if test="po.code != null">
+        code = #{po.code},
+      </if>
+      <if test="po.parentId != null">
+        parent_id = #{po.parentId},
+      </if>
+      <if test="po.idPath != null">
+        id_path = #{po.idPath},
+      </if>
+      <if test="po.total != null">
+        total = #{po.total},
+      </if>
+      <if test="po.sort != null">
+        sort = #{po.sort},
+      </if>
+      <if test="po.remark != null">
+        remark = #{po.remark},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size &gt; 0">
+      <foreach close=")" collection="ids" item="listItem" open="or id in(" separator=",">
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+  <select id="selectByPrimaryKey" resultMap="IconGroupResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="IconGroup_Column_List" />
+    from icon_group
+    where id = #{id} and delete_flag = 0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    update icon_group set delete_flag = 1 where id = #{id}
+  </delete>
+  <delete id="deleteByPrimaryKeys" parameterType="java.lang.String" >
+    update icon_group set delete_flag = 1 where id in (${ids})
+  </delete>
+
+  <select id="findVoList" parameterType="com.sida.dcloud.training.po.IconGroup" resultMap="IconGroupVoResultMap">
+    select
+    id,name,code,created_user,created_at,sort
+    from icon_group
+    <where>
+      delete_flag = 0
+      <if test="po.id != null and po.id != ''" >
+        and id = #{po.id}
+      </if>
+      <if test="po.name != null and po.name != ''" >
+        and instr(name, #{po.name})&gt;0
+      </if>
+      <if test="po.code != null and po.code != ''" >
+        and instr(code, #{po.code})&gt;0
+      </if>
+      <if test="po.remark != null and po.remark != ''" >
+        and instr(remark, #{po.remark})&gt;0
+      </if>
+    </where>
+    <if test="po.orderField != null and po.orderField != ''">
+      ORDER BY ${po.orderField}
+      <if test="po.orderString != null and po.orderString != ''">
+        ${po.orderString}
+      </if>
+    </if>
+  </select>
+
+  <select id="checkMultiCountByUnique" parameterType="com.sida.dcloud.training.po.IconGroup" resultType="int">
+    select count(0) from icon_group
+    <where>
+      delete_flag = 0 and (1=2
+      <if test="po.name != null and po.name != ''">
+        or name=#{po.name}
+      </if>
+      <if test="po.code != null and po.code != ''">
+        or code=#{po.code}
+      </if>)
+      <if test="po.id != null and po.id != ''">
+        <![CDATA[
+        and id <> #{po.id}
+        ]]>
+      </if>
+    </where>
+  </select>
+
+  <update id="increaseTotal">
+    update icon_group set total = total + #{po.increase} where instr(#{po.id_path}, id_path) = 1
+  </update>
+</mapper>

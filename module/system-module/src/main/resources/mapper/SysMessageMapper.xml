@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.system.dao.SysMessageMapper" >
+  <resultMap id="SysMessageResultMap" type="com.sida.dcloud.system.po.SysMessage" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="last_updated" property="lastUpdated" jdbcType="TIMESTAMP" />
+    <result column="created_user" property="createdUser" jdbcType="VARCHAR" />
+    <result column="updated_user" property="updatedUser" jdbcType="VARCHAR" />
+    <result column="disable" property="disable" jdbcType="BIT" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="message_type" property="messageType" jdbcType="INTEGER" />
+    <result column="entity_type" property="entityType" jdbcType="VARCHAR" />
+    <result column="entity_id" property="entityId" jdbcType="VARCHAR" />
+    <result column="business_code" property="businessCode" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="is_read" property="isRead" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="process_instance_id" property="processInstanceId" jdbcType="VARCHAR" />
+    <result column="task_id" property="taskId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="SysMessage_Column_List" >
+    id, org_id, created_at, last_updated, created_user, updated_user, disable, delete_flag, 
+    title, content, message_type, entity_type, entity_id, business_code, url, remark, 
+    is_read, user_id, user_name, type, process_instance_id, task_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="SysMessageResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="SysMessage_Column_List" />
+    from sys_message
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_message
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.sida.dcloud.system.po.SysMessage" >
+    insert into sys_message (id, org_id, created_at, last_updated, created_user, updated_user, 
+      disable, delete_flag, title, content, message_type, entity_type, 
+      entity_id, business_code, url, remark, is_read, user_id, user_name, 
+      type, process_instance_id, task_id)
+    values (#{id}, #{orgId}, #{createdAt}, #{lastUpdated}, #{createdUser}, #{updatedUser}, 
+      #{disable}, #{deleteFlag}, #{title}, #{content}, #{messageType}, #{entityType}, 
+      #{entityId}, #{businessCode}, #{url}, #{remark}, #{isRead}, #{userId}, #{userName}, 
+      #{type}, #{processInstanceId}, #{taskId})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.system.po.SysMessage" >
+    insert into sys_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="lastUpdated != null" >
+        last_updated,
+      </if>
+      <if test="createdUser != null" >
+        created_user,
+      </if>
+      <if test="updatedUser != null" >
+        updated_user,
+      </if>
+      <if test="disable != null" >
+        disable,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="messageType != null" >
+        message_type,
+      </if>
+      <if test="entityType != null" >
+        entity_type,
+      </if>
+      <if test="entityId != null" >
+        entity_id,
+      </if>
+      <if test="businessCode != null" >
+        business_code,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="isRead != null" >
+        is_read,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="processInstanceId != null" >
+        process_instance_id,
+      </if>
+      <if test="taskId != null" >
+        task_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="orgId != null" >
+        #{orgId},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="lastUpdated != null" >
+        #{lastUpdated},
+      </if>
+      <if test="createdUser != null" >
+        #{createdUser},
+      </if>
+      <if test="updatedUser != null" >
+        #{updatedUser},
+      </if>
+      <if test="disable != null" >
+        #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag},
+      </if>
+      <if test="title != null" >
+        #{title},
+      </if>
+      <if test="content != null" >
+        #{content},
+      </if>
+      <if test="messageType != null" >
+        #{messageType},
+      </if>
+      <if test="entityType != null" >
+        #{entityType},
+      </if>
+      <if test="entityId != null" >
+        #{entityId},
+      </if>
+      <if test="businessCode != null" >
+        #{businessCode},
+      </if>
+      <if test="url != null" >
+        #{url},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+      <if test="isRead != null" >
+        #{isRead},
+      </if>
+      <if test="userId != null" >
+        #{userId},
+      </if>
+      <if test="userName != null" >
+        #{userName},
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+      <if test="processInstanceId != null" >
+        #{processInstanceId},
+      </if>
+      <if test="taskId != null" >
+        #{taskId},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sida.dcloud.system.po.SysMessage" >
+    update sys_message
+    <set >
+      <if test="orgId != null" >
+        org_id = #{orgId},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt},
+      </if>
+      <if test="lastUpdated != null" >
+        last_updated = #{lastUpdated},
+      </if>
+      <if test="createdUser != null" >
+        created_user = #{createdUser},
+      </if>
+      <if test="updatedUser != null" >
+        updated_user = #{updatedUser},
+      </if>
+      <if test="disable != null" >
+        disable = #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag = #{deleteFlag},
+      </if>
+      <if test="title != null" >
+        title = #{title},
+      </if>
+      <if test="content != null" >
+        content = #{content},
+      </if>
+      <if test="messageType != null" >
+        message_type = #{messageType},
+      </if>
+      <if test="entityType != null" >
+        entity_type = #{entityType},
+      </if>
+      <if test="entityId != null" >
+        entity_id = #{entityId},
+      </if>
+      <if test="businessCode != null" >
+        business_code = #{businessCode},
+      </if>
+      <if test="url != null" >
+        url = #{url},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark},
+      </if>
+      <if test="isRead != null" >
+        is_read = #{isRead},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName},
+      </if>
+      <if test="type != null" >
+        type = #{type},
+      </if>
+      <if test="processInstanceId != null" >
+        process_instance_id = #{processInstanceId},
+      </if>
+      <if test="taskId != null" >
+        task_id = #{taskId},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sida.dcloud.system.po.SysMessage" >
+    update sys_message
+    set org_id = #{orgId},
+      created_at = #{createdAt},
+      last_updated = #{lastUpdated},
+      created_user = #{createdUser},
+      updated_user = #{updatedUser},
+      disable = #{disable},
+      delete_flag = #{deleteFlag},
+      title = #{title},
+      content = #{content},
+      message_type = #{messageType},
+      entity_type = #{entityType},
+      entity_id = #{entityId},
+      business_code = #{businessCode},
+      url = #{url},
+      remark = #{remark},
+      is_read = #{isRead},
+      user_id = #{userId},
+      user_name = #{userName},
+      type = #{type},
+      process_instance_id = #{processInstanceId},
+      task_id = #{taskId}
+    where id = #{id}
+  </update>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="orgId != null and orgId != ''" >
+        org_id = #{orgId}
+      </if>
+      <if test="createdAt != null" >
+        AND created_at = #{createdAt}
+      </if>
+      <if test="lastUpdated != null" >
+        AND last_updated = #{lastUpdated}
+      </if>
+      <if test="createdUser != null and createdUser != ''" >
+        AND created_user = #{createdUser}
+      </if>
+      <if test="updatedUser != null and updatedUser != ''" >
+        AND updated_user = #{updatedUser}
+      </if>
+      <if test="disable != null" >
+        AND disable = #{disable}
+      </if>
+      <if test="deleteFlag != null" >
+        AND delete_flag = #{deleteFlag}
+      </if>
+      <if test="title != null and title != ''" >
+        AND title = #{title}
+      </if>
+      <if test="content != null and content != ''" >
+        AND content like concat('%',#{content},'%')
+      </if>
+      <if test="messageType != null" >
+        AND message_type = #{messageType}
+      </if>
+      <if test="entityType != null and entityType != ''" >
+        AND entity_type = #{entityType}
+      </if>
+      <if test="entityId != null and entityId != ''" >
+        AND entity_id = #{entityId}
+      </if>
+      <if test="businessCode != null and businessCode != ''" >
+        AND business_code = #{businessCode}
+      </if>
+      <if test="url != null and url != ''" >
+        AND url = #{url}
+      </if>
+      <if test="remark != null and remark != ''" >
+        AND remark = #{remark}
+      </if>
+      <if test="isRead != null" >
+        AND is_read = #{isRead}
+      </if>
+      <if test="userId != null and userId != ''" >
+        AND user_id = #{userId}
+      </if>
+      <if test="userName != null and userName != ''" >
+        AND user_name = #{userName}
+      </if>
+      <if test="type != null" >
+        AND type = #{type}
+      </if>
+      <if test="processInstanceId != null" >
+        AND process_instance_id = #{processInstanceId}
+      </if>
+      <if test="taskId != null" >
+        AND task_id = #{taskId}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.system.po.SysMessage" resultMap="SysMessageResultMap" >
+    select 
+    <include refid="SysMessage_Column_List" />
+    from sys_message
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update sys_message
+    <set >
+      <if test="po.orgId != null" >
+        org_id = #{po.orgId},
+      </if>
+      <if test="po.createdAt != null" >
+        created_at = #{po.createdAt},
+      </if>
+      <if test="po.lastUpdated != null" >
+        last_updated = #{po.lastUpdated},
+      </if>
+      <if test="po.createdUser != null" >
+        created_user = #{po.createdUser},
+      </if>
+      <if test="po.updatedUser != null" >
+        updated_user = #{po.updatedUser},
+      </if>
+      <if test="po.disable != null" >
+        disable = #{po.disable},
+      </if>
+      <if test="po.deleteFlag != null" >
+        delete_flag = #{po.deleteFlag},
+      </if>
+      <if test="po.title != null" >
+        title = #{po.title},
+      </if>
+      <if test="po.content != null" >
+        content = #{po.content},
+      </if>
+      <if test="po.messageType != null" >
+        message_type = #{po.messageType},
+      </if>
+      <if test="po.entityType != null" >
+        entity_type = #{po.entityType},
+      </if>
+      <if test="po.entityId != null" >
+        entity_id = #{po.entityId},
+      </if>
+      <if test="po.businessCode != null" >
+        business_code = #{po.businessCode},
+      </if>
+      <if test="po.url != null" >
+        url = #{po.url},
+      </if>
+      <if test="po.remark != null" >
+        remark = #{po.remark},
+      </if>
+      <if test="po.isRead != null" >
+        is_read = #{po.isRead},
+      </if>
+      <if test="po.userId != null" >
+        user_id = #{po.userId},
+      </if>
+      <if test="po.userName != null" >
+        user_name = #{po.userName},
+      </if>
+      <if test="po.type != null" >
+        type = #{po.type},
+      </if>
+      <if test="po.processInstanceId != null" >
+        process_instance_id = #{po.processInstanceId},
+      </if>
+      <if test="po.taskId != null" >
+        task_id = #{po.taskId},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <update id="deleteByIds">
+    update sys_message
+    set delete_flag = true
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+  <delete id="removeByIds">
+    delete from sys_message
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </delete>
+  <delete id="removeByProcInstId">
+    delete from sys_message
+    where process_instance_id = #{processInstanceId}
+  </delete>
+
+  <insert id="batchInsert" parameterType="java.util.List">
+    insert into sys_message (id, org_id, created_at, last_updated, created_user, updated_user,
+    disable, delete_flag, title, content, message_type, entity_type,
+    entity_id, business_code, url, remark, is_read, user_id, user_name,
+    type, process_instance_id, task_id)
+    values
+    <foreach collection="list" index="index" item="item" separator=",">
+      (#{item.id}, #{item.orgId}, #{item.createdAt}, #{item.lastUpdated}, #{item.createdUser}, #{item.updatedUser},
+      #{item.disable}, #{item.deleteFlag}, #{item.title}, #{item.content}, #{item.messageType}, #{item.entityType},
+      #{item.entityId}, #{item.businessCode}, #{item.url}, #{item.remark}, #{item.isRead}, #{item.userId}, #{item.userName},
+      #{item.type}, #{item.processInstanceId}, #{item.taskId})
+    </foreach>
+  </insert>
+</mapper>

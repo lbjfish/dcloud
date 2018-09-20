@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.9.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>com.sida</groupId>
+    <artifactId>parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+
+    <properties>
+        <!-- sida -->
+        <sida.xutil.version>1.0-SNAPSHOT</sida.xutil.version>
+        <sida.xdomain.version>1.0-SNAPSHOT</sida.xdomain.version>
+        <sida.xframework.version>1.0-SNAPSHOT</sida.xframework.version>
+        <sida.po.version>1.0-SNAPSHOT</sida.po.version>
+        <sida.event.version>1.0-SNAPSHOT</sida.event.version>
+        <sida.module.version>1.0-SNAPSHOT</sida.module.version>
+        <sida.intf.version>1.0-SNAPSHOT</sida.intf.version>
+        <!-- sida -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <encoding>UTF-8</encoding>
+        <docker.image.prefix>sida</docker.image.prefix>
+        <main.basedir>${basedir}/../..</main.basedir>
+        <m2eclipse.wtp.contextRoot>/</m2eclipse.wtp.contextRoot>
+        <version>1.0.0</version>
+        <exec.phase>test</exec.phase>
+        <springcloud.version>1.3.0.RELEASE</springcloud.version>
+        <springboot.version>1.5.9.RELEASE</springboot.version>
+        <springboot.redis.version>1.4.7.RELEASE</springboot.redis.version>
+        <springcloud.commons.version>1.2.1.RELEASE</springcloud.commons.version>
+        <springcloud.stream.version>1.2.0.RELEASE</springcloud.stream.version>
+        <springcloud.kafka.version>1.2.0.RELEASE</springcloud.kafka.version>
+        <docker.plugin.version>0.4.13</docker.plugin.version>
+        <mysql-connector.version>6.0.6</mysql-connector.version>
+        <spring.version>4.3.13.RELEASE</spring.version>
+        <!--<spring.version>4.3.8.RELEASE</spring.version>-->
+        <exec.maven.version>1.6.0</exec.maven.version>
+        <maven.surefire.plugin.version>2.20</maven.surefire.plugin.version>
+        <svnkit.version>1.7.8</svnkit.version>
+        <zipkin.version>1.26.0</zipkin.version>
+        <springcloud.zipkin.version>1.2.1.RELEASE</springcloud.zipkin.version>
+        <aspectj.version>1.8.10</aspectj.version>
+        <jedis.version>2.9.0</jedis.version>
+        <commons.httpclient.version>3.1</commons.httpclient.version>
+        <json.lib.version>2.4</json.lib.version>
+        <poi.version>3.16</poi.version>
+        <dom4j.version>1.6.1</dom4j.version>
+        <hibernate.version>5.2.10.Final</hibernate.version>
+        <log4j.version>1.2.17</log4j.version>
+        <servlet.version>3.1.0</servlet.version>
+        <javax.mail.version>1.4.7</javax.mail.version>
+        <commons.configuration.version>1.10</commons.configuration.version>
+        <commons.io.version>2.5</commons.io.version>
+        <htmlparser.version>2.1</htmlparser.version>
+        <pinyin4j.version>2.5.1</pinyin4j.version>
+        <springsession.version>1.3.1.RELEASE</springsession.version>
+        <hsqldb.version>2.4.0</hsqldb.version>
+        <springmongodb.version>2.0.8.RELEASE</springmongodb.version>
+        <fastjson.version>1.2.33</fastjson.version>
+        <akka.version>2.5.3</akka.version>
+        <quartz.version>2.3.0</quartz.version>
+        <springfox.swagger.version>2.7.0</springfox.swagger.version>
+        <apache.commons.lang3.version>3.6</apache.commons.lang3.version>
+        <mybatis.version>3.4.4</mybatis.version>
+        <pagehelper.version>5.1.2</pagehelper.version>
+        <mybatis.generator.version>1.3.2</mybatis.generator.version>
+        <mybatis.spring.version>1.3.1</mybatis.spring.version>
+        <druid.version>1.1.1</druid.version>
+        <springboot.mybatis.version>1.3.1</springboot.mybatis.version>
+        <openfeign-feign-httpclient>9.5.0</openfeign-feign-httpclient>
+        <mariadb>2.1.2</mariadb>
+        <scala.version>2.11.12</scala.version>
+        <akka.version>2.5.14</akka.version>
+        <avro.version>1.8.2</avro.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>${hsqldb.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Dalston.SR5</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>*</include>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>*.yml</include>
+                    <include>**/*.yml</include>
+                    <include>*.xml</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.6.1</version>
+                    <configuration>
+                        <source>1.8</source>
+                        <target>1.8</target>
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven.surefire.plugin.version}</version>
+                    <configuration>
+                        <skipTests>true</skipTests>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <profile.name>dev</profile.name>
+                <discovery1.address>localhost</discovery1.address>
+                <discovery2.address>localhost1</discovery2.address>
+                <discovery3.address>localhost2</discovery3.address>
+                <discovery1.port>10001</discovery1.port>
+                <discovery2.port>10001</discovery2.port>
+                <discovery3.port>10001</discovery3.port>
+
+                <discovery-zone1>http://@discovery1.address@:@discovery1.port@/eureka/</discovery-zone1>
+                <discovery-zone2>http://@discovery1.address@:@discovery1.port@/eureka/</discovery-zone2>
+                <discovery-zone3>http://@discovery1.address@:@discovery1.port@/eureka/</discovery-zone3>
+
+                <default-zone>http://@discovery1.address@:@discovery1.port@/eureka/</default-zone>
+
+                <svn.uri>svn://172.16.0.11/sida</svn.uri>
+                <svn.username>reader</svn.username>
+                <svn.password>reader</svn.password>
+                <svn.default-label>config</svn.default-label>
+                <service.config.port>8888</service.config.port>
+                <swagger.enable>true</swagger.enable>
+
+                <!-- 网络异常时自我保护，注册中心不注销任何客户端 -->
+                <enableSelfPreservation>true</enableSelfPreservation>
+
+                <!-- 客户端到注册中心拉取服务列表的间隔时间 -->
+                <registry-fetch-interval-seconds>30</registry-fetch-interval-seconds>
+                <!-- 注册中心主动扫描客户端间隔时间 -->
+                <eviction-interval-timer-in-ms>30000</eviction-interval-timer-in-ms>
+                <!-- 客户端未收到心跳过期时间 -->
+                <lease-expiration-duration-in-seconds>60</lease-expiration-duration-in-seconds>
+                <!-- 客户端向注册中心发送心跳的间隔时间 -->
+                <lease-renewal-interval-in-seconds>20</lease-renewal-interval-in-seconds>
+
+                <log.console.level>INFO</log.console.level>
+                <log.file.level>ERROR</log.file.level>
+                <log.mybatis.level>DEBUG</log.mybatis.level>
+
+                <access-domain-url>http://localhost:10020/apis</access-domain-url>
+
+                <discovery-service>discovery-service-jlf</discovery-service>
+                <config-service>config-service-jlf</config-service>
+
+                <security-edge-service>security-edge-service-jlf</security-edge-service>
+                <auth-service>auth-service-jlf</auth-service>
+                <!--<workflow-service>workflow-service-jlf</workflow-service>-->
+                <schedule-service>schedule-service-jlf</schedule-service>
+                <event-service>event-service-jlf</event-service>
+
+                <system-module>system-module-jlf</system-module>
+                <training-module>training-module-jlf</training-module>
+                <activity-module>activity-module-jlf</activity-module>
+                <content-module>content-module-jlf</content-module>
+                <operation-module>operation-module-jlf</operation-module>
+
+            </properties>
+        </profile>
+
+        <profile>
+            <id>test</id>
+            <properties>
+                <profile.name>test</profile.name>
+                <discovery1.address>10.9.40.210</discovery1.address>
+                <discovery2.address>10.9.40.209</discovery2.address>
+                <discovery3.address>10.9.40.208</discovery3.address>
+                <discovery1.port>10001</discovery1.port>
+                <discovery2.port>10001</discovery2.port>
+                <discovery3.port>10001</discovery3.port>
+
+                <discovery-zone1>http://@discovery2.address@:@discovery2.port@/eureka/,http://@discovery3.address@:@discovery3.port@/eureka/</discovery-zone1>
+                <discovery-zone2>http://@discovery1.address@:@discovery1.port@/eureka/,http://@discovery3.address@:@discovery3.port@/eureka/</discovery-zone2>
+                <discovery-zone3>http://@discovery1.address@:@discovery1.port@/eureka/,http://@discovery2.address@:@discovery2.port@/eureka/</discovery-zone3>
+
+                <default-zone>http://@discovery1.address@:@discovery1.port@/eureka/,http://@discovery2.address@:@discovery2.port@/eureka/,http://@discovery3.address@:@discovery3.port@/eureka/</default-zone>
+
+                <svn.uri>svn://10.9.40.211/cloud-driver-training</svn.uri>
+                <svn.username>reader</svn.username>
+                <svn.password>reader</svn.password>
+                <svn.default-label>config</svn.default-label>
+                <service.config.port>8888</service.config.port>
+                <swagger.enable>true</swagger.enable>
+
+                <enableSelfPreservation>true</enableSelfPreservation>
+                <registry-fetch-interval-seconds>30</registry-fetch-interval-seconds>
+                <eviction-interval-timer-in-ms>6000</eviction-interval-timer-in-ms>
+                <lease-expiration-duration-in-seconds>90</lease-expiration-duration-in-seconds>
+                <lease-renewal-interval-in-seconds>30</lease-renewal-interval-in-seconds>
+
+                <log.console.level>INFO</log.console.level>
+                <log.file.level>ERROR</log.file.level>
+                <log.mybatis.level>DEBUG</log.mybatis.level>
+
+                <access-domain-url>http://10.9.40.211:10020/apis</access-domain-url>
+
+                <discovery-service>discovery-service</discovery-service>
+                <config-service>config-service</config-service>
+
+                <security-edge-service>security-edge-service-hbd</security-edge-service>
+                <auth-service>auth-service</auth-service>
+                <workflow-service>workflow-service-hbd</workflow-service>
+                <schedule-service>schedule-service-hbd</schedule-service>
+
+                <system-module>system-module-hbd</system-module>
+
+            </properties>
+        </profile>
+
+        <profile>
+            <id>uat</id>
+            <properties>
+                <profile.name>uat</profile.name>
+                <discovery1.address>10.9.40.43</discovery1.address>
+                <discovery2.address>10.9.40.44</discovery2.address>
+                <discovery3.address>10.9.40.45</discovery3.address>
+                <discovery1.port>10001</discovery1.port>
+                <discovery2.port>10001</discovery2.port>
+                <discovery3.port>10001</discovery3.port>
+
+                <discovery-zone1>http://@discovery2.address@:@discovery2.port@/eureka/,http://@discovery3.address@:@discovery3.port@/eureka/</discovery-zone1>
+                <discovery-zone2>http://@discovery1.address@:@discovery1.port@/eureka/,http://@discovery3.address@:@discovery3.port@/eureka/</discovery-zone2>
+                <discovery-zone3>http://@discovery1.address@:@discovery1.port@/eureka/,http://@discovery2.address@:@discovery2.port@/eureka/</discovery-zone3>
+
+                <default-zone>http://@discovery1.address@:@discovery1.port@/eureka/,http://@discovery2.address@:@discovery2.port@/eureka/,http://@discovery3.address@:@discovery3.port@/eureka/</default-zone>
+
+                <svn.uri>svn://10.9.40.42/cloud-driver-training</svn.uri>
+                <svn.username>reader</svn.username>
+                <svn.password>reader</svn.password>
+                <svn.default-label>config</svn.default-label>
+                <service.config.port>8888</service.config.port>
+                <swagger.enable>true</swagger.enable>
+
+                <enableSelfPreservation>true</enableSelfPreservation>
+                <registry-fetch-interval-seconds>30</registry-fetch-interval-seconds>
+                <eviction-interval-timer-in-ms>6000</eviction-interval-timer-in-ms>
+                <lease-expiration-duration-in-seconds>90</lease-expiration-duration-in-seconds>
+                <lease-renewal-interval-in-seconds>30</lease-renewal-interval-in-seconds>
+
+                <log.console.level>INFO</log.console.level>
+                <log.file.level>ERROR</log.file.level>
+                <log.mybatis.level>DEBUG</log.mybatis.level>
+
+                <access-domain-url>http://10.9.40.43:10020/apis</access-domain-url>
+
+                <discovery-service>discovery-service</discovery-service>
+                <config-service>config-service</config-service>
+
+                <security-edge-service>security-edge-service</security-edge-service>
+                <auth-service>auth-service</auth-service>
+                <workflow-service>workflow-service</workflow-service>
+                <schedule-service>schedule-service</schedule-service>
+
+                <system-module>system-module</system-module>
+
+            </properties>
+        </profile>
+
+        <profile>
+            <id>prod</id>
+            <properties>
+                <profile.name>prod</profile.name>
+                <discovery1.address>10.9.40.76</discovery1.address>
+                <discovery2.address>10.9.40.77</discovery2.address>
+                <discovery3.address>10.9.40.43</discovery3.address>
+                <discovery1.port>10001</discovery1.port>
+                <discovery2.port>10001</discovery2.port>
+                <discovery3.port>10001</discovery3.port>
+
+                <discovery-zone1>http://@discovery2.address@:@discovery2.port@/eureka/</discovery-zone1>
+                <discovery-zone2>http://@discovery1.address@:@discovery1.port@/eureka/</discovery-zone2>
+                <discovery-zone3>http://@discovery3.address@:@discovery3.port@/eureka/</discovery-zone3>
+
+                <default-zone>http://@discovery1.address@:@discovery1.port@/eureka/,http://@discovery2.address@:@discovery2.port@/eureka/</default-zone>
+
+                <svn.uri>svn://10.9.40.78/cloud-driver-training</svn.uri>
+                <svn.username>reader</svn.username>
+                <svn.password>reader</svn.password>
+                <svn.default-label>config</svn.default-label>
+                <service.config.port>8888</service.config.port>
+                <swagger.enable>true</swagger.enable>
+
+                <enableSelfPreservation>true</enableSelfPreservation>
+                <registry-fetch-interval-seconds>30</registry-fetch-interval-seconds>
+                <eviction-interval-timer-in-ms>6000</eviction-interval-timer-in-ms>
+                <lease-expiration-duration-in-seconds>90</lease-expiration-duration-in-seconds>
+                <lease-renewal-interval-in-seconds>30</lease-renewal-interval-in-seconds>
+
+                <log.console.level>WARN</log.console.level>
+                <log.file.level>ERROR</log.file.level>
+                <log.mybatis.level>DEBUG</log.mybatis.level>
+
+                <access-domain-url>http://10.9.40.74:9090/apis</access-domain-url>
+
+                <discovery-service>discovery-service</discovery-service>
+                <config-service>config-service</config-service>
+
+                <security-edge-service>security-edge-service</security-edge-service>
+                <auth-service>auth-service</auth-service>
+                <workflow-service>workflow-service</workflow-service>
+                <schedule-service>schedule-service</schedule-service>
+
+                <system-module>system-module</system-module>
+
+            </properties>
+        </profile>
+    </profiles>
+</project>

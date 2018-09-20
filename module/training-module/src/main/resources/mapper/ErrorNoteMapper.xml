@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.training.dao.ErrorNoteMapper" >
+  <resultMap id="ErrorNoteResultMap" type="com.sida.dcloud.training.po.ErrorNote" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
+    <result column="red_string1" property="redString1" jdbcType="VARCHAR" />
+    <result column="red_string2" property="redString2" jdbcType="VARCHAR" />
+    <result column="red_string3" property="redString3" jdbcType="VARCHAR" />
+    <result column="red_string4" property="redString4" jdbcType="VARCHAR" />
+    <result column="red_string5" property="redString5" jdbcType="VARCHAR" />
+    <result column="red_string6" property="redString6" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="exercise_id" property="exerciseId" jdbcType="VARCHAR" />
+    <result column="right_answer" property="rightAnswer" jdbcType="VARCHAR" />
+    <result column="answer" property="answer" jdbcType="VARCHAR" />
+    <result column="error_time" property="errorTime" jdbcType="TIMESTAMP" />
+    <result column="right_time" property="rightTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="ErrorNote_Column_List" >
+    id, org_id, delete_flag, red_string1, red_string2, red_string3, red_string4, red_string5, 
+    red_string6, user_id, exercise_id, right_answer, answer, error_time, right_time, 
+    remark
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.training.po.ErrorNote" >
+    insert into error_note (id, org_id, delete_flag, red_string1, red_string2, red_string3, 
+      red_string4, red_string5, red_string6, user_id, exercise_id, right_answer, 
+      answer, error_time, right_time, remark)
+    values (#{id}, #{orgId}, #{deleteFlag}, #{redString1}, #{redString2}, #{redString3}, 
+      #{redString4}, #{redString5}, #{redString6}, #{userId}, #{exerciseId}, #{rightAnswer}, 
+      #{answer}, #{errorTime}, #{rightTime}, #{remark})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.training.po.ErrorNote" >
+    insert into error_note
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="redString1 != null" >
+        red_string1,
+      </if>
+      <if test="redString2 != null" >
+        red_string2,
+      </if>
+      <if test="redString3 != null" >
+        red_string3,
+      </if>
+      <if test="redString4 != null" >
+        red_string4,
+      </if>
+      <if test="redString5 != null" >
+        red_string5,
+      </if>
+      <if test="redString6 != null" >
+        red_string6,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="exerciseId != null" >
+        exercise_id,
+      </if>
+      <if test="rightAnswer != null" >
+        right_answer,
+      </if>
+      <if test="answer != null" >
+        answer,
+      </if>
+      <if test="errorTime != null" >
+        error_time,
+      </if>
+      <if test="rightTime != null" >
+        right_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="orgId != null" >
+        #{orgId},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag},
+      </if>
+      <if test="redString1 != null" >
+        #{redString1},
+      </if>
+      <if test="redString2 != null" >
+        #{redString2},
+      </if>
+      <if test="redString3 != null" >
+        #{redString3},
+      </if>
+      <if test="redString4 != null" >
+        #{redString4},
+      </if>
+      <if test="redString5 != null" >
+        #{redString5},
+      </if>
+      <if test="redString6 != null" >
+        #{redString6},
+      </if>
+      <if test="userId != null" >
+        #{userId},
+      </if>
+      <if test="exerciseId != null" >
+        #{exerciseId},
+      </if>
+      <if test="rightAnswer != null" >
+        #{rightAnswer},
+      </if>
+      <if test="answer != null" >
+        #{answer},
+      </if>
+      <if test="errorTime != null" >
+        #{errorTime},
+      </if>
+      <if test="rightTime != null" >
+        #{rightTime},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sida.dcloud.training.po.ErrorNote" >
+    update error_note
+    <set >
+      <if test="orgId != null" >
+        org_id = #{orgId},
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag = #{deleteFlag},
+      </if>
+      <if test="redString1 != null" >
+        red_string1 = #{redString1},
+      </if>
+      <if test="redString2 != null" >
+        red_string2 = #{redString2},
+      </if>
+      <if test="redString3 != null" >
+        red_string3 = #{redString3},
+      </if>
+      <if test="redString4 != null" >
+        red_string4 = #{redString4},
+      </if>
+      <if test="redString5 != null" >
+        red_string5 = #{redString5},
+      </if>
+      <if test="redString6 != null" >
+        red_string6 = #{redString6},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId},
+      </if>
+      <if test="exerciseId != null" >
+        exercise_id = #{exerciseId},
+      </if>
+      <if test="rightAnswer != null" >
+        right_answer = #{rightAnswer},
+      </if>
+      <if test="answer != null" >
+        answer = #{answer},
+      </if>
+      <if test="errorTime != null" >
+        error_time = #{errorTime},
+      </if>
+      <if test="rightTime != null" >
+        right_time = #{rightTime},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sida.dcloud.training.po.ErrorNote" >
+    update error_note
+    set org_id = #{orgId},
+      delete_flag = #{deleteFlag},
+      red_string1 = #{redString1},
+      red_string2 = #{redString2},
+      red_string3 = #{redString3},
+      red_string4 = #{redString4},
+      red_string5 = #{redString5},
+      red_string6 = #{redString6},
+      user_id = #{userId},
+      exercise_id = #{exerciseId},
+      right_answer = #{rightAnswer},
+      answer = #{answer},
+      error_time = #{errorTime},
+      right_time = #{rightTime},
+      remark = #{remark}
+    where id = #{id}
+  </update>
+  <sql id="Where_Condition" >
+    <where >
+      delete_flag = 0
+      <if test="orgId != null and orgId != ''" >
+        and org_id = #{orgId}
+      </if>
+      <if test="deleteFlag != null" >
+        AND delete_flag = #{deleteFlag}
+      </if>
+      <if test="redString1 != null and redString1 != ''" >
+        AND red_string1 = #{redString1}
+      </if>
+      <if test="redString2 != null and redString2 != ''" >
+        AND red_string2 = #{redString2}
+      </if>
+      <if test="redString3 != null and redString3 != ''" >
+        AND red_string3 = #{redString3}
+      </if>
+      <if test="redString4 != null and redString4 != ''" >
+        AND red_string4 = #{redString4}
+      </if>
+      <if test="redString5 != null and redString5 != ''" >
+        AND red_string5 = #{redString5}
+      </if>
+      <if test="redString6 != null and redString6 != ''" >
+        AND red_string6 = #{redString6}
+      </if>
+      <if test="userId != null and userId != ''" >
+        AND user_id = #{userId}
+      </if>
+      <if test="exerciseId != null and exerciseId != ''" >
+        AND exercise_id = #{exerciseId}
+      </if>
+      <if test="rightAnswer != null and rightAnswer != ''" >
+        AND right_answer = #{rightAnswer}
+      </if>
+      <if test="answer != null and answer != ''" >
+        AND answer = #{answer}
+      </if>
+      <if test="errorTime != null" >
+        AND error_time = #{errorTime}
+      </if>
+      <if test="rightTime != null" >
+        AND right_time = #{rightTime}
+      </if>
+      <if test="remark != null and remark != ''" >
+        AND remark = #{remark}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.training.po.ErrorNote" resultMap="ErrorNoteResultMap" >
+    select 
+    <include refid="ErrorNote_Column_List" />
+    from error_note
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update error_note
+    <set >
+      <if test="po.orgId != null" >
+        org_id = #{po.orgId},
+      </if>
+      <if test="po.deleteFlag != null" >
+        delete_flag = #{po.deleteFlag},
+      </if>
+      <if test="po.redString1 != null" >
+        red_string1 = #{po.redString1},
+      </if>
+      <if test="po.redString2 != null" >
+        red_string2 = #{po.redString2},
+      </if>
+      <if test="po.redString3 != null" >
+        red_string3 = #{po.redString3},
+      </if>
+      <if test="po.redString4 != null" >
+        red_string4 = #{po.redString4},
+      </if>
+      <if test="po.redString5 != null" >
+        red_string5 = #{po.redString5},
+      </if>
+      <if test="po.redString6 != null" >
+        red_string6 = #{po.redString6},
+      </if>
+      <if test="po.userId != null" >
+        user_id = #{po.userId},
+      </if>
+      <if test="po.exerciseId != null" >
+        exercise_id = #{po.exerciseId},
+      </if>
+      <if test="po.rightAnswer != null" >
+        right_answer = #{po.rightAnswer},
+      </if>
+      <if test="po.answer != null" >
+        answer = #{po.answer},
+      </if>
+      <if test="po.errorTime != null" >
+        error_time = #{po.errorTime},
+      </if>
+      <if test="po.rightTime != null" >
+        right_time = #{po.rightTime},
+      </if>
+      <if test="po.remark != null" >
+        remark = #{po.remark},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <!-- -->
+  <select id="selectByPrimaryKey" resultMap="ErrorNoteResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="ErrorNote_Column_List" />
+    from error_note
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    update error_note set delete_flag = 1
+    where id = #{id}
+  </delete>
+  <delete id="physicalDeleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from error_note
+    where id = #{id}
+  </delete>
+  <delete id="deleteByPrimaryKeys" parameterType="java.lang.String" >
+    update error_note set delete_flag = 1
+    where id in (${id})
+  </delete>
+  <delete id="physicalDeleteByPrimaryKeys" parameterType="java.lang.String" >
+    delete from error_note
+    where id in (${id})
+  </delete>
+  <delete id="deleteByExerciseIdAndUserId" parameterType="com.sida.dcloud.training.po.ErrorNote" >
+    update error_note set delete_flag = 1
+    where exercise_id = #{po.exerciseId} and user_id = #{po.userId}
+  </delete>
+  <delete id="physicalDeleteByExerciseIdAndUserId" parameterType="com.sida.dcloud.training.po.ErrorNote" >
+    delete from error_note
+    where delete_flag = 1 and exercise_id = #{po.exerciseId} and user_id = #{po.userId}
+  </delete>
+  
+  <select id="selectByUserWithCorrected" parameterType="com.sida.dcloud.training.po.ErrorNote" resultMap="ErrorNoteResultMap">
+    select
+    <include refid="ErrorNote_Column_List" />
+    from error_note
+    <where>
+      delete_flag = 0
+      <!-- 返回所有数据，前端判断根据用户设置判断是否显示
+      <if test="po.isCorrected != true">
+        and (right_time is null || right_time = '')
+      </if>
+      -->
+      and user_id = #{po.userId}
+    </where>
+    order by error_time desc
+  </select>
+  
+  <update id="updateMaybeCorrect" parameterType="com.sida.dcloud.training.po.ErrorNote">
+    update error_note set
+      right_time = case when right_answer = #{po.answer} then #{po.rightTime} else null end,
+      error_time = case when right_answer = #{po.answer} then error_time else #{po.rightTime} end,
+      answer=#{po.answer}
+    where id = #{po.id}
+  </update>
+</mapper>

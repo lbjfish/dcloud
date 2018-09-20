@@ -1,0 +1,7 @@
+*.log
+*.temp
+*.iml
+/target/
+.idea/
+/bin/
+cover

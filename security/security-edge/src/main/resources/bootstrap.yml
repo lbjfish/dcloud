@@ -1,0 +1,44 @@
+spring:
+  profiles:
+    active: default
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: @config-service@
+      name: chelizi
+      profile: @profile.name@
+  http:
+    multipart:
+      max-request-size: 300MB
+      max-file-size: 300MB
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+      circuitBreaker:
+        enabled: false
+
+eureka:
+ instance:
+#    nonSecurePort: 8181
+    lease-renewal-interval-in-seconds: @lease-renewal-interval-in-seconds@
+    lease-expiration-duration-in-seconds: @lease-expiration-duration-in-seconds@ # Server注册中心端默认多少秒没有收到client端心跳就认为client失效了，失效后会将对应client从注册中心移除（默认90秒）
+    status-page-url-path: /info
+    health-check-url-path: /health
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ipAddress}:${service.security.edge.port}
+    ip-address: ${spring.cloud.client.ipAddress}
+    status-page-url: http://${spring.cloud.client.ipAddress}:${service.security.edge.port}/swagger-ui.html
+ client:
+    register-with-eureka: true
+    fetch-registry: true
+    registry-fetch-interval-seconds: 5 # 默认为30秒
+    serviceUrl:
+      defaultZone: @default-zone@
+
+provider:
+  system-module: @system-module@

@@ -1,0 +1,1808 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.system.dao.SysEmployeeMapper" >
+  <resultMap id="SysEmployeeResultMap" type="com.sida.dcloud.auth.po.SysEmployee" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <id column="id_path" property="idPath" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="last_updated" property="lastUpdated" jdbcType="TIMESTAMP" />
+    <result column="created_user" property="createdUser" jdbcType="VARCHAR" />
+    <result column="updated_user" property="updatedUser" jdbcType="VARCHAR" />
+    <result column="disable" property="disable" jdbcType="BIT" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
+    <result column="third_party_id" property="thirdPartyId" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="idcard_number" property="idcardNumber" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="nation" property="nation" jdbcType="VARCHAR" />
+    <result column="photo" property="photo" jdbcType="VARCHAR" />
+    <result column="idcard_address_province" property="idcardAddressProvince" jdbcType="VARCHAR" />
+    <result column="idcard_address_city" property="idcardAddressCity" jdbcType="VARCHAR" />
+    <result column="idcard_address_area" property="idcardAddressArea" jdbcType="VARCHAR" />
+    <result column="idcard_address_detail" property="idcardAddressDetail" jdbcType="VARCHAR" />
+    <result column="idcard_iIssuing_authority" property="idcardIissuingAuthority" jdbcType="VARCHAR" />
+    <result column="idcard_valid_date" property="idcardValidDate" jdbcType="TIMESTAMP" />
+    <result column="idcard_invalid_date" property="idcardInvalidDate" jdbcType="TIMESTAMP" />
+    <result column="residence_permit_issuing_date" property="residencePermitIssuingDate" jdbcType="TIMESTAMP" />
+    <result column="residence_permit_expiration_date" property="residencePermitExpirationDate" jdbcType="TIMESTAMP" />
+    <result column="identity_card_expiration_date" property="identityCardExpirationDate" jdbcType="TIMESTAMP" />
+    <result column="residence_permit_address_province" property="residencePermitAddressProvince" jdbcType="VARCHAR" />
+    <result column="residence_permit_address_city" property="residencePermitAddressCity" jdbcType="VARCHAR" />
+    <result column="residence_permit_address_area" property="residencePermitAddressArea" jdbcType="VARCHAR" />
+    <result column="residence_permit_address_detail" property="residencePermitAddressDetail" jdbcType="VARCHAR" />
+    <result column="now_address_province" property="nowAddressProvince" jdbcType="VARCHAR" />
+    <result column="now_address_city" property="nowAddressCity" jdbcType="VARCHAR" />
+    <result column="now_address_area" property="nowAddressArea" jdbcType="VARCHAR" />
+    <result column="now_address_detail" property="nowAddressDetail" jdbcType="VARCHAR" />
+    <result column="place_of_origin_province" property="placeOfOriginProvince" jdbcType="VARCHAR" />
+    <result column="place_of_origin_city" property="placeOfOriginCity" jdbcType="VARCHAR" />
+    <result column="place_of_origin_area" property="placeOfOriginArea" jdbcType="VARCHAR" />
+    <result column="place_of_birth" property="placeOfBirth" jdbcType="VARCHAR" />
+    <result column="work_card" property="workCard" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="health_condition" property="healthCondition" jdbcType="VARCHAR" />
+    <result column="hobby" property="hobby" jdbcType="VARCHAR" />
+    <result column="height" property="height" jdbcType="VARCHAR" />
+    <result column="blood_type" property="bloodType" jdbcType="VARCHAR" />
+    <result column="political_status" property="politicalStatus" jdbcType="VARCHAR" />
+    <result column="graduation_start_date" property="graduationStartDate" jdbcType="TIMESTAMP" />
+    <result column="graduation_end_date" property="graduationEndDate" jdbcType="TIMESTAMP" />
+    <result column="graduated_school" property="graduatedSchool" jdbcType="VARCHAR" />
+    <result column="education" property="education" jdbcType="VARCHAR" />
+    <result column="subject" property="subject" jdbcType="VARCHAR" />
+    <result column="academic_type" property="academicType" jdbcType="VARCHAR" />
+    <result column="job_title" property="jobTitle" jdbcType="VARCHAR" />
+    <result column="title_full_name" property="titleFullName" jdbcType="VARCHAR" />
+    <result column="start_word_date" property="startWordDate" jdbcType="TIMESTAMP" />
+    <result column="registration_date" property="registrationDate" jdbcType="TIMESTAMP" />
+    <result column="driver_license_no" property="driverLicenseNo" jdbcType="VARCHAR" />
+    <result column="driver_license_receive_date" property="driverLicenseReceiveDate" jdbcType="TIMESTAMP" />
+    <result column="driver_license_start_date" property="driverLicenseStartDate" jdbcType="TIMESTAMP" />
+    <result column="driver_license_end_date" property="driverLicenseEndDate" jdbcType="TIMESTAMP" />
+    <result column="driver_license_expiration_date" property="driverLicenseExpirationDate" jdbcType="TIMESTAMP" />
+    <result column="driver_license_iIssuing_authority" property="driverLicenseIissuingAuthority" jdbcType="VARCHAR" />
+    <result column="coach_card_receive_date" property="coachCardReceiveDate" jdbcType="TIMESTAMP" />
+    <result column="coach_card_expiration_date" property="coachCardExpirationDate" jdbcType="TIMESTAMP" />
+    <result column="coach_card_iIssuing_authority" property="coachCardIissuingAuthority" jdbcType="VARCHAR" />
+    <result column="quasi_driving_type" property="quasiDrivingType" jdbcType="VARCHAR" />
+    <result column="coach_card_no" property="coachCardNo" jdbcType="VARCHAR" />
+    <result column="coach_card_quasi_teaching_category" property="coachCardQuasiTeachingCategory" jdbcType="VARCHAR" />
+    <result column="quasi_teaching_type" property="quasiTeachingType" jdbcType="VARCHAR" />
+    <result column="risk_deposit" property="riskDeposit" jdbcType="DECIMAL" />
+    <result column="risk_deposit_expiration_date" property="riskDepositExpirationDate" jdbcType="TIMESTAMP" />
+    <result column="emergency_contact" property="emergencyContact" jdbcType="VARCHAR" />
+    <result column="relationship" property="relationship" jdbcType="VARCHAR" />
+    <result column="contact_phone" property="contactPhone" jdbcType="VARCHAR" />
+    <result column="marital_status" property="maritalStatus" jdbcType="INTEGER" />
+    <result column="marriage_registration_date" property="marriageRegistrationDate" jdbcType="TIMESTAMP" />
+    <result column="spouse_name" property="spouseName" jdbcType="VARCHAR" />
+    <result column="spouse_identity_card" property="spouseIdentityCard" jdbcType="VARCHAR" />
+    <result column="spouse_work_company" property="spouseWorkCompany" jdbcType="VARCHAR" />
+    <result column="spouse_duties" property="spouseDuties" jdbcType="VARCHAR" />
+    <result column="spouse_education" property="spouseEducation" jdbcType="VARCHAR" />
+    <result column="spouse_phone" property="spousePhone" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="service_mode" property="serviceMode" jdbcType="INTEGER" />
+    <result column="emp_type" property="empType" jdbcType="VARCHAR"/>
+  </resultMap>
+
+  <!--员工管理列表视图信息-->
+  <resultMap id="SysEmployeeDtoList" type="com.sida.dcloud.auth.vo.EmployeeListDTO">
+    <id column="id" property="empId" jdbcType="VARCHAR" />
+    <result column="work_card" property="workCard" jdbcType="VARCHAR" />
+    <result column="emp_name" property="empName" jdbcType="VARCHAR"/>
+    <result column="emp_org" property="empOrg" jdbcType="VARCHAR"/>
+    <result column="emp_pos" property="empPos" jdbcType="VARCHAR"/>
+    <result column="sex" property="sex" jdbcType="INTEGER"/>
+    <result column="idcard_number" property="idCardNumber" jdbcType="VARCHAR"/>
+  </resultMap>
+
+  <resultMap id="SysEmployeeAreaList" type="com.sida.dcloud.auth.vo.EmployeeAreaDto">
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR"/>
+    <result column="phone" property="phone" jdbcType="VARCHAR"/>
+    <result column="id_path" property="idPath" jdbcType="VARCHAR"/>
+    <result column="position_name" property="positionName" jdbcType="VARCHAR"/>
+  </resultMap>
+
+  <sql id="SysEmployee_Column_List" >
+    id, org_id, created_at, last_updated, created_user, updated_user, disable, delete_flag, 
+    third_party_id, name, idcard_number, birthday, sex, nation, photo, idcard_address_province, 
+    idcard_address_city, idcard_address_area, idcard_address_detail, idcard_iIssuing_authority, 
+    idcard_valid_date, idcard_invalid_date, residence_permit_issuing_date, residence_permit_expiration_date, 
+    identity_card_expiration_date, residence_permit_address_province, residence_permit_address_city, 
+    residence_permit_address_area, residence_permit_address_detail, now_address_province, 
+    now_address_city, now_address_area, now_address_detail, place_of_origin_province, 
+    place_of_origin_city, place_of_origin_area, place_of_birth, work_card, phone, mobile, 
+    health_condition, hobby, height, blood_type, political_status, graduation_start_date, 
+    graduation_end_date, graduated_school, education, subject, academic_type, job_title, 
+    title_full_name, start_word_date, registration_date, driver_license_no, driver_license_receive_date, 
+    driver_license_start_date, driver_license_end_date, driver_license_expiration_date, 
+    driver_license_iIssuing_authority, coach_card_receive_date, coach_card_expiration_date, 
+    coach_card_iIssuing_authority, quasi_driving_type, coach_card_no, coach_card_quasi_teaching_category, 
+    quasi_teaching_type, risk_deposit, risk_deposit_expiration_date, emergency_contact, 
+    relationship, contact_phone, marital_status, marriage_registration_date, spouse_name, 
+    spouse_identity_card, spouse_work_company, spouse_duties, spouse_education, spouse_phone, 
+    status,service_mode,emp_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="SysEmployeeResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="SysEmployee_Column_List" />
+    from sys_employee
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_employee
+    where id = #{id}
+  </delete>
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.sida.dcloud.auth.po.SysEmployee" >
+    insert into sys_employee (id, org_id, created_at, last_updated, created_user, updated_user, 
+      disable, delete_flag, third_party_id, name, idcard_number, birthday, 
+      sex, nation, photo, idcard_address_province, idcard_address_city, idcard_address_area, 
+      idcard_address_detail, idcard_iIssuing_authority, idcard_valid_date, idcard_invalid_date, 
+      residence_permit_issuing_date, residence_permit_expiration_date, identity_card_expiration_date, 
+      residence_permit_address_province, residence_permit_address_city, residence_permit_address_area, 
+      residence_permit_address_detail, now_address_province, now_address_city, now_address_area, 
+      now_address_detail, place_of_origin_province, place_of_origin_city, place_of_origin_area, 
+      place_of_birth, work_card, phone, mobile, health_condition, hobby, 
+      height, blood_type, political_status, graduation_start_date, graduation_end_date, 
+      graduated_school, education, subject, academic_type, job_title, title_full_name, 
+      start_word_date, registration_date, driver_license_no, driver_license_receive_date, 
+      driver_license_start_date, driver_license_end_date, driver_license_expiration_date, 
+      driver_license_iIssuing_authority, coach_card_receive_date, coach_card_expiration_date, 
+      coach_card_iIssuing_authority, quasi_driving_type, coach_card_no, coach_card_quasi_teaching_category, 
+      quasi_teaching_type, risk_deposit, risk_deposit_expiration_date, emergency_contact, 
+      relationship, contact_phone, marital_status, marriage_registration_date, 
+      spouse_name, spouse_identity_card, spouse_work_company, spouse_duties, spouse_education, 
+      spouse_phone, status,service_mode)
+    values (#{id}, #{orgId}, #{createdAt}, #{lastUpdated}, #{createdUser}, #{updatedUser}, 
+      #{disable}, #{deleteFlag}, #{thirdPartyId}, #{name}, #{idcardNumber}, #{birthday}, 
+      #{sex}, #{nation}, #{photo}, #{idcardAddressProvince}, #{idcardAddressCity}, #{idcardAddressArea}, 
+      #{idcardAddressDetail}, #{idcardIissuingAuthority}, #{idcardValidDate}, #{idcardInvalidDate}, 
+      #{residencePermitIssuingDate}, #{residencePermitExpirationDate}, #{identityCardExpirationDate}, 
+      #{residencePermitAddressProvince}, #{residencePermitAddressCity}, #{residencePermitAddressArea}, 
+      #{residencePermitAddressDetail}, #{nowAddressProvince}, #{nowAddressCity}, #{nowAddressArea}, 
+      #{nowAddressDetail}, #{placeOfOriginProvince}, #{placeOfOriginCity}, #{placeOfOriginArea}, 
+      #{placeOfBirth}, #{workCard}, #{phone}, #{mobile}, #{healthCondition}, #{hobby}, 
+      #{height}, #{bloodType}, #{politicalStatus}, #{graduationStartDate}, #{graduationEndDate}, 
+      #{graduatedSchool}, #{education}, #{subject}, #{academicType}, #{jobTitle}, #{titleFullName}, 
+      #{startWordDate}, #{registrationDate}, #{driverLicenseNo}, #{driverLicenseReceiveDate}, 
+      #{driverLicenseStartDate}, #{driverLicenseEndDate}, #{driverLicenseExpirationDate}, 
+      #{driverLicenseIissuingAuthority}, #{coachCardReceiveDate}, #{coachCardExpirationDate}, 
+      #{coachCardIissuingAuthority}, #{quasiDrivingType}, #{coachCardNo}, #{coachCardQuasiTeachingCategory}, 
+      #{quasiTeachingType}, #{riskDeposit}, #{riskDepositExpirationDate}, #{emergencyContact}, 
+      #{relationship}, #{contactPhone}, #{maritalStatus}, #{marriageRegistrationDate}, 
+      #{spouseName}, #{spouseIdentityCard}, #{spouseWorkCompany}, #{spouseDuties}, #{spouseEducation}, 
+      #{spousePhone}, #{status},#{serviceMode})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.auth.po.SysEmployee" >
+    insert into sys_employee
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="lastUpdated != null" >
+        last_updated,
+      </if>
+      <if test="createdUser != null" >
+        created_user,
+      </if>
+      <if test="updatedUser != null" >
+        updated_user,
+      </if>
+      <if test="disable != null" >
+        disable,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="thirdPartyId != null" >
+        third_party_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="idcardNumber != null" >
+        idcard_number,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="nation != null" >
+        nation,
+      </if>
+      <if test="photo != null" >
+        photo,
+      </if>
+      <if test="idcardAddressProvince != null" >
+        idcard_address_province,
+      </if>
+      <if test="idcardAddressCity != null" >
+        idcard_address_city,
+      </if>
+      <if test="idcardAddressArea != null" >
+        idcard_address_area,
+      </if>
+      <if test="idcardAddressDetail != null" >
+        idcard_address_detail,
+      </if>
+      <if test="idcardIissuingAuthority != null" >
+        idcard_iIssuing_authority,
+      </if>
+      <if test="idcardValidDate != null" >
+        idcard_valid_date,
+      </if>
+      <if test="idcardInvalidDate != null" >
+        idcard_invalid_date,
+      </if>
+      <if test="residencePermitIssuingDate != null" >
+        residence_permit_issuing_date,
+      </if>
+      <if test="residencePermitExpirationDate != null" >
+        residence_permit_expiration_date,
+      </if>
+      <if test="identityCardExpirationDate != null" >
+        identity_card_expiration_date,
+      </if>
+      <if test="residencePermitAddressProvince != null" >
+        residence_permit_address_province,
+      </if>
+      <if test="residencePermitAddressCity != null" >
+        residence_permit_address_city,
+      </if>
+      <if test="residencePermitAddressArea != null" >
+        residence_permit_address_area,
+      </if>
+      <if test="residencePermitAddressDetail != null" >
+        residence_permit_address_detail,
+      </if>
+      <if test="nowAddressProvince != null" >
+        now_address_province,
+      </if>
+      <if test="nowAddressCity != null" >
+        now_address_city,
+      </if>
+      <if test="nowAddressArea != null" >
+        now_address_area,
+      </if>
+      <if test="nowAddressDetail != null" >
+        now_address_detail,
+      </if>
+      <if test="placeOfOriginProvince != null" >
+        place_of_origin_province,
+      </if>
+      <if test="placeOfOriginCity != null" >
+        place_of_origin_city,
+      </if>
+      <if test="placeOfOriginArea != null" >
+        place_of_origin_area,
+      </if>
+      <if test="placeOfBirth != null" >
+        place_of_birth,
+      </if>
+      <if test="workCard != null" >
+        work_card,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="healthCondition != null" >
+        health_condition,
+      </if>
+      <if test="hobby != null" >
+        hobby,
+      </if>
+      <if test="height != null" >
+        height,
+      </if>
+      <if test="bloodType != null" >
+        blood_type,
+      </if>
+      <if test="politicalStatus != null" >
+        political_status,
+      </if>
+      <if test="graduationStartDate != null" >
+        graduation_start_date,
+      </if>
+      <if test="graduationEndDate != null" >
+        graduation_end_date,
+      </if>
+      <if test="graduatedSchool != null" >
+        graduated_school,
+      </if>
+      <if test="education != null" >
+        education,
+      </if>
+      <if test="subject != null" >
+        subject,
+      </if>
+      <if test="academicType != null" >
+        academic_type,
+      </if>
+      <if test="jobTitle != null" >
+        job_title,
+      </if>
+      <if test="titleFullName != null" >
+        title_full_name,
+      </if>
+      <if test="startWordDate != null" >
+        start_word_date,
+      </if>
+      <if test="registrationDate != null" >
+        registration_date,
+      </if>
+      <if test="driverLicenseNo != null" >
+        driver_license_no,
+      </if>
+      <if test="driverLicenseReceiveDate != null" >
+        driver_license_receive_date,
+      </if>
+      <if test="driverLicenseStartDate != null" >
+        driver_license_start_date,
+      </if>
+      <if test="driverLicenseEndDate != null" >
+        driver_license_end_date,
+      </if>
+      <if test="driverLicenseExpirationDate != null" >
+        driver_license_expiration_date,
+      </if>
+      <if test="driverLicenseIissuingAuthority != null" >
+        driver_license_iIssuing_authority,
+      </if>
+      <if test="coachCardReceiveDate != null" >
+        coach_card_receive_date,
+      </if>
+      <if test="coachCardExpirationDate != null" >
+        coach_card_expiration_date,
+      </if>
+      <if test="coachCardIissuingAuthority != null" >
+        coach_card_iIssuing_authority,
+      </if>
+      <if test="quasiDrivingType != null" >
+        quasi_driving_type,
+      </if>
+      <if test="coachCardNo != null" >
+        coach_card_no,
+      </if>
+      <if test="coachCardQuasiTeachingCategory != null" >
+        coach_card_quasi_teaching_category,
+      </if>
+      <if test="quasiTeachingType != null" >
+        quasi_teaching_type,
+      </if>
+      <if test="riskDeposit != null" >
+        risk_deposit,
+      </if>
+      <if test="riskDepositExpirationDate != null" >
+        risk_deposit_expiration_date,
+      </if>
+      <if test="emergencyContact != null" >
+        emergency_contact,
+      </if>
+      <if test="relationship != null" >
+        relationship,
+      </if>
+      <if test="contactPhone != null" >
+        contact_phone,
+      </if>
+      <if test="maritalStatus != null" >
+        marital_status,
+      </if>
+      <if test="marriageRegistrationDate != null" >
+        marriage_registration_date,
+      </if>
+      <if test="spouseName != null" >
+        spouse_name,
+      </if>
+      <if test="spouseIdentityCard != null" >
+        spouse_identity_card,
+      </if>
+      <if test="spouseWorkCompany != null" >
+        spouse_work_company,
+      </if>
+      <if test="spouseDuties != null" >
+        spouse_duties,
+      </if>
+      <if test="spouseEducation != null" >
+        spouse_education,
+      </if>
+      <if test="spousePhone != null" >
+        spouse_phone,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="serviceMode != null" >
+        service_mode,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="orgId != null" >
+        #{orgId},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="lastUpdated != null" >
+        #{lastUpdated},
+      </if>
+      <if test="createdUser != null" >
+        #{createdUser},
+      </if>
+      <if test="updatedUser != null" >
+        #{updatedUser},
+      </if>
+      <if test="disable != null" >
+        #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag},
+      </if>
+      <if test="thirdPartyId != null" >
+        #{thirdPartyId},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="idcardNumber != null" >
+        #{idcardNumber},
+      </if>
+      <if test="birthday != null" >
+        #{birthday},
+      </if>
+      <if test="sex != null" >
+        #{sex},
+      </if>
+      <if test="nation != null" >
+        #{nation},
+      </if>
+      <if test="photo != null" >
+        #{photo},
+      </if>
+      <if test="idcardAddressProvince != null" >
+        #{idcardAddressProvince},
+      </if>
+      <if test="idcardAddressCity != null" >
+        #{idcardAddressCity},
+      </if>
+      <if test="idcardAddressArea != null" >
+        #{idcardAddressArea},
+      </if>
+      <if test="idcardAddressDetail != null" >
+        #{idcardAddressDetail},
+      </if>
+      <if test="idcardIissuingAuthority != null" >
+        #{idcardIissuingAuthority},
+      </if>
+      <if test="idcardValidDate != null" >
+        #{idcardValidDate},
+      </if>
+      <if test="idcardInvalidDate != null" >
+        #{idcardInvalidDate},
+      </if>
+      <if test="residencePermitIssuingDate != null" >
+        #{residencePermitIssuingDate},
+      </if>
+      <if test="residencePermitExpirationDate != null" >
+        #{residencePermitExpirationDate},
+      </if>
+      <if test="identityCardExpirationDate != null" >
+        #{identityCardExpirationDate},
+      </if>
+      <if test="residencePermitAddressProvince != null" >
+        #{residencePermitAddressProvince},
+      </if>
+      <if test="residencePermitAddressCity != null" >
+        #{residencePermitAddressCity},
+      </if>
+      <if test="residencePermitAddressArea != null" >
+        #{residencePermitAddressArea},
+      </if>
+      <if test="residencePermitAddressDetail != null" >
+        #{residencePermitAddressDetail},
+      </if>
+      <if test="nowAddressProvince != null" >
+        #{nowAddressProvince},
+      </if>
+      <if test="nowAddressCity != null" >
+        #{nowAddressCity},
+      </if>
+      <if test="nowAddressArea != null" >
+        #{nowAddressArea},
+      </if>
+      <if test="nowAddressDetail != null" >
+        #{nowAddressDetail},
+      </if>
+      <if test="placeOfOriginProvince != null" >
+        #{placeOfOriginProvince},
+      </if>
+      <if test="placeOfOriginCity != null" >
+        #{placeOfOriginCity},
+      </if>
+      <if test="placeOfOriginArea != null" >
+        #{placeOfOriginArea},
+      </if>
+      <if test="placeOfBirth != null" >
+        #{placeOfBirth},
+      </if>
+      <if test="workCard != null" >
+        #{workCard},
+      </if>
+      <if test="phone != null" >
+        #{phone},
+      </if>
+      <if test="mobile != null" >
+        #{mobile},
+      </if>
+      <if test="healthCondition != null" >
+        #{healthCondition},
+      </if>
+      <if test="hobby != null" >
+        #{hobby},
+      </if>
+      <if test="height != null" >
+        #{height},
+      </if>
+      <if test="bloodType != null" >
+        #{bloodType},
+      </if>
+      <if test="politicalStatus != null" >
+        #{politicalStatus},
+      </if>
+      <if test="graduationStartDate != null" >
+        #{graduationStartDate},
+      </if>
+      <if test="graduationEndDate != null" >
+        #{graduationEndDate},
+      </if>
+      <if test="graduatedSchool != null" >
+        #{graduatedSchool},
+      </if>
+      <if test="education != null" >
+        #{education},
+      </if>
+      <if test="subject != null" >
+        #{subject},
+      </if>
+      <if test="academicType != null" >
+        #{academicType},
+      </if>
+      <if test="jobTitle != null" >
+        #{jobTitle},
+      </if>
+      <if test="titleFullName != null" >
+        #{titleFullName},
+      </if>
+      <if test="startWordDate != null" >
+        #{startWordDate},
+      </if>
+      <if test="registrationDate != null" >
+        #{registrationDate},
+      </if>
+      <if test="driverLicenseNo != null" >
+        #{driverLicenseNo},
+      </if>
+      <if test="driverLicenseReceiveDate != null" >
+        #{driverLicenseReceiveDate},
+      </if>
+      <if test="driverLicenseStartDate != null" >
+        #{driverLicenseStartDate},
+      </if>
+      <if test="driverLicenseEndDate != null" >
+        #{driverLicenseEndDate},
+      </if>
+      <if test="driverLicenseExpirationDate != null" >
+        #{driverLicenseExpirationDate},
+      </if>
+      <if test="driverLicenseIissuingAuthority != null" >
+        #{driverLicenseIissuingAuthority},
+      </if>
+      <if test="coachCardReceiveDate != null" >
+        #{coachCardReceiveDate},
+      </if>
+      <if test="coachCardExpirationDate != null" >
+        #{coachCardExpirationDate},
+      </if>
+      <if test="coachCardIissuingAuthority != null" >
+        #{coachCardIissuingAuthority},
+      </if>
+      <if test="quasiDrivingType != null" >
+        #{quasiDrivingType},
+      </if>
+      <if test="coachCardNo != null" >
+        #{coachCardNo},
+      </if>
+      <if test="coachCardQuasiTeachingCategory != null" >
+        #{coachCardQuasiTeachingCategory},
+      </if>
+      <if test="quasiTeachingType != null" >
+        #{quasiTeachingType},
+      </if>
+      <if test="riskDeposit != null" >
+        #{riskDeposit},
+      </if>
+      <if test="riskDepositExpirationDate != null" >
+        #{riskDepositExpirationDate},
+      </if>
+      <if test="emergencyContact != null" >
+        #{emergencyContact},
+      </if>
+      <if test="relationship != null" >
+        #{relationship},
+      </if>
+      <if test="contactPhone != null" >
+        #{contactPhone},
+      </if>
+      <if test="maritalStatus != null" >
+        #{maritalStatus},
+      </if>
+      <if test="marriageRegistrationDate != null" >
+        #{marriageRegistrationDate},
+      </if>
+      <if test="spouseName != null" >
+        #{spouseName},
+      </if>
+      <if test="spouseIdentityCard != null" >
+        #{spouseIdentityCard},
+      </if>
+      <if test="spouseWorkCompany != null" >
+        #{spouseWorkCompany},
+      </if>
+      <if test="spouseDuties != null" >
+        #{spouseDuties},
+      </if>
+      <if test="spouseEducation != null" >
+        #{spouseEducation},
+      </if>
+      <if test="spousePhone != null" >
+        #{spousePhone},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="serviceMode != null" >
+        #{serviceMode},
+      </if>
+      <if test="empType != null" >
+        #{empType},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sida.dcloud.auth.po.SysEmployee" >
+    update sys_employee
+    <set >
+      <if test="orgId != null" >
+        org_id = #{orgId},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt},
+      </if>
+      <if test="lastUpdated != null" >
+        last_updated = #{lastUpdated},
+      </if>
+      <if test="createdUser != null" >
+        created_user = #{createdUser},
+      </if>
+      <if test="updatedUser != null" >
+        updated_user = #{updatedUser},
+      </if>
+      <if test="disable != null" >
+        disable = #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag = #{deleteFlag},
+      </if>
+      <if test="thirdPartyId != null" >
+        third_party_id = #{thirdPartyId},
+      </if>
+      <if test="name != null" >
+        name = #{name},
+      </if>
+      <if test="idcardNumber != null" >
+        idcard_number = #{idcardNumber},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex},
+      </if>
+      <if test="nation != null" >
+        nation = #{nation},
+      </if>
+      <if test="photo != null" >
+        photo = #{photo},
+      </if>
+      <if test="idcardAddressProvince != null" >
+        idcard_address_province = #{idcardAddressProvince},
+      </if>
+      <if test="idcardAddressCity != null" >
+        idcard_address_city = #{idcardAddressCity},
+      </if>
+      <if test="idcardAddressArea != null" >
+        idcard_address_area = #{idcardAddressArea},
+      </if>
+      <if test="idcardAddressDetail != null" >
+        idcard_address_detail = #{idcardAddressDetail},
+      </if>
+      <if test="idcardIissuingAuthority != null" >
+        idcard_iIssuing_authority = #{idcardIissuingAuthority},
+      </if>
+      <if test="idcardValidDate != null" >
+        idcard_valid_date = #{idcardValidDate},
+      </if>
+      <if test="idcardInvalidDate != null" >
+        idcard_invalid_date = #{idcardInvalidDate},
+      </if>
+      <if test="residencePermitIssuingDate != null" >
+        residence_permit_issuing_date = #{residencePermitIssuingDate},
+      </if>
+      <if test="residencePermitExpirationDate != null" >
+        residence_permit_expiration_date = #{residencePermitExpirationDate},
+      </if>
+      <if test="identityCardExpirationDate != null" >
+        identity_card_expiration_date = #{identityCardExpirationDate},
+      </if>
+      <if test="residencePermitAddressProvince != null" >
+        residence_permit_address_province = #{residencePermitAddressProvince},
+      </if>
+      <if test="residencePermitAddressCity != null" >
+        residence_permit_address_city = #{residencePermitAddressCity},
+      </if>
+      <if test="residencePermitAddressArea != null" >
+        residence_permit_address_area = #{residencePermitAddressArea},
+      </if>
+      <if test="residencePermitAddressDetail != null" >
+        residence_permit_address_detail = #{residencePermitAddressDetail},
+      </if>
+      <if test="nowAddressProvince != null" >
+        now_address_province = #{nowAddressProvince},
+      </if>
+      <if test="nowAddressCity != null" >
+        now_address_city = #{nowAddressCity},
+      </if>
+      <if test="nowAddressArea != null" >
+        now_address_area = #{nowAddressArea},
+      </if>
+      <if test="nowAddressDetail != null" >
+        now_address_detail = #{nowAddressDetail},
+      </if>
+      <if test="placeOfOriginProvince != null" >
+        place_of_origin_province = #{placeOfOriginProvince},
+      </if>
+      <if test="placeOfOriginCity != null" >
+        place_of_origin_city = #{placeOfOriginCity},
+      </if>
+      <if test="placeOfOriginArea != null" >
+        place_of_origin_area = #{placeOfOriginArea},
+      </if>
+      <if test="placeOfBirth != null" >
+        place_of_birth = #{placeOfBirth},
+      </if>
+      <if test="workCard != null" >
+        work_card = #{workCard},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile},
+      </if>
+      <if test="healthCondition != null" >
+        health_condition = #{healthCondition},
+      </if>
+      <if test="hobby != null" >
+        hobby = #{hobby},
+      </if>
+      <if test="height != null" >
+        height = #{height},
+      </if>
+      <if test="bloodType != null" >
+        blood_type = #{bloodType},
+      </if>
+      <if test="politicalStatus != null" >
+        political_status = #{politicalStatus},
+      </if>
+      <if test="graduationStartDate != null" >
+        graduation_start_date = #{graduationStartDate},
+      </if>
+      <if test="graduationEndDate != null" >
+        graduation_end_date = #{graduationEndDate},
+      </if>
+      <if test="graduatedSchool != null" >
+        graduated_school = #{graduatedSchool},
+      </if>
+      <if test="education != null" >
+        education = #{education},
+      </if>
+      <if test="subject != null" >
+        subject = #{subject},
+      </if>
+      <if test="academicType != null" >
+        academic_type = #{academicType},
+      </if>
+      <if test="jobTitle != null" >
+        job_title = #{jobTitle},
+      </if>
+      <if test="titleFullName != null" >
+        title_full_name = #{titleFullName},
+      </if>
+      <if test="startWordDate != null" >
+        start_word_date = #{startWordDate},
+      </if>
+      <if test="registrationDate != null" >
+        registration_date = #{registrationDate},
+      </if>
+      <if test="driverLicenseNo != null" >
+        driver_license_no = #{driverLicenseNo},
+      </if>
+      <if test="driverLicenseReceiveDate != null" >
+        driver_license_receive_date = #{driverLicenseReceiveDate},
+      </if>
+      <if test="driverLicenseStartDate != null" >
+        driver_license_start_date = #{driverLicenseStartDate},
+      </if>
+      <if test="driverLicenseEndDate != null" >
+        driver_license_end_date = #{driverLicenseEndDate},
+      </if>
+      <if test="driverLicenseExpirationDate != null" >
+        driver_license_expiration_date = #{driverLicenseExpirationDate},
+      </if>
+      <if test="driverLicenseIissuingAuthority != null" >
+        driver_license_iIssuing_authority = #{driverLicenseIissuingAuthority},
+      </if>
+      <if test="coachCardReceiveDate != null" >
+        coach_card_receive_date = #{coachCardReceiveDate},
+      </if>
+      <if test="coachCardExpirationDate != null" >
+        coach_card_expiration_date = #{coachCardExpirationDate},
+      </if>
+      <if test="coachCardIissuingAuthority != null" >
+        coach_card_iIssuing_authority = #{coachCardIissuingAuthority},
+      </if>
+      <if test="quasiDrivingType != null" >
+        quasi_driving_type = #{quasiDrivingType},
+      </if>
+      <if test="coachCardNo != null" >
+        coach_card_no = #{coachCardNo},
+      </if>
+      <if test="coachCardQuasiTeachingCategory != null" >
+        coach_card_quasi_teaching_category = #{coachCardQuasiTeachingCategory},
+      </if>
+      <if test="quasiTeachingType != null" >
+        quasi_teaching_type = #{quasiTeachingType},
+      </if>
+      <if test="riskDeposit != null" >
+        risk_deposit = #{riskDeposit},
+      </if>
+      <if test="riskDepositExpirationDate != null" >
+        risk_deposit_expiration_date = #{riskDepositExpirationDate},
+      </if>
+      <if test="emergencyContact != null" >
+        emergency_contact = #{emergencyContact},
+      </if>
+      <if test="relationship != null" >
+        relationship = #{relationship},
+      </if>
+      <if test="contactPhone != null" >
+        contact_phone = #{contactPhone},
+      </if>
+      <if test="maritalStatus != null" >
+        marital_status = #{maritalStatus},
+      </if>
+      <if test="marriageRegistrationDate != null" >
+        marriage_registration_date = #{marriageRegistrationDate},
+      </if>
+      <if test="spouseName != null" >
+        spouse_name = #{spouseName},
+      </if>
+      <if test="spouseIdentityCard != null" >
+        spouse_identity_card = #{spouseIdentityCard},
+      </if>
+      <if test="spouseWorkCompany != null" >
+        spouse_work_company = #{spouseWorkCompany},
+      </if>
+      <if test="spouseDuties != null" >
+        spouse_duties = #{spouseDuties},
+      </if>
+      <if test="spouseEducation != null" >
+        spouse_education = #{spouseEducation},
+      </if>
+      <if test="spousePhone != null" >
+        spouse_phone = #{spousePhone},
+      </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
+      <if test="serviceMode != null" >
+        service_mode = #{serviceMode},
+      </if>
+      <if test="empType != null" >
+        emp_type = #{empType},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sida.dcloud.auth.po.SysEmployee" >
+    update sys_employee
+    set org_id = #{orgId},
+      created_at = #{createdAt},
+      last_updated = #{lastUpdated},
+      created_user = #{createdUser},
+      updated_user = #{updatedUser},
+      disable = #{disable},
+      delete_flag = #{deleteFlag},
+      third_party_id = #{thirdPartyId},
+      name = #{name},
+      idcard_number = #{idcardNumber},
+      birthday = #{birthday},
+      sex = #{sex},
+      nation = #{nation},
+      photo = #{photo},
+      idcard_address_province = #{idcardAddressProvince},
+      idcard_address_city = #{idcardAddressCity},
+      idcard_address_area = #{idcardAddressArea},
+      idcard_address_detail = #{idcardAddressDetail},
+      idcard_iIssuing_authority = #{idcardIissuingAuthority},
+      idcard_valid_date = #{idcardValidDate},
+      idcard_invalid_date = #{idcardInvalidDate},
+      residence_permit_issuing_date = #{residencePermitIssuingDate},
+      residence_permit_expiration_date = #{residencePermitExpirationDate},
+      identity_card_expiration_date = #{identityCardExpirationDate},
+      residence_permit_address_province = #{residencePermitAddressProvince},
+      residence_permit_address_city = #{residencePermitAddressCity},
+      residence_permit_address_area = #{residencePermitAddressArea},
+      residence_permit_address_detail = #{residencePermitAddressDetail},
+      now_address_province = #{nowAddressProvince},
+      now_address_city = #{nowAddressCity},
+      now_address_area = #{nowAddressArea},
+      now_address_detail = #{nowAddressDetail},
+      place_of_origin_province = #{placeOfOriginProvince},
+      place_of_origin_city = #{placeOfOriginCity},
+      place_of_origin_area = #{placeOfOriginArea},
+      place_of_birth = #{placeOfBirth},
+      work_card = #{workCard},
+      phone = #{phone},
+      mobile = #{mobile},
+      health_condition = #{healthCondition},
+      hobby = #{hobby},
+      height = #{height},
+      blood_type = #{bloodType},
+      political_status = #{politicalStatus},
+      graduation_start_date = #{graduationStartDate},
+      graduation_end_date = #{graduationEndDate},
+      graduated_school = #{graduatedSchool},
+      education = #{education},
+      subject = #{subject},
+      academic_type = #{academicType},
+      job_title = #{jobTitle},
+      title_full_name = #{titleFullName},
+      start_word_date = #{startWordDate},
+      registration_date = #{registrationDate},
+      driver_license_no = #{driverLicenseNo},
+      driver_license_receive_date = #{driverLicenseReceiveDate},
+      driver_license_start_date = #{driverLicenseStartDate},
+      driver_license_end_date = #{driverLicenseEndDate},
+      driver_license_expiration_date = #{driverLicenseExpirationDate},
+      driver_license_iIssuing_authority = #{driverLicenseIissuingAuthority},
+      coach_card_receive_date = #{coachCardReceiveDate},
+      coach_card_expiration_date = #{coachCardExpirationDate},
+      coach_card_iIssuing_authority = #{coachCardIissuingAuthority},
+      quasi_driving_type = #{quasiDrivingType},
+      coach_card_no = #{coachCardNo},
+      coach_card_quasi_teaching_category = #{coachCardQuasiTeachingCategory},
+      quasi_teaching_type = #{quasiTeachingType},
+      risk_deposit = #{riskDeposit},
+      risk_deposit_expiration_date = #{riskDepositExpirationDate},
+      emergency_contact = #{emergencyContact},
+      relationship = #{relationship},
+      contact_phone = #{contactPhone},
+      marital_status = #{maritalStatus},
+      marriage_registration_date = #{marriageRegistrationDate},
+      spouse_name = #{spouseName},
+      spouse_identity_card = #{spouseIdentityCard},
+      spouse_work_company = #{spouseWorkCompany},
+      spouse_duties = #{spouseDuties},
+      spouse_education = #{spouseEducation},
+      spouse_phone = #{spousePhone},
+      status = #{status},
+      service_mode=#{serviceMode},
+      emp_type = #{empType}
+    where id = #{id}
+  </update>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="orgId != null and orgId != ''" >
+        org_id = #{orgId}
+      </if>
+      <if test="createdAt != null" >
+        AND created_at = #{createdAt}
+      </if>
+      <if test="lastUpdated != null" >
+        AND last_updated = #{lastUpdated}
+      </if>
+      <if test="createdUser != null and createdUser != ''" >
+        AND created_user = #{createdUser}
+      </if>
+      <if test="updatedUser != null and updatedUser != ''" >
+        AND updated_user = #{updatedUser}
+      </if>
+      <if test="disable != null" >
+        AND disable = #{disable}
+      </if>
+      <if test="deleteFlag != null" >
+        AND delete_flag = #{deleteFlag}
+      </if>
+      <if test="thirdPartyId != null" >
+        AND third_party_id = #{thirdPartyId}
+      </if>
+      <if test="name != null and name != ''" >
+        AND name = #{name}
+      </if>
+      <if test="idcardNumber != null and idcardNumber != ''" >
+        AND idcard_number = #{idcardNumber}
+      </if>
+      <if test="birthday != null" >
+        AND birthday = #{birthday}
+      </if>
+      <if test="sex != null" >
+        AND sex = #{sex}
+      </if>
+      <if test="nation != null and nation != ''" >
+        AND nation = #{nation}
+      </if>
+      <if test="photo != null and photo != ''" >
+        AND photo = #{photo}
+      </if>
+      <if test="idcardAddressProvince != null and idcardAddressProvince != ''" >
+        AND idcard_address_province = #{idcardAddressProvince}
+      </if>
+      <if test="idcardAddressCity != null and idcardAddressCity != ''" >
+        AND idcard_address_city = #{idcardAddressCity}
+      </if>
+      <if test="idcardAddressArea != null and idcardAddressArea != ''" >
+        AND idcard_address_area = #{idcardAddressArea}
+      </if>
+      <if test="idcardAddressDetail != null and idcardAddressDetail != ''" >
+        AND idcard_address_detail = #{idcardAddressDetail}
+      </if>
+      <if test="idcardIissuingAuthority != null and idcardIissuingAuthority != ''" >
+        AND idcard_iIssuing_authority = #{idcardIissuingAuthority}
+      </if>
+      <if test="idcardValidDate != null" >
+        AND idcard_valid_date = #{idcardValidDate}
+      </if>
+      <if test="idcardInvalidDate != null" >
+        AND idcard_invalid_date = #{idcardInvalidDate}
+      </if>
+      <if test="residencePermitIssuingDate != null" >
+        AND residence_permit_issuing_date = #{residencePermitIssuingDate}
+      </if>
+      <if test="residencePermitExpirationDate != null" >
+        AND residence_permit_expiration_date = #{residencePermitExpirationDate}
+      </if>
+      <if test="identityCardExpirationDate != null" >
+        AND identity_card_expiration_date = #{identityCardExpirationDate}
+      </if>
+      <if test="residencePermitAddressProvince != null and residencePermitAddressProvince != ''" >
+        AND residence_permit_address_province = #{residencePermitAddressProvince}
+      </if>
+      <if test="residencePermitAddressCity != null and residencePermitAddressCity != ''" >
+        AND residence_permit_address_city = #{residencePermitAddressCity}
+      </if>
+      <if test="residencePermitAddressArea != null and residencePermitAddressArea != ''" >
+        AND residence_permit_address_area = #{residencePermitAddressArea}
+      </if>
+      <if test="residencePermitAddressDetail != null and residencePermitAddressDetail != ''" >
+        AND residence_permit_address_detail = #{residencePermitAddressDetail}
+      </if>
+      <if test="nowAddressProvince != null and nowAddressProvince != ''" >
+        AND now_address_province = #{nowAddressProvince}
+      </if>
+      <if test="nowAddressCity != null and nowAddressCity != ''" >
+        AND now_address_city = #{nowAddressCity}
+      </if>
+      <if test="nowAddressArea != null and nowAddressArea != ''" >
+        AND now_address_area = #{nowAddressArea}
+      </if>
+      <if test="nowAddressDetail != null and nowAddressDetail != ''" >
+        AND now_address_detail = #{nowAddressDetail}
+      </if>
+      <if test="placeOfOriginProvince != null and placeOfOriginProvince != ''" >
+        AND place_of_origin_province = #{placeOfOriginProvince}
+      </if>
+      <if test="placeOfOriginCity != null and placeOfOriginCity != ''" >
+        AND place_of_origin_city = #{placeOfOriginCity}
+      </if>
+      <if test="placeOfOriginArea != null and placeOfOriginArea != ''" >
+        AND place_of_origin_area = #{placeOfOriginArea}
+      </if>
+      <if test="placeOfBirth != null and placeOfBirth != ''" >
+        AND place_of_birth = #{placeOfBirth}
+      </if>
+      <if test="workCard != null and workCard != ''" >
+        AND work_card = #{workCard}
+      </if>
+      <if test="phone != null and phone != ''" >
+        AND phone = #{phone}
+      </if>
+      <if test="mobile != null and mobile != ''" >
+        AND mobile = #{mobile}
+      </if>
+      <if test="healthCondition != null and healthCondition != ''" >
+        AND health_condition = #{healthCondition}
+      </if>
+      <if test="hobby != null and hobby != ''" >
+        AND hobby = #{hobby}
+      </if>
+      <if test="height != null and height != ''" >
+        AND height = #{height}
+      </if>
+      <if test="bloodType != null and bloodType != ''" >
+        AND blood_type = #{bloodType}
+      </if>
+      <if test="politicalStatus != null and politicalStatus != ''" >
+        AND political_status = #{politicalStatus}
+      </if>
+      <if test="graduationStartDate != null" >
+        AND graduation_start_date = #{graduationStartDate}
+      </if>
+      <if test="graduationEndDate != null" >
+        AND graduation_end_date = #{graduationEndDate}
+      </if>
+      <if test="graduatedSchool != null and graduatedSchool != ''" >
+        AND graduated_school = #{graduatedSchool}
+      </if>
+      <if test="education != null and education != ''" >
+        AND education = #{education}
+      </if>
+      <if test="subject != null and subject != ''" >
+        AND subject = #{subject}
+      </if>
+      <if test="academicType != null and academicType != ''" >
+        AND academic_type = #{academicType}
+      </if>
+      <if test="jobTitle != null and jobTitle != ''" >
+        AND job_title = #{jobTitle}
+      </if>
+      <if test="titleFullName != null and titleFullName != ''" >
+        AND title_full_name = #{titleFullName}
+      </if>
+      <if test="startWordDate != null" >
+        AND start_word_date = #{startWordDate}
+      </if>
+      <if test="registrationDate != null" >
+        AND registration_date = #{registrationDate}
+      </if>
+      <if test="driverLicenseNo != null and driverLicenseNo != ''" >
+        AND driver_license_no = #{driverLicenseNo}
+      </if>
+      <if test="driverLicenseReceiveDate != null" >
+        AND driver_license_receive_date = #{driverLicenseReceiveDate}
+      </if>
+      <if test="driverLicenseStartDate != null" >
+        AND driver_license_start_date = #{driverLicenseStartDate}
+      </if>
+      <if test="driverLicenseEndDate != null" >
+        AND driver_license_end_date = #{driverLicenseEndDate}
+      </if>
+      <if test="driverLicenseExpirationDate != null" >
+        AND driver_license_expiration_date = #{driverLicenseExpirationDate}
+      </if>
+      <if test="driverLicenseIissuingAuthority != null and driverLicenseIissuingAuthority != ''" >
+        AND driver_license_iIssuing_authority = #{driverLicenseIissuingAuthority}
+      </if>
+      <if test="coachCardReceiveDate != null" >
+        AND coach_card_receive_date = #{coachCardReceiveDate}
+      </if>
+      <if test="coachCardExpirationDate != null" >
+        AND coach_card_expiration_date = #{coachCardExpirationDate}
+      </if>
+      <if test="coachCardIissuingAuthority != null and coachCardIissuingAuthority != ''" >
+        AND coach_card_iIssuing_authority = #{coachCardIissuingAuthority}
+      </if>
+      <if test="quasiDrivingType != null and quasiDrivingType != ''" >
+        AND quasi_driving_type = #{quasiDrivingType}
+      </if>
+      <if test="coachCardNo != null and coachCardNo != ''" >
+        AND coach_card_no = #{coachCardNo}
+      </if>
+      <if test="coachCardQuasiTeachingCategory != null and coachCardQuasiTeachingCategory != ''" >
+        AND coach_card_quasi_teaching_category = #{coachCardQuasiTeachingCategory}
+      </if>
+      <if test="quasiTeachingType != null and quasiTeachingType != ''" >
+        AND quasi_teaching_type = #{quasiTeachingType}
+      </if>
+      <if test="riskDeposit != null" >
+        AND risk_deposit = #{riskDeposit}
+      </if>
+      <if test="riskDepositExpirationDate != null" >
+        AND risk_deposit_expiration_date = #{riskDepositExpirationDate}
+      </if>
+      <if test="emergencyContact != null and emergencyContact != ''" >
+        AND emergency_contact = #{emergencyContact}
+      </if>
+      <if test="relationship != null and relationship != ''" >
+        AND relationship = #{relationship}
+      </if>
+      <if test="contactPhone != null and contactPhone != ''" >
+        AND contact_phone = #{contactPhone}
+      </if>
+      <if test="maritalStatus != null" >
+        AND marital_status = #{maritalStatus}
+      </if>
+      <if test="marriageRegistrationDate != null" >
+        AND marriage_registration_date = #{marriageRegistrationDate}
+      </if>
+      <if test="spouseName != null and spouseName != ''" >
+        AND spouse_name = #{spouseName}
+      </if>
+      <if test="spouseIdentityCard != null and spouseIdentityCard != ''" >
+        AND spouse_identity_card = #{spouseIdentityCard}
+      </if>
+      <if test="spouseWorkCompany != null and spouseWorkCompany != ''" >
+        AND spouse_work_company = #{spouseWorkCompany}
+      </if>
+      <if test="spouseDuties != null and spouseDuties != ''" >
+        AND spouse_duties = #{spouseDuties}
+      </if>
+      <if test="spouseEducation != null and spouseEducation != ''" >
+        AND spouse_education = #{spouseEducation}
+      </if>
+      <if test="spousePhone != null and spousePhone != ''" >
+        AND spouse_phone = #{spousePhone}
+      </if>
+      <if test="status != null" >
+        AND status = #{status}
+      </if>
+      <if test="serviceMode != null" >
+        AND service_mode = #{serviceMode}
+      </if>
+      <if test="empType != null" >
+        AND emp_type = #{empType}
+      </if>
+      <if test="ids != null and ids.size() > 0" >
+        <foreach collection="ids" item="listItem" open="and id in(" close=")" separator="," >
+          #{listItem}
+        </foreach>
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.auth.po.SysEmployee" resultMap="SysEmployeeResultMap" >
+    select 
+    <include refid="SysEmployee_Column_List" />
+    from sys_employee
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update sys_employee
+    <set >
+      <if test="po.orgId != null" >
+        org_id = #{po.orgId},
+      </if>
+      <if test="po.createdAt != null" >
+        created_at = #{po.createdAt},
+      </if>
+      <if test="po.lastUpdated != null" >
+        last_updated = #{po.lastUpdated},
+      </if>
+      <if test="po.createdUser != null" >
+        created_user = #{po.createdUser},
+      </if>
+      <if test="po.updatedUser != null" >
+        updated_user = #{po.updatedUser},
+      </if>
+      <if test="po.disable != null" >
+        disable = #{po.disable},
+      </if>
+      <if test="po.deleteFlag != null" >
+        delete_flag = #{po.deleteFlag},
+      </if>
+      <if test="po.thirdPartyId != null" >
+        third_party_id = #{po.thirdPartyId},
+      </if>
+      <if test="po.name != null" >
+        name = #{po.name},
+      </if>
+      <if test="po.idcardNumber != null" >
+        idcard_number = #{po.idcardNumber},
+      </if>
+      <if test="po.birthday != null" >
+        birthday = #{po.birthday},
+      </if>
+      <if test="po.sex != null" >
+        sex = #{po.sex},
+      </if>
+      <if test="po.nation != null" >
+        nation = #{po.nation},
+      </if>
+      <if test="po.photo != null" >
+        photo = #{po.photo},
+      </if>
+      <if test="po.idcardAddressProvince != null" >
+        idcard_address_province = #{po.idcardAddressProvince},
+      </if>
+      <if test="po.idcardAddressCity != null" >
+        idcard_address_city = #{po.idcardAddressCity},
+      </if>
+      <if test="po.idcardAddressArea != null" >
+        idcard_address_area = #{po.idcardAddressArea},
+      </if>
+      <if test="po.idcardAddressDetail != null" >
+        idcard_address_detail = #{po.idcardAddressDetail},
+      </if>
+      <if test="po.idcardIissuingAuthority != null" >
+        idcard_iIssuing_authority = #{po.idcardIissuingAuthority},
+      </if>
+      <if test="po.idcardValidDate != null" >
+        idcard_valid_date = #{po.idcardValidDate},
+      </if>
+      <if test="po.idcardInvalidDate != null" >
+        idcard_invalid_date = #{po.idcardInvalidDate},
+      </if>
+      <if test="po.residencePermitIssuingDate != null" >
+        residence_permit_issuing_date = #{po.residencePermitIssuingDate},
+      </if>
+      <if test="po.residencePermitExpirationDate != null" >
+        residence_permit_expiration_date = #{po.residencePermitExpirationDate},
+      </if>
+      <if test="po.identityCardExpirationDate != null" >
+        identity_card_expiration_date = #{po.identityCardExpirationDate},
+      </if>
+      <if test="po.residencePermitAddressProvince != null" >
+        residence_permit_address_province = #{po.residencePermitAddressProvince},
+      </if>
+      <if test="po.residencePermitAddressCity != null" >
+        residence_permit_address_city = #{po.residencePermitAddressCity},
+      </if>
+      <if test="po.residencePermitAddressArea != null" >
+        residence_permit_address_area = #{po.residencePermitAddressArea},
+      </if>
+      <if test="po.residencePermitAddressDetail != null" >
+        residence_permit_address_detail = #{po.residencePermitAddressDetail},
+      </if>
+      <if test="po.nowAddressProvince != null" >
+        now_address_province = #{po.nowAddressProvince},
+      </if>
+      <if test="po.nowAddressCity != null" >
+        now_address_city = #{po.nowAddressCity},
+      </if>
+      <if test="po.nowAddressArea != null" >
+        now_address_area = #{po.nowAddressArea},
+      </if>
+      <if test="po.nowAddressDetail != null" >
+        now_address_detail = #{po.nowAddressDetail},
+      </if>
+      <if test="po.placeOfOriginProvince != null" >
+        place_of_origin_province = #{po.placeOfOriginProvince},
+      </if>
+      <if test="po.placeOfOriginCity != null" >
+        place_of_origin_city = #{po.placeOfOriginCity},
+      </if>
+      <if test="po.placeOfOriginArea != null" >
+        place_of_origin_area = #{po.placeOfOriginArea},
+      </if>
+      <if test="po.placeOfBirth != null" >
+        place_of_birth = #{po.placeOfBirth},
+      </if>
+      <if test="po.workCard != null" >
+        work_card = #{po.workCard},
+      </if>
+      <if test="po.phone != null" >
+        phone = #{po.phone},
+      </if>
+      <if test="po.mobile != null" >
+        mobile = #{po.mobile},
+      </if>
+      <if test="po.healthCondition != null" >
+        health_condition = #{po.healthCondition},
+      </if>
+      <if test="po.hobby != null" >
+        hobby = #{po.hobby},
+      </if>
+      <if test="po.height != null" >
+        height = #{po.height},
+      </if>
+      <if test="po.bloodType != null" >
+        blood_type = #{po.bloodType},
+      </if>
+      <if test="po.politicalStatus != null" >
+        political_status = #{po.politicalStatus},
+      </if>
+      <if test="po.graduationStartDate != null" >
+        graduation_start_date = #{po.graduationStartDate},
+      </if>
+      <if test="po.graduationEndDate != null" >
+        graduation_end_date = #{po.graduationEndDate},
+      </if>
+      <if test="po.graduatedSchool != null" >
+        graduated_school = #{po.graduatedSchool},
+      </if>
+      <if test="po.education != null" >
+        education = #{po.education},
+      </if>
+      <if test="po.subject != null" >
+        subject = #{po.subject},
+      </if>
+      <if test="po.academicType != null" >
+        academic_type = #{po.academicType},
+      </if>
+      <if test="po.jobTitle != null" >
+        job_title = #{po.jobTitle},
+      </if>
+      <if test="po.titleFullName != null" >
+        title_full_name = #{po.titleFullName},
+      </if>
+      <if test="po.startWordDate != null" >
+        start_word_date = #{po.startWordDate},
+      </if>
+      <if test="po.registrationDate != null" >
+        registration_date = #{po.registrationDate},
+      </if>
+      <if test="po.driverLicenseNo != null" >
+        driver_license_no = #{po.driverLicenseNo},
+      </if>
+      <if test="po.driverLicenseReceiveDate != null" >
+        driver_license_receive_date = #{po.driverLicenseReceiveDate},
+      </if>
+      <if test="po.driverLicenseStartDate != null" >
+        driver_license_start_date = #{po.driverLicenseStartDate},
+      </if>
+      <if test="po.driverLicenseEndDate != null" >
+        driver_license_end_date = #{po.driverLicenseEndDate},
+      </if>
+      <if test="po.driverLicenseExpirationDate != null" >
+        driver_license_expiration_date = #{po.driverLicenseExpirationDate},
+      </if>
+      <if test="po.driverLicenseIissuingAuthority != null" >
+        driver_license_iIssuing_authority = #{po.driverLicenseIissuingAuthority},
+      </if>
+      <if test="po.coachCardReceiveDate != null" >
+        coach_card_receive_date = #{po.coachCardReceiveDate},
+      </if>
+      <if test="po.coachCardExpirationDate != null" >
+        coach_card_expiration_date = #{po.coachCardExpirationDate},
+      </if>
+      <if test="po.coachCardIissuingAuthority != null" >
+        coach_card_iIssuing_authority = #{po.coachCardIissuingAuthority},
+      </if>
+      <if test="po.quasiDrivingType != null" >
+        quasi_driving_type = #{po.quasiDrivingType},
+      </if>
+      <if test="po.coachCardNo != null" >
+        coach_card_no = #{po.coachCardNo},
+      </if>
+      <if test="po.coachCardQuasiTeachingCategory != null" >
+        coach_card_quasi_teaching_category = #{po.coachCardQuasiTeachingCategory},
+      </if>
+      <if test="po.quasiTeachingType != null" >
+        quasi_teaching_type = #{po.quasiTeachingType},
+      </if>
+      <if test="po.riskDeposit != null" >
+        risk_deposit = #{po.riskDeposit},
+      </if>
+      <if test="po.riskDepositExpirationDate != null" >
+        risk_deposit_expiration_date = #{po.riskDepositExpirationDate},
+      </if>
+      <if test="po.emergencyContact != null" >
+        emergency_contact = #{po.emergencyContact},
+      </if>
+      <if test="po.relationship != null" >
+        relationship = #{po.relationship},
+      </if>
+      <if test="po.contactPhone != null" >
+        contact_phone = #{po.contactPhone},
+      </if>
+      <if test="po.maritalStatus != null" >
+        marital_status = #{po.maritalStatus},
+      </if>
+      <if test="po.marriageRegistrationDate != null" >
+        marriage_registration_date = #{po.marriageRegistrationDate},
+      </if>
+      <if test="po.spouseName != null" >
+        spouse_name = #{po.spouseName},
+      </if>
+      <if test="po.spouseIdentityCard != null" >
+        spouse_identity_card = #{po.spouseIdentityCard},
+      </if>
+      <if test="po.spouseWorkCompany != null" >
+        spouse_work_company = #{po.spouseWorkCompany},
+      </if>
+      <if test="po.spouseDuties != null" >
+        spouse_duties = #{po.spouseDuties},
+      </if>
+      <if test="po.spouseEducation != null" >
+        spouse_education = #{po.spouseEducation},
+      </if>
+      <if test="po.spousePhone != null" >
+        spouse_phone = #{po.spousePhone},
+      </if>
+      <if test="po.status != null" >
+        status = #{po.status},
+      </if>
+      <if test="po.serviceMode != null" >
+        service_mode = #{po.serviceMode},
+      </if>
+      <if test="po.empType != null" >
+        emp_type = #{po.empType},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+  <update id="updateEmpType">
+    update sys_employee set emp_type=#{empType} where id = #{empId}
+  </update>
+
+  <!--自定义sql-->
+  <resultMap id="SysEmployeeVoResultMap" type="com.sida.dcloud.auth.vo.SysEmployeeVo" extends="SysEmployeeResultMap">
+    <result column="company_name" property="companyName" jdbcType="VARCHAR"/>
+    <result column="dept_name" property="deptName" jdbcType="VARCHAR"/>
+    <result column="dept_id" property="deptId" jdbcType="VARCHAR"/>
+    <result column="position_name" property="positionName" jdbcType="VARCHAR"/>
+  </resultMap>
+  <resultMap id="EmpSelectAllDTOResultMap" type="com.sida.dcloud.auth.vo.EmpSelectAllDTO">
+    <result column="id" property="id" jdbcType="VARCHAR"/>
+    <result column="name" property="name" jdbcType="VARCHAR"/>
+    <result column="phone" property="phone" jdbcType="VARCHAR"/>
+    <result column="position_name" property="positionName" jdbcType="VARCHAR"/>
+    <result column="dept_name" property="deptName" jdbcType="VARCHAR"/>
+    <result column="org_path" property="orgPath" jdbcType="VARCHAR"/>
+    <result column="idcard_number" property="idcardNumber" jdbcType="VARCHAR"/>
+  </resultMap>
+  <select id="findEmpListByPositionId" parameterType="com.sida.dcloud.auth.vo.EmpListConditionDTO" resultMap="SysEmployeeResultMap" >
+    select
+    e.id, e.name, e.work_card, e.phone, e.status
+    from sys_employee e
+    left join sys_employee_position ep on e.id = ep.employee_id
+    where e.disable = 0
+    and e.delete_flag = 0
+    and ep.position_id = #{positionId}
+    <if test="name != null and name != ''" >
+      AND e.name like concat('%',#{name},'%')
+    </if>
+    <if test="workCard != null and workCard != ''" >
+      AND e.work_card like concat('%',#{workCard},'%')
+    </if>
+    <if test="phone != null and phone != ''" >
+      AND e.phone like concat('%',#{phone},'%')
+    </if>
+    <if test="status != null" >
+      AND status = #{status}
+    </if>
+      ORDER BY e.created_at desc
+  </select>
+  <select id="getEmployeeListArea" resultMap="SysEmployeeAreaList" parameterType="com.sida.dcloud.auth.vo.EmployeeFilterDTO">
+       select emp.name,emp.id,emp.mobile as phone,#{areaId} as areaId,#{areaName} as areaName,org.id_path,
+    p.name as position_name
+    from sys_employee emp inner join sys_employee_org sp on sp.employee_id = emp.id inner join sys_org org on org.id=sp.org_id
+       left join sys_employee_position pe on pe.employee_id = emp.id
+    left join sys_position p on p.id = pe.position_id
+       where  emp.disable=0 and emp.delete_flag = 0 and emp.status!=2
+    and
+    (sp.org_id in (select id from sys_area) or sp.org_id in (select id from marketing.market_store))
+    and emp.id not in (select emp_id from teaching.edu_coach where delete_flag=0 and disable=0 and keep_record=0)
+    and  emp.org_id = #{orgId}
+    <if test="areaId!=null and areaId!=''">
+      and LOCATE(#{areaId},org.id_path)>0
+    </if>
+    <if test="teachPostionCode != null and teachPostionCode != ''" >
+      AND p.code in(${teachPostionCode})
+    </if>
+    <if test="queryType!=null and queryType=='2'.toString()">
+      <if test="name != null and name != ''" >
+        AND emp.name like concat('%',#{name},'%')
+      </if>
+    </if>
+    <if test="queryType!=null and queryType=='1'.toString()">
+      <if test="phone != null and phone != ''" >
+        AND emp.mobile =#{phone}
+      </if>
+    </if>
+    order by emp.created_at
+  </select>
+  <select id="getEmployeeAllListArea" resultType="com.sida.dcloud.auth.vo.EmployeeAreaDto">
+    select emp.name,emp.id,emp.phone,org.id_path  from sys_employee inner join sys_employee_org sp on sp.employee_id = emp.id inner join sys_org org on org.id=sp.org_id
+       where emp.orgId = #{orgId}
+  </select>
+
+  <select id="findByAreaId" resultMap="SysEmployeeResultMap" >
+    select
+    t.id, t.org_id, t.name, t.idcard_number, t.sex, t.phone, t.mobile, t.status
+    from sys_employee t
+    left join sys_employee_org eo on t.id = eo.employee_id
+    WHERE t.disable = FALSE
+    AND t.delete_flag = FALSE
+    AND t.status in (0,1)
+    AND eo.org_id = #{areaId}
+    <if test="query != null and query != ''" >
+      AND t.name like concat('%',#{query},'%')
+    </if>
+    order by t.created_at desc
+    limit 4
+  </select>
+  <select id="getEmployeeDetail" resultMap="SysEmployeeResultMap" parameterType="java.lang.String">
+
+    select emp.*,org.id_path from sys_employee emp
+    inner join sys_employee_org sp on sp.employee_id = emp.id inner join sys_org org on org.id=sp.org_id
+    where emp.id = #{id}
+  </select>
+
+  <select id="findEmployees" resultMap="SysEmployeeVoResultMap" >
+      select e.id,e.name,e.mobile,e.emp_type, eo.org_id as dept_id
+      from sys_employee e
+      left join sys_employee_org eo on e.id = eo.employee_id
+      where e.delete_flag = false and e.disable = false
+      and e.status != 2
+      <if test="query != null and query != ''" >
+          AND e.name like concat('%',#{query},'%')
+      </if>
+      <if test="orgId != null and orgId != ''" >
+          AND e.org_id = #{orgId}
+      </if>
+      order by e.created_at desc
+      limit 30
+  </select>
+
+  <select id="selectNameByCondition" parameterType="com.sida.dcloud.auth.po.SysEmployee" resultMap="SysEmployeeResultMap" >
+    select
+    id,name
+    from sys_employee
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+        ${orderString}
+      </if>
+    </if>
+  </select>
+
+  <select id="findEmpsByPositionAndOrgId" parameterType="com.sida.dcloud.auth.vo.EmployeeConditionDTO" resultMap="SysEmployeeResultMap" >
+    select
+    t.id, t.org_id, t.status, t.name, t.mobile
+    from sys_employee t
+    left join sys_employee_position ep on t.id = ep.employee_id
+    left join sys_position p on ep.position_id = p.id
+    left join sys_employee_org eo on t.id = eo.employee_id
+    left join sys_org o on eo.org_id = o.id
+    where t.delete_flag = false and t.disable = false
+    and t.status != 2
+    <if test="positionCode != null and positionCode != ''" >
+      AND p.code = #{positionCode}
+    </if>
+    <if test="positionCodeGroup != null and positionCodeGroup.size > 0" >
+      <foreach collection="positionCodeGroup" item="listItem" open="and p.code in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+    <if test="organizationId != null and organizationId != ''" >
+      AND eo.org_id = #{organizationId}
+    </if>
+    <if test="organizationPath != null and organizationPath != ''" >
+      AND o.id_path like concat('%',#{organizationPath},',%')
+    </if>
+    <if test="query != null and query != ''" >
+      AND (t.name like concat('%',#{query},'%')
+            or t.mobile like concat('%',#{query},'%'))
+    </if>
+    order by t.created_at asc
+  </select>
+
+  <select id="findEmployeeVoById" parameterType="java.lang.String" resultMap="SysEmployeeVoResultMap" >
+    select
+      t.id, t.photo, t.work_card, p.name position_name,school.name company_name,o.name dept_name
+    from sys_employee t
+    left join sys_employee_position ep on t.id = ep.employee_id
+    left join sys_position p on ep.position_id = p.id
+    left join sys_employee_org eo on t.id = eo.employee_id
+    left join sys_org o on eo.org_id = o.id
+    left join sys_org school on t.org_id = school.id
+    where t.id = #{id}
+  </select>
+  <select id="getEmpsByStoreAndPositionCode" resultMap="SysEmployeeResultMap" parameterType="java.lang.String">
+    select
+    t.id, t.org_id, t.status, t.name, t.mobile,o.id_path,
+o.name_path
+    from sys_employee t
+    left join sys_employee_position ep on t.id = ep.employee_id
+    left join sys_position p on ep.position_id = p.id
+    left join sys_employee_org eo on t.id = eo.employee_id
+    left join sys_org o on eo.org_id = o.id
+    where t.delete_flag = false and t.disable = false
+    and t.status != 2 and p.code=#{positionCode}
+and o.id_path like concat('%',#{areaId},'%')
+  </select>
+  <select id="countEmpsByStoreAndPositionCode" resultType="java.lang.Integer">
+
+    select count(1)  from sys_employee t
+    left join sys_employee_position ep on t.id = ep.employee_id
+    left join sys_position p on ep.position_id = p.id
+    left join sys_employee_org eo on t.id = eo.employee_id
+    left join sys_org o on eo.org_id = o.id
+    where t.delete_flag = false and t.disable = false
+    and t.status != 2 and p.code=#{positionCode}
+and o.id_path like concat('%',#{storeId},'%')
+  </select>
+  <select id="getEmployeeListByStoreIdAndPositionCode" resultMap="SysEmployeeResultMap" parameterType="com.sida.dcloud.system.vo.SysEmpStoreQueryVo">
+
+    select t.id,t.name,t.mobile from  sys_employee t
+    left join sys_employee_position ep on t.id = ep.employee_id
+    left join sys_position p on ep.position_id = p.id
+    left join sys_employee_org eo on t.id = eo.employee_id
+    left join sys_org o on eo.org_id = o.id
+    where t.delete_flag = false and t.disable = false
+    and t.status != 2 and p.code=#{positionCode}
+and o.id_path like concat('%',#{storeId},'%')
+   <if test="queryType!=null and queryType=='1'.toString() and query!=null and query!=''" >
+    and t.name like concat('%',#{query},'%')
+   </if>
+
+    <if test="queryType!=null and queryType=='2'.toString() and query!=null and query!=''" >
+      and t.mobile =#{query}
+    </if>
+  </select>
+
+  <select id="getEmployeeVoListByIds" resultMap="SysEmployeeVoResultMap" >
+    select
+    t.id, GROUP_CONCAT(p.name) position_name
+    from sys_employee t
+    left join sys_employee_position ep on t.id = ep.employee_id
+    left join sys_position p on ep.position_id = p.id
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or t.id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+    group by t.id
+  </select>
+
+  <select id="selectAll" resultMap="EmpSelectAllDTOResultMap" >
+    select
+    t.id, t.name, t.mobile as phone, GROUP_CONCAT(p.name) position_name, GROUP_CONCAT(concat(po.name,'-',o.name)) dept_name, o.id_path org_path, t.idcard_number
+    from sys_employee t
+    left join sys_employee_position ep on t.id = ep.employee_id
+    left join sys_position p on ep.position_id = p.id
+    left join sys_employee_org eo on t.id = eo.employee_id
+    left join sys_org o on eo.org_id = o.id
+    left join sys_org po on o.parent_id = po.id
+    where
+    t.delete_flag = false and t.disable = false and t.status != 2
+    <if test="orgId != null and orgId != ''" >
+      AND t.org_id = #{orgId}
+    </if>
+    <if test="query != null and query != ''" >
+      AND (t.name like concat('%',#{query},'%')
+        or t.mobile like concat('%',#{query},'%'))
+    </if>
+    group by t.id
+  </select>
+</mapper>

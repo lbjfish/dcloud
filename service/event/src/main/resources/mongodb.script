@@ -1,0 +1,11 @@
+mongo 127.0.0.1:27017/admin -u root -p
+//admin
+use test;
+db.dropUser("test");
+db.createUser({
+    user: 'esuser',
+    pwd: 'esuser',
+    roles: [
+        {role: 'readWrite', db: 'logs'}
+    ]
+});

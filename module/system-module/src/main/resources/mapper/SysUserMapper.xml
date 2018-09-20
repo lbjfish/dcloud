@@ -1,0 +1,1301 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.system.dao.SysUserMapper" >
+  <resultMap id="SysUserResultMap" type="com.sida.dcloud.auth.po.SysUser" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="last_updated" property="lastUpdated" jdbcType="TIMESTAMP" />
+    <result column="created_user" property="createdUser" jdbcType="VARCHAR" />
+    <result column="updated_user" property="updatedUser" jdbcType="VARCHAR" />
+    <result column="disable" property="disable" jdbcType="BIT" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="alias" property="alias" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="valid_date" property="validDate" jdbcType="TIMESTAMP" />
+    <result column="locked" property="locked" jdbcType="BIT" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="BIT" />
+    <result column="nationality" property="nationality" jdbcType="VARCHAR" />
+    <result column="id_type" property="idType" jdbcType="VARCHAR" />
+    <result column="id_num" property="idNum" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="wechat" property="wechat" jdbcType="VARCHAR" />
+    <result column="default_created" property="defaultCreated" jdbcType="VARCHAR" />
+    <result column="approval_status" property="approvalStatus" jdbcType="VARCHAR" />
+    <result column="face_id" property="faceId" jdbcType="VARCHAR" />
+    <result column="remote_role" property="remoteRole" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="SysUser_Column_List" >
+    id, org_id, created_at, last_updated, created_user, updated_user, disable, delete_flag,
+    account, password, name, code, alias, email, valid_date, locked, mobile, description,
+    status, nationality, id_type, id_num, sex, birthday, tel, qq, wechat, default_created, approval_status, face_id, remote_role
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="SysUserResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="SysUser_Column_List" />
+    from sys_user
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_user
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.sida.dcloud.auth.po.SysUser" >
+    insert into sys_user (id, org_id, created_at, last_updated, created_user, updated_user,
+    disable, delete_flag, account, password, name, code, alias,
+    email, valid_date, locked, mobile, description, status, nationality,
+    id_type, id_num, sex, birthday, tel, qq, wechat, default_created, approval_status, face_id, remote_role)
+    values (#{id}, #{orgId}, #{createdAt}, #{lastUpdated}, #{createdUser}, #{updatedUser},
+    #{disable}, #{deleteFlag}, #{account}, #{password}, #{name}, #{code}, #{alias},
+    #{email}, #{validDate}, #{locked}, #{mobile}, #{description}, #{status}, #{nationality},
+    #{idType}, #{idNum}, #{sex}, #{birthday}, #{tel}, #{qq}, #{wechat}, #{defaultCreated}, #{approvalStatus}, #{faceId}, #{remoteRole})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.auth.po.SysUser" >
+    insert into sys_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="lastUpdated != null" >
+        last_updated,
+      </if>
+      <if test="createdUser != null" >
+        created_user,
+      </if>
+      <if test="updatedUser != null" >
+        updated_user,
+      </if>
+      <if test="disable != null" >
+        disable,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="alias != null" >
+        alias,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="validDate != null" >
+        valid_date,
+      </if>
+      <if test="locked != null" >
+        locked,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="nationality != null" >
+        nationality,
+      </if>
+      <if test="idType != null" >
+        id_type,
+      </if>
+      <if test="idNum != null" >
+        id_num,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="wechat != null" >
+        wechat,
+      </if>
+      <if test="defaultCreated != null" >
+        default_created,
+      </if>
+      <if test="approvalStatus != null" >
+        approval_status,
+      </if>
+      <if test="faceId != null" >
+        face_id,
+      </if>
+      <if test="remoteRole != null" >
+        remote_role,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="orgId != null" >
+        #{orgId},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="lastUpdated != null" >
+        #{lastUpdated},
+      </if>
+      <if test="createdUser != null" >
+        #{createdUser},
+      </if>
+      <if test="updatedUser != null" >
+        #{updatedUser},
+      </if>
+      <if test="disable != null" >
+        #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag},
+      </if>
+      <if test="account != null" >
+        #{account},
+      </if>
+      <if test="password != null" >
+        #{password},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="code != null" >
+        #{code},
+      </if>
+      <if test="alias != null" >
+        #{alias},
+      </if>
+      <if test="email != null" >
+        #{email},
+      </if>
+      <if test="validDate != null" >
+        #{validDate},
+      </if>
+      <if test="locked != null" >
+        #{locked},
+      </if>
+      <if test="mobile != null" >
+        #{mobile},
+      </if>
+      <if test="description != null" >
+        #{description},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="nationality != null" >
+        #{nationality},
+      </if>
+      <if test="idType != null" >
+        #{idType},
+      </if>
+      <if test="idNum != null" >
+        #{idNum},
+      </if>
+      <if test="sex != null" >
+        #{sex},
+      </if>
+      <if test="birthday != null" >
+        #{birthday},
+      </if>
+      <if test="tel != null" >
+        #{tel},
+      </if>
+      <if test="qq != null" >
+        #{qq},
+      </if>
+      <if test="wechat != null" >
+        #{wechat},
+      </if>
+      <if test="defaultCreated != null" >
+        #{defaultCreated},
+      </if>
+      <if test="approvalStatus != null" >
+        #{approvalStatus},
+      </if>
+      <if test="faceId != null" >
+        #{faceId},
+      </if>
+      <if test="remoteRole != null" >
+        #{remoteRole},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sida.dcloud.auth.po.SysUser" >
+    update sys_user
+    <set >
+      <if test="orgId != null" >
+        org_id = #{orgId},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt},
+      </if>
+      <if test="lastUpdated != null" >
+        last_updated = #{lastUpdated},
+      </if>
+      <if test="createdUser != null" >
+        created_user = #{createdUser},
+      </if>
+      <if test="updatedUser != null" >
+        updated_user = #{updatedUser},
+      </if>
+      <if test="disable != null" >
+        disable = #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag = #{deleteFlag},
+      </if>
+      <if test="account != null" >
+        account = #{account},
+      </if>
+      <if test="password != null" >
+        password = #{password},
+      </if>
+      <if test="name != null" >
+        name = #{name},
+      </if>
+      <if test="code != null" >
+        code = #{code},
+      </if>
+      <if test="alias != null" >
+        alias = #{alias},
+      </if>
+      <if test="email != null" >
+        email = #{email},
+      </if>
+      <if test="validDate != null" >
+        valid_date = #{validDate},
+      </if>
+      <if test="locked != null" >
+        locked = #{locked},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile},
+      </if>
+      <if test="description != null" >
+        description = #{description},
+      </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
+      <if test="nationality != null" >
+        nationality = #{nationality},
+      </if>
+      <if test="idType != null" >
+        id_type = #{idType},
+      </if>
+      <if test="idNum != null" >
+        id_num = #{idNum},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel},
+      </if>
+      <if test="qq != null" >
+        qq = #{qq},
+      </if>
+      <if test="wechat != null" >
+        wechat = #{wechat},
+      </if>
+      <if test="defaultCreated != null" >
+        default_created = #{defaultCreated},
+      </if>
+      <if test="approvalStatus != null" >
+        approval_status = #{approvalStatus},
+      </if>
+      <if test="faceId != null" >
+        face_id = #{faceId},
+      </if>
+      <if test="remoteRole != null" >
+        remote_role = #{remoteRole},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sida.dcloud.auth.po.SysUser" >
+    update sys_user
+    set org_id = #{orgId},
+    created_at = #{createdAt},
+    last_updated = #{lastUpdated},
+    created_user = #{createdUser},
+    updated_user = #{updatedUser},
+    disable = #{disable},
+    delete_flag = #{deleteFlag},
+    account = #{account},
+    password = #{password},
+    name = #{name},
+    code = #{code},
+    alias = #{alias},
+    email = #{email},
+    valid_date = #{validDate},
+    locked = #{locked},
+    mobile = #{mobile},
+    description = #{description},
+    status = #{status},
+    nationality = #{nationality},
+    id_type = #{idType},
+    id_num = #{idNum},
+    sex = #{sex},
+    birthday = #{birthday},
+    tel = #{tel},
+    qq = #{qq},
+    wechat = #{wechat},
+    default_created = #{defaultCreated},
+    approval_status = #{approvalStatus},
+    face_id = #{faceId},
+    remote_role = #{remoteRole}
+    where id = #{id}
+  </update>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="orgId != null and orgId != ''" >
+        org_id = #{orgId}
+      </if>
+      <if test="createdAt != null" >
+        AND created_at = #{createdAt}
+      </if>
+      <if test="lastUpdated != null" >
+        AND last_updated = #{lastUpdated}
+      </if>
+      <if test="createdUser != null and createdUser != ''" >
+        AND created_user = #{createdUser}
+      </if>
+      <if test="updatedUser != null and updatedUser != ''" >
+        AND updated_user = #{updatedUser}
+      </if>
+      <if test="disable != null" >
+        AND disable = #{disable}
+      </if>
+      <if test="deleteFlag != null" >
+        AND delete_flag = #{deleteFlag}
+      </if>
+      <if test="account != null and account != ''" >
+        AND account = #{account}
+      </if>
+      <if test="password != null and password != ''" >
+        AND password = #{password}
+      </if>
+      <if test="name != null and name != ''" >
+        AND name = #{name}
+      </if>
+      <if test="code != null and code != ''" >
+        AND code = #{code}
+      </if>
+      <if test="alias != null and alias != ''" >
+        AND alias = #{alias}
+      </if>
+      <if test="email != null and email != ''" >
+        AND email = #{email}
+      </if>
+      <if test="validDate != null" >
+        AND valid_date = #{validDate}
+      </if>
+      <if test="locked != null" >
+        AND locked = #{locked}
+      </if>
+      <if test="mobile != null and mobile != ''" >
+        AND mobile = #{mobile}
+      </if>
+      <if test="description != null and description != ''" >
+        AND description = #{description}
+      </if>
+      <if test="status != null" >
+        AND status = #{status}
+      </if>
+      <if test="nationality != null and nationality != ''" >
+        AND nationality = #{nationality}
+      </if>
+      <if test="idType != null and idType != ''" >
+        AND id_type = #{idType}
+      </if>
+      <if test="idNum != null and idNum != ''" >
+        AND id_num = #{idNum}
+      </if>
+      <if test="sex != null and sex != ''" >
+        AND sex = #{sex}
+      </if>
+      <if test="birthday != null" >
+        AND birthday = #{birthday}
+      </if>
+      <if test="tel != null and tel != ''" >
+        AND tel = #{tel}
+      </if>
+      <if test="qq != null and qq != ''" >
+        AND qq = #{qq}
+      </if>
+      <if test="wechat != null and wechat != ''" >
+        AND wechat = #{wechat}
+      </if>
+      <if test="defaultCreated != null and defaultCreated != ''" >
+        AND default_created = #{defaultCreated}
+      </if>
+      <if test="approvalStatus != null and approvalStatus != ''" >
+        AND approval_status = #{approvalStatus}
+      </if>
+      <if test="faceId != null and approvalStatus != ''" >
+        AND face_id = #{faceId}
+      </if>
+      <if test="remoteRole != null and approvalStatus != ''" >
+        AND remote_role = #{remoteRole}
+      </if>
+      <if test="ids != null and ids.size() > 0" >
+        <foreach collection="ids" item="listItem" open="and id in(" close=")" separator="," >
+          #{listItem}
+        </foreach>
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.auth.po.SysUser" resultMap="SysUserResultMap" >
+    select
+    <include refid="SysUser_Column_List" />
+    from sys_user
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+        ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update sys_user
+    <set >
+      <if test="po.orgId != null" >
+        org_id = #{po.orgId},
+      </if>
+      <if test="po.createdAt != null" >
+        created_at = #{po.createdAt},
+      </if>
+      <if test="po.lastUpdated != null" >
+        last_updated = #{po.lastUpdated},
+      </if>
+      <if test="po.createdUser != null" >
+        created_user = #{po.createdUser},
+      </if>
+      <if test="po.updatedUser != null" >
+        updated_user = #{po.updatedUser},
+      </if>
+      <if test="po.disable != null" >
+        disable = #{po.disable},
+      </if>
+      <if test="po.deleteFlag != null" >
+        delete_flag = #{po.deleteFlag},
+      </if>
+      <if test="po.account != null" >
+        account = #{po.account},
+      </if>
+      <if test="po.password != null" >
+        password = #{po.password},
+      </if>
+      <if test="po.name != null" >
+        name = #{po.name},
+      </if>
+      <if test="po.code != null" >
+        code = #{po.code},
+      </if>
+      <if test="po.alias != null" >
+        alias = #{po.alias},
+      </if>
+      <if test="po.email != null" >
+        email = #{po.email},
+      </if>
+      <if test="po.validDate != null" >
+        valid_date = #{po.validDate},
+      </if>
+      <if test="po.locked != null" >
+        locked = #{po.locked},
+      </if>
+      <if test="po.mobile != null" >
+        mobile = #{po.mobile},
+      </if>
+      <if test="po.description != null" >
+        description = #{po.description},
+      </if>
+      <if test="po.status != null" >
+        status = #{po.status},
+      </if>
+      <if test="po.nationality != null" >
+        nationality = #{po.nationality},
+      </if>
+      <if test="po.idType != null" >
+        id_type = #{po.idType},
+      </if>
+      <if test="po.idNum != null" >
+        id_num = #{po.idNum},
+      </if>
+      <if test="po.sex != null" >
+        sex = #{po.sex},
+      </if>
+      <if test="po.birthday != null" >
+        birthday = #{po.birthday},
+      </if>
+      <if test="po.tel != null" >
+        tel = #{po.tel},
+      </if>
+      <if test="po.qq != null" >
+        qq = #{po.qq},
+      </if>
+      <if test="po.wechat != null" >
+        wechat = #{po.wechat},
+      </if>
+      <if test="po.defaultCreated != null" >
+        default_created = #{po.defaultCreated},
+      </if>
+      <if test="po.approvalStatus != null" >
+        approval_status = #{po.approvalStatus},
+      </if>
+      <if test="po.faceId != null" >
+        face_id = #{po.faceId},
+      </if>
+      <if test="po.remoteRole != null" >
+        remote_role = #{po.remoteRole},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <!--自定义sql-->
+  <resultMap id="UserInfoResultMap" type="com.sida.dcloud.auth.vo.UserInfo" >
+    <result column="userId" property="userId" jdbcType="VARCHAR" />
+    <result column="userAccount" property="userAccount" jdbcType="VARCHAR" />
+    <result column="userName" property="userName" jdbcType="VARCHAR" />
+    <result column="roleId" property="roleId" jdbcType="VARCHAR" />
+    <result column="roleCode" property="roleCode" jdbcType="VARCHAR" />
+    <result column="roleName" property="roleName" jdbcType="VARCHAR" />
+    <result column="schoolId" property="schoolId" jdbcType="VARCHAR" />
+    <result column="orgId" property="orgId" jdbcType="VARCHAR" />
+    <result column="orgPath" property="orgPath" jdbcType="VARCHAR" />
+    <result column="areaId" property="areaId" jdbcType="VARCHAR" />
+    <result column="storeId" property="storeId" jdbcType="VARCHAR" />
+    <result column="certId" property="certId" jdbcType="VARCHAR" />
+    <result column="positionId" property="positionId" jdbcType="VARCHAR" />
+    <result column="positionName" property="positionName" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="avatar" property="avatar" jdbcType="VARCHAR" />
+    <result column="idCardNum" property="idCardNum" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+
+  <resultMap id="SysUserVoResultMap" type="com.sida.dcloud.auth.vo.SysUserVo" extends="SysUserResultMap">
+    <result column="role_id" property="roleId" jdbcType="VARCHAR"/>
+    <result column="role_name" property="roleName" jdbcType="VARCHAR"/>
+  </resultMap>
+
+
+  <select id="selectUserByName" resultMap="SysUserResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="SysUser_Column_List" />
+    from sys_user
+    where name = #{username,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectAll" resultMap="SysUserResultMap">
+    select
+    <include refid="SysUser_Column_List" />
+    from sys_user
+  </select>
+
+  <select id="selectVoList" parameterType="com.sida.dcloud.auth.po.SysUser" resultMap="SysUserVoResultMap" >
+    select
+    u.id, u.created_at, u.account, u.password, u.name, u.status, r.id role_id, r.name role_name
+    from sys_user u
+    left join sys_user_role ur on u.id = ur.user_id
+    left join sys_role r on r.id = ur.role_id
+    WHERE u.disable = FALSE
+    AND u.delete_flag = FALSE
+    <if test="account != null and account != ''" >
+      AND u.account LIKE concat('%',#{account},'%')
+    </if>
+    <if test="name != null and name != ''" >
+      AND u.name like concat('%',#{name},'%')
+    </if>
+    <if test="status != null" >
+      AND u.status = #{status}
+    </if>
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY u.${orderField}
+      <if test="orderString != null and orderString != ''" >
+        ${orderString}
+      </if>
+    </if>
+  </select>
+
+  <insert id="addUserRoleRela" >
+    insert into sys_user_role (user_id, role_id)
+    values (#{userId}, #{roleId})
+  </insert>
+
+  <delete id="deleteByUserId" parameterType="java.lang.String" >
+    delete from sys_user_role
+    where user_id = #{userId}
+  </delete>
+
+  <!--根据条件获取用户列表-->
+  <select id="findUsersByCondition" resultMap="SysUserVoResultMap" >
+    select
+    u.id, u.org_id, u.created_at, u.last_updated, u.created_user, u.updated_user, u.disable, u.delete_flag,
+    u.account, u.password, u.name, u.code, u.alias, u.email, u.valid_date, u.locked, u.mobile, u.description,
+    u.status, u.nationality, u.id_type, u.id_num, u.sex, u.birthday, u.tel, u.qq, u.wechat, u.default_created, u.approval_status, r.id role_id, r.name role_name
+    from sys_user u
+    left join sys_user_role ur on u.id = ur.user_id
+    left join sys_role r on r.id = ur.role_id
+    left join sys_employee_org eo on eo.employee_id = u.id
+    left join sys_org o on eo.org_id = o.id
+    WHERE u.disable = FALSE
+    AND u.delete_flag = FALSE
+    AND u.status = FALSE
+    AND u.locked = FALSE
+    <![CDATA[ AND u.valid_date < now()]]>
+    <if test="roleCode != null and roleCode != ''" >
+      AND r.code = #{roleCode}
+    </if>
+    <if test="organizationId != null and organizationId != ''" >
+      AND o.id = #{organizationId}
+    </if>
+    ORDER BY u.created_at desc
+  </select>
+
+  <!--根据条件获取用户列表-->
+  <select id="findUsersByRoleCodeAndSchoolId" resultMap="SysUserVoResultMap" >
+    select
+    u.id, u.org_id, u.created_at, u.last_updated, u.created_user, u.updated_user, u.disable, u.delete_flag,
+    u.account, u.password, u.name, u.code, u.alias, u.email, u.valid_date, u.locked, u.mobile, u.description,
+    u.status, u.nationality, u.id_type, u.id_num, u.sex, u.birthday, u.tel, u.qq, u.wechat, u.default_created, u.approval_status, r.id role_id, r.name role_name
+    from sys_user u
+    left join sys_user_role ur on u.id = ur.user_id
+    left join sys_role r on r.id = ur.role_id
+    left join sys_employee_org eo on eo.employee_id = u.id
+    left join sys_org o on eo.org_id = o.id
+    WHERE u.disable = FALSE
+    AND u.delete_flag = FALSE
+    AND u.status = FALSE
+    AND u.locked = FALSE
+    <![CDATA[ AND u.valid_date < now()]]>
+    <if test="roleCode != null and roleCode != ''" >
+      AND r.code = #{roleCode}
+    </if>
+    <if test="schoolId != null and schoolId != ''" >
+      AND u.org_id = #{schoolId}
+    </if>
+    ORDER BY u.created_at desc
+  </select>
+
+  <select id="getUserInfo" parameterType="java.lang.String" resultMap="UserInfoResultMap" >
+    select u.id userId,u.account userAccount,u.name userName,
+			 r.id roleId,r.code roleCode,r.name roleName,
+			 e.phone phone,e.idcard_number idCardNum,e.photo avatar,e.status status,
+			 p.id positionId,p.name positionName,
+			 o.id orgId,
+			 o.id_path orgPath,
+			 case when o.org_id is not null and o.org_id != '' then o.org_id else u.org_id end schoolId
+    from sys_user u
+    left join sys_user_role ur on u.id = ur.user_id
+    left join sys_role r on ur.role_id = r.id
+    left join sys_employee e on u.id = e.id
+    left join sys_employee_position ep on e.id = ep.employee_id
+    left join sys_position p on ep.position_id = p.id
+    left join sys_employee_org eo on e.id = eo.employee_id
+    left join sys_org o on eo.org_id = o.id
+    where u.id = #{userId}
+    group by u.id
+  </select>
+
+
+  <!--根据条件获取用户列表-->
+  <select id="findUsersByNames" resultMap="SysUserResultMap" >
+    select
+    u.id, u.org_id,
+    u.account,  u.name, u.code, u.locked, u.mobile,
+    u.status
+    from sys_user u
+    WHERE u.delete_flag = FALSE
+    <if test="orgId != null and orgId != ''" >
+      AND u.org_id = #{orgId}
+    </if>
+    <if test="nameList != null and nameList.size() > 0" >
+      <foreach collection="nameList" item="listItem" open="and name in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </select>
+
+  <select id="findUserByIdTypeAndNum" resultMap="SysUserResultMap" >
+    select
+    <include refid="SysUser_Column_List" />
+    from sys_user
+    WHERE delete_flag = false
+    and disable = false
+    and status = false
+    and id_type = #{idType} and id_num = #{idNum}
+  </select>
+
+  <select id="findEmpByIdTypeAndNum" resultMap="SysUserResultMap" >
+    select
+    t.id, t.org_id, t.created_at, t.last_updated, t.created_user, t.updated_user, t.disable, t.delete_flag,
+    t.account, t.password, t.name, t.code, t.alias, t.email, t.valid_date, t.locked, t.mobile, t.description,
+    t.status, t.nationality,
+    t.id_type,
+    e.idcard_number id_num,
+    t.sex, t.birthday, t.tel, t.qq, t.wechat
+    from sys_user t
+    left join sys_employee e on t.id = e.id
+    WHERE t.delete_flag = false
+    and t.disable = false
+    and t.status = false
+    and (t.id_num is null or t.id_num = '')
+    and e.idcard_number = #{idNum}
+  </select>
+
+  <select id="checkUserAccount" resultType="java.lang.Integer" >
+    select
+      count(1)
+    from sys_user
+    WHERE delete_flag = false
+    and disable = false
+    and status = false
+    and account = #{mobile}
+  </select>
+
+  <select id="getUserMapByIds" resultMap="SysUserResultMap" >
+    select
+      id
+    from sys_user
+    WHERE 1=2
+    <if test="ids != null and ids.size() > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </select>
+
+  <select id="checkAccount" resultMap="SysUserResultMap" >
+    select
+      account
+    from sys_user
+    WHERE delete_flag = false and disable = false
+    and (1=2
+    <if test="accountList != null and accountList.size() > 0">
+      <foreach collection="accountList" item="listItem" open="or account in(" close=")" separator=",">
+        #{listItem}
+      </foreach>
+    </if>)
+  </select>
+
+  <select id="checkIdNum" resultMap="SysUserResultMap" >
+    select
+      id_num
+    from sys_user
+    WHERE delete_flag = false and disable = false and id_type = '0'
+    and (1=2
+    <if test="idNumList != null and idNumList.size() > 0">
+      <foreach collection="idNumList" item="listItem" open="or id_num in(" close=")" separator=",">
+        #{listItem}
+      </foreach>
+    </if>)
+  </select>
+
+  <insert id="batchInsert" >
+    insert into sys_user (id, org_id, created_at, last_updated, created_user, updated_user,
+    disable, delete_flag, account, password, name, code, alias,
+    email, valid_date, locked, mobile, description, status, nationality,
+    id_type, id_num, sex, birthday, tel, qq, wechat, default_created, approval_status, face_id, remote_role)
+    values
+    <if test="userList != null and userList.size() > 0" >
+      <foreach collection="userList" item="listItem" open="" close="" separator="," >
+        (#{listItem.id}, #{listItem.orgId}, #{listItem.createdAt}, #{listItem.lastUpdated}, #{listItem.createdUser}, #{listItem.updatedUser},
+        #{listItem.disable}, #{listItem.deleteFlag}, #{listItem.account}, #{listItem.password}, #{listItem.name}, #{listItem.code}, #{listItem.alias},
+        #{listItem.email}, #{listItem.validDate}, #{listItem.locked}, #{listItem.mobile}, #{listItem.description}, #{listItem.status}, #{listItem.nationality},
+        #{listItem.idType}, #{listItem.idNum}, #{listItem.sex}, #{listItem.birthday}, #{listItem.tel}, #{listItem.qq}, #{listItem.wechat}, #{listItem.defaultCreated}, #{listItem.approvalStatus}, #{listItem.faceId}, #{listItem.remoteRole})
+      </foreach>
+    </if>
+  </insert>
+
+  <update id="updateDefaultCreatedUser">
+    update sys_user u
+    <if test="account != null" >
+      left join (select temp.id from sys_user temp where temp.account = #{account} and temp.id != #{id} and temp.delete_flag = false and temp.disable = false) b on 1=1
+    </if>
+    <if test="idNum != null" >
+      left join (select temp2.id from sys_user temp2 where temp2.id_type = '0' and temp2.id_num = #{idNum} and temp2.id != #{id} and temp2.delete_flag = false and temp2.disable = false) c on 1=1
+    </if>
+
+    <set >
+      <if test="orgId != null" >
+        u.org_id = #{orgId},
+      </if>
+      <if test="createdAt != null" >
+        u.created_at = #{createdAt},
+      </if>
+      <if test="lastUpdated != null" >
+        u.last_updated = #{lastUpdated},
+      </if>
+      <if test="createdUser != null" >
+        u.created_user = #{createdUser},
+      </if>
+      <if test="updatedUser != null" >
+        u.updated_user = #{updatedUser},
+      </if>
+      <if test="disable != null" >
+        u.disable = #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        u.delete_flag = #{deleteFlag},
+      </if>
+      <if test="account != null" >
+        u.account = #{account},
+      </if>
+      <if test="password != null" >
+        u.password = #{password},
+      </if>
+      <if test="name != null" >
+        u.name = #{name},
+      </if>
+      <if test="code != null" >
+        u.code = #{code},
+      </if>
+      <if test="alias != null" >
+        u.alias = #{alias},
+      </if>
+      <if test="email != null" >
+        u.email = #{email},
+      </if>
+      <if test="validDate != null" >
+        u.valid_date = #{validDate},
+      </if>
+      <if test="locked != null" >
+        u.locked = #{locked},
+      </if>
+      <if test="mobile != null" >
+        u.mobile = #{mobile},
+      </if>
+      <if test="description != null" >
+        u.description = #{description},
+      </if>
+      <if test="status != null" >
+        u.status = #{status},
+      </if>
+      <if test="nationality != null" >
+        u.nationality = #{nationality},
+      </if>
+      <if test="idType != null" >
+        u.id_type = #{idType},
+      </if>
+      <if test="idNum != null" >
+        u.id_num = #{idNum},
+      </if>
+      <if test="sex != null" >
+        u.sex = #{sex},
+      </if>
+      <if test="birthday != null" >
+        u.birthday = #{birthday},
+      </if>
+      <if test="tel != null" >
+        u.tel = #{tel},
+      </if>
+      <if test="qq != null" >
+        u.qq = #{qq},
+      </if>
+      <if test="wechat != null" >
+        u.wechat = #{wechat},
+      </if>
+      <if test="defaultCreated != null" >
+        u.default_created = #{defaultCreated},
+      </if>
+      <if test="approvalStatus != null" >
+        u.approval_status = #{approvalStatus},
+      </if>
+    </set>
+    where u.id = #{id}
+    and u.default_created = '1'
+    <if test="account != null" >
+      and (b.id is null or b.id = '')
+    </if>
+    <if test="idNum != null" >
+      and (c.id is null or c.id = '')
+    </if>
+  </update>
+
+  <select id="selectNamesByCondition" parameterType="com.sida.dcloud.auth.po.SysUser" resultMap="SysUserResultMap" >
+    select
+    id,name
+    from sys_user
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+        ${orderString}
+      </if>
+    </if>
+  </select>
+  <select id="selectByIdTypeAndNumber" resultMap="SysUserResultMap" >
+    select
+    id, org_id, disable, delete_flag,
+    account, name, code, alias, email, valid_date, locked, mobile, description, nationality, id_type, id_num, sex, birthday, tel, qq, wechat
+    from sys_user
+    where delete_flag = false and disable = false
+    and id_type = #{idType}
+    and id_num = #{idNum}
+  </select>
+
+  <select id="findHistoryStudent" resultMap="SysUserResultMap" >
+    select
+      t.id,t.name,t.id_num
+    from sys_user t
+    left join sys_user_role ur on t.id = ur.user_id
+    left join sys_role r on ur.role_id = r.id
+    where t.delete_flag = false and t.disable = false
+    and t.status = false
+    <if test="roleCode != null and roleCode != ''" >
+      and r.code = #{roleCode}
+    </if>
+    <if test="query != null and query != ''" >
+      and t.name like concat('%',#{query},'%')
+    </if>
+    <if test="orgId != null and orgId != ''" >
+      and t.org_id = #{orgId}
+    </if>
+    order by t.created_at desc
+    limit 30
+  </select>
+
+  <insert id="insertWithEmployee" >
+    insert into sys_user (id, org_id, created_at, last_updated, created_user, updated_user,
+                          disable, delete_flag, account, password, name, code, alias,
+                          email, valid_date, locked, mobile, description, status, nationality,
+                          id_type, id_num, sex, birthday, tel, qq, wechat, default_created, approval_status)
+    select  id, org_id, created_at, last_updated, created_user, updated_user,
+            disable, delete_flag, mobile, 'e10adc3949ba59abbe56e057f20f883e',name,work_card,name,
+            null,'2017-01-01 00:00:00',false,mobile,null,false,'0',
+            '0',idcard_number,sex,birthday,phone,null,NULL,1,NULL
+    from sys_employee
+    where delete_flag = false and disable = false
+    and status != 2 and mobile is not null
+    and mobile != '不祥' and mobile != '不详'
+    and third_party_id is not null and third_party_id != ''
+    group by mobile HAVING count(mobile) = 1;
+  </insert>
+
+  <select id="findByIds" resultMap="SysUserResultMap" >
+    select
+    <include refid="SysUser_Column_List" />
+    from sys_user
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </select>
+
+  <insert id="insertWithEmployees" >
+    insert into sys_user (id, org_id, created_at, last_updated, created_user, updated_user,
+    disable, delete_flag, account, password, name, code, alias,
+    email, valid_date, locked, mobile, description, status, nationality,
+    id_type, id_num, sex, birthday, tel, qq, wechat, default_created, approval_status)
+    values
+    <if test="list != null and list.size() > 0" >
+      <foreach collection="list" item="listItem" open="" close="" separator="," >
+        (#{listItem.id}, #{listItem.orgId}, #{listItem.createdAt}, #{listItem.lastUpdated}, #{listItem.createdUser}, #{listItem.updatedUser},
+        #{listItem.disable}, #{listItem.deleteFlag}, #{listItem.mobile}, 'e10adc3949ba59abbe56e057f20f883e', #{listItem.name}, #{listItem.workCard}, #{listItem.name},
+        null, '2017-01-01 00:00:00', false, #{listItem.mobile}, null, false, '0',
+        '0', #{listItem.idcardNumber}, #{listItem.sex}, #{listItem.birthday}, #{listItem.phone}, null, null, 1, null)
+      </foreach>
+    </if>
+  </insert>
+
+  <update id="updateWithEmployees" >
+    update sys_user
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix=" org_id = case " suffix=" end," >
+        <foreach collection="list" item="po" open="" close="" separator="" >
+          <if test="po.orgId != null ">
+            when id = #{po.id} then #{po.orgId}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix=" created_at = case " suffix=" end," >
+        <foreach collection="list" item="po" open="" close="" separator="" >
+          <if test="po.createdAt != null ">
+            when id = #{po.id} then #{po.createdAt}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix=" last_updated = case " suffix=" end," >
+        <foreach collection="list" item="po" open="" close="" separator="" >
+          <if test="po.lastUpdated != null ">
+            when id = #{po.id} then #{po.lastUpdated}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix=" created_user = case " suffix=" end," >
+        <foreach collection="list" item="po" open="" close="" separator="" >
+          <if test="po.createdUser != null ">
+            when id = #{po.id} then #{po.createdUser}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix=" updated_user = case " suffix=" end," >
+        <foreach collection="list" item="po" open="" close="" separator="" >
+          <if test="po.updatedUser != null ">
+            when id = #{po.id} then #{po.updatedUser}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix=" disable = case " suffix=" end," >
+        <foreach collection="list" item="po" open="" close="" separator="" >
+          <if test="po.disable != null ">
+            when id = #{po.id} then #{po.disable}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix=" delete_flag = case " suffix=" end," >
+        <foreach collection="list" item="po" open="" close="" separator="" >
+          <if test="po.deleteFlag != null ">
+            when id = #{po.id} then #{po.deleteFlag}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix=" account = case " suffix=" end," >
+        <foreach collection="list" item="po" open="" close="" separator="" >
+          <if test="po.mobile != null ">
+            when id = #{po.id} then #{po.mobile}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix=" name = case " suffix=" end," >
+        <foreach collection="list" item="po" open="" close="" separator="" >
+          <if test="po.name != null ">
+            when id = #{po.id} then #{po.name}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix=" code = case " suffix=" end," >
+        <foreach collection="list" item="po" open="" close="" separator="" >
+          <if test="po.workCard != null ">
+            when id = #{po.id} then #{po.workCard}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix=" alias = case " suffix=" end," >
+        <foreach collection="list" item="po" open="" close="" separator="" >
+          <if test="po.name != null ">
+            when id = #{po.id} then #{po.name}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix=" valid_date = '2017-01-01 00:00:00' " suffix="," >
+      </trim>
+      <trim prefix=" locked = false " suffix="," >
+      </trim>
+      <trim prefix=" mobile = case " suffix=" end," >
+        <foreach collection="list" item="po" open="" close="" separator="" >
+          <if test="po.mobile != null ">
+            when id = #{po.id} then #{po.mobile}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix=" status = false " suffix="," >
+      </trim>
+      <trim prefix=" nationality = '0' " suffix="," >
+      </trim>
+      <trim prefix=" id_type = '0' " suffix="," >
+      </trim>
+      <trim prefix=" id_num = case " suffix=" end," >
+        <foreach collection="list" item="po" open="" close="" separator="" >
+          <if test="po.idcardNumber != null ">
+            when id = #{po.id} then #{po.idcardNumber}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix=" sex = case " suffix=" end," >
+        <foreach collection="list" item="po" open="" close="" separator="" >
+          <if test="po.sex != null ">
+            when id = #{po.id} then #{po.sex}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix=" birthday = case " suffix=" end," >
+        <foreach collection="list" item="po" open="" close="" separator="" >
+          <if test="po.birthday != null ">
+            when id = #{po.id} then #{po.birthday}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix=" tel = case " suffix=" end," >
+        <foreach collection="list" item="po" open="" close="" separator="" >
+          <if test="po.phone != null ">
+            when id = #{po.id} then #{po.phone}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix=" default_created = 1 " suffix="," >
+      </trim>
+      <trim prefix=" approval_status = null " suffix="," >
+      </trim>
+    </trim>
+    where
+    <foreach collection="list" item="po" open="id in (" close=")" separator=",">
+      #{po.id}
+    </foreach>
+  </update>
+
+  <select id="findUsersByCustomerCondition" parameterType="com.sida.dcloud.auth.po.SysUser" resultMap="SysUserResultMap" >
+    select
+      id
+    from sys_user
+    where delete_flag = false
+    and (1 = 2
+    <if test="account != null and account != ''">
+      OR account = #{account}
+    </if>
+    <if test="idType != null and idType != '' and idNum != null and idNum != ''" >
+      or (id_type = #{idType} and id_num = #{idNum})
+    </if>
+    )
+  </select>
+
+  <delete id="removeAll" >
+    delete u from sys_user u
+    where EXISTS (select 1 from sys_employee e where e.id = u.id and e.third_party_id is not null and e.third_party_id != '')
+    or EXISTS (select 1 from sys_role r
+            left join sys_user_role ur on ur.role_id = r.id
+            where u.id = ur.user_id and r.id in ('1','2')
+            and u.default_created = '1')
+  </delete>
+
+  <select id="findAccountUserMap" resultMap="SysUserResultMap" >
+    select
+    <include refid="SysUser_Column_List" />
+    from sys_user
+    where 1=1
+    <if test="accountList != null and accountList.size > 0" >
+      <foreach collection="accountList" item="listItem" open="and account in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+    group by account
+  </select>
+
+  <select id="findNumberByRoleCodeAndTime" resultType="long" >
+    select count(1)
+    from (
+      select
+      count(1)
+      from sys_user u
+      left join sys_user_role ur on u.id = ur.user_id
+      left join sys_role r on ur.role_id = r.id
+      where u.delete_flag = false and u.disable = false
+      and (u.approval_status is null or u.approval_status != '2')
+      and r.code = #{roleCode}
+      and u.org_id = #{orgId}
+      <if test="beginTime != null" >
+        AND <![CDATA[ date_format(u.created_at,'%Y-%m-%d') >= date_format(#{beginTime},'%Y-%m-%d')]]>
+      </if>
+      <if test="endTime != null" >
+        AND <![CDATA[ date_format(u.created_at,'%Y-%m-%d') <= date_format(#{endTime},'%Y-%m-%d')]]>
+      </if>
+      group by u.id
+    ) tmp
+  </select>
+
+  <select id="findRemoteUserByAccounts" resultMap="SysUserResultMap" >
+    select
+    id, account, name, mobile, id_type, id_num, sex, approval_status, face_id, remote_role
+    from sys_user
+    where delete_flag = false and disable = false
+    and locked = false and status = false
+    <if test="accounts != null and accounts.size > 0" >
+      <foreach collection="accounts" item="listItem" open="and account in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </select>
+
+  <select id="findRemoteUserList" parameterType="com.sida.dcloud.auth.vo.SysUserDTO" resultMap="SysUserResultMap" >
+    select
+    id, account, name, mobile, id_type, id_num, sex, approval_status, face_id, remote_role
+    from sys_user
+    where delete_flag = false and disable = false
+    and locked = false and status = false
+    and approval_status is not null
+    <if test="account != null and account != ''" >
+      AND account like concat('%',#{account},'%')
+    </if>
+    <if test="name != null and name != ''" >
+      AND name like concat('%',#{name},'%')
+    </if>
+    <if test="idNum != null and idNum != ''" >
+      AND id_num like concat('%',#{idNum},'%')
+    </if>
+    <if test="sex != null and sex != ''" >
+      AND sex = #{sex}
+    </if>
+    <if test="approvalStatus != null and approvalStatus != ''" >
+      AND approval_status = #{approvalStatus}
+    </if>
+    <if test="faceId != null and faceId != ''" >
+      AND face_id = #{faceId}
+    </if>
+    order by created_at desc
+  </select>
+
+  <select id="findUserByIdNums" resultMap="SysUserResultMap" >
+    select
+    <include refid="SysUser_Column_List" />
+    from sys_user
+    WHERE delete_flag = false
+    and disable = false
+    and id_type = '0'
+    and (1=2
+    <if test="idNums != null and idNums.size() > 0" >
+      <foreach collection="idNums" item="listItem" open="or id_num in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>)
+  </select>
+
+  <select id="selectUserCount" resultType="int">
+    select count(*) from sys_user where delete_flag = false
+  </select>
+</mapper>

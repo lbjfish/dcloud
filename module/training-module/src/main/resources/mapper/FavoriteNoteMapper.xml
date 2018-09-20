@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.training.dao.FavoriteNoteMapper" >
+  <resultMap id="FavoriteNoteResultMap" type="com.sida.dcloud.training.po.FavoriteNote" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="exercise_id" property="exerciseId" jdbcType="VARCHAR" />
+    <result column="that_time" property="thatTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="FavoriteNoteVoResultMap" type="com.sida.dcloud.training.vo.FavoriteNoteVo" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="exercise_id" property="exerciseId" jdbcType="VARCHAR" />
+    <result column="question" property="question" jdbcType="VARCHAR" />
+    <result column="that_time" jdbcType="TIMESTAMP" property="thatTime" />
+  </resultMap>
+  <sql id="FavoriteNote_Column_List" >
+    id, org_id, user_id, exercise_id, that_time
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.training.po.FavoriteNote" >
+    insert into favorite_note (id, org_id, user_id, exercise_id, that_time)
+    values (#{id}, #{orgId}, #{userId}, #{exerciseId}, #{thatTime})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.training.po.FavoriteNote" >
+    insert into favorite_note
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="exerciseId != null" >
+        exercise_id,
+      </if>
+      <if test="thatTime != null" >
+        that_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="orgId != null" >
+        #{orgId},
+      </if>
+      <if test="userId != null" >
+        #{userId},
+      </if>
+      <if test="exerciseId != null" >
+        #{exerciseId},
+      </if>
+      <if test="thatTime != null" >
+        #{thatTime},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sida.dcloud.training.po.FavoriteNote" >
+    update favorite_note
+    <set >
+      <if test="orgId != null" >
+        org_id = #{orgId},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId},
+      </if>
+      <if test="exerciseId != null" >
+        exercise_id = #{exerciseId},
+      </if>
+      <if test="thatTime != null" >
+        that_time = #{thatTime},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sida.dcloud.training.po.FavoriteNote" >
+    update favorite_note
+    set org_id = #{orgId},
+      user_id = #{userId},
+      exercise_id = #{exerciseId},
+      that_time = #{thatTime}
+    where id = #{id}
+  </update>
+  <sql id="Where_Condition" >
+    <where >
+      delete_flag = 0
+      <if test="orgId != null and orgId != ''" >
+        and org_id = #{orgId}
+      </if>
+      <if test="userId != null and userId != ''" >
+        AND user_id = #{userId}
+      </if>
+      <if test="exerciseId != null and exerciseId != ''" >
+        AND exercise_id = #{exerciseId}
+      </if>
+      <if test="thatTime != null" >
+        AND that_time = #{thatTime}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.training.po.FavoriteNote" resultMap="FavoriteNoteResultMap" >
+    select 
+    <include refid="FavoriteNote_Column_List" />
+    from favorite_note
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update favorite_note
+    <set >
+      <if test="po.orgId != null" >
+        org_id = #{po.orgId},
+      </if>
+      <if test="po.userId != null" >
+        user_id = #{po.userId},
+      </if>
+      <if test="po.exerciseId != null" >
+        exercise_id = #{po.exerciseId},
+      </if>
+      <if test="po.thatTime != null" >
+        that_time = #{po.thatTime},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+  <!--  -->
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from favorite_note where id = #{id}
+  </delete>
+  <delete id="deleteByPrimaryKeys" parameterType="java.lang.String" >
+    delete from favorite_note where id in (${ids})
+  </delete>
+
+  <select id="findVoList" parameterType="com.sida.dcloud.training.po.FavoriteNote" resultMap="FavoriteNoteVoResultMap">
+    select
+    id,org_id,user_id,exercise_id,that_time
+    from favorite_note
+    <where>
+      delete_flag = 0
+      <if test="po.id != null and po.id != ''" >
+        and id = #{po.id}
+      </if>
+      <if test="po.orgId != null and po.orgId != ''" >
+        and org_id = #{po.orgId}
+      </if>
+      <if test="po.userId != null and po.userId != ''" >
+        and user_id = #{po.userId}
+      </if>
+      <if test="po.exerciseId != null and po.exerciseId != ''" >
+        and exercise_id = #{po.exerciseId}
+      </if>
+      <if test="po.thatTime != null and po.thatTime != ''" >
+        and that_time = #{po.thatTime}
+      </if>
+    </where>
+    <if test="po.orderField != null and po.orderField != ''">
+      ORDER BY ${po.orderField}
+      <if test="po.orderString != null and po.orderString != ''">
+        ${po.orderString}
+      </if>
+    </if>
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="FavoriteNoteResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="FavoriteNote_Column_List" />
+    from favorite_note
+    where id = #{id} and delete_flag = 0
+  </select>
+</mapper>

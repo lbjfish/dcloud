@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: @event-service@
+#  data:
+#    mongodb:
+#      uri: ${common.mongodb.logs.uri}
+#      username: test
+#      password: test
+
+server:
+#  address: ${service.consumer.host}
+#  port: ${service.eslogs.port}
+  contextPath: /
+
+eureka:
+  client:
+    healthcheck:
+      enabled: true # 开启健康检查（需要spring-boot-starter-actuator依赖）
+    register-with-eureka: false
+    fetch-registry: false
+
+management:
+  health:
+    redis:
+      enabled: false
+    mongo:
+      enabled: false
+info:
+  app:
+    name: @event-service@
+    auchor: Xiruo
+    version: 1.0
+  build:
+    artifactId: @event-service@
+    version: 1.0-SNAPSHOT
+    date: 2018-7-18

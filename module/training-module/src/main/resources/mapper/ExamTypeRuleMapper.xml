@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.training.dao.ExamTypeRuleMapper" >
+  <resultMap id="ExamTypeRuleResultMap" type="com.sida.dcloud.training.po.ExamTypeRule" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="subject" property="subject" jdbcType="VARCHAR" />
+    <result column="rate" property="rate" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="ExamTypeRule_Column_List" >
+    id, type, subject, rate
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ExamTypeRuleResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="ExamTypeRule_Column_List" />
+    from exam_type_rule
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from exam_type_rule
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.sida.dcloud.training.po.ExamTypeRule" >
+    insert into exam_type_rule (id, type, subject, rate)
+    values (#{id}, #{type}, #{subject}, #{rate})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.training.po.ExamTypeRule" >
+    insert into exam_type_rule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="subject != null" >
+        subject,
+      </if>
+      <if test="rate != null" >
+        rate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+      <if test="subject != null" >
+        #{subject},
+      </if>
+      <if test="rate != null" >
+        #{rate},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sida.dcloud.training.po.ExamTypeRule" >
+    update exam_type_rule
+    <set >
+      <if test="type != null" >
+        type = #{type},
+      </if>
+      <if test="subject != null" >
+        subject = #{subject},
+      </if>
+      <if test="rate != null" >
+        rate = #{rate},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sida.dcloud.training.po.ExamTypeRule" >
+    update exam_type_rule
+    set type = #{type},
+      subject = #{subject},
+      rate = #{rate}
+    where id = #{id}
+  </update>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="type != null and type != ''" >
+        type = #{type}
+      </if>
+      <if test="subject != null and subject != ''" >
+        AND subject = #{subject}
+      </if>
+      <if test="rate != null" >
+        AND rate = #{rate}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.training.po.ExamTypeRule" resultMap="ExamTypeRuleResultMap" >
+    select 
+    <include refid="ExamTypeRule_Column_List" />
+    from exam_type_rule
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update exam_type_rule
+    <set >
+      <if test="po.type != null" >
+        type = #{po.type},
+      </if>
+      <if test="po.subject != null" >
+        subject = #{po.subject},
+      </if>
+      <if test="po.rate != null" >
+        rate = #{po.rate},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <!-- -->
+  <select id="loadRuleBySubject" resultMap="ExamTypeRuleResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="ExamTypeRule_Column_List" />
+    from exam_type_rule
+    where subject = #{subject}
+  </select>
+  <delete id="deleteBySubject" parameterType="java.lang.String" >
+    delete from exam_type_rule
+    where subject = #{subject}
+  </delete>
+  <insert id="insertPos" parameterType="java.util.List">
+    insert into exam_type_rule(id,type,subject,rate)
+    values
+    <foreach collection ="examTypeRuleList" item="po" index= "index" separator =",">
+      <trim prefix="(" suffix=")">
+        #{po.id},#{po.type},#{po.subject},#{po.rate}
+      </trim>
+    </foreach>
+  </insert>
+</mapper>

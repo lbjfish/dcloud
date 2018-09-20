@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.system.dao.SysTrainingfieldMapper" >
+  <resultMap id="SysTrainingfieldResultMap" type="com.sida.dcloud.system.po.SysTrainingfield" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="last_updated" property="lastUpdated" jdbcType="TIMESTAMP" />
+    <result column="created_user" property="createdUser" jdbcType="VARCHAR" />
+    <result column="updated_user" property="updatedUser" jdbcType="VARCHAR" />
+    <result column="disable" property="disable" jdbcType="BIT" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
+    <result column="area_id" property="areaId" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="acreage" property="acreage" jdbcType="DECIMAL" />
+    <result column="contain_car_num" property="containCarNum" jdbcType="INTEGER" />
+    <result column="delivery_car_num" property="deliveryCarNum" jdbcType="INTEGER" />
+    <result column="province_name" property="provinceName" jdbcType="VARCHAR" />
+    <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+    <result column="area_name" property="areaName" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="VARCHAR" />
+    <result column="latitude" property="latitude" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="SysTrainingfield_Column_List" >
+    id, org_id, created_at, last_updated, created_user, updated_user, disable, delete_flag, 
+    area_id, name, address, acreage, contain_car_num, delivery_car_num, province_name,
+    city_name, area_name, longitude, latitude
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="SysTrainingfieldResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="SysTrainingfield_Column_List" />
+    from sys_trainingfield
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_trainingfield
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.sida.dcloud.system.po.SysTrainingfield" >
+    insert into sys_trainingfield (id, org_id, created_at, last_updated, created_user, updated_user, 
+      disable, delete_flag, area_id, name, address, acreage, contain_car_num, 
+      delivery_car_num, province_name, city_name, area_name, longitude,
+      latitude)
+    values (#{id}, #{orgId}, #{createdAt}, #{lastUpdated}, #{createdUser}, #{updatedUser}, 
+      #{disable}, #{deleteFlag}, #{areaId}, #{name}, #{address}, #{acreage}, #{containCarNum}, 
+      #{deliveryCarNum}, #{provinceName}, #{cityName}, #{areaName}, #{longitude},
+      #{latitude})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.system.po.SysTrainingfield" >
+    insert into sys_trainingfield
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="lastUpdated != null" >
+        last_updated,
+      </if>
+      <if test="createdUser != null" >
+        created_user,
+      </if>
+      <if test="updatedUser != null" >
+        updated_user,
+      </if>
+      <if test="disable != null" >
+        disable,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="areaId != null" >
+        area_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="acreage != null" >
+        acreage,
+      </if>
+      <if test="containCarNum != null" >
+        contain_car_num,
+      </if>
+      <if test="deliveryCarNum != null" >
+        delivery_car_num,
+      </if>
+      <if test="provinceName != null" >
+        province_name,
+      </if>
+      <if test="cityName != null" >
+        city_name,
+      </if>
+      <if test="areaName != null" >
+        area_name,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="orgId != null" >
+        #{orgId},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="lastUpdated != null" >
+        #{lastUpdated},
+      </if>
+      <if test="createdUser != null" >
+        #{createdUser},
+      </if>
+      <if test="updatedUser != null" >
+        #{updatedUser},
+      </if>
+      <if test="disable != null" >
+        #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag},
+      </if>
+      <if test="areaId != null" >
+        #{areaId},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="address != null" >
+        #{address},
+      </if>
+      <if test="acreage != null" >
+        #{acreage},
+      </if>
+      <if test="containCarNum != null" >
+        #{containCarNum},
+      </if>
+      <if test="deliveryCarNum != null" >
+        #{deliveryCarNum},
+      </if>
+      <if test="provinceName != null" >
+        #{provinceName},
+      </if>
+      <if test="cityName != null" >
+        #{cityName},
+      </if>
+      <if test="areaName != null" >
+        #{areaName},
+      </if>
+      <if test="longitude != null" >
+        #{longitude},
+      </if>
+      <if test="latitude != null" >
+        #{latitude},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sida.dcloud.system.po.SysTrainingfield" >
+    update sys_trainingfield
+    <set >
+      <if test="orgId != null" >
+        org_id = #{orgId},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt},
+      </if>
+      <if test="lastUpdated != null" >
+        last_updated = #{lastUpdated},
+      </if>
+      <if test="createdUser != null" >
+        created_user = #{createdUser},
+      </if>
+      <if test="updatedUser != null" >
+        updated_user = #{updatedUser},
+      </if>
+      <if test="disable != null" >
+        disable = #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag = #{deleteFlag},
+      </if>
+      <if test="areaId != null" >
+        area_id = #{areaId},
+      </if>
+      <if test="name != null" >
+        name = #{name},
+      </if>
+      <if test="address != null" >
+        address = #{address},
+      </if>
+      <if test="acreage != null" >
+        acreage = #{acreage},
+      </if>
+      <if test="containCarNum != null" >
+        contain_car_num = #{containCarNum},
+      </if>
+      <if test="deliveryCarNum != null" >
+        delivery_car_num = #{deliveryCarNum},
+      </if>
+      <if test="provinceName != null" >
+        province_name = #{provinceName},
+      </if>
+      <if test="cityName != null" >
+        city_name = #{cityName},
+      </if>
+      <if test="areaName != null" >
+        area_name = #{areaName},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sida.dcloud.system.po.SysTrainingfield" >
+    update sys_trainingfield
+    set org_id = #{orgId},
+      created_at = #{createdAt},
+      last_updated = #{lastUpdated},
+      created_user = #{createdUser},
+      updated_user = #{updatedUser},
+      disable = #{disable},
+      delete_flag = #{deleteFlag},
+      area_id = #{areaId},
+      name = #{name},
+      address = #{address},
+      acreage = #{acreage},
+      contain_car_num = #{containCarNum},
+      delivery_car_num = #{deliveryCarNum},
+      province_name = #{provinceName},
+      city_name = #{cityName},
+      area_name = #{areaName},
+      longitude = #{longitude},
+      latitude = #{latitude}
+    where id = #{id}
+  </update>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="orgId != null and orgId != ''" >
+        org_id = #{orgId}
+      </if>
+      <if test="createdAt != null" >
+        AND created_at = #{createdAt}
+      </if>
+      <if test="lastUpdated != null" >
+        AND last_updated = #{lastUpdated}
+      </if>
+      <if test="createdUser != null and createdUser != ''" >
+        AND created_user = #{createdUser}
+      </if>
+      <if test="updatedUser != null and updatedUser != ''" >
+        AND updated_user = #{updatedUser}
+      </if>
+      <if test="disable != null" >
+        AND disable = #{disable}
+      </if>
+      <if test="deleteFlag != null" >
+        AND delete_flag = #{deleteFlag}
+      </if>
+      <if test="areaId != null and areaId != ''" >
+        AND area_id = #{areaId}
+      </if>
+      <if test="name != null and name != ''" >
+        AND name = #{name}
+      </if>
+      <if test="address != null and address != ''" >
+        AND address = #{address}
+      </if>
+      <if test="acreage != null" >
+        AND acreage = #{acreage}
+      </if>
+      <if test="containCarNum != null" >
+        AND contain_car_num = #{containCarNum}
+      </if>
+      <if test="deliveryCarNum != null" >
+        AND delivery_car_num = #{deliveryCarNum}
+      </if>
+      <if test="provinceName != null and provinceName != ''" >
+        AND province_name = #{provinceName}
+      </if>
+      <if test="cityName != null and cityName != ''" >
+        AND city_name = #{cityName}
+      </if>
+      <if test="areaName != null and areaName != ''" >
+        AND area_name = #{areaName}
+      </if>
+      <if test="longitude != null and longitude != ''" >
+        AND longitude = #{longitude}
+      </if>
+      <if test="latitude != null and latitude != ''" >
+        AND latitude = #{latitude}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.system.po.SysTrainingfield" resultMap="SysTrainingfieldResultMap" >
+    select 
+    <include refid="SysTrainingfield_Column_List" />
+    from sys_trainingfield
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update sys_trainingfield
+    <set >
+      <if test="po.orgId != null" >
+        org_id = #{po.orgId},
+      </if>
+      <if test="po.createdAt != null" >
+        created_at = #{po.createdAt},
+      </if>
+      <if test="po.lastUpdated != null" >
+        last_updated = #{po.lastUpdated},
+      </if>
+      <if test="po.createdUser != null" >
+        created_user = #{po.createdUser},
+      </if>
+      <if test="po.updatedUser != null" >
+        updated_user = #{po.updatedUser},
+      </if>
+      <if test="po.disable != null" >
+        disable = #{po.disable},
+      </if>
+      <if test="po.deleteFlag != null" >
+        delete_flag = #{po.deleteFlag},
+      </if>
+      <if test="po.areaId != null" >
+        area_id = #{po.areaId},
+      </if>
+      <if test="po.name != null" >
+        name = #{po.name},
+      </if>
+      <if test="po.address != null" >
+        address = #{po.address},
+      </if>
+      <if test="po.acreage != null" >
+        acreage = #{po.acreage},
+      </if>
+      <if test="po.containCarNum != null" >
+        contain_car_num = #{po.containCarNum},
+      </if>
+      <if test="po.deliveryCarNum != null" >
+        delivery_car_num = #{po.deliveryCarNum},
+      </if>
+      <if test="po.provinceName != null" >
+        province_name = #{po.provinceName},
+      </if>
+      <if test="po.cityName != null" >
+        city_name = #{po.cityName},
+      </if>
+      <if test="po.areaName != null" >
+        area_name = #{po.areaName},
+      </if>
+      <if test="po.longitude != null" >
+        longitude = #{po.longitude},
+      </if>
+      <if test="po.latitude != null" >
+        latitude = #{po.latitude},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <!--自定义sql-->
+  <resultMap id="SysTrainingfieldVoResultMap" type="com.sida.dcloud.system.vo.SysTrainingfieldVo" extends="SysTrainingfieldResultMap">
+    <result column="car_models" property="carModels" jdbcType="VARCHAR"/>
+  </resultMap>
+  <select id="findList" parameterType="com.sida.dcloud.system.vo.SysTrainingfieldVo" resultMap="SysTrainingfieldVoResultMap" >
+    select
+    t.id, t.org_id, t.created_at, t.last_updated, t.created_user, t.updated_user, t.disable, t.delete_flag,
+    t.area_id, t.name, t.address, t.acreage, t.contain_car_num,
+    count(c.id) delivery_car_num,
+    t.province_name,t.city_name, t.area_name, t.longitude, t.latitude, GROUP_CONCAT(tm.models_id) car_models
+    from sys_trainingfield t
+    left join sys_trainingfield_models tm on t.id = tm.trainingfield_id
+    left join car.car_carinfo c on t.id = c.training_ground_id
+    where t.delete_flag = false
+    and t.org_id = #{orgId}
+    <if test="areaId != null and areaId != ''" >
+      AND t.area_id = #{areaId}
+    </if>
+    <if test="name != null and name != ''" >
+      AND t.name like concat('%',#{name},'%')
+    </if>
+    <if test="disable != null" >
+      AND t.disable = #{disable}
+    </if>
+    group by t.id
+    order by t.area_id asc, t.created_at desc
+  </select>
+  <select id="selectVoByPrimaryKey" resultMap="SysTrainingfieldVoResultMap" parameterType="java.lang.String" >
+    select
+    t.id, t.org_id, t.created_at, t.last_updated, t.created_user, t.updated_user, t.disable, t.delete_flag,
+    t.area_id, t.name, t.address, t.acreage, t.contain_car_num,
+    count(c.id) delivery_car_num,
+    t.province_name,t.city_name, t.area_name, t.longitude, t.latitude, GROUP_CONCAT(tm.models_id) car_models
+    from sys_trainingfield t
+    left join sys_trainingfield_models tm on t.id = tm.trainingfield_id
+    left join car.car_carinfo c on t.id = c.training_ground_id
+    where t.id = #{id}
+    group by t.id
+  </select>
+</mapper>

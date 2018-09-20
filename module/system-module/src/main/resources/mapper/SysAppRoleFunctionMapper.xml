@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.system.dao.SysAppRoleFunctionMapper" >
+  <resultMap id="SysAppRoleFunctionResultMap" type="com.sida.dcloud.system.po.SysAppRoleFunction" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="group_id" property="groupId" jdbcType="VARCHAR" />
+    <result column="role_id" property="roleId" jdbcType="VARCHAR" />
+    <result column="function_id" property="functionId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="SysAppRoleFunction_Column_List" >
+    id, group_id, role_id, function_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="SysAppRoleFunctionResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="SysAppRoleFunction_Column_List" />
+    from sys_app_role_function
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_app_role_function
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.sida.dcloud.system.po.SysAppRoleFunction" >
+    insert into sys_app_role_function (id, group_id, role_id, function_id)
+    values (#{id}, #{groupId}, #{roleId}, #{functionId})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.system.po.SysAppRoleFunction" >
+    insert into sys_app_role_function
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="groupId != null" >
+        group_id,
+      </if>
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="functionId != null" >
+        function_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="groupId != null" >
+        #{groupId},
+      </if>
+      <if test="roleId != null" >
+        #{roleId},
+      </if>
+      <if test="functionId != null" >
+        #{functionId},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sida.dcloud.system.po.SysAppRoleFunction" >
+    update sys_app_role_function
+    <set >
+      <if test="groupId != null" >
+        group_id = #{groupId},
+      </if>
+      <if test="roleId != null" >
+        role_id = #{roleId},
+      </if>
+      <if test="functionId != null" >
+        function_id = #{functionId},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sida.dcloud.system.po.SysAppRoleFunction" >
+    update sys_app_role_function
+    set group_id = #{groupId},
+      role_id = #{roleId},
+      function_id = #{functionId}
+    where id = #{id}
+  </update>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="groupId != null and groupId != ''" >
+        group_id = #{groupId}
+      </if>
+      <if test="roleId != null and roleId != ''" >
+        AND role_id = #{roleId}
+      </if>
+      <if test="functionId != null and functionId != ''" >
+        AND function_id = #{functionId}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.system.po.SysAppRoleFunction" resultMap="SysAppRoleFunctionResultMap" >
+    select 
+    <include refid="SysAppRoleFunction_Column_List" />
+    from sys_app_role_function
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update sys_app_role_function
+    <set >
+      <if test="po.groupId != null" >
+        group_id = #{po.groupId},
+      </if>
+      <if test="po.roleId != null" >
+        role_id = #{po.roleId},
+      </if>
+      <if test="po.functionId != null" >
+        function_id = #{po.functionId},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+</mapper>

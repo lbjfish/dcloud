@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.training.dao.PraticeTrackMapper" >
+  <resultMap id="PraticeTrackResultMap" type="com.sida.dcloud.training.po.PraticeTrack" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
+    <result column="red_string1" property="redString1" jdbcType="VARCHAR" />
+    <result column="red_string2" property="redString2" jdbcType="VARCHAR" />
+    <result column="red_string3" property="redString3" jdbcType="VARCHAR" />
+    <result column="red_string4" property="redString4" jdbcType="VARCHAR" />
+    <result column="red_string5" property="redString5" jdbcType="VARCHAR" />
+    <result column="red_string6" property="redString6" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="pratice_type" property="praticeType" jdbcType="VARCHAR" />
+    <result column="section_id" property="sectionId" jdbcType="VARCHAR" />
+    <result column="exercise_type" property="exerciseType" jdbcType="VARCHAR" />
+    <result column="style" property="style" jdbcType="VARCHAR" />
+    <result column="group_id" property="groupId" jdbcType="VARCHAR" />
+    <result column="exercise_id" property="exerciseId" jdbcType="VARCHAR" />
+    <result column="right_answer" property="rightAnswer" jdbcType="VARCHAR" />
+    <result column="answer" property="answer" jdbcType="VARCHAR" />
+    <result column="that_time" property="thatTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="PraticeTrack_Column_List" >
+    id, org_id, delete_flag, red_string1, red_string2, red_string3, red_string4, red_string5, 
+    red_string6, user_id, pratice_type, section_id, exercise_type, style, group_id, exercise_id, 
+    right_answer, answer, that_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="PraticeTrackResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="PraticeTrack_Column_List" />
+    from pratice_track
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from pratice_track
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.sida.dcloud.training.po.PraticeTrack" >
+    insert into pratice_track (id, org_id, delete_flag, red_string1, red_string2, red_string3, 
+      red_string4, red_string5, red_string6, user_id, pratice_type, section_id, 
+      exercise_type, style, group_id, exercise_id, right_answer, answer, 
+      that_time)
+    values (#{id}, #{orgId}, #{deleteFlag}, #{redString1}, #{redString2}, #{redString3}, 
+      #{redString4}, #{redString5}, #{redString6}, #{userId}, #{praticeType}, #{sectionId}, 
+      #{exerciseType}, #{style}, #{groupId}, #{exerciseId}, #{rightAnswer}, #{answer}, 
+      #{thatTime})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.training.po.PraticeTrack" >
+    insert into pratice_track
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="redString1 != null" >
+        red_string1,
+      </if>
+      <if test="redString2 != null" >
+        red_string2,
+      </if>
+      <if test="redString3 != null" >
+        red_string3,
+      </if>
+      <if test="redString4 != null" >
+        red_string4,
+      </if>
+      <if test="redString5 != null" >
+        red_string5,
+      </if>
+      <if test="redString6 != null" >
+        red_string6,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="praticeType != null" >
+        pratice_type,
+      </if>
+      <if test="sectionId != null" >
+        section_id,
+      </if>
+      <if test="exerciseType != null" >
+        exercise_type,
+      </if>
+      <if test="style != null" >
+        style,
+      </if>
+      <if test="groupId != null" >
+        group_id,
+      </if>
+      <if test="exerciseId != null" >
+        exercise_id,
+      </if>
+      <if test="rightAnswer != null" >
+        right_answer,
+      </if>
+      <if test="answer != null" >
+        answer,
+      </if>
+      <if test="thatTime != null" >
+        that_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="orgId != null" >
+        #{orgId},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag},
+      </if>
+      <if test="redString1 != null" >
+        #{redString1},
+      </if>
+      <if test="redString2 != null" >
+        #{redString2},
+      </if>
+      <if test="redString3 != null" >
+        #{redString3},
+      </if>
+      <if test="redString4 != null" >
+        #{redString4},
+      </if>
+      <if test="redString5 != null" >
+        #{redString5},
+      </if>
+      <if test="redString6 != null" >
+        #{redString6},
+      </if>
+      <if test="userId != null" >
+        #{userId},
+      </if>
+      <if test="praticeType != null" >
+        #{praticeType},
+      </if>
+      <if test="sectionId != null" >
+        #{sectionId},
+      </if>
+      <if test="exerciseType != null" >
+        #{exerciseType},
+      </if>
+      <if test="style != null" >
+        #{style},
+      </if>
+      <if test="groupId != null" >
+        #{groupId},
+      </if>
+      <if test="exerciseId != null" >
+        #{exerciseId},
+      </if>
+      <if test="rightAnswer != null" >
+        #{rightAnswer},
+      </if>
+      <if test="answer != null" >
+        #{answer},
+      </if>
+      <if test="thatTime != null" >
+        #{thatTime},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sida.dcloud.training.po.PraticeTrack" >
+    update pratice_track
+    <set >
+      <if test="orgId != null" >
+        org_id = #{orgId},
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag = #{deleteFlag},
+      </if>
+      <if test="redString1 != null" >
+        red_string1 = #{redString1},
+      </if>
+      <if test="redString2 != null" >
+        red_string2 = #{redString2},
+      </if>
+      <if test="redString3 != null" >
+        red_string3 = #{redString3},
+      </if>
+      <if test="redString4 != null" >
+        red_string4 = #{redString4},
+      </if>
+      <if test="redString5 != null" >
+        red_string5 = #{redString5},
+      </if>
+      <if test="redString6 != null" >
+        red_string6 = #{redString6},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId},
+      </if>
+      <if test="praticeType != null" >
+        pratice_type = #{praticeType},
+      </if>
+      <if test="sectionId != null" >
+        section_id = #{sectionId},
+      </if>
+      <if test="exerciseType != null" >
+        exercise_type = #{exerciseType},
+      </if>
+      <if test="style != null" >
+        style = #{style},
+      </if>
+      <if test="groupId != null" >
+        group_id = #{groupId},
+      </if>
+      <if test="exerciseId != null" >
+        exercise_id = #{exerciseId},
+      </if>
+      <if test="rightAnswer != null" >
+        right_answer = #{rightAnswer},
+      </if>
+      <if test="answer != null" >
+        answer = #{answer},
+      </if>
+      <if test="thatTime != null" >
+        that_time = #{thatTime},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sida.dcloud.training.po.PraticeTrack" >
+    update pratice_track
+    set org_id = #{orgId},
+      delete_flag = #{deleteFlag},
+      red_string1 = #{redString1},
+      red_string2 = #{redString2},
+      red_string3 = #{redString3},
+      red_string4 = #{redString4},
+      red_string5 = #{redString5},
+      red_string6 = #{redString6},
+      user_id = #{userId},
+      pratice_type = #{praticeType},
+      section_id = #{sectionId},
+      exercise_type = #{exerciseType},
+      style = #{style},
+      group_id = #{groupId},
+      exercise_id = #{exerciseId},
+      right_answer = #{rightAnswer},
+      answer = #{answer},
+      that_time = #{thatTime}
+    where id = #{id}
+  </update>
+  <sql id="Where_Condition" >
+    <where >
+      delete_flag = 0
+      <if test="orgId != null and orgId != ''" >
+        and org_id = #{orgId}
+      </if>
+      <if test="deleteFlag != null" >
+        AND delete_flag = #{deleteFlag}
+      </if>
+      <if test="redString1 != null and redString1 != ''" >
+        AND red_string1 = #{redString1}
+      </if>
+      <if test="redString2 != null and redString2 != ''" >
+        AND red_string2 = #{redString2}
+      </if>
+      <if test="redString3 != null and redString3 != ''" >
+        AND red_string3 = #{redString3}
+      </if>
+      <if test="redString4 != null and redString4 != ''" >
+        AND red_string4 = #{redString4}
+      </if>
+      <if test="redString5 != null and redString5 != ''" >
+        AND red_string5 = #{redString5}
+      </if>
+      <if test="redString6 != null and redString6 != ''" >
+        AND red_string6 = #{redString6}
+      </if>
+      <if test="userId != null and userId != ''" >
+        AND user_id = #{userId}
+      </if>
+      <if test="praticeType != null and praticeType != ''" >
+        AND pratice_type = #{praticeType}
+      </if>
+      <if test="sectionId != null and sectionId != ''" >
+        AND section_id = #{sectionId}
+      </if>
+      <if test="exerciseType != null and exerciseType != ''" >
+        AND exercise_type = #{exerciseType}
+      </if>
+      <if test="style != null and style != ''" >
+        AND style = #{style}
+      </if>
+      <if test="groupId != null and groupId != ''" >
+        AND group_id = #{groupId}
+      </if>
+      <if test="exerciseId != null and exerciseId != ''" >
+        AND exercise_id = #{exerciseId}
+      </if>
+      <if test="rightAnswer != null and rightAnswer != ''" >
+        AND right_answer = #{rightAnswer}
+      </if>
+      <if test="answer != null and answer != ''" >
+        AND answer = #{answer}
+      </if>
+      <if test="thatTime != null" >
+        AND that_time = #{thatTime}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.training.po.PraticeTrack" resultMap="PraticeTrackResultMap" >
+    select 
+    <include refid="PraticeTrack_Column_List" />
+    from pratice_track
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update pratice_track
+    <set >
+      <if test="po.orgId != null" >
+        org_id = #{po.orgId},
+      </if>
+      <if test="po.deleteFlag != null" >
+        delete_flag = #{po.deleteFlag},
+      </if>
+      <if test="po.redString1 != null" >
+        red_string1 = #{po.redString1},
+      </if>
+      <if test="po.redString2 != null" >
+        red_string2 = #{po.redString2},
+      </if>
+      <if test="po.redString3 != null" >
+        red_string3 = #{po.redString3},
+      </if>
+      <if test="po.redString4 != null" >
+        red_string4 = #{po.redString4},
+      </if>
+      <if test="po.redString5 != null" >
+        red_string5 = #{po.redString5},
+      </if>
+      <if test="po.redString6 != null" >
+        red_string6 = #{po.redString6},
+      </if>
+      <if test="po.userId != null" >
+        user_id = #{po.userId},
+      </if>
+      <if test="po.praticeType != null" >
+        pratice_type = #{po.praticeType},
+      </if>
+      <if test="po.sectionId != null" >
+        section_id = #{po.sectionId},
+      </if>
+      <if test="po.exerciseType != null" >
+        exercise_type = #{po.exerciseType},
+      </if>
+      <if test="po.style != null" >
+        style = #{po.style},
+      </if>
+      <if test="po.groupId != null" >
+        group_id = #{po.groupId},
+      </if>
+      <if test="po.exerciseId != null" >
+        exercise_id = #{po.exerciseId},
+      </if>
+      <if test="po.rightAnswer != null" >
+        right_answer = #{po.rightAnswer},
+      </if>
+      <if test="po.answer != null" >
+        answer = #{po.answer},
+      </if>
+      <if test="po.thatTime != null" >
+        that_time = #{po.thatTime},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <!-- -->
+
+</mapper>

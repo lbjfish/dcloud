@@ -1,0 +1,54 @@
+spring:
+  application:
+    name: @config-service@
+  profiles:
+    active: subversion
+  redis:
+        cluster:
+          max-redirects: 6
+          nodes: ${common.redis.addresses}
+        password: ${common.redis.password}
+  cloud:
+    # load http://{host}:8888/{spring.cloud.config.name}-{spring.cloud.config.profile}.[preperties or yml]
+    # 如果properties格式无法启动则修改为yml格式
+    # 客户端--spring.cloud.config.profile=dev|prod|test传入就能确定使用哪个环境的配置文件，而无需修改
+    config:
+      enabled: true
+      server:
+        svn:
+          uri: @svn.uri@
+          username: @svn.username@
+          password: @svn.password@
+        default-label: @svn.default-label@
+#  rabbitmq:
+#    host: 192.168.198.128
+#    port: 5672
+
+#    username: admin
+#    password: admin
+
+server:
+  port: 8888
+  context-path: /
+
+eureka:
+  instance:
+#    nonSecurePort: 8181
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 30 # Server注册中心端默认多少秒没有收到client端心跳就认为client失效了，失效后会将对应client从注册中心移除（默认90秒）
+    status-page-url-path: /info
+    health-check-url-path: /health
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ipAddress}:@service.config.port@
+    ip-address: ${spring.cloud.client.ipAddress}
+  client:
+#    healthcheck:
+#      enabled: true # 开启健康检查（需要spring-boot-starter-actuator依赖）
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: @default-zone@
+
+management:
+  security:
+    enabled: false

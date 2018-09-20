@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.system.dao.SysJobBasicMapper" >
+  <resultMap id="SysJobBasicResultMap" type="com.sida.dcloud.system.po.SysJobBasic" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="val" property="val" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="SysJobBasic_Column_List" >
+    id, name, type, val, created_at
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="SysJobBasicResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="SysJobBasic_Column_List" />
+    from sys_job_basic
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_job_basic
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.sida.dcloud.system.po.SysJobBasic" >
+    insert into sys_job_basic (id, name, type, val, created_at)
+    values (#{id}, #{name}, #{type}, #{val}, #{createdAt})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.system.po.SysJobBasic" >
+    insert into sys_job_basic
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="val != null" >
+        val,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+      <if test="val != null" >
+        #{val},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sida.dcloud.system.po.SysJobBasic" >
+    update sys_job_basic
+    <set >
+      <if test="name != null" >
+        name = #{name},
+      </if>
+      <if test="type != null" >
+        type = #{type},
+      </if>
+      <if test="val != null" >
+        val = #{val},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sida.dcloud.system.po.SysJobBasic" >
+    update sys_job_basic
+    set name = #{name},
+      type = #{type},
+      val = #{val},
+      created_at = #{createdAt}
+    where id = #{id}
+  </update>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="name != null and name != ''" >
+        name = #{name}
+      </if>
+      <if test="type != null and type != ''" >
+        AND type = #{type}
+      </if>
+      <if test="val != null and val != ''" >
+        AND val = #{val}
+      </if>
+      <if test="createdAt != null" >
+        AND created_at = #{createdAt}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.system.po.SysJobBasic" resultMap="SysJobBasicResultMap" >
+    select
+    <include refid="SysJobBasic_Column_List" />
+    from sys_job_basic
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update sys_job_basic
+    <set >
+      <if test="po.name != null" >
+        name = #{po.name},
+      </if>
+      <if test="po.type != null" >
+        type = #{po.type},
+      </if>
+      <if test="po.val != null" >
+        val = #{po.val},
+      </if>
+      <if test="po.createdAt != null" >
+        created_at = #{po.createdAt},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+</mapper>

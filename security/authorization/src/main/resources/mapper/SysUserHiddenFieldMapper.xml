@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.auth.dao.SysUserHiddenFieldMapper" >
+  <resultMap id="SysUserHiddenFieldResultMap" type="com.sida.dcloud.auth.po.SysUserHiddenField" >
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="hidden_field_id" property="hiddenFieldId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="SysUserHiddenField_Column_List" >
+    user_id, hidden_field_id
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.auth.po.SysUserHiddenField" >
+    insert into sys_user_hidden_field (user_id, hidden_field_id)
+    values (#{userId}, #{hiddenFieldId})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.auth.po.SysUserHiddenField" >
+    insert into sys_user_hidden_field
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="hiddenFieldId != null" >
+        hidden_field_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId},
+      </if>
+      <if test="hiddenFieldId != null" >
+        #{hiddenFieldId},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="userId != null and userId != ''" >
+        user_id = #{userId}
+      </if>
+      <if test="hiddenFieldId != null and hiddenFieldId != ''" >
+        AND hidden_field_id = #{hiddenFieldId}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.auth.po.SysUserHiddenField" resultMap="SysUserHiddenFieldResultMap" >
+    select 
+    <include refid="SysUserHiddenField_Column_List" />
+    from sys_user_hidden_field
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update sys_user_hidden_field
+    <set >
+      <if test="po.userId != null" >
+        user_id = #{po.userId},
+      </if>
+      <if test="po.hiddenFieldId != null" >
+        hidden_field_id = #{po.hiddenFieldId},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+</mapper>

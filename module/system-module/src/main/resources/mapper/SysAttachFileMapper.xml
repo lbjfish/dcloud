@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.system.dao.SysAttachFileMapper" >
+  <resultMap id="SysAttachFileResultMap" type="com.sida.dcloud.system.po.SysAttachFile" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="last_updated" property="lastUpdated" jdbcType="TIMESTAMP" />
+    <result column="created_user" property="createdUser" jdbcType="VARCHAR" />
+    <result column="updated_user" property="updatedUser" jdbcType="VARCHAR" />
+    <result column="disable" property="disable" jdbcType="BIT" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
+    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="file_path" property="filePath" jdbcType="VARCHAR" />
+    <result column="file_compress_path" property="fileCompressPath" jdbcType="VARCHAR" />
+    <result column="file_preview_path" property="filePreviewPath" jdbcType="VARCHAR" />
+    <result column="orginal_name" property="orginalName" jdbcType="VARCHAR" />
+    <result column="md5" property="md5" jdbcType="VARCHAR" />
+    <result column="extension" property="extension" jdbcType="VARCHAR" />
+    <result column="size" property="size" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="SysAttachFile_Column_List" >
+    id, org_id, created_at, last_updated, created_user, updated_user, disable, delete_flag, 
+    file_name, file_path, file_compress_path, file_preview_path, orginal_name, md5, extension, 
+    size
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="SysAttachFileResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="SysAttachFile_Column_List" />
+    from sys_attach_file
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_attach_file
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.sida.dcloud.system.po.SysAttachFile" >
+    insert into sys_attach_file (id, org_id, created_at, last_updated, created_user, updated_user, 
+      disable, delete_flag, file_name, file_path, file_compress_path, file_preview_path, 
+      orginal_name, md5, extension, size)
+    values (#{id}, #{orgId}, #{createdAt}, #{lastUpdated}, #{createdUser}, #{updatedUser}, 
+      #{disable}, #{deleteFlag}, #{fileName}, #{filePath}, #{fileCompressPath}, #{filePreviewPath}, 
+      #{orginalName}, #{md5}, #{extension}, #{size})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.system.po.SysAttachFile" >
+    insert into sys_attach_file
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="lastUpdated != null" >
+        last_updated,
+      </if>
+      <if test="createdUser != null" >
+        created_user,
+      </if>
+      <if test="updatedUser != null" >
+        updated_user,
+      </if>
+      <if test="disable != null" >
+        disable,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="fileName != null" >
+        file_name,
+      </if>
+      <if test="filePath != null" >
+        file_path,
+      </if>
+      <if test="fileCompressPath != null" >
+        file_compress_path,
+      </if>
+      <if test="filePreviewPath != null" >
+        file_preview_path,
+      </if>
+      <if test="orginalName != null" >
+        orginal_name,
+      </if>
+      <if test="md5 != null" >
+        md5,
+      </if>
+      <if test="extension != null" >
+        extension,
+      </if>
+      <if test="size != null" >
+        size,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="orgId != null" >
+        #{orgId},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="lastUpdated != null" >
+        #{lastUpdated},
+      </if>
+      <if test="createdUser != null" >
+        #{createdUser},
+      </if>
+      <if test="updatedUser != null" >
+        #{updatedUser},
+      </if>
+      <if test="disable != null" >
+        #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag},
+      </if>
+      <if test="fileName != null" >
+        #{fileName},
+      </if>
+      <if test="filePath != null" >
+        #{filePath},
+      </if>
+      <if test="fileCompressPath != null" >
+        #{fileCompressPath},
+      </if>
+      <if test="filePreviewPath != null" >
+        #{filePreviewPath},
+      </if>
+      <if test="orginalName != null" >
+        #{orginalName},
+      </if>
+      <if test="md5 != null" >
+        #{md5},
+      </if>
+      <if test="extension != null" >
+        #{extension},
+      </if>
+      <if test="size != null" >
+        #{size},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sida.dcloud.system.po.SysAttachFile" >
+    update sys_attach_file
+    <set >
+      <if test="orgId != null" >
+        org_id = #{orgId},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt},
+      </if>
+      <if test="lastUpdated != null" >
+        last_updated = #{lastUpdated},
+      </if>
+      <if test="createdUser != null" >
+        created_user = #{createdUser},
+      </if>
+      <if test="updatedUser != null" >
+        updated_user = #{updatedUser},
+      </if>
+      <if test="disable != null" >
+        disable = #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag = #{deleteFlag},
+      </if>
+      <if test="fileName != null" >
+        file_name = #{fileName},
+      </if>
+      <if test="filePath != null" >
+        file_path = #{filePath},
+      </if>
+      <if test="fileCompressPath != null" >
+        file_compress_path = #{fileCompressPath},
+      </if>
+      <if test="filePreviewPath != null" >
+        file_preview_path = #{filePreviewPath},
+      </if>
+      <if test="orginalName != null" >
+        orginal_name = #{orginalName},
+      </if>
+      <if test="md5 != null" >
+        md5 = #{md5},
+      </if>
+      <if test="extension != null" >
+        extension = #{extension},
+      </if>
+      <if test="size != null" >
+        size = #{size},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sida.dcloud.system.po.SysAttachFile" >
+    update sys_attach_file
+    set org_id = #{orgId},
+      created_at = #{createdAt},
+      last_updated = #{lastUpdated},
+      created_user = #{createdUser},
+      updated_user = #{updatedUser},
+      disable = #{disable},
+      delete_flag = #{deleteFlag},
+      file_name = #{fileName},
+      file_path = #{filePath},
+      file_compress_path = #{fileCompressPath},
+      file_preview_path = #{filePreviewPath},
+      orginal_name = #{orginalName},
+      md5 = #{md5},
+      extension = #{extension},
+      size = #{size}
+    where id = #{id}
+  </update>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="orgId != null and orgId != ''" >
+        org_id = #{orgId}
+      </if>
+      <if test="createdAt != null" >
+        AND created_at = #{createdAt}
+      </if>
+      <if test="lastUpdated != null" >
+        AND last_updated = #{lastUpdated}
+      </if>
+      <if test="createdUser != null and createdUser != ''" >
+        AND created_user = #{createdUser}
+      </if>
+      <if test="updatedUser != null and updatedUser != ''" >
+        AND updated_user = #{updatedUser}
+      </if>
+      <if test="disable != null" >
+        AND disable = #{disable}
+      </if>
+      <if test="deleteFlag != null" >
+        AND delete_flag = #{deleteFlag}
+      </if>
+      <if test="fileName != null and fileName != ''" >
+        AND file_name = #{fileName}
+      </if>
+      <if test="filePath != null and filePath != ''" >
+        AND file_path = #{filePath}
+      </if>
+      <if test="fileCompressPath != null and fileCompressPath != ''" >
+        AND file_compress_path = #{fileCompressPath}
+      </if>
+      <if test="filePreviewPath != null and filePreviewPath != ''" >
+        AND file_preview_path = #{filePreviewPath}
+      </if>
+      <if test="orginalName != null and orginalName != ''" >
+        AND orginal_name = #{orginalName}
+      </if>
+      <if test="md5 != null and md5 != ''" >
+        AND md5 = #{md5}
+      </if>
+      <if test="extension != null and extension != ''" >
+        AND extension = #{extension}
+      </if>
+      <if test="size != null" >
+        AND size = #{size}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.system.po.SysAttachFile" resultMap="SysAttachFileResultMap" >
+    select 
+    <include refid="SysAttachFile_Column_List" />
+    from sys_attach_file
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update sys_attach_file
+    <set >
+      <if test="po.orgId != null" >
+        org_id = #{po.orgId},
+      </if>
+      <if test="po.createdAt != null" >
+        created_at = #{po.createdAt},
+      </if>
+      <if test="po.lastUpdated != null" >
+        last_updated = #{po.lastUpdated},
+      </if>
+      <if test="po.createdUser != null" >
+        created_user = #{po.createdUser},
+      </if>
+      <if test="po.updatedUser != null" >
+        updated_user = #{po.updatedUser},
+      </if>
+      <if test="po.disable != null" >
+        disable = #{po.disable},
+      </if>
+      <if test="po.deleteFlag != null" >
+        delete_flag = #{po.deleteFlag},
+      </if>
+      <if test="po.fileName != null" >
+        file_name = #{po.fileName},
+      </if>
+      <if test="po.filePath != null" >
+        file_path = #{po.filePath},
+      </if>
+      <if test="po.fileCompressPath != null" >
+        file_compress_path = #{po.fileCompressPath},
+      </if>
+      <if test="po.filePreviewPath != null" >
+        file_preview_path = #{po.filePreviewPath},
+      </if>
+      <if test="po.orginalName != null" >
+        orginal_name = #{po.orginalName},
+      </if>
+      <if test="po.md5 != null" >
+        md5 = #{po.md5},
+      </if>
+      <if test="po.extension != null" >
+        extension = #{po.extension},
+      </if>
+      <if test="po.size != null" >
+        size = #{po.size},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+</mapper>

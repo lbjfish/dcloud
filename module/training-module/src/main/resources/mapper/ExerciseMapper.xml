@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.training.dao.ExerciseMapper" >
+  <resultMap id="ExerciseResultMap" type="com.sida.dcloud.training.po.Exercise" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="created_user" property="createdUser" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="updated_user" property="updatedUser" jdbcType="VARCHAR" />
+    <result column="last_updated" property="lastUpdated" jdbcType="TIMESTAMP" />
+    <result column="disable" property="disable" jdbcType="BIT" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
+    <result column="red_string1" property="redString1" jdbcType="VARCHAR" />
+    <result column="red_string2" property="redString2" jdbcType="VARCHAR" />
+    <result column="red_string3" property="redString3" jdbcType="VARCHAR" />
+    <result column="red_string4" property="redString4" jdbcType="VARCHAR" />
+    <result column="red_string5" property="redString5" jdbcType="VARCHAR" />
+    <result column="red_string6" property="redString6" jdbcType="VARCHAR" />
+    <result column="region_id" property="regionId" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="style" property="style" jdbcType="VARCHAR" />
+    <result column="section_id" property="sectionId" jdbcType="VARCHAR" />
+    <result column="microcourse_code" property="microcourseCode" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="difficulty" property="difficulty" jdbcType="VARCHAR" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+    <result column="question" property="question" jdbcType="VARCHAR" />
+    <result column="items" property="items" jdbcType="VARCHAR" />
+    <result column="answer" property="answer" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="sequence" property="sequence" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ExerciseVoResultMap" type="com.sida.dcloud.training.vo.ExerciseVo" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="region_id" property="regionId" jdbcType="VARCHAR" />
+    <result column="section_id" property="sectionId" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="style" property="style" jdbcType="VARCHAR" />
+    <result column="microcourse_code" property="microcourseCode" jdbcType="VARCHAR" />
+    <result column="difficulty" property="difficulty" jdbcType="VARCHAR" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+    <result column="question" property="question" jdbcType="VARCHAR" />
+    <result column="created_user" jdbcType="VARCHAR" property="createdUser" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+  </resultMap>
+  <resultMap id="GroupCountDtoResultMap" type="com.sida.dcloud.training.dto.GroupCountDto" >
+    <result column="group_id" property="groupId" jdbcType="VARCHAR" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Exercise_Column_List" >
+    id, org_id, created_user, created_at, updated_user, last_updated, disable, delete_flag, 
+    red_string1, red_string2, red_string3, red_string4, red_string5, red_string6, region_id, 
+    type, style, section_id, microcourse_code, url, difficulty, score, question, items, 
+    answer, remark, sequence
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.training.po.Exercise" >
+    insert into exercise (id, org_id, created_user, created_at, updated_user, last_updated, 
+      disable, delete_flag, red_string1, red_string2, red_string3, red_string4, 
+      red_string5, red_string6, region_id, type, style, section_id, microcourse_code, 
+      url, difficulty, score, question, items, answer, remark, sequence
+      )
+    values (#{id}, #{orgId}, #{createdUser}, #{createdAt}, #{updatedUser}, #{lastUpdated}, 
+      #{disable}, #{deleteFlag}, #{redString1}, #{redString2}, #{redString3}, #{redString4}, 
+      #{redString5}, #{redString6}, #{regionId}, #{type}, #{style}, #{sectionId}, #{microcourseCode}, 
+      #{url}, #{difficulty}, #{score}, #{question}, #{items}, #{answer}, #{remark}, #{sequence}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.training.po.Exercise" >
+    insert into exercise
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="createdUser != null" >
+        created_user,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="updatedUser != null" >
+        updated_user,
+      </if>
+      <if test="lastUpdated != null" >
+        last_updated,
+      </if>
+      <if test="disable != null" >
+        disable,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="redString1 != null" >
+        red_string1,
+      </if>
+      <if test="redString2 != null" >
+        red_string2,
+      </if>
+      <if test="redString3 != null" >
+        red_string3,
+      </if>
+      <if test="redString4 != null" >
+        red_string4,
+      </if>
+      <if test="redString5 != null" >
+        red_string5,
+      </if>
+      <if test="redString6 != null" >
+        red_string6,
+      </if>
+      <if test="regionId != null" >
+        region_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="style != null" >
+        style,
+      </if>
+      <if test="sectionId != null" >
+        section_id,
+      </if>
+      <if test="microcourseCode != null" >
+        microcourse_code,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="difficulty != null" >
+        difficulty,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="question != null" >
+        question,
+      </if>
+      <if test="items != null" >
+        items,
+      </if>
+      <if test="answer != null" >
+        answer,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="sequence != null" >
+        sequence,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="orgId != null" >
+        #{orgId},
+      </if>
+      <if test="createdUser != null" >
+        #{createdUser},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedUser != null" >
+        #{updatedUser},
+      </if>
+      <if test="lastUpdated != null" >
+        #{lastUpdated},
+      </if>
+      <if test="disable != null" >
+        #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag},
+      </if>
+      <if test="redString1 != null" >
+        #{redString1},
+      </if>
+      <if test="redString2 != null" >
+        #{redString2},
+      </if>
+      <if test="redString3 != null" >
+        #{redString3},
+      </if>
+      <if test="redString4 != null" >
+        #{redString4},
+      </if>
+      <if test="redString5 != null" >
+        #{redString5},
+      </if>
+      <if test="redString6 != null" >
+        #{redString6},
+      </if>
+      <if test="regionId != null" >
+        #{regionId},
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+      <if test="style != null" >
+        #{style},
+      </if>
+      <if test="sectionId != null" >
+        #{sectionId},
+      </if>
+      <if test="microcourseCode != null" >
+        #{microcourseCode},
+      </if>
+      <if test="url != null" >
+        #{url},
+      </if>
+      <if test="difficulty != null" >
+        #{difficulty},
+      </if>
+      <if test="score != null" >
+        #{score},
+      </if>
+      <if test="question != null" >
+        #{question},
+      </if>
+      <if test="items != null" >
+        #{items},
+      </if>
+      <if test="answer != null" >
+        #{answer},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+      <if test="sequence != null" >
+        #{sequence},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Where_Condition" >
+    <where >
+      delete_flag = 0
+      <if test="id != null and id != ''" >
+        and id = #{id}
+      </if>
+      <if test="orgId != null and orgId != ''" >
+        AND org_id = #{orgId}
+      </if>
+      <if test="createdUser != null and createdUser != ''" >
+        AND created_user = #{createdUser}
+      </if>
+      <if test="createdAt != null" >
+        AND created_at = #{createdAt}
+      </if>
+      <if test="updatedUser != null and updatedUser != ''" >
+        AND updated_user = #{updatedUser}
+      </if>
+      <if test="lastUpdated != null" >
+        AND last_updated = #{lastUpdated}
+      </if>
+      <if test="disable != null" >
+        AND disable = #{disable}
+      </if>
+      <if test="deleteFlag != null" >
+        AND delete_flag = #{deleteFlag}
+      </if>
+      <if test="redString1 != null and redString1 != ''" >
+        AND red_string1 = #{redString1}
+      </if>
+      <if test="redString2 != null and redString2 != ''" >
+        AND red_string2 = #{redString2}
+      </if>
+      <if test="redString3 != null and redString3 != ''" >
+        AND red_string3 = #{redString3}
+      </if>
+      <if test="redString4 != null and redString4 != ''" >
+        AND red_string4 = #{redString4}
+      </if>
+      <if test="redString5 != null and redString5 != ''" >
+        AND red_string5 = #{redString5}
+      </if>
+      <if test="redString6 != null and redString6 != ''" >
+        AND red_string6 = #{redString6}
+      </if>
+      <if test="regionId != null and regionId != ''" >
+        AND region_id = #{regionId}
+      </if>
+      <if test="type != null and type != ''" >
+        AND type = #{type}
+      </if>
+      <if test="style != null and style != ''" >
+        AND style = #{style}
+      </if>
+      <if test="sectionId != null and sectionId != ''" >
+        AND section_id = #{sectionId}
+      </if>
+      <if test="microcourseCode != null and microcourseCode != ''" >
+        AND microcourse_code = #{microcourseCode}
+      </if>
+      <if test="url != null and url != ''" >
+        AND url = #{url}
+      </if>
+      <if test="difficulty != null and difficulty != ''" >
+        AND difficulty = #{difficulty}
+      </if>
+      <if test="score != null" >
+        AND score = #{score}
+      </if>
+      <if test="question != null and question != ''" >
+        AND question = #{question}
+      </if>
+      <if test="items != null and items != ''" >
+        AND items = #{items}
+      </if>
+      <if test="answer != null and answer != ''" >
+        AND answer = #{answer}
+      </if>
+      <if test="remark != null and remark != ''" >
+        AND remark = #{remark}
+      </if>
+      <if test="sequence != null" >
+        AND sequence = #{sequence}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.training.po.Exercise" resultMap="ExerciseResultMap" >
+    select 
+    <include refid="Exercise_Column_List" />
+    from exercise
+    <if test="groupId != null">
+      join exercise_to_group g on exercise.id=g.exercise_id and g.group_id=#{groupId}
+    </if>
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update exercise
+    <set >
+      <if test="id != null" >
+        id = #{id},
+      </if>
+      <if test="orgId != null" >
+        org_id = #{orgId},
+      </if>
+      <if test="createdUser != null" >
+        created_user = #{createdUser},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt},
+      </if>
+      <if test="updatedUser != null" >
+        updated_user = #{updatedUser},
+      </if>
+      <if test="lastUpdated != null" >
+        last_updated = #{lastUpdated},
+      </if>
+      <if test="disable != null" >
+        disable = #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag = #{deleteFlag},
+      </if>
+      <if test="redString1 != null" >
+        red_string1 = #{redString1},
+      </if>
+      <if test="redString2 != null" >
+        red_string2 = #{redString2},
+      </if>
+      <if test="redString3 != null" >
+        red_string3 = #{redString3},
+      </if>
+      <if test="redString4 != null" >
+        red_string4 = #{redString4},
+      </if>
+      <if test="redString5 != null" >
+        red_string5 = #{redString5},
+      </if>
+      <if test="redString6 != null" >
+        red_string6 = #{redString6},
+      </if>
+      <if test="regionId != null" >
+        region_id = #{regionId},
+      </if>
+      <if test="type != null" >
+        type = #{type},
+      </if>
+      <if test="style != null" >
+        style = #{style},
+      </if>
+      <if test="sectionId != null" >
+        section_id = #{sectionId},
+      </if>
+      <if test="microcourseCode != null" >
+        microcourse_code = #{microcourseCode},
+      </if>
+      <if test="url != null" >
+        url = #{url},
+      </if>
+      <if test="difficulty != null" >
+        difficulty = #{difficulty},
+      </if>
+      <if test="score != null" >
+        score = #{score},
+      </if>
+      <if test="question != null" >
+        question = #{question},
+      </if>
+      <if test="items != null" >
+        items = #{items},
+      </if>
+      <if test="answer != null" >
+        answer = #{answer},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark},
+      </if>
+      <if test="sequence != null" >
+        sequence = #{sequence},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <!--  -->
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    update exercise set delete_flag = 1 where id = #{id}
+  </delete>
+  <delete id="deleteByPrimaryKeys" parameterType="java.lang.String" >
+    update exercise set delete_flag = 1 where id in (${ids})
+  </delete>
+  <delete id="physicalDeleteGroupRelByExercise" parameterType="java.lang.String" >
+    delete from exercise_to_group where exercise_id in ${exerciseIds})
+  </delete>
+
+  <select id="findVoList" parameterType="com.sida.dcloud.training.po.Exercise" resultMap="ExerciseVoResultMap">
+    select
+      id,region_id,section_id,type,style,microcouuse_code,difficulty,score,question,created_user,created_at
+    from exercise
+    <where>
+      delete_flag = 0
+      <if test="po.id != null and po.id != ''" >
+        and id = #{po.id}
+      </if>
+      <if test="po.type != null and po.type != ''" >
+        and type = #{po.type}
+      </if>
+      <if test="po.style != null and po.style != ''" >
+        and style = #{po.style}
+      </if>
+      <if test="po.difficulty != null and po.difficulty != ''" >
+        and difficulty = #{po.difficulty}
+      </if>
+      <if test="po.score != null and po.score != ''" >
+        and score = #{po.score}
+      </if>
+      <if test="po.microcourseCode != null and po.microcourseCode != ''" >
+        and instr(microcouuse_code, #{po.microcourseCode})&gt;0
+      </if>
+      <if test="po.question != null and po.question != ''" >
+        and instr(question, #{po.question})&gt;0
+      </if>
+    </where>
+    <if test="po.orderField != null and po.orderField != ''">
+      ORDER BY ${po.orderField}
+      <if test="po.orderString != null and po.orderString != ''">
+        ${po.orderString}
+      </if>
+    </if>
+  </select>
+
+  <select id="checkMultiCountByUnique" parameterType="com.sida.dcloud.training.po.Exercise" resultType="int">
+    select count(0) from exercise
+    <where>
+      delete_flag = 0 and (1=2
+      <if test="po.microcourseCode != null and po.microcourseCode != ''">
+        or microcourseCode=#{po.microcourseCode}
+      </if>
+      <if test="po.question != null and po.question != ''">
+        or code=#{po.question}
+      </if>)
+      <if test="po.id != null and po.id != ''">
+        <![CDATA[
+        and id <> #{po.id}
+        ]]>
+      </if>
+    </where>
+  </select>
+
+  <select id="selectExerciseSizeByGroupIds" parameterType="java.lang.String" resultType="int">
+    select count(0) from exercise_to_group
+    <where>
+      group_id in (${groupIds})
+    </where>
+  </select>
+
+  <select id="selectExerciseSizeBySectionIds" parameterType="java.lang.String" resultType="int">
+    select count(0) from exercise
+    <where>
+      section_id in (${sectionIds}) and delete_flag = 0
+    </where>
+  </select>
+
+  <select id="findRemoveCountSection" parameterType="java.lang.String" resultMap="GroupCountDtoResultMap">
+    select section_id,count(0) as count from exercise
+    <where>
+      id in (${stringIds})
+    </where>
+    group by section_id
+  </select>
+
+  <select id="findRemoveCountGroup" parameterType="java.lang.String" resultMap="GroupCountDtoResultMap">
+    select group_id,count(0) as count from exercise_to_group
+    <where>
+      exercise_id in (${stringIds})
+    </where>
+    group by group_id
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="ExerciseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Exercise_Column_List" />
+    from exercise
+    where id = #{id} and delete_flag = 0
+  </select>
+</mapper>

@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.system.dao.SysResourceMapper" >
+  <resultMap id="SysResourceResultMap" type="com.sida.dcloud.auth.po.SysResource" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="last_updated" property="lastUpdated" jdbcType="TIMESTAMP" />
+    <result column="created_user" property="createdUser" jdbcType="VARCHAR" />
+    <result column="updated_user" property="updatedUser" jdbcType="VARCHAR" />
+    <result column="disable" property="disable" jdbcType="BIT" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="value" property="value" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="alias" property="alias" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="href" property="href" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="SysResource_Column_List" >
+    id, org_id, created_at, last_updated, created_user, updated_user, disable, delete_flag, 
+    name, code, parent_id, path, sort, value, description, alias, type, href
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="SysResourceResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="SysResource_Column_List" />
+    from sys_resource
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_resource
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.sida.dcloud.auth.po.SysResource" >
+    insert into sys_resource (id, org_id, created_at, last_updated, created_user, updated_user, 
+      disable, delete_flag, name, code, parent_id, path, sort, value, 
+      description, alias, type, href)
+    values (#{id}, #{orgId}, #{createdAt}, #{lastUpdated}, #{createdUser}, #{updatedUser}, 
+      #{disable}, #{deleteFlag}, #{name}, #{code}, #{parentId}, #{path}, #{sort}, #{value}, 
+      #{description}, #{alias}, #{type}, #{href})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.auth.po.SysResource" >
+    insert into sys_resource
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="lastUpdated != null" >
+        last_updated,
+      </if>
+      <if test="createdUser != null" >
+        created_user,
+      </if>
+      <if test="updatedUser != null" >
+        updated_user,
+      </if>
+      <if test="disable != null" >
+        disable,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="path != null" >
+        path,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="value != null" >
+        value,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="alias != null" >
+        alias,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="href != null" >
+        href,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="orgId != null" >
+        #{orgId},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="lastUpdated != null" >
+        #{lastUpdated},
+      </if>
+      <if test="createdUser != null" >
+        #{createdUser},
+      </if>
+      <if test="updatedUser != null" >
+        #{updatedUser},
+      </if>
+      <if test="disable != null" >
+        #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="code != null" >
+        #{code},
+      </if>
+      <if test="parentId != null" >
+        #{parentId},
+      </if>
+      <if test="path != null" >
+        #{path},
+      </if>
+      <if test="sort != null" >
+        #{sort},
+      </if>
+      <if test="value != null" >
+        #{value},
+      </if>
+      <if test="description != null" >
+        #{description},
+      </if>
+      <if test="alias != null" >
+        #{alias},
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+      <if test="href != null" >
+        #{href},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sida.dcloud.auth.po.SysResource" >
+    update sys_resource
+    <set >
+      <if test="orgId != null" >
+        org_id = #{orgId},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt},
+      </if>
+      <if test="lastUpdated != null" >
+        last_updated = #{lastUpdated},
+      </if>
+      <if test="createdUser != null" >
+        created_user = #{createdUser},
+      </if>
+      <if test="updatedUser != null" >
+        updated_user = #{updatedUser},
+      </if>
+      <if test="disable != null" >
+        disable = #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag = #{deleteFlag},
+      </if>
+      <if test="name != null" >
+        name = #{name},
+      </if>
+      <if test="code != null" >
+        code = #{code},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId},
+      </if>
+      <if test="path != null" >
+        path = #{path},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort},
+      </if>
+      <if test="value != null" >
+        value = #{value},
+      </if>
+      <if test="description != null" >
+        description = #{description},
+      </if>
+      <if test="alias != null" >
+        alias = #{alias},
+      </if>
+      <if test="type != null" >
+        type = #{type},
+      </if>
+      <if test="href != null" >
+        href = #{href},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sida.dcloud.auth.po.SysResource" >
+    update sys_resource
+    set org_id = #{orgId},
+      created_at = #{createdAt},
+      last_updated = #{lastUpdated},
+      created_user = #{createdUser},
+      updated_user = #{updatedUser},
+      disable = #{disable},
+      delete_flag = #{deleteFlag},
+      name = #{name},
+      code = #{code},
+      parent_id = #{parentId},
+      path = #{path},
+      sort = #{sort},
+      value = #{value},
+      description = #{description},
+      alias = #{alias},
+      type = #{type},
+      href = #{href}
+    where id = #{id}
+  </update>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="orgId != null and orgId != ''" >
+        org_id = #{orgId}
+      </if>
+      <if test="createdAt != null" >
+        AND created_at = #{createdAt}
+      </if>
+      <if test="lastUpdated != null" >
+        AND last_updated = #{lastUpdated}
+      </if>
+      <if test="createdUser != null and createdUser != ''" >
+        AND created_user = #{createdUser}
+      </if>
+      <if test="updatedUser != null and updatedUser != ''" >
+        AND updated_user = #{updatedUser}
+      </if>
+      <if test="disable != null" >
+        AND disable = #{disable}
+      </if>
+      <if test="deleteFlag != null" >
+        AND delete_flag = #{deleteFlag}
+      </if>
+      <if test="name != null and name != ''" >
+        AND name = #{name}
+      </if>
+      <if test="code != null and code != ''" >
+        AND code = #{code}
+      </if>
+      <if test="parentId != null and parentId != ''" >
+        AND parent_id = #{parentId}
+      </if>
+      <if test="path != null and path != ''" >
+        AND path = #{path}
+      </if>
+      <if test="sort != null" >
+        AND sort = #{sort}
+      </if>
+      <if test="value != null and value != ''" >
+        AND value = #{value}
+      </if>
+      <if test="description != null and description != ''" >
+        AND description = #{description}
+      </if>
+      <if test="alias != null and alias != ''" >
+        AND alias = #{alias}
+      </if>
+      <if test="type != null and type != ''" >
+        AND type = #{type}
+      </if>
+      <if test="href != null and href != ''" >
+        AND href = #{href}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.auth.po.SysResource" resultMap="SysResourceResultMap" >
+    select 
+    <include refid="SysResource_Column_List" />
+    from sys_resource
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update sys_resource
+    <set >
+      <if test="po.orgId != null" >
+        org_id = #{po.orgId},
+      </if>
+      <if test="po.createdAt != null" >
+        created_at = #{po.createdAt},
+      </if>
+      <if test="po.lastUpdated != null" >
+        last_updated = #{po.lastUpdated},
+      </if>
+      <if test="po.createdUser != null" >
+        created_user = #{po.createdUser},
+      </if>
+      <if test="po.updatedUser != null" >
+        updated_user = #{po.updatedUser},
+      </if>
+      <if test="po.disable != null" >
+        disable = #{po.disable},
+      </if>
+      <if test="po.deleteFlag != null" >
+        delete_flag = #{po.deleteFlag},
+      </if>
+      <if test="po.name != null" >
+        name = #{po.name},
+      </if>
+      <if test="po.code != null" >
+        code = #{po.code},
+      </if>
+      <if test="po.parentId != null" >
+        parent_id = #{po.parentId},
+      </if>
+      <if test="po.path != null" >
+        path = #{po.path},
+      </if>
+      <if test="po.sort != null" >
+        sort = #{po.sort},
+      </if>
+      <if test="po.value != null" >
+        value = #{po.value},
+      </if>
+      <if test="po.description != null" >
+        description = #{po.description},
+      </if>
+      <if test="po.alias != null" >
+        alias = #{po.alias},
+      </if>
+      <if test="po.type != null" >
+        type = #{po.type},
+      </if>
+      <if test="po.href != null" >
+        href = #{po.href},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <!--自定义sql-->
+  <resultMap id="SysResourceVoResultMap" type="com.sida.dcloud.auth.vo.SysResourceVo" extends="SysResourceResultMap">
+    <result column="role_ids" property="roleIds" jdbcType="VARCHAR"/>
+    <result column="role_names" property="roleNames" jdbcType="VARCHAR"/>
+    <result column="identifier" property="identifier" jdbcType="VARCHAR"/>
+  </resultMap>
+  <sql id="SysResource_Column_List_With_Alias" >
+    t.id, t.org_id, t.created_at, t.last_updated, t.created_user, t.updated_user, t.disable, t.delete_flag,
+    t.name, t.code, t.parent_id, t.path, t.sort, t.value, t.description, t.alias, t.type, t.href
+  </sql>
+  <select id="selectByTypeIn" resultMap="SysResourceResultMap" >
+    select
+    <include refid="SysResource_Column_List" />
+    from sys_resource
+    where disable = FALSE
+    AND delete_flag = FALSE
+    <if test="typeList != null and typeList.size > 0" >
+      <foreach collection="typeList" item="listItem" open="and type in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+    ORDER BY sort asc
+  </select>
+
+  <!--根据id删除资源-->
+  <update id="deleteById" >
+    update sys_resource
+    set delete_flag = 1
+    where path like concat(#{id},'.%')
+    or path like concat('%.',#{id},'.%')
+  </update>
+
+  <select id="selectByIds" resultMap="SysResourceResultMap" >
+    select
+    <include refid="SysResource_Column_List" />
+    from sys_resource
+    where disable = FALSE
+    AND delete_flag = FALSE
+    <if test="resourceIds != null and resourceIds.size > 0" >
+      <foreach collection="resourceIds" item="listItem" open="and id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </select>
+
+  <select id="findListByRoleCode" resultMap="SysResourceVoResultMap" >
+    select
+    <include refid="SysResource_Column_List_With_Alias" />
+    /*默认长度为1024。需要设置数据库group_concat_max_len参数*/
+    ,GROUP_CONCAT(rr.role_id) role_ids
+    ,GROUP_CONCAT(r.name) role_names
+    from sys_resource t
+    left join sys_role_resource rr on t.id = rr.resource_id
+    left join sys_role r on rr.role_id = r.id
+    where t.disable = FALSE
+    AND t.delete_flag = FALSE
+    AND r.id is not NULL
+    AND (t.VALUE is NOT NULL or t.VALUE != '')
+    <if test="roleId != null and roleId != ''" >
+      AND r.id = #{roleId}
+    </if>
+    <if test="roleCode != null and roleCode != ''">
+      AND r.code = #{roleCode}
+    </if>
+    group by t.id
+    order by t.sort asc
+  </select>
+
+  <select id="findUserButtons" resultMap="SysResourceResultMap" >
+    select
+    <include refid="SysResource_Column_List_With_Alias" />
+    from sys_resource t
+    left join sys_button b on t.id = b.id
+    left join sys_role_resource rr on t.id = rr.resource_id
+    left join sys_user_role ur on rr.role_id = ur.role_id
+    left join sys_user u on ur.user_id = u.id
+    WHERE t.disable = FALSE AND t.delete_flag = FALSE
+    AND b.page_code = #{pageCode}
+    and u.id = #{userId}
+    order by t.sort asc
+  </select>
+
+  <select id="findUserFields" resultMap="SysResourceResultMap" >
+    select
+    <include refid="SysResource_Column_List_With_Alias" />
+    from sys_resource t
+    left join sys_field f on t.id = f.id
+    left join sys_user_hidden_field hi on f.id = hi.hidden_field_id
+    WHERE t.disable = FALSE AND t.delete_flag = FALSE
+    AND f.page_code = #{pageCode}
+    and hi.user_id = #{userId}
+    order by t.sort asc
+  </select>
+
+  <select id="findUserResources" resultMap="SysResourceVoResultMap" >
+    select * from (select
+    <include refid="SysResource_Column_List_With_Alias" />,rr.identifier
+    from sys_user u
+    left join sys_user_role ur on u.id = ur.user_id
+    left join sys_role_resource rr on ur.role_id = rr.role_id
+    left join sys_resource t on rr.resource_id = t.id
+    where t.disable = FALSE and t.delete_flag = FALSE
+    AND u.id = #{userId}
+    union
+    select <include refid="SysResource_Column_List_With_Alias" />,null
+    from sys_user_hidden_field hf
+    left join sys_resource t on hf.hidden_field_id = t.id
+    where t.disable = false and t.delete_flag = false
+    and hf.user_id = #{userId}) tem
+    order by tem.sort asc
+  </select>
+
+  <select id="findResources" resultMap="SysResourceVoResultMap" >
+    select t.id,t.code,t.parent_id,t.name,t.type
+    from sys_resource t
+    where t.disable = false and t.delete_flag = false
+    order by t.sort asc
+  </select>
+</mapper>

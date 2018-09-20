@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.system.dao.SysTrainingfieldModelsMapper" >
+  <resultMap id="SysTrainingfieldModelsResultMap" type="com.sida.dcloud.system.po.SysTrainingfieldModels" >
+    <result column="trainingfield_id" property="trainingfieldId" jdbcType="VARCHAR" />
+    <result column="models_id" property="modelsId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="SysTrainingfieldModels_Column_List" >
+    trainingfield_id, models_id
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.system.po.SysTrainingfieldModels" >
+    insert into sys_trainingfield_models (trainingfield_id, models_id)
+    values (#{trainingfieldId}, #{modelsId})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.system.po.SysTrainingfieldModels" >
+    insert into sys_trainingfield_models
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="trainingfieldId != null" >
+        trainingfield_id,
+      </if>
+      <if test="modelsId != null" >
+        models_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="trainingfieldId != null" >
+        #{trainingfieldId},
+      </if>
+      <if test="modelsId != null" >
+        #{modelsId},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="trainingfieldId != null and trainingfieldId != ''" >
+        trainingfield_id = #{trainingfieldId}
+      </if>
+      <if test="modelsId != null and modelsId != ''" >
+        AND models_id = #{modelsId}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.system.po.SysTrainingfieldModels" resultMap="SysTrainingfieldModelsResultMap" >
+    select 
+    <include refid="SysTrainingfieldModels_Column_List" />
+    from sys_trainingfield_models
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update sys_trainingfield_models
+    <set >
+      <if test="po.trainingfieldId != null" >
+        trainingfield_id = #{po.trainingfieldId},
+      </if>
+      <if test="po.modelsId != null" >
+        models_id = #{po.modelsId},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <!--自定义sql-->
+  <delete id="deleteByFieldId" >
+    delete sys_trainingfield_models
+    where 1=2
+    <if test="trainingfieldId != null and trainingfieldId !=''" >
+      or trainingfield_id = #{trainingfieldId}
+    </if>
+  </delete>
+  <insert id="insertBatch" >
+    insert into sys_trainingfield_models (trainingfield_id, models_id)
+    values
+    <if test="modelList != null and modelList.size > 0" >
+      <foreach collection="modelList" item="listItem" open="" close="" separator="," >
+        (#{listItem.trainingfieldId}, #{listItem.modelsId})
+      </foreach>
+    </if>
+  </insert>
+</mapper>

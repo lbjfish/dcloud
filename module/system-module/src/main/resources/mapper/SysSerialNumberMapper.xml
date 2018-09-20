@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.system.dao.SysSerialNumberMapper" >
+  <resultMap id="SysSerialNumberResultMap" type="com.sida.dcloud.system.po.SysSerialNumber" >
+    <id column="table_key" property="tableKey" jdbcType="VARCHAR" />
+    <id column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <id column="period_date_format" property="periodDateFormat" jdbcType="VARCHAR" />
+    <result column="number" property="number" jdbcType="BIGINT" />
+    <result column="datestr" property="datestr" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="SysSerialNumber_Column_List" >
+    table_key, org_id, period_date_format, number, datestr, description
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="SysSerialNumberResultMap" parameterType="com.sida.dcloud.system.po.SysSerialNumberKey" >
+    select 
+    <include refid="SysSerialNumber_Column_List" />
+    from sys_serial_number
+    where table_key = #{tableKey}
+      and org_id = #{orgId}
+      and period_date_format = #{periodDateFormat}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.sida.dcloud.system.po.SysSerialNumberKey" >
+    delete from sys_serial_number
+    where table_key = #{tableKey}
+      and org_id = #{orgId}
+      and period_date_format = #{periodDateFormat}
+  </delete>
+  <insert id="insert" parameterType="com.sida.dcloud.system.po.SysSerialNumber" useGeneratedKeys="true" keyProperty="tableKey" >
+    insert into sys_serial_number (table_key, org_id, period_date_format, number, datestr, description
+      )
+    values (#{tableKey}, #{orgId}, #{periodDateFormat}, #{number}, #{datestr}, #{description}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.system.po.SysSerialNumber" >
+    insert into sys_serial_number
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tableKey != null" >
+        table_key,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="periodDateFormat != null" >
+        period_date_format,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="datestr != null" >
+        datestr,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tableKey != null" >
+        #{tableKey},
+      </if>
+      <if test="orgId != null" >
+        #{orgId},
+      </if>
+      <if test="periodDateFormat != null" >
+        #{periodDateFormat},
+      </if>
+      <if test="number != null" >
+        #{number},
+      </if>
+      <if test="datestr != null" >
+        #{datestr},
+      </if>
+      <if test="description != null" >
+        #{description},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sida.dcloud.system.po.SysSerialNumber" >
+    update sys_serial_number
+    <set >
+      <if test="number != null" >
+        number = #{number},
+      </if>
+      <if test="datestr != null" >
+        datestr = #{datestr},
+      </if>
+      <if test="description != null" >
+        description = #{description},
+      </if>
+    </set>
+    where table_key = #{tableKey}
+      and org_id = #{orgId}
+      and period_date_format = #{periodDateFormat}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sida.dcloud.system.po.SysSerialNumber" >
+    update sys_serial_number
+    set number = #{number},
+      datestr = #{datestr},
+      description = #{description}
+    where table_key = #{tableKey}
+      and org_id = #{orgId}
+      and period_date_format = #{periodDateFormat}
+  </update>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="number != null" >
+        number = #{number}
+      </if>
+      <if test="datestr != null and datestr != ''" >
+        AND datestr = #{datestr}
+      </if>
+      <if test="description != null and description != ''" >
+        AND description = #{description}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.system.po.SysSerialNumber" resultMap="SysSerialNumberResultMap" >
+    select 
+    <include refid="SysSerialNumber_Column_List" />
+    from sys_serial_number
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update sys_serial_number
+    <set >
+      <if test="po.number != null" >
+        number = #{po.number},
+      </if>
+      <if test="po.datestr != null" >
+        datestr = #{po.datestr},
+      </if>
+      <if test="po.description != null" >
+        description = #{po.description},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <select id="generateSerialNumberByDate" parameterType="java.util.HashMap" statementType="CALLABLE">
+    <![CDATA[
+           {
+           call generate_serial_number_by_date (
+            #{param_key,mode=IN,jdbcType=VARCHAR},
+            #{param_org_id,mode=IN,jdbcType=VARCHAR},
+            #{param_period_date_format,mode=IN,jdbcType=VARCHAR},
+            #{result,mode=OUT,jdbcType=BIGINT},
+            #{current_datestr,mode=OUT,jdbcType=VARCHAR}
+            )
+           }
+       ]]>
+  </select>
+
+</mapper>

@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sida.dcloud.schedule.dao.YjpJobEntityMapper">
+  <resultMap id="YjpJobEntityResultMap" type="com.sida.dcloud.schedule.po.YjpJobEntity">
+    <id column="job_id" jdbcType="BIGINT" property="jobId" />
+    <result column="job_name" jdbcType="VARCHAR" property="jobName" />
+    <result column="job_object" jdbcType="VARCHAR" property="jobObject" />
+    <result column="job_class" jdbcType="VARCHAR" property="jobClass" />
+    <result column="job_method" jdbcType="VARCHAR" property="jobMethod" />
+    <result column="job_status" jdbcType="INTEGER" property="jobStatus" />
+    <result column="job_type" jdbcType="INTEGER" property="jobType" />
+    <result column="cron_expr" jdbcType="VARCHAR" property="cronExpr" />
+    <result column="run_times" jdbcType="BIGINT" property="runTimes" />
+    <result column="run_duration" jdbcType="BIGINT" property="runDuration" />
+    <result column="runtime_last" jdbcType="TIMESTAMP" property="runtimeLast" />
+    <result column="runtime_next" jdbcType="TIMESTAMP" property="runtimeNext" />
+    <result column="sync_begin_time" jdbcType="TIMESTAMP" property="syncBeginTime" />
+    <result column="sync_end_time" jdbcType="TIMESTAMP" property="syncEndTime" />
+    <result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
+    <result column="created_by" jdbcType="BIGINT" property="createdBy" />
+    <result column="last_updated_date" jdbcType="TIMESTAMP" property="lastUpdatedDate" />
+    <result column="last_updated_by" jdbcType="BIGINT" property="lastUpdatedBy" />
+    <result column="remove_flag" jdbcType="INTEGER" property="removeFlag" />
+  </resultMap>
+  <sql id="YjpJobEntity_Column_List">
+    job_id, job_name, job_object, job_class, job_method, job_status, job_type, cron_expr, 
+    run_times, run_duration, runtime_last, runtime_next, sync_begin_time, sync_end_time, 
+    created_date, created_by, last_updated_date, last_updated_by, remove_flag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="YjpJobEntityResultMap">
+    select 
+    <include refid="YjpJobEntity_Column_List" />
+    from yjp_job_entity
+    where job_id = #{jobId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from yjp_job_entity
+    where job_id = #{jobId}
+  </delete>
+  <insert id="insert" keyProperty="jobId" parameterType="com.sida.dcloud.schedule.po.YjpJobEntity" useGeneratedKeys="true">
+    insert into yjp_job_entity (job_name, job_object, job_class, job_method, job_status, job_type,
+      cron_expr, run_times, run_duration, runtime_last, runtime_next, sync_begin_time, 
+      sync_end_time, created_date, created_by, last_updated_date, last_updated_by, 
+      remove_flag)
+    values (#{jobName}, #{jobObject}, #{jobClass}, #{jobMethod}, #{jobStatus}, #{jobType}, 
+      #{cronExpr}, #{runTimes}, #{runDuration}, #{runtimeLast}, #{runtimeNext}, #{syncBeginTime}, 
+      #{syncEndTime}, #{createdDate}, #{createdBy}, #{lastUpdatedDate}, #{lastUpdatedBy}, 
+      #{removeFlag})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.schedule.po.YjpJobEntity">
+    insert into yjp_job_entity
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="jobId != null">
+        job_id,
+      </if>
+      <if test="jobName != null">
+        job_name,
+      </if>
+      <if test="jobObject != null">
+        job_object,
+      </if>
+      <if test="jobClass != null">
+        job_class,
+      </if>
+      <if test="jobMethod != null">
+        job_method,
+      </if>
+      <if test="jobStatus != null">
+        job_status,
+      </if>
+      <if test="jobType != null">
+        job_type,
+      </if>
+      <if test="cronExpr != null">
+        cron_expr,
+      </if>
+      <if test="runTimes != null">
+        run_times,
+      </if>
+      <if test="runDuration != null">
+        run_duration,
+      </if>
+      <if test="runtimeLast != null">
+        runtime_last,
+      </if>
+      <if test="runtimeNext != null">
+        runtime_next,
+      </if>
+      <if test="syncBeginTime != null">
+        sync_begin_time,
+      </if>
+      <if test="syncEndTime != null">
+        sync_end_time,
+      </if>
+      <if test="createdDate != null">
+        created_date,
+      </if>
+      <if test="createdBy != null">
+        created_by,
+      </if>
+      <if test="lastUpdatedDate != null">
+        last_updated_date,
+      </if>
+      <if test="lastUpdatedBy != null">
+        last_updated_by,
+      </if>
+      <if test="removeFlag != null">
+        remove_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="jobId != null">
+        #{jobId},
+      </if>
+      <if test="jobName != null">
+        #{jobName},
+      </if>
+      <if test="jobObject != null">
+        #{jobObject},
+      </if>
+      <if test="jobClass != null">
+        #{jobClass},
+      </if>
+      <if test="jobMethod != null">
+        #{jobMethod},
+      </if>
+      <if test="jobStatus != null">
+        #{jobStatus},
+      </if>
+      <if test="jobType != null">
+        #{jobType},
+      </if>
+      <if test="cronExpr != null">
+        #{cronExpr},
+      </if>
+      <if test="runTimes != null">
+        #{runTimes},
+      </if>
+      <if test="runDuration != null">
+        #{runDuration},
+      </if>
+      <if test="runtimeLast != null">
+        #{runtimeLast},
+      </if>
+      <if test="runtimeNext != null">
+        #{runtimeNext},
+      </if>
+      <if test="syncBeginTime != null">
+        #{syncBeginTime},
+      </if>
+      <if test="syncEndTime != null">
+        #{syncEndTime},
+      </if>
+      <if test="createdDate != null">
+        #{createdDate},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy},
+      </if>
+      <if test="lastUpdatedDate != null">
+        #{lastUpdatedDate},
+      </if>
+      <if test="lastUpdatedBy != null">
+        #{lastUpdatedBy},
+      </if>
+      <if test="removeFlag != null">
+        #{removeFlag},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sida.dcloud.schedule.po.YjpJobEntity">
+    update yjp_job_entity
+    <set>
+      <if test="jobName != null">
+        job_name = #{jobName},
+      </if>
+      <if test="jobObject != null">
+        job_object = #{jobObject},
+      </if>
+      <if test="jobClass != null">
+        job_class = #{jobClass},
+      </if>
+      <if test="jobMethod != null">
+        job_method = #{jobMethod},
+      </if>
+      <if test="jobStatus != null">
+        job_status = #{jobStatus},
+      </if>
+      <if test="jobType != null">
+        job_type = #{jobType},
+      </if>
+      <if test="cronExpr != null">
+        cron_expr = #{cronExpr},
+      </if>
+      <if test="runTimes != null">
+        run_times = #{runTimes},
+      </if>
+      <if test="runDuration != null">
+        run_duration = #{runDuration},
+      </if>
+      <if test="runtimeLast != null">
+        runtime_last = #{runtimeLast},
+      </if>
+      <if test="runtimeNext != null">
+        runtime_next = #{runtimeNext},
+      </if>
+      <if test="syncBeginTime != null">
+        sync_begin_time = #{syncBeginTime},
+      </if>
+      <if test="syncEndTime != null">
+        sync_end_time = #{syncEndTime},
+      </if>
+      <if test="createdDate != null">
+        created_date = #{createdDate},
+      </if>
+      <if test="createdBy != null">
+        created_by = #{createdBy},
+      </if>
+      <if test="lastUpdatedDate != null">
+        last_updated_date = #{lastUpdatedDate},
+      </if>
+      <if test="lastUpdatedBy != null">
+        last_updated_by = #{lastUpdatedBy},
+      </if>
+      <if test="removeFlag != null">
+        remove_flag = #{removeFlag},
+      </if>
+    </set>
+    where job_id = #{jobId}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sida.dcloud.schedule.po.YjpJobEntity">
+    update yjp_job_entity
+    set job_name = #{jobName},
+      job_object = #{jobObject},
+      job_class = #{jobClass},
+      job_method = #{jobMethod},
+      job_status = #{jobStatus},
+      job_type = #{jobType},
+      cron_expr = #{cronExpr},
+      run_times = #{runTimes},
+      run_duration = #{runDuration},
+      runtime_last = #{runtimeLast},
+      runtime_next = #{runtimeNext},
+      sync_begin_time = #{syncBeginTime},
+      sync_end_time = #{syncEndTime},
+      created_date = #{createdDate},
+      created_by = #{createdBy},
+      last_updated_date = #{lastUpdatedDate},
+      last_updated_by = #{lastUpdatedBy},
+      remove_flag = #{removeFlag}
+    where job_id = #{jobId}
+  </update>
+  <sql id="Where_Condition">
+    <where>
+      <if test="jobName != null and jobName != ''">
+        job_name = #{jobName}
+      </if>
+      <if test="jobObject != null and jobObject != ''">
+        AND job_object = #{jobObject}
+      </if>
+      <if test="jobClass != null and jobClass != ''">
+        AND job_class = #{jobClass}
+      </if>
+      <if test="jobMethod != null and jobMethod != ''">
+        AND job_method = #{jobMethod}
+      </if>
+      <if test="jobStatus != null">
+        AND job_status = #{jobStatus}
+      </if>
+      <if test="jobType != null">
+        AND job_type = #{jobType}
+      </if>
+      <if test="cronExpr != null and cronExpr != ''">
+        AND cron_expr = #{cronExpr}
+      </if>
+      <if test="runTimes != null">
+        AND run_times = #{runTimes}
+      </if>
+      <if test="runDuration != null">
+        AND run_duration = #{runDuration}
+      </if>
+      <if test="runtimeLast != null">
+        AND runtime_last = #{runtimeLast}
+      </if>
+      <if test="runtimeNext != null">
+        AND runtime_next = #{runtimeNext}
+      </if>
+      <if test="syncBeginTime != null">
+        AND sync_begin_time = #{syncBeginTime}
+      </if>
+      <if test="syncEndTime != null">
+        AND sync_end_time = #{syncEndTime}
+      </if>
+      <if test="createdDate != null">
+        AND created_date = #{createdDate}
+      </if>
+      <if test="createdBy != null">
+        AND created_by = #{createdBy}
+      </if>
+      <if test="lastUpdatedDate != null">
+        AND last_updated_date = #{lastUpdatedDate}
+      </if>
+      <if test="lastUpdatedBy != null">
+        AND last_updated_by = #{lastUpdatedBy}
+      </if>
+      <if test="removeFlag != null">
+        AND remove_flag = #{removeFlag}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.schedule.po.YjpJobEntity" resultMap="YjpJobEntityResultMap">
+    select 
+    <include refid="YjpJobEntity_Column_List" />
+    from yjp_job_entity
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''">
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''">
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective">
+    update yjp_job_entity
+    <set>
+      <if test="po.jobName != null">
+        job_name = #{po.jobName},
+      </if>
+      <if test="po.jobObject != null">
+        job_object = #{po.jobObject},
+      </if>
+      <if test="po.jobClass != null">
+        job_class = #{po.jobClass},
+      </if>
+      <if test="po.jobMethod != null">
+        job_method = #{po.jobMethod},
+      </if>
+      <if test="po.jobStatus != null">
+        job_status = #{po.jobStatus},
+      </if>
+      <if test="po.jobType != null">
+        job_type = #{po.jobType},
+      </if>
+      <if test="po.cronExpr != null">
+        cron_expr = #{po.cronExpr},
+      </if>
+      <if test="po.runTimes != null">
+        run_times = #{po.runTimes},
+      </if>
+      <if test="po.runDuration != null">
+        run_duration = #{po.runDuration},
+      </if>
+      <if test="po.runtimeLast != null">
+        runtime_last = #{po.runtimeLast},
+      </if>
+      <if test="po.runtimeNext != null">
+        runtime_next = #{po.runtimeNext},
+      </if>
+      <if test="po.syncBeginTime != null">
+        sync_begin_time = #{po.syncBeginTime},
+      </if>
+      <if test="po.syncEndTime != null">
+        sync_end_time = #{po.syncEndTime},
+      </if>
+      <if test="po.createdDate != null">
+        created_date = #{po.createdDate},
+      </if>
+      <if test="po.createdBy != null">
+        created_by = #{po.createdBy},
+      </if>
+      <if test="po.lastUpdatedDate != null">
+        last_updated_date = #{po.lastUpdatedDate},
+      </if>
+      <if test="po.lastUpdatedBy != null">
+        last_updated_by = #{po.lastUpdatedBy},
+      </if>
+      <if test="po.removeFlag != null">
+        remove_flag = #{po.removeFlag},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size &gt; 0">
+      <foreach close=")" collection="ids" item="listItem" open="or id in(" separator=",">
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+</mapper>

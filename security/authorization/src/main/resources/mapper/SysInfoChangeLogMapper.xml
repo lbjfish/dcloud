@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.auth.dao.SysInfoChangeLogMapper" >
+  <resultMap id="SysInfoChangeLogResultMap" type="com.sida.dcloud.auth.po.SysInfoChangeLog" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="last_updated" property="lastUpdated" jdbcType="TIMESTAMP" />
+    <result column="created_user" property="createdUser" jdbcType="VARCHAR" />
+    <result column="updated_user" property="updatedUser" jdbcType="VARCHAR" />
+    <result column="disable" property="disable" jdbcType="BIT" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
+    <result column="info_type" property="infoType" jdbcType="VARCHAR" />
+    <result column="info_column" property="infoColumn" jdbcType="VARCHAR" />
+    <result column="new_value" property="newValue" jdbcType="VARCHAR" />
+    <result column="old_value" property="oldValue" jdbcType="VARCHAR" />
+    <result column="column_name" property="columnName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="SysInfoChangeLog_Column_List" >
+    id, org_id, created_at, last_updated, created_user, updated_user, disable, delete_flag, 
+    info_type, info_column, new_value, old_value, column_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="SysInfoChangeLogResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="SysInfoChangeLog_Column_List" />
+    from sys_info_change_log
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_info_change_log
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.sida.dcloud.auth.po.SysInfoChangeLog" >
+    insert into sys_info_change_log (id, org_id, created_at, last_updated, created_user, updated_user, 
+      disable, delete_flag, info_type, info_column, new_value, old_value, 
+      column_name)
+    values (#{id}, #{orgId}, #{createdAt}, #{lastUpdated}, #{createdUser}, #{updatedUser}, 
+      #{disable}, #{deleteFlag}, #{infoType}, #{infoColumn}, #{newValue}, #{oldValue}, 
+      #{columnName})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.auth.po.SysInfoChangeLog" >
+    insert into sys_info_change_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="lastUpdated != null" >
+        last_updated,
+      </if>
+      <if test="createdUser != null" >
+        created_user,
+      </if>
+      <if test="updatedUser != null" >
+        updated_user,
+      </if>
+      <if test="disable != null" >
+        disable,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="infoType != null" >
+        info_type,
+      </if>
+      <if test="infoColumn != null" >
+        info_column,
+      </if>
+      <if test="newValue != null" >
+        new_value,
+      </if>
+      <if test="oldValue != null" >
+        old_value,
+      </if>
+      <if test="columnName != null" >
+        column_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="orgId != null" >
+        #{orgId},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="lastUpdated != null" >
+        #{lastUpdated},
+      </if>
+      <if test="createdUser != null" >
+        #{createdUser},
+      </if>
+      <if test="updatedUser != null" >
+        #{updatedUser},
+      </if>
+      <if test="disable != null" >
+        #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag},
+      </if>
+      <if test="infoType != null" >
+        #{infoType},
+      </if>
+      <if test="infoColumn != null" >
+        #{infoColumn},
+      </if>
+      <if test="newValue != null" >
+        #{newValue},
+      </if>
+      <if test="oldValue != null" >
+        #{oldValue},
+      </if>
+      <if test="columnName != null" >
+        #{columnName},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sida.dcloud.auth.po.SysInfoChangeLog" >
+    update sys_info_change_log
+    <set >
+      <if test="orgId != null" >
+        org_id = #{orgId},
+      </if>
+      <if test="createdAt != null" >
+        created_at = #{createdAt},
+      </if>
+      <if test="lastUpdated != null" >
+        last_updated = #{lastUpdated},
+      </if>
+      <if test="createdUser != null" >
+        created_user = #{createdUser},
+      </if>
+      <if test="updatedUser != null" >
+        updated_user = #{updatedUser},
+      </if>
+      <if test="disable != null" >
+        disable = #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag = #{deleteFlag},
+      </if>
+      <if test="infoType != null" >
+        info_type = #{infoType},
+      </if>
+      <if test="infoColumn != null" >
+        info_column = #{infoColumn},
+      </if>
+      <if test="newValue != null" >
+        new_value = #{newValue},
+      </if>
+      <if test="oldValue != null" >
+        old_value = #{oldValue},
+      </if>
+      <if test="columnName != null" >
+        column_name = #{columnName},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sida.dcloud.auth.po.SysInfoChangeLog" >
+    update sys_info_change_log
+    set org_id = #{orgId},
+      created_at = #{createdAt},
+      last_updated = #{lastUpdated},
+      created_user = #{createdUser},
+      updated_user = #{updatedUser},
+      disable = #{disable},
+      delete_flag = #{deleteFlag},
+      info_type = #{infoType},
+      info_column = #{infoColumn},
+      new_value = #{newValue},
+      old_value = #{oldValue},
+      column_name = #{columnName}
+    where id = #{id}
+  </update>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="orgId != null and orgId != ''" >
+        org_id = #{orgId}
+      </if>
+      <if test="createdAt != null" >
+        AND created_at = #{createdAt}
+      </if>
+      <if test="lastUpdated != null" >
+        AND last_updated = #{lastUpdated}
+      </if>
+      <if test="createdUser != null and createdUser != ''" >
+        AND created_user = #{createdUser}
+      </if>
+      <if test="updatedUser != null and updatedUser != ''" >
+        AND updated_user = #{updatedUser}
+      </if>
+      <if test="disable != null" >
+        AND disable = #{disable}
+      </if>
+      <if test="deleteFlag != null" >
+        AND delete_flag = #{deleteFlag}
+      </if>
+      <if test="infoType != null and infoType != ''" >
+        AND info_type = #{infoType}
+      </if>
+      <if test="infoColumn != null and infoColumn != ''" >
+        AND info_column = #{infoColumn}
+      </if>
+      <if test="newValue != null and newValue != ''" >
+        AND new_value = #{newValue}
+      </if>
+      <if test="oldValue != null and oldValue != ''" >
+        AND old_value = #{oldValue}
+      </if>
+      <if test="columnName != null and columnName != ''" >
+        AND column_name = #{columnName}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.auth.po.SysInfoChangeLog" resultMap="SysInfoChangeLogResultMap" >
+    select 
+    <include refid="SysInfoChangeLog_Column_List" />
+    from sys_info_change_log
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update sys_info_change_log
+    <set >
+      <if test="po.orgId != null" >
+        org_id = #{po.orgId},
+      </if>
+      <if test="po.createdAt != null" >
+        created_at = #{po.createdAt},
+      </if>
+      <if test="po.lastUpdated != null" >
+        last_updated = #{po.lastUpdated},
+      </if>
+      <if test="po.createdUser != null" >
+        created_user = #{po.createdUser},
+      </if>
+      <if test="po.updatedUser != null" >
+        updated_user = #{po.updatedUser},
+      </if>
+      <if test="po.disable != null" >
+        disable = #{po.disable},
+      </if>
+      <if test="po.deleteFlag != null" >
+        delete_flag = #{po.deleteFlag},
+      </if>
+      <if test="po.infoType != null" >
+        info_type = #{po.infoType},
+      </if>
+      <if test="po.infoColumn != null" >
+        info_column = #{po.infoColumn},
+      </if>
+      <if test="po.newValue != null" >
+        new_value = #{po.newValue},
+      </if>
+      <if test="po.oldValue != null" >
+        old_value = #{po.oldValue},
+      </if>
+      <if test="po.columnName != null" >
+        column_name = #{po.columnName},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+</mapper>

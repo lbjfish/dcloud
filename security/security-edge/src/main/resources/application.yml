@@ -1,0 +1,100 @@
+spring:
+  application:
+    name: @security-edge-service@
+  aop:
+    proxyTargetClass: true
+  #采用rabbitmq方式支持zipkin
+  rabbitmq:
+    # 集群
+    addresses: ${common.rabbitmq.addresses}
+  redis:
+    cluster:
+      max-redirects: 6
+      nodes: ${common.redis.addresses}
+    password: ${common.redis.password}
+
+server:
+  port: ${service.security.edge.port}
+  contextPath: /
+  tomcat:
+    basedir: ${user.home}/deployer/tomcat
+feign:
+  hystrix:
+    enabled: true # 默认false，hystrix必须enabled=TRUE
+  httpclient:
+    enabled: true
+
+---
+zuul:
+  host:
+    maxTotalConnections: 500
+    maxPerRouteConnections: 50
+    connect-timeout-millis: 60000
+    socket-timeout-millis: 60000
+  ignored-services: '*'
+  add-proxy-headers: true
+  routes:
+    workflow-service:
+      serviceId: @workflow-service@
+      path: /apis/workflow/**
+    system-module:
+      serviceId: @system-module@
+      path: /apis/system/**
+    training-module:
+      serviceId: @training-module@
+      path: /apis/training/**
+    schedule-module:
+      serviceId: @schedule-service@
+      path: /apis/schedule/**
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+ribbon:
+  ReadTimeout: 50000
+  ConnectTimeout: 50000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+  eureka:
+    enabled: true
+
+security:
+  # Disable Spring Boot basic authentication ${spring.cloud.client.ipAddress} ${spring.cloud.client.ipAddress}
+  basic:
+    enabled: false
+  oauth2:
+    sso:
+      loginPath: /login
+    client:
+      accessTokenUri: http://${spring.cloud.client.ipAddress}:${service.security.auth.port}/sec/oauth/token
+      userAuthorizationUri: http://${spring.cloud.client.ipAddress}:${service.security.auth.port}/sec/oauth/authorize
+      clientId: acme
+      clientSecret: acmesecret
+    resource:
+      jwt:
+        keyValue: |
+          -----BEGIN PUBLIC KEY-----
+          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhWURlgZFHBfRCNtAPrDX2qlNMpYCAd8oJTAxw3ohVsI3YYD7QzcD7dSyZYBv+IJnlULS8+sA9KeuXljyVUFP6uvcKOgqhKrOqDZUmqZGyXuUbFI747hfHEHhmEgvmppvc5SeId3ztGzbZGWcm4E3a7nCS9AS2ey/xUZKyuL1bg1/pYKFex3teNTJnyeuNU3s0U6TMltUuIwjh+StUmMkLiao6tGEq8TNHJpnR74CVTaoABw2SRn3wmDM3me8y8YW0lukehmnma8qDvEUNsOV5H+aUBTWQo5A8QXwgNTOi31HbK3bMhxWWkR8TG0EK50SPsGI47Upx9NBdD4NPyYf0QIDAQAB
+          -----END PUBLIC KEY-----
+      id: openid
+      serviceId: ${PREFIX:}resource
+  ignored:
+      /health, /system/sysAccessLog/**,/system/authcodes/getRemoteAuthCode,/system/sysUser/remoteRegister
+
+logging:
+  level.org.springframework.security: DEBUG
+
+eureka:
+  client:
+    healthcheck:
+      enabled: true # 开启健康检查（需要spring-boot-starter-actuator依赖）
+
+management:
+  health:
+    redis:
+      enabled: false

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sida.dcloud.system.dao.SysAppFunctionMapper">
+  <resultMap id="SysAppFunctionResultMap" type="com.sida.dcloud.system.po.SysAppFunction">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="function_name" jdbcType="VARCHAR" property="functionName" />
+    <result column="function_type" jdbcType="CHAR" property="functionType" />
+    <result column="function_code" jdbcType="VARCHAR" property="functionCode" />
+    <result column="herf" jdbcType="VARCHAR" property="herf" />
+    <result column="app_id" jdbcType="VARCHAR" property="appId" />
+    <result column="source_url" jdbcType="VARCHAR" property="sourceUrl" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+  </resultMap>
+  <sql id="SysAppFunction_Column_List">
+    id, function_name, function_type, function_code, herf, app_id, source_url, icon
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="SysAppFunctionResultMap">
+    select 
+    <include refid="SysAppFunction_Column_List" />
+    from sys_app_function
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_app_function
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.sida.dcloud.system.po.SysAppFunction">
+    insert into sys_app_function (id, function_name, function_type, function_code, herf, app_id, 
+      source_url, icon)
+    values (#{id}, #{functionName}, #{functionType}, #{functionCode}, #{herf}, #{appId}, 
+      #{sourceUrl}, #{icon})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.system.po.SysAppFunction">
+    insert into sys_app_function
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="functionName != null">
+        function_name,
+      </if>
+      <if test="functionType != null">
+        function_type,
+      </if>
+      <if test="functionCode != null">
+        function_code,
+      </if>
+      <if test="herf != null">
+        herf,
+      </if>
+      <if test="appId != null">
+        app_id,
+      </if>
+      <if test="sourceUrl != null">
+        source_url,
+      </if>
+      <if test="icon != null">
+        icon,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="functionName != null">
+        #{functionName},
+      </if>
+      <if test="functionType != null">
+        #{functionType},
+      </if>
+      <if test="functionCode != null">
+        #{functionCode},
+      </if>
+      <if test="herf != null">
+        #{herf},
+      </if>
+      <if test="appId != null">
+        #{appId},
+      </if>
+      <if test="sourceUrl != null">
+        #{sourceUrl},
+      </if>
+      <if test="icon != null">
+        #{icon},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sida.dcloud.system.po.SysAppFunction">
+    update sys_app_function
+    <set>
+      <if test="functionName != null">
+        function_name = #{functionName},
+      </if>
+      <if test="functionType != null">
+        function_type = #{functionType},
+      </if>
+      <if test="functionCode != null">
+        function_code = #{functionCode},
+      </if>
+      <if test="herf != null">
+        herf = #{herf},
+      </if>
+      <if test="appId != null">
+        app_id = #{appId},
+      </if>
+      <if test="sourceUrl != null">
+        source_url = #{sourceUrl},
+      </if>
+      <if test="icon != null">
+        icon = #{icon},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sida.dcloud.system.po.SysAppFunction">
+    update sys_app_function
+    set function_name = #{functionName},
+      function_type = #{functionType},
+      function_code = #{functionCode},
+      herf = #{herf},
+      app_id = #{appId},
+      source_url = #{sourceUrl},
+      icon = #{icon}
+    where id = #{id}
+  </update>
+  <sql id="Where_Condition">
+    <where>
+      <if test="functionName != null and functionName != ''">
+        function_name = #{functionName}
+      </if>
+      <if test="functionType != null and functionType != ''">
+        AND function_type = #{functionType}
+      </if>
+      <if test="functionCode != null and functionCode != ''">
+        AND function_code = #{functionCode}
+      </if>
+      <if test="herf != null and herf != ''">
+        AND herf = #{herf}
+      </if>
+      <if test="appId != null and appId != ''">
+        AND app_id = #{appId}
+      </if>
+      <if test="sourceUrl != null and sourceUrl != ''">
+        AND source_url = #{sourceUrl}
+      </if>
+      <if test="icon != null and icon != ''">
+        AND icon = #{icon}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.system.po.SysAppFunction" resultMap="SysAppFunctionResultMap">
+    select 
+    <include refid="SysAppFunction_Column_List" />
+    from sys_app_function
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''">
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''">
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective">
+    update sys_app_function
+    <set>
+      <if test="po.functionName != null">
+        function_name = #{po.functionName},
+      </if>
+      <if test="po.functionType != null">
+        function_type = #{po.functionType},
+      </if>
+      <if test="po.functionCode != null">
+        function_code = #{po.functionCode},
+      </if>
+      <if test="po.herf != null">
+        herf = #{po.herf},
+      </if>
+      <if test="po.appId != null">
+        app_id = #{po.appId},
+      </if>
+      <if test="po.sourceUrl != null">
+        source_url = #{po.sourceUrl},
+      </if>
+      <if test="po.icon != null">
+        icon = #{po.icon},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size &gt; 0">
+      <foreach close=")" collection="ids" item="listItem" open="or id in(" separator=",">
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+</mapper>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.training.dao.ExamSectionRuleMapper" >
+  <resultMap id="ExamSectionRuleResultMap" type="com.sida.dcloud.training.po.ExamSectionRule" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="section_id" property="sectionId" jdbcType="VARCHAR" />
+    <result column="rate" property="rate" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="ExamSectionRule_Column_List" >
+    id, section_id, rate
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ExamSectionRuleResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="ExamSectionRule_Column_List" />
+    from exam_section_rule
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from exam_section_rule
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.sida.dcloud.training.po.ExamSectionRule" >
+    insert into exam_section_rule (id, section_id, rate)
+    values (#{id}, #{sectionId}, #{rate})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.training.po.ExamSectionRule" >
+    insert into exam_section_rule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="sectionId != null" >
+        section_id,
+      </if>
+      <if test="rate != null" >
+        rate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="sectionId != null" >
+        #{sectionId},
+      </if>
+      <if test="rate != null" >
+        #{rate},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sida.dcloud.training.po.ExamSectionRule" >
+    update exam_section_rule
+    <set >
+      <if test="sectionId != null" >
+        section_id = #{sectionId},
+      </if>
+      <if test="rate != null" >
+        rate = #{rate},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sida.dcloud.training.po.ExamSectionRule" >
+    update exam_section_rule
+    set section_id = #{sectionId},
+      rate = #{rate}
+    where id = #{id}
+  </update>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="sectionId != null and sectionId != ''" >
+        section_id = #{sectionId}
+      </if>
+      <if test="rate != null" >
+        AND rate = #{rate}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.training.po.ExamSectionRule" resultMap="ExamSectionRuleResultMap" >
+    select 
+    <include refid="ExamSectionRule_Column_List" />
+    from exam_section_rule
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update exam_section_rule
+    <set >
+      <if test="po.sectionId != null" >
+        section_id = #{po.sectionId},
+      </if>
+      <if test="po.rate != null" >
+        rate = #{po.rate},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <!-- -->
+  <select id="loadRuleBySubject" resultMap="ExamSectionRuleResultMap" parameterType="java.lang.String" >
+    select rule.id,rule.section_id,rule.rate from exam_section_rule rule right join chapter_section section on rule.section_id=section.id and section.subject=#{subject} and section.parent_id='0'
+  </select>
+  <!-- 这儿有个小技巧，避免查询chapter_section表无数据的情况下程序出错 -->
+  <delete id="deleteBySubject" parameterType="java.lang.String" >
+    delete from exam_section_rule
+    where section_id in (
+      select group_concat(id) from(
+        select id from chapter_section where subject = #{subject}
+        union
+        select 0
+      ) a
+    )
+  </delete>
+  <insert id="insertPos" parameterType="java.util.List">
+    insert into exam_section_rule(id,section,rate)
+    values
+    <foreach collection ="examSectionRuleList" item="po" index= "index" separator =",">
+      <trim prefix="(" suffix=")">
+        #{po.id},#{po.section},#{po.rate}
+      </trim>
+    </foreach>
+  </insert>
+</mapper>

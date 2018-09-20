@@ -1,0 +1,90 @@
+spring:
+  application:
+    name: @schedule-service@
+  rabbitmq:
+    # 集群
+    addresses: ${common.rabbitmq.addresses}
+  sleuth:
+    sampler:
+      # 日志采样百分比 0.0 - 1.0
+      percentage: 0.1
+  datasource:
+          driver-class-name: ${common.schedule.datasource.driverClassName}
+          url: ${common.schedule.datasource.url}
+          username: ${common.schedule.datasource.username}
+          password: ${common.schedule.datasource.password}
+          initialize: true
+          continue-on-error: true
+          # 使用druid数据源
+          type: com.alibaba.druid.pool.DruidDataSource
+          filters: stat,slf4j
+          maxActive: 20
+          initialSize: 1
+          maxWait: 60000
+          minIdle: 1
+          timeBetweenEvictionRunsMillis: 60000
+          minEvictableIdleTimeMillis: 300000
+          validationQuery: select 'x'
+          testWhileIdle: true
+          testOnBorrow: false
+          testOnReturn: false
+          poolPreparedStatements: true
+          maxOpenPreparedStatements: 20
+          logabandoned: true
+  aop:
+    auto: true
+    proxy-target-class: true
+
+server:
+  port: ${service.schedule.port}
+  contextPath: /
+feign:
+    hystrix:
+      enabled: false  # 默认false，hystrix必须enabled=TRUE
+    httpclient:
+         enabled: true
+hrsync:
+    alldate: ${common.hrsync.syncalldate}
+    token: ${common.schedule.token}
+    #alldate: 20171205
+quartz:
+     driver-class-name:  ${common.quartz.datasource.driverClassName}
+     url: ${common.quartz.datasource.url}
+     username: ${common.quartz.datasource.username}
+     password: ${common.quartz.datasource.password}
+eureka:
+  client:
+    healthcheck:
+    enabled: true # 开启健康检查（需要spring-boot-starter-actuator依赖）
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: @default-zone@
+  instance:
+    instance-id:  ${spring.cloud.client.ipAddress}:${service.schedule.port}
+    status-page-url: http://${spring.cloud.client.ipAddress}:${service.schedule.port}/swagger-ui.html
+    lease-expiration-duration-in-seconds: @lease-expiration-duration-in-seconds@
+    lease-renewal-interval-in-seconds: @lease-renewal-interval-in-seconds@
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  typeAliasesPackage: com.sida.dcloud.*.po
+  config-location: classpath:mapper/config/mybatis-configuration.xml
+redis:
+    cluster:
+      max-redirects: 6
+      nodes: ${common.redis.addresses}
+    password: ${common.redis.password}
+security:
+  basic:
+    enabled: false
+  oauth2:
+    resource:
+      jwt:
+        keyValue: |
+          -----BEGIN PUBLIC KEY-----
+          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhWURlgZFHBfRCNtAPrDX2qlNMpYCAd8oJTAxw3ohVsI3YYD7QzcD7dSyZYBv+IJnlULS8+sA9KeuXljyVUFP6uvcKOgqhKrOqDZUmqZGyXuUbFI747hfHEHhmEgvmppvc5SeId3ztGzbZGWcm4E3a7nCS9AS2ey/xUZKyuL1bg1/pYKFex3teNTJnyeuNU3s0U6TMltUuIwjh+StUmMkLiao6tGEq8TNHJpnR74CVTaoABw2SRn3wmDM3me8y8YW0lukehmnma8qDvEUNsOV5H+aUBTWQo5A8QXwgNTOi31HbK3bMhxWWkR8TG0EK50SPsGI47Upx9NBdD4NPyYf0QIDAQAB
+          -----END PUBLIC KEY-----
+#        key-uri:
+      id: openid
+      service-id: ${PREFIX:}schedule

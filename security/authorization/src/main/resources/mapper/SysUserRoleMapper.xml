@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.auth.dao.SysUserRoleMapper" >
+  <resultMap id="SysUserRoleResultMap" type="com.sida.dcloud.auth.po.SysUserRole" >
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="role_id" property="roleId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="SysUserRole_Column_List" >
+    user_id, role_id
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.auth.po.SysUserRole" >
+    insert into sys_user_role (user_id, role_id)
+    values (#{userId}, #{roleId})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.auth.po.SysUserRole" >
+    insert into sys_user_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="roleId != null" >
+        role_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId},
+      </if>
+      <if test="roleId != null" >
+        #{roleId},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="userId != null and userId != ''" >
+        user_id = #{userId}
+      </if>
+      <if test="roleId != null and roleId != ''" >
+        AND role_id = #{roleId}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.auth.po.SysUserRole" resultMap="SysUserRoleResultMap" >
+    select 
+    <include refid="SysUserRole_Column_List" />
+    from sys_user_role
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update sys_user_role
+    <set >
+      <if test="po.userId != null" >
+        user_id = #{po.userId},
+      </if>
+      <if test="po.roleId != null" >
+        role_id = #{po.roleId},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+</mapper>

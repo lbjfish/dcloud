@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<properties resource="generator.properties" />
+	<classPathEntry location="${generator.jdbcPath}" />
+	<context id="db2java" targetRuntime="MyBatis3">
+
+		<property name="jdbcType" value="true" />
+
+		<!-- generate entity时，生成hashcode和equals方法 -->
+		<!--         <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />   -->
+		<!-- generate entity时，生成serialVersionUID -->
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+		<!-- 这个插件只会增加字符串字段映射到一个JDBC字符的方法 -->
+		<plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin" />
+		<!-- genenat entity时,生成toString -->
+		<!--         <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />   -->
+
+		<plugin type="org.mybatis.generator.plugins.Mybatis3MVCPlugin">
+			<property name="serviceTargetProject" value="${service.target.project}"/>
+			<property name="servicePackage" value="${service.package}"/>
+			<property name="serviceRootInterface" value="${service.root.interface}&lt;${entity.package}.${entity.name}&gt;"/>
+
+			<property name="serviceImplTargetProject" value="${serviceImpl.target.project}"/>
+			<property name="serviceImplPackage" value="${serviceImpl.package}"/>
+			<property name="serviceImplRootClass" value="${serviceImpl.root.class}&lt;${entity.package}.${entity.name}&gt;"/>
+			<property name="controllerTargetProject" value="${controller.target.project}"/>
+			<property name="controllerPackage" value="${controller.package}"/>
+			<property name="controllerRootClass" value="${controller.root.class}"/>
+			<property name="providerTargetProject" value="${provider.target.project}"/>
+			<property name="providerPackage" value="${provider.package}"/>
+			<property name="providerRootInterface" value="${provider.root.interface}&lt;${entity.package}.${entity.name}&gt;"/>
+
+			<property name="providerImplTargetProject" value="${providerImpl.target.project}"/>
+			<property name="providerImplPackage" value="${providerImpl.package}"/>
+			<property name="providerImplRootClass" value="${providerImpl.root.class}&lt;${entity.package}.${entity.name}&gt;"/>
+
+		</plugin>
+
+		<commentGenerator>
+			<property name="suppressAllComments" value="false" />
+			<property name="suppressDate" value="true" />
+		</commentGenerator>
+
+		<jdbcConnection driverClass="${generator.jdbc.driverClassName}"
+						connectionURL="${generator.jdbc.url}" userId="${generator.jdbc.username}"
+						password="${generator.jdbc.password}">
+		</jdbcConnection>
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+		
+
+		
+
+
+		<!-- domain class -->
+		<javaModelGenerator targetPackage="${entity.package}"
+			targetProject="${entity.target.project}">
+			<property name="rootClass" value="${entity.super.class}" />
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<!-- xml -->
+		<sqlMapGenerator targetPackage="${xml.package}" targetProject="${xml.target.project}">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+		<!-- DAO class -->
+		<javaClientGenerator type="XMLMAPPER" targetPackage="${mapper.package}" targetProject="${mapper.target.project}">
+			<property name="rootInterface" value="${mapper.super.interface}&lt;${entity.package}.${entity.name}&gt;" />
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+
+		<!-- 		<table tableName="${table.name}" domainObjectName="${entity.name}" modelType="flat" alias="${table.alias}"> -->
+ 		<!--<table tableName="${table.name}" domainObjectName="${entity.name}" modelType="flat">-->
+			<!--&lt;!&ndash;去掉sqlmap中的schema， 在oracle中，如果配置了schema，此项一定要为true&ndash;&gt;-->
+             <!--<property name="ignoreQualifiersAtRuntime" value="true"/>-->
+             <!--&lt;!&ndash;是否生成insert、insertSelective中的keyProperty&ndash;&gt;-->
+ 			<!--<generatedKey column="ID_" sqlStatement="JDBC" />-->
+ 		<!--</table>-->
+
+		<table tableName="${table.name}" domainObjectName="${entity.name}" />
+		
+
+
+
+	</context>
+</generatorConfiguration>

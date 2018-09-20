@@ -1,0 +1,79 @@
+spring:
+  application:
+    name: @auth-service@
+  #采用rabbitmq方式支持zipkin
+  rabbitmq:
+    # 集群
+    addresses: ${common.rabbitmq.addresses}
+  redis:
+#    host: 192.168.133.128
+#    port: 7000
+    cluster:
+      max-redirects: 6
+      nodes: ${common.redis.addresses}
+    password: ${common.redis.password}
+  #mvc:
+    #view:
+      #prefix: /WEB-INF/page/
+      #suffix: .jsp
+  datasource:
+    schema: classpath:/init.sql
+    driver-class-name: ${common.security.datasource.driverClassName}
+    url: ${common.security.datasource.url}
+    username: ${common.security.datasource.username}
+    password: ${common.security.datasource.password}
+    initialize: true
+    continue-on-error: true
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  typeAliasesPackage: com.sida.dcloud.*.po
+  config-location: classpath:mapper/config/mybatis-configuration.xml
+
+
+# Disable spring basic authentication security
+# Define security
+security:
+  basic:
+    enabled: false
+  ignored: /css/**,/js/**,/favicon.ico,/webjars/**
+
+logging:
+  level.org.springframework.security: DEBUG
+
+server:
+  port: ${service.security.auth.port}
+  contextPath: /sec
+  use-forward-headers: false
+
+feign:
+  hystrix:
+    enabled: true # 默认false，hystrix必须enabled=TRUE
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+
+management:
+  health:
+    redis:
+      enabled: false

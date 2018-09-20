@@ -1,0 +1,95 @@
+spring:
+  application:
+    name: @system-module@
+  rabbitmq:
+    # 集群
+    addresses: ${common.rabbitmq.addresses}
+  redis:
+      cluster:
+        max-redirects: 6
+        nodes: ${common.redis.addresses}
+#        nodes: 10.40.9.195:7000,10.40.9.195:7001,10.40.9.195:7002,10.40.9.195:7003,10.40.9.195:7004,10.40.9.195:7005
+ #     password: ${common.redis.password}
+  datasource:
+    driver-class-name: ${common.system.datasource.driverClassName}
+    url: ${common.system.datasource.url}
+    #url: jdbc:mysql://192.168.87.195:8806,192.168.87.195:8807/init_system?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false&roundRobinLoadBalance=true
+    username: ${common.system.datasource.username}
+    password: ${common.system.datasource.password}
+    #url: jdbc:mysql://192.168.87.211:3306/system?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false&roundRobinLoadBalance=true
+    #username: to4GSzhR6JU=
+    #password: aL3+VIbS+o8=
+    initialize: true
+    continue-on-error: true
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    filters: stat,slf4j
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+    logabandoned: true
+  aop:
+    auto: true
+    proxy-target-class: true
+positon:
+  teachpositioncode: ${common.system.teachpositioncode}
+
+
+server:
+  port: ${module.system.port}
+  contextPath: /
+feign:
+    hystrix:
+      enabled: false  # 默认false，hystrix必须enabled=TRUE
+    httpclient:
+      enabled: true
+
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  typeAliasesPackage: com.sida.dcloud.*.po
+  config-location: classpath:mapper/config/mybatis-configuration.xml
+
+security:
+  basic:
+    enabled: false
+  oauth2:
+    resource:
+      jwt:
+        keyValue: |
+          -----BEGIN PUBLIC KEY-----
+          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhWURlgZFHBfRCNtAPrDX2qlNMpYCAd8oJTAxw3ohVsI3YYD7QzcD7dSyZYBv+IJnlULS8+sA9KeuXljyVUFP6uvcKOgqhKrOqDZUmqZGyXuUbFI747hfHEHhmEgvmppvc5SeId3ztGzbZGWcm4E3a7nCS9AS2ey/xUZKyuL1bg1/pYKFex3teNTJnyeuNU3s0U6TMltUuIwjh+StUmMkLiao6tGEq8TNHJpnR74CVTaoABw2SRn3wmDM3me8y8YW0lukehmnma8qDvEUNsOV5H+aUBTWQo5A8QXwgNTOi31HbK3bMhxWWkR8TG0EK50SPsGI47Upx9NBdD4NPyYf0QIDAQAB
+          -----END PUBLIC KEY-----
+#        key-uri:
+      id: openid
+      service-id: ${PREFIX:}system
+  ignored: sysAccessLog/**,authcodes/getRemoteAuthCode,sysUser/remoteRegister
+
+
+eureka:
+  client:
+    healthcheck:
+      enabled: true # 开启健康检查（需要spring-boot-starter-actuator依赖）
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ipAddress}:${module.system.port}
+    status-page-url: http://${spring.cloud.client.ipAddress}:${service.security.edge.port}/apis/system/swagger-ui.html
+    ip-address: ${spring.cloud.client.ipAddress}
+    lease-expiration-duration-in-seconds: @lease-expiration-duration-in-seconds@
+    lease-renewal-interval-in-seconds: @lease-renewal-interval-in-seconds@
+
+management:
+  health:
+    redis:
+      enabled: false

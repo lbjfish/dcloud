@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.training.dao.ExamTrackMapper" >
+  <resultMap id="ExamTrackResultMap" type="com.sida.dcloud.training.po.ExamTrack" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
+    <result column="red_string1" property="redString1" jdbcType="VARCHAR" />
+    <result column="red_string2" property="redString2" jdbcType="VARCHAR" />
+    <result column="red_string3" property="redString3" jdbcType="VARCHAR" />
+    <result column="red_string4" property="redString4" jdbcType="VARCHAR" />
+    <result column="red_string5" property="redString5" jdbcType="VARCHAR" />
+    <result column="red_string6" property="redString6" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="subject" property="subject" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="total" property="total" jdbcType="INTEGER" />
+    <result column="uncomplete" property="uncomplete" jdbcType="INTEGER" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ExamTrackVoResultMap" type="com.sida.dcloud.training.vo.ExamTrackVo" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="subject" property="subject" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="ExamTrack_Column_List" >
+    id, org_id, delete_flag, red_string1, red_string2, red_string3, red_string4, red_string5, 
+    red_string6, user_id, subject, start_time, end_time, total, uncomplete,
+    score, remark
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.training.po.ExamTrack" >
+    insert into exam_track (id, org_id, delete_flag, red_string1, red_string2, red_string3, 
+      red_string4, red_string5, red_string6, user_id, subject, start_time, 
+      end_time, total, uncomplete, right_num, score, remark)
+    values (#{id}, #{orgId}, #{deleteFlag}, #{redString1}, #{redString2}, #{redString3}, 
+      #{redString4}, #{redString5}, #{redString6}, #{userId}, #{subject}, #{startTime}, 
+      #{endTime}, #{total}, #{uncomplete}, #{score}, #{remark})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.training.po.ExamTrack" >
+    insert into exam_track
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="redString1 != null" >
+        red_string1,
+      </if>
+      <if test="redString2 != null" >
+        red_string2,
+      </if>
+      <if test="redString3 != null" >
+        red_string3,
+      </if>
+      <if test="redString4 != null" >
+        red_string4,
+      </if>
+      <if test="redString5 != null" >
+        red_string5,
+      </if>
+      <if test="redString6 != null" >
+        red_string6,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="subject != null" >
+        subject,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="total != null" >
+        total,
+      </if>
+      <if test="uncomplete != null" >
+        uncomplete,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="orgId != null" >
+        #{orgId},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag},
+      </if>
+      <if test="redString1 != null" >
+        #{redString1},
+      </if>
+      <if test="redString2 != null" >
+        #{redString2},
+      </if>
+      <if test="redString3 != null" >
+        #{redString3},
+      </if>
+      <if test="redString4 != null" >
+        #{redString4},
+      </if>
+      <if test="redString5 != null" >
+        #{redString5},
+      </if>
+      <if test="redString6 != null" >
+        #{redString6},
+      </if>
+      <if test="userId != null" >
+        #{userId},
+      </if>
+      <if test="subject != null" >
+        #{subject},
+      </if>
+      <if test="startTime != null" >
+        #{startTime},
+      </if>
+      <if test="endTime != null" >
+        #{endTime},
+      </if>
+      <if test="total != null" >
+        #{total},
+      </if>
+      <if test="uncomplete != null" >
+        #{uncomplete},
+      </if>
+      <if test="score != null" >
+        #{score},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sida.dcloud.training.po.ExamTrack" >
+    update exam_track
+    <set >
+      <if test="orgId != null" >
+        org_id = #{orgId},
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag = #{deleteFlag},
+      </if>
+      <if test="redString1 != null" >
+        red_string1 = #{redString1},
+      </if>
+      <if test="redString2 != null" >
+        red_string2 = #{redString2},
+      </if>
+      <if test="redString3 != null" >
+        red_string3 = #{redString3},
+      </if>
+      <if test="redString4 != null" >
+        red_string4 = #{redString4},
+      </if>
+      <if test="redString5 != null" >
+        red_string5 = #{redString5},
+      </if>
+      <if test="redString6 != null" >
+        red_string6 = #{redString6},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId},
+      </if>
+      <if test="subject != null" >
+        subject = #{subject},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime},
+      </if>
+      <if test="total != null" >
+        total = #{total},
+      </if>
+      <if test="uncomplete != null" >
+        uncomplete = #{uncomplete},
+      </if>
+      <if test="score != null" >
+        score = #{score},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sida.dcloud.training.po.ExamTrack" >
+    update exam_track
+    set org_id = #{orgId},
+      delete_flag = #{deleteFlag},
+      red_string1 = #{redString1},
+      red_string2 = #{redString2},
+      red_string3 = #{redString3},
+      red_string4 = #{redString4},
+      red_string5 = #{redString5},
+      red_string6 = #{redString6},
+      user_id = #{userId},
+      subject = #{subject},
+      start_time = #{startTime},
+      end_time = #{endTime},
+      total = #{total},
+      uncomplete = #{uncomplete},
+      score = #{score},
+      remark = #{remark}
+    where id = #{id}
+  </update>
+  <sql id="Where_Condition" >
+    <where >
+      delete_flag = 0
+      <if test="orgId != null and orgId != ''" >
+        and org_id = #{orgId}
+      </if>
+      <if test="deleteFlag != null" >
+        AND delete_flag = #{deleteFlag}
+      </if>
+      <if test="redString1 != null and redString1 != ''" >
+        AND red_string1 = #{redString1}
+      </if>
+      <if test="redString2 != null and redString2 != ''" >
+        AND red_string2 = #{redString2}
+      </if>
+      <if test="redString3 != null and redString3 != ''" >
+        AND red_string3 = #{redString3}
+      </if>
+      <if test="redString4 != null and redString4 != ''" >
+        AND red_string4 = #{redString4}
+      </if>
+      <if test="redString5 != null and redString5 != ''" >
+        AND red_string5 = #{redString5}
+      </if>
+      <if test="redString6 != null and redString6 != ''" >
+        AND red_string6 = #{redString6}
+      </if>
+      <if test="userId != null and userId != ''" >
+        AND user_id = #{userId}
+      </if>
+      <if test="subject != null and subject != ''" >
+        AND subject = #{subject}
+      </if>
+      <if test="startTime != null" >
+        AND start_time = #{startTime}
+      </if>
+      <if test="endTime != null" >
+        AND end_time = #{endTime}
+      </if>
+      <if test="total != null" >
+        AND total = #{total}
+      </if>
+      <if test="uncomplete != null" >
+        AND uncomplete = #{uncomplete}
+      </if>
+      <if test="score != null" >
+        AND score = #{score}
+      </if>
+      <if test="remark != null and remark != ''" >
+        AND remark = #{remark}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.training.po.ExamTrack" resultMap="ExamTrackResultMap" >
+    select 
+    <include refid="ExamTrack_Column_List" />
+    from exam_track
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update exam_track
+    <set >
+      <if test="po.orgId != null" >
+        org_id = #{po.orgId},
+      </if>
+      <if test="po.deleteFlag != null" >
+        delete_flag = #{po.deleteFlag},
+      </if>
+      <if test="po.redString1 != null" >
+        red_string1 = #{po.redString1},
+      </if>
+      <if test="po.redString2 != null" >
+        red_string2 = #{po.redString2},
+      </if>
+      <if test="po.redString3 != null" >
+        red_string3 = #{po.redString3},
+      </if>
+      <if test="po.redString4 != null" >
+        red_string4 = #{po.redString4},
+      </if>
+      <if test="po.redString5 != null" >
+        red_string5 = #{po.redString5},
+      </if>
+      <if test="po.redString6 != null" >
+        red_string6 = #{po.redString6},
+      </if>
+      <if test="po.userId != null" >
+        user_id = #{po.userId},
+      </if>
+      <if test="po.subject != null" >
+        subject = #{po.subject},
+      </if>
+      <if test="po.startTime != null" >
+        start_time = #{po.startTime},
+      </if>
+      <if test="po.endTime != null" >
+        end_time = #{po.endTime},
+      </if>
+      <if test="po.total != null" >
+        total = #{po.total},
+      </if>
+      <if test="po.uncomplete != null" >
+        uncomplete = #{po.uncomplete},
+      </if>
+      <if test="po.score != null" >
+        score = #{po.score},
+      </if>
+      <if test="po.remark != null" >
+        remark = #{po.remark},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <!--  -->
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    update exam_track set delete_flag = 1 where id = #{id}
+  </delete>
+  <delete id="deleteByPrimaryKeys" parameterType="java.lang.String" >
+    update exam_track set delete_flag = 1 where id in (${ids})
+  </delete>
+
+  <select id="findVoList" parameterType="com.sida.dcloud.training.po.ExamTrack" resultMap="ExamTrackResultMap">
+    select id,org_id,user_id,created_user,created_at,sort
+    from exam_track
+    <where>
+      delete_flag = 0
+      <if test="po.id != null and po.id != ''" >
+        and id = #{po.id}
+      </if>
+      <if test="po.subject != null and po.subject != ''" >
+        and subject = #{po.subject}
+      </if>
+    </where>
+    <if test="po.orderField != null and po.orderField != ''">
+      ORDER BY ${po.orderField}
+      <if test="po.orderString != null and po.orderString != ''">
+        ${po.orderString}
+      </if>
+    </if>
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="ExamTrackResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="ExamTrack_Column_List" />
+    from exam_track
+    where id = #{id} and delete_flag = 0
+  </select>
+
+  <update id="completeExam" parameterType="com.sida.dcloud.training.po.ExamTrack">
+    update exam_track set end_time = #{po.endTime} where id = #{po.id}
+  </update>
+
+  <update id="shuffleExam" parameterType="com.sida.dcloud.training.po.ExamTrack">
+    update exam_track set uncomplete = #{po.uncomplete}, score = #{po.score} where id = #{po.id}
+  </update>
+</mapper>
