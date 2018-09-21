@@ -1,4 +1,4 @@
-package com.sida.dcloud.content.controller;
+package com.sida.dcloud.activity.controller;
 
 import com.sida.xiruo.xframework.cache.redis.RedisUtil;
 import com.sida.xiruo.xframework.controller.BaseController;

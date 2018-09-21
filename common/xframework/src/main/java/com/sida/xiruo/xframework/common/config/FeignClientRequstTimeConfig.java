@@ -1,4 +1,4 @@
-package com.sida.dcloud.activity.config;
+package com.sida.xiruo.xframework.common.config;
 
 import feign.Request;
 import feign.Retryer;

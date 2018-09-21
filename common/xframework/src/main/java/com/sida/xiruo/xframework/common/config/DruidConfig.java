@@ -1,4 +1,4 @@
-package com.sida.dcloud.activity.config;
+package com.sida.xiruo.xframework.common.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
@@ -6,6 +6,7 @@ import com.alibaba.druid.support.http.WebStatFilter;
 import com.sida.xiruo.xframework.datasource.DataSourceKey;
 import com.sida.xiruo.xframework.datasource.DynamicDataSource;
 import com.sida.xiruo.xframework.datasource.DynamicDataSourceContextHolder;
+import com.sida.xiruo.xframework.lock.redis.RedisLock;
 import com.sida.xiruo.xframework.util.DESUtils;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.slf4j.Logger;
@@ -31,7 +32,6 @@ import java.util.concurrent.locks.ReentrantLock;
 public class DruidConfig {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
-    private static Lock lock = new ReentrantLock();
     private DataSource dataSource;
 
     @Value("${spring.datasource.master.url}")
@@ -115,31 +115,28 @@ public class DruidConfig {
 
     @Bean
     @Primary
+    @RedisLock
     public DataSource dynamicDataSource() throws SQLException {
         if(dataSource == null) {
-            lock.lock();
-            if(dataSource == null) {
-                DynamicDataSource dynamicDataSource = new DynamicDataSource();
-                Map<Object, Object> dataSourceMap = new HashMap<>();
-                DataSource masterDs = createMasterDataSource();
-                DataSource businessDs = createBusinessDataSource();
-                dataSourceMap.put(DataSourceKey.master.name(), masterDs);
-                dataSourceMap.put(DataSourceKey.businuess.name(), businessDs);
+            DynamicDataSource dynamicDataSource = new DynamicDataSource();
+            Map<Object, Object> dataSourceMap = new HashMap<>();
+            DataSource masterDs = createMasterDataSource();
+            DataSource businessDs = createBusinessDataSource();
+            dataSourceMap.put(DataSourceKey.master.name(), masterDs);
+            dataSourceMap.put(DataSourceKey.businuess.name(), businessDs);
 
-                // 将 master 数据源作为默认指定的数据源
-                dynamicDataSource.setDefaultTargetDataSource(masterDs);
-                // 将 master 和 slave 数据源作为指定的数据源
-                dynamicDataSource.setTargetDataSources(dataSourceMap);
+            // 将 master 数据源作为默认指定的数据源
+            dynamicDataSource.setDefaultTargetDataSource(masterDs);
+            // 将 master 和 slave 数据源作为指定的数据源
+            dynamicDataSource.setTargetDataSources(dataSourceMap);
 
-                // 将数据源的 key 放到数据源上下文的 key 集合中，用于切换时判断数据源是否有效
-                DynamicDataSourceContextHolder.dataSourceKeys.addAll(dataSourceMap.keySet());
+            // 将数据源的 key 放到数据源上下文的 key 集合中，用于切换时判断数据源是否有效
+            DynamicDataSourceContextHolder.dataSourceKeys.addAll(dataSourceMap.keySet());
 
-                // 将 Slave 数据源的 key 放在集合中，用于轮循
-                DynamicDataSourceContextHolder.slaveDataSourceKeys.addAll(dataSourceMap.keySet());
-                DynamicDataSourceContextHolder.slaveDataSourceKeys.remove(DataSourceKey.master.name());
-                dataSource = dynamicDataSource;
-            }
-            lock.unlock();
+            // 将 Slave 数据源的 key 放在集合中，用于轮循
+            DynamicDataSourceContextHolder.slaveDataSourceKeys.addAll(dataSourceMap.keySet());
+            DynamicDataSourceContextHolder.slaveDataSourceKeys.remove(DataSourceKey.master.name());
+            dataSource = dynamicDataSource;
         }
         return dataSource;
     }
