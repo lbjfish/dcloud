@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.activity.dao.ActivityGoodsMapper" >
+  <resultMap id="ActivityGoodsResultMap" type="com.sida.dcloud.activity.po.ActivityGoods" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
+    <result column="red_string1" property="redString1" jdbcType="VARCHAR" />
+    <result column="red_string2" property="redString2" jdbcType="VARCHAR" />
+    <result column="red_string3" property="redString3" jdbcType="VARCHAR" />
+    <result column="red_string4" property="redString4" jdbcType="VARCHAR" />
+    <result column="red_string5" property="redString5" jdbcType="VARCHAR" />
+    <result column="red_string6" property="redString6" jdbcType="VARCHAR" />
+    <result column="activity_id" property="activityId" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="original_price" property="originalPrice" jdbcType="DOUBLE" />
+    <result column="pay_price" property="payPrice" jdbcType="DOUBLE" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="remaining" property="remaining" jdbcType="INTEGER" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="ActivityGoods_Column_List" >
+    id, org_id, delete_flag, red_string1, red_string2, red_string3, red_string4, red_string5, 
+    red_string6, activity_id, name, original_price, pay_price, quantity, remaining, start_time, 
+    end_time, remark
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.activity.po.ActivityGoods" >
+    insert into activity_goods (id, org_id, delete_flag, red_string1, red_string2, red_string3, 
+      red_string4, red_string5, red_string6, activity_id, name, original_price, 
+      pay_price, quantity, remaining, start_time, end_time, remark)
+    values (#{id}, #{orgId}, #{deleteFlag}, #{redString1}, #{redString2}, #{redString3}, 
+      #{redString4}, #{redString5}, #{redString6}, #{activityId}, #{name}, #{originalPrice}, 
+      #{payPrice}, #{quantity}, #{remaining}, #{startTime}, #{endTime}, #{remark})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.activity.po.ActivityGoods" >
+    insert into activity_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="redString1 != null" >
+        red_string1,
+      </if>
+      <if test="redString2 != null" >
+        red_string2,
+      </if>
+      <if test="redString3 != null" >
+        red_string3,
+      </if>
+      <if test="redString4 != null" >
+        red_string4,
+      </if>
+      <if test="redString5 != null" >
+        red_string5,
+      </if>
+      <if test="redString6 != null" >
+        red_string6,
+      </if>
+      <if test="activityId != null" >
+        activity_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="originalPrice != null" >
+        original_price,
+      </if>
+      <if test="payPrice != null" >
+        pay_price,
+      </if>
+      <if test="quantity != null" >
+        quantity,
+      </if>
+      <if test="remaining != null" >
+        remaining,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="orgId != null" >
+        #{orgId},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag},
+      </if>
+      <if test="redString1 != null" >
+        #{redString1},
+      </if>
+      <if test="redString2 != null" >
+        #{redString2},
+      </if>
+      <if test="redString3 != null" >
+        #{redString3},
+      </if>
+      <if test="redString4 != null" >
+        #{redString4},
+      </if>
+      <if test="redString5 != null" >
+        #{redString5},
+      </if>
+      <if test="redString6 != null" >
+        #{redString6},
+      </if>
+      <if test="activityId != null" >
+        #{activityId},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="originalPrice != null" >
+        #{originalPrice},
+      </if>
+      <if test="payPrice != null" >
+        #{payPrice},
+      </if>
+      <if test="quantity != null" >
+        #{quantity},
+      </if>
+      <if test="remaining != null" >
+        #{remaining},
+      </if>
+      <if test="startTime != null" >
+        #{startTime},
+      </if>
+      <if test="endTime != null" >
+        #{endTime},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="id != null and id != ''" >
+        id = #{id}
+      </if>
+      <if test="orgId != null and orgId != ''" >
+        AND org_id = #{orgId}
+      </if>
+      <if test="deleteFlag != null" >
+        AND delete_flag = #{deleteFlag}
+      </if>
+      <if test="redString1 != null and redString1 != ''" >
+        AND red_string1 = #{redString1}
+      </if>
+      <if test="redString2 != null and redString2 != ''" >
+        AND red_string2 = #{redString2}
+      </if>
+      <if test="redString3 != null and redString3 != ''" >
+        AND red_string3 = #{redString3}
+      </if>
+      <if test="redString4 != null and redString4 != ''" >
+        AND red_string4 = #{redString4}
+      </if>
+      <if test="redString5 != null and redString5 != ''" >
+        AND red_string5 = #{redString5}
+      </if>
+      <if test="redString6 != null and redString6 != ''" >
+        AND red_string6 = #{redString6}
+      </if>
+      <if test="activityId != null and activityId != ''" >
+        AND activity_id = #{activityId}
+      </if>
+      <if test="name != null and name != ''" >
+        AND name = #{name}
+      </if>
+      <if test="originalPrice != null" >
+        AND original_price = #{originalPrice}
+      </if>
+      <if test="payPrice != null" >
+        AND pay_price = #{payPrice}
+      </if>
+      <if test="quantity != null" >
+        AND quantity = #{quantity}
+      </if>
+      <if test="remaining != null" >
+        AND remaining = #{remaining}
+      </if>
+      <if test="startTime != null" >
+        AND start_time = #{startTime}
+      </if>
+      <if test="endTime != null" >
+        AND end_time = #{endTime}
+      </if>
+      <if test="remark != null and remark != ''" >
+        AND remark = #{remark}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.activity.po.ActivityGoods" resultMap="ActivityGoodsResultMap" >
+    select 
+    <include refid="ActivityGoods_Column_List" />
+    from activity_goods
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update activity_goods
+    <set >
+      <if test="po.id != null" >
+        id = #{po.id},
+      </if>
+      <if test="po.orgId != null" >
+        org_id = #{po.orgId},
+      </if>
+      <if test="po.deleteFlag != null" >
+        delete_flag = #{po.deleteFlag},
+      </if>
+      <if test="po.redString1 != null" >
+        red_string1 = #{po.redString1},
+      </if>
+      <if test="po.redString2 != null" >
+        red_string2 = #{po.redString2},
+      </if>
+      <if test="po.redString3 != null" >
+        red_string3 = #{po.redString3},
+      </if>
+      <if test="po.redString4 != null" >
+        red_string4 = #{po.redString4},
+      </if>
+      <if test="po.redString5 != null" >
+        red_string5 = #{po.redString5},
+      </if>
+      <if test="po.redString6 != null" >
+        red_string6 = #{po.redString6},
+      </if>
+      <if test="po.activityId != null" >
+        activity_id = #{po.activityId},
+      </if>
+      <if test="po.name != null" >
+        name = #{po.name},
+      </if>
+      <if test="po.originalPrice != null" >
+        original_price = #{po.originalPrice},
+      </if>
+      <if test="po.payPrice != null" >
+        pay_price = #{po.payPrice},
+      </if>
+      <if test="po.quantity != null" >
+        quantity = #{po.quantity},
+      </if>
+      <if test="po.remaining != null" >
+        remaining = #{po.remaining},
+      </if>
+      <if test="po.startTime != null" >
+        start_time = #{po.startTime},
+      </if>
+      <if test="po.endTime != null" >
+        end_time = #{po.endTime},
+      </if>
+      <if test="po.remark != null" >
+        remark = #{po.remark},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+</mapper>

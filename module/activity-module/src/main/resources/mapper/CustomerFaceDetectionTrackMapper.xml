@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.activity.dao.CustomerFaceDetectionTrackMapper" >
+  <resultMap id="CustomerFaceDetectionTrackResultMap" type="com.sida.dcloud.activity.po.CustomerFaceDetectionTrack" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="activity_id" property="activityId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="business_source" property="businessSource" jdbcType="VARCHAR" />
+    <result column="photo_url" property="photoUrl" jdbcType="VARCHAR" />
+    <result column="that_time" property="thatTime" jdbcType="TIMESTAMP" />
+    <result column="succeed" property="succeed" jdbcType="BIT" />
+    <result column="failed_reason" property="failedReason" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="CustomerFaceDetectionTrack_Column_List" >
+    id, org_id, activity_id, user_id, business_source, photo_url, that_time, succeed, 
+    failed_reason, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="CustomerFaceDetectionTrackResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="CustomerFaceDetectionTrack_Column_List" />
+    from customer_face_detection_track
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from customer_face_detection_track
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.sida.dcloud.activity.po.CustomerFaceDetectionTrack" >
+    insert into customer_face_detection_track (id, org_id, activity_id, user_id, business_source, photo_url, 
+      that_time, succeed, failed_reason, remark)
+    values (#{id}, #{orgId}, #{activityId}, #{userId}, #{businessSource}, #{photoUrl}, 
+      #{thatTime}, #{succeed}, #{failedReason}, #{remark})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.activity.po.CustomerFaceDetectionTrack" >
+    insert into customer_face_detection_track
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="activityId != null" >
+        activity_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="businessSource != null" >
+        business_source,
+      </if>
+      <if test="photoUrl != null" >
+        photo_url,
+      </if>
+      <if test="thatTime != null" >
+        that_time,
+      </if>
+      <if test="succeed != null" >
+        succeed,
+      </if>
+      <if test="failedReason != null" >
+        failed_reason,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="orgId != null" >
+        #{orgId},
+      </if>
+      <if test="activityId != null" >
+        #{activityId},
+      </if>
+      <if test="userId != null" >
+        #{userId},
+      </if>
+      <if test="businessSource != null" >
+        #{businessSource},
+      </if>
+      <if test="photoUrl != null" >
+        #{photoUrl},
+      </if>
+      <if test="thatTime != null" >
+        #{thatTime},
+      </if>
+      <if test="succeed != null" >
+        #{succeed},
+      </if>
+      <if test="failedReason != null" >
+        #{failedReason},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sida.dcloud.activity.po.CustomerFaceDetectionTrack" >
+    update customer_face_detection_track
+    <set >
+      <if test="orgId != null" >
+        org_id = #{orgId},
+      </if>
+      <if test="activityId != null" >
+        activity_id = #{activityId},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId},
+      </if>
+      <if test="businessSource != null" >
+        business_source = #{businessSource},
+      </if>
+      <if test="photoUrl != null" >
+        photo_url = #{photoUrl},
+      </if>
+      <if test="thatTime != null" >
+        that_time = #{thatTime},
+      </if>
+      <if test="succeed != null" >
+        succeed = #{succeed},
+      </if>
+      <if test="failedReason != null" >
+        failed_reason = #{failedReason},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sida.dcloud.activity.po.CustomerFaceDetectionTrack" >
+    update customer_face_detection_track
+    set org_id = #{orgId},
+      activity_id = #{activityId},
+      user_id = #{userId},
+      business_source = #{businessSource},
+      photo_url = #{photoUrl},
+      that_time = #{thatTime},
+      succeed = #{succeed},
+      failed_reason = #{failedReason},
+      remark = #{remark}
+    where id = #{id}
+  </update>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="orgId != null and orgId != ''" >
+        org_id = #{orgId}
+      </if>
+      <if test="activityId != null and activityId != ''" >
+        AND activity_id = #{activityId}
+      </if>
+      <if test="userId != null and userId != ''" >
+        AND user_id = #{userId}
+      </if>
+      <if test="businessSource != null and businessSource != ''" >
+        AND business_source = #{businessSource}
+      </if>
+      <if test="photoUrl != null and photoUrl != ''" >
+        AND photo_url = #{photoUrl}
+      </if>
+      <if test="thatTime != null" >
+        AND that_time = #{thatTime}
+      </if>
+      <if test="succeed != null" >
+        AND succeed = #{succeed}
+      </if>
+      <if test="failedReason != null and failedReason != ''" >
+        AND failed_reason = #{failedReason}
+      </if>
+      <if test="remark != null and remark != ''" >
+        AND remark = #{remark}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.activity.po.CustomerFaceDetectionTrack" resultMap="CustomerFaceDetectionTrackResultMap" >
+    select 
+    <include refid="CustomerFaceDetectionTrack_Column_List" />
+    from customer_face_detection_track
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update customer_face_detection_track
+    <set >
+      <if test="po.orgId != null" >
+        org_id = #{po.orgId},
+      </if>
+      <if test="po.activityId != null" >
+        activity_id = #{po.activityId},
+      </if>
+      <if test="po.userId != null" >
+        user_id = #{po.userId},
+      </if>
+      <if test="po.businessSource != null" >
+        business_source = #{po.businessSource},
+      </if>
+      <if test="po.photoUrl != null" >
+        photo_url = #{po.photoUrl},
+      </if>
+      <if test="po.thatTime != null" >
+        that_time = #{po.thatTime},
+      </if>
+      <if test="po.succeed != null" >
+        succeed = #{po.succeed},
+      </if>
+      <if test="po.failedReason != null" >
+        failed_reason = #{po.failedReason},
+      </if>
+      <if test="po.remark != null" >
+        remark = #{po.remark},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+
+  <!-- ***************************************************************************** -->
+  <!-- 以上自动生成，以下自定义 -->
+
+  <select id="findList" parameterType="com.sida.dcloud.activity.po.CustomerFaceDetectionTrack" resultMap="CustomerFaceDetectionTrackResultMap">
+    select
+    <include refid="CustomerFaceDetectionTrack_Column_List" />
+    from customer_face_detection_track
+    <where>
+      1=1
+      <if test="po.id != null and po.id != ''" >
+        and id = #{po.id}
+      </if>
+      <if test="po.thatTimeStart != null and po.thatTimeStart != ''" >
+        and that_time &gt; #{po.thatTimeStart}
+      </if>
+      <if test="po.thatTimeEnd != null and po.thatTimeEnd != ''" >
+        and that_time &lt; #{po.thatTimeEnd}
+      </if>
+      <if test="po.remark != null and po.remark != ''" >
+        and instr(remark, #{po.remark})&gt;0
+      </if>
+      <if test="po.failedReason != null and po.failedReason != ''" >
+        and instr(failed_reason, #{po.failedReason})&gt;0
+      </if>
+      <if test="po.paymentMode != null and po.paymentMode != ''" >
+        and payment_mode = #{po.paymentMode}
+      </if>
+      <if test="po.succeed != null and po.succeed != ''" >
+        and succeed = #{po.succeed}
+      </if>
+    </where>
+    <if test="po.orderField != null and po.orderField != ''">
+      ORDER BY ${po.orderField}
+      <if test="po.orderString != null and po.orderString != ''">
+        ${po.orderString}
+      </if>
+    </if>
+  </select>
+
+  <select id="findListByActivityId" parameterType="String" resultMap="CustomerFaceDetectionTrackResultMap">
+    select
+    <include refid="CustomerFaceDetectionTrack_Column_List" />
+    from customer_face_detection_track
+    <where>
+      activity_id = #{activityId}
+    </where>
+    order by that_time desc
+  </select>
+
+  <select id="findListByUserId" parameterType="String" resultMap="CustomerFaceDetectionTrackResultMap">
+    select
+    <include refid="CustomerFaceDetectionTrack_Column_List" />
+    from customer_face_detection_track
+    <where>
+      user_id = #{userId}
+    </where>
+    order by that_time desc
+  </select>
+</mapper>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.activity.dao.ActivityGoodsRelGroupMapper" >
+  <resultMap id="ActivityGoodsRelGroupResultMap" type="com.sida.dcloud.activity.po.ActivityGoodsRelGroup" >
+    <result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="group_id" property="groupId" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="ActivityGoodsRelGroup_Column_List" >
+    goods_id, group_id, sort
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.activity.po.ActivityGoodsRelGroup" >
+    insert into activity_goods_rel_group (goods_id, group_id, sort)
+    values (#{goodsId}, #{groupId}, #{sort})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.activity.po.ActivityGoodsRelGroup" >
+    insert into activity_goods_rel_group
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="groupId != null" >
+        group_id,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        #{goodsId},
+      </if>
+      <if test="groupId != null" >
+        #{groupId},
+      </if>
+      <if test="sort != null" >
+        #{sort},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="goodsId != null and goodsId != ''" >
+        goods_id = #{goodsId}
+      </if>
+      <if test="groupId != null and groupId != ''" >
+        AND group_id = #{groupId}
+      </if>
+      <if test="sort != null" >
+        AND sort = #{sort}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.activity.po.ActivityGoodsRelGroup" resultMap="ActivityGoodsRelGroupResultMap" >
+    select 
+    <include refid="ActivityGoodsRelGroup_Column_List" />
+    from activity_goods_rel_group
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update activity_goods_rel_group
+    <set >
+      <if test="po.goodsId != null" >
+        goods_id = #{po.goodsId},
+      </if>
+      <if test="po.groupId != null" >
+        group_id = #{po.groupId},
+      </if>
+      <if test="po.sort != null" >
+        sort = #{po.sort},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+</mapper>

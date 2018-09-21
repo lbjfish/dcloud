@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.activity.dao.HonoredGuestMapper" >
+  <resultMap id="HonoredGuestResultMap" type="com.sida.dcloud.activity.po.HonoredGuest" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="created_user" property="createdUser" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="updated_user" property="updatedUser" jdbcType="VARCHAR" />
+    <result column="last_updated" property="lastUpdated" jdbcType="TIMESTAMP" />
+    <result column="disable" property="disable" jdbcType="BIT" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
+    <result column="red_string1" property="redString1" jdbcType="VARCHAR" />
+    <result column="red_string2" property="redString2" jdbcType="VARCHAR" />
+    <result column="red_string3" property="redString3" jdbcType="VARCHAR" />
+    <result column="red_string4" property="redString4" jdbcType="VARCHAR" />
+    <result column="red_string5" property="redString5" jdbcType="VARCHAR" />
+    <result column="red_string6" property="redString6" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="eng_name" property="engName" jdbcType="VARCHAR" />
+    <result column="alias" property="alias" jdbcType="VARCHAR" />
+    <result column="id_no" property="idNo" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="nation_region_id" property="nationRegionId" jdbcType="VARCHAR" />
+    <result column="honor" property="honor" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="introduce" property="introduce" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="HonoredGuest_Column_List" >
+    id, org_id, created_user, created_at, updated_user, last_updated, disable, delete_flag, 
+    red_string1, red_string2, red_string3, red_string4, red_string5, red_string6, name, 
+    eng_name, alias, id_no, mobile, nation_region_id, honor, sort, introduce, remark
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.activity.po.HonoredGuest" >
+    insert into honored_guest (id, org_id, created_user, created_at, updated_user, last_updated, 
+      disable, delete_flag, red_string1, red_string2, red_string3, red_string4, 
+      red_string5, red_string6, name, eng_name, alias, id_no, mobile, 
+      nation_region_id, honor, sort, introduce, remark)
+    values (#{id}, #{orgId}, #{createdUser}, #{createdAt}, #{updatedUser}, #{lastUpdated}, 
+      #{disable}, #{deleteFlag}, #{redString1}, #{redString2}, #{redString3}, #{redString4}, 
+      #{redString5}, #{redString6}, #{name}, #{engName}, #{alias}, #{idNo}, #{mobile}, 
+      #{nationRegionId}, #{honor}, #{sort}, #{introduce}, #{remark})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.activity.po.HonoredGuest" >
+    insert into honored_guest
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="createdUser != null" >
+        created_user,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="updatedUser != null" >
+        updated_user,
+      </if>
+      <if test="lastUpdated != null" >
+        last_updated,
+      </if>
+      <if test="disable != null" >
+        disable,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="redString1 != null" >
+        red_string1,
+      </if>
+      <if test="redString2 != null" >
+        red_string2,
+      </if>
+      <if test="redString3 != null" >
+        red_string3,
+      </if>
+      <if test="redString4 != null" >
+        red_string4,
+      </if>
+      <if test="redString5 != null" >
+        red_string5,
+      </if>
+      <if test="redString6 != null" >
+        red_string6,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="engName != null" >
+        eng_name,
+      </if>
+      <if test="alias != null" >
+        alias,
+      </if>
+      <if test="idNo != null" >
+        id_no,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="nationRegionId != null" >
+        nation_region_id,
+      </if>
+      <if test="honor != null" >
+        honor,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="introduce != null" >
+        introduce,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="orgId != null" >
+        #{orgId},
+      </if>
+      <if test="createdUser != null" >
+        #{createdUser},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedUser != null" >
+        #{updatedUser},
+      </if>
+      <if test="lastUpdated != null" >
+        #{lastUpdated},
+      </if>
+      <if test="disable != null" >
+        #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag},
+      </if>
+      <if test="redString1 != null" >
+        #{redString1},
+      </if>
+      <if test="redString2 != null" >
+        #{redString2},
+      </if>
+      <if test="redString3 != null" >
+        #{redString3},
+      </if>
+      <if test="redString4 != null" >
+        #{redString4},
+      </if>
+      <if test="redString5 != null" >
+        #{redString5},
+      </if>
+      <if test="redString6 != null" >
+        #{redString6},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="engName != null" >
+        #{engName},
+      </if>
+      <if test="alias != null" >
+        #{alias},
+      </if>
+      <if test="idNo != null" >
+        #{idNo},
+      </if>
+      <if test="mobile != null" >
+        #{mobile},
+      </if>
+      <if test="nationRegionId != null" >
+        #{nationRegionId},
+      </if>
+      <if test="honor != null" >
+        #{honor},
+      </if>
+      <if test="sort != null" >
+        #{sort},
+      </if>
+      <if test="introduce != null" >
+        #{introduce},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="id != null and id != ''" >
+        id = #{id}
+      </if>
+      <if test="orgId != null and orgId != ''" >
+        AND org_id = #{orgId}
+      </if>
+      <if test="createdUser != null and createdUser != ''" >
+        AND created_user = #{createdUser}
+      </if>
+      <if test="createdAt != null" >
+        AND created_at = #{createdAt}
+      </if>
+      <if test="updatedUser != null and updatedUser != ''" >
+        AND updated_user = #{updatedUser}
+      </if>
+      <if test="lastUpdated != null" >
+        AND last_updated = #{lastUpdated}
+      </if>
+      <if test="disable != null" >
+        AND disable = #{disable}
+      </if>
+      <if test="deleteFlag != null" >
+        AND delete_flag = #{deleteFlag}
+      </if>
+      <if test="redString1 != null and redString1 != ''" >
+        AND red_string1 = #{redString1}
+      </if>
+      <if test="redString2 != null and redString2 != ''" >
+        AND red_string2 = #{redString2}
+      </if>
+      <if test="redString3 != null and redString3 != ''" >
+        AND red_string3 = #{redString3}
+      </if>
+      <if test="redString4 != null and redString4 != ''" >
+        AND red_string4 = #{redString4}
+      </if>
+      <if test="redString5 != null and redString5 != ''" >
+        AND red_string5 = #{redString5}
+      </if>
+      <if test="redString6 != null and redString6 != ''" >
+        AND red_string6 = #{redString6}
+      </if>
+      <if test="name != null and name != ''" >
+        AND name = #{name}
+      </if>
+      <if test="engName != null and engName != ''" >
+        AND eng_name = #{engName}
+      </if>
+      <if test="alias != null and alias != ''" >
+        AND alias = #{alias}
+      </if>
+      <if test="idNo != null and idNo != ''" >
+        AND id_no = #{idNo}
+      </if>
+      <if test="mobile != null and mobile != ''" >
+        AND mobile = #{mobile}
+      </if>
+      <if test="nationRegionId != null and nationRegionId != ''" >
+        AND nation_region_id = #{nationRegionId}
+      </if>
+      <if test="honor != null and honor != ''" >
+        AND honor = #{honor}
+      </if>
+      <if test="sort != null" >
+        AND sort = #{sort}
+      </if>
+      <if test="introduce != null and introduce != ''" >
+        AND introduce = #{introduce}
+      </if>
+      <if test="remark != null and remark != ''" >
+        AND remark = #{remark}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.activity.po.HonoredGuest" resultMap="HonoredGuestResultMap" >
+    select 
+    <include refid="HonoredGuest_Column_List" />
+    from honored_guest
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update honored_guest
+    <set >
+      <if test="po.id != null" >
+        id = #{po.id},
+      </if>
+      <if test="po.orgId != null" >
+        org_id = #{po.orgId},
+      </if>
+      <if test="po.createdUser != null" >
+        created_user = #{po.createdUser},
+      </if>
+      <if test="po.createdAt != null" >
+        created_at = #{po.createdAt},
+      </if>
+      <if test="po.updatedUser != null" >
+        updated_user = #{po.updatedUser},
+      </if>
+      <if test="po.lastUpdated != null" >
+        last_updated = #{po.lastUpdated},
+      </if>
+      <if test="po.disable != null" >
+        disable = #{po.disable},
+      </if>
+      <if test="po.deleteFlag != null" >
+        delete_flag = #{po.deleteFlag},
+      </if>
+      <if test="po.redString1 != null" >
+        red_string1 = #{po.redString1},
+      </if>
+      <if test="po.redString2 != null" >
+        red_string2 = #{po.redString2},
+      </if>
+      <if test="po.redString3 != null" >
+        red_string3 = #{po.redString3},
+      </if>
+      <if test="po.redString4 != null" >
+        red_string4 = #{po.redString4},
+      </if>
+      <if test="po.redString5 != null" >
+        red_string5 = #{po.redString5},
+      </if>
+      <if test="po.redString6 != null" >
+        red_string6 = #{po.redString6},
+      </if>
+      <if test="po.name != null" >
+        name = #{po.name},
+      </if>
+      <if test="po.engName != null" >
+        eng_name = #{po.engName},
+      </if>
+      <if test="po.alias != null" >
+        alias = #{po.alias},
+      </if>
+      <if test="po.idNo != null" >
+        id_no = #{po.idNo},
+      </if>
+      <if test="po.mobile != null" >
+        mobile = #{po.mobile},
+      </if>
+      <if test="po.nationRegionId != null" >
+        nation_region_id = #{po.nationRegionId},
+      </if>
+      <if test="po.honor != null" >
+        honor = #{po.honor},
+      </if>
+      <if test="po.sort != null" >
+        sort = #{po.sort},
+      </if>
+      <if test="po.introduce != null" >
+        introduce = #{po.introduce},
+      </if>
+      <if test="po.remark != null" >
+        remark = #{po.remark},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <!-- ***************************************************************************** -->
+  <!-- 以上自动生成，以下自定义 -->
+
+  <resultMap id="HonoredGuestVoResultMap" type="com.sida.dcloud.activity.vo.HonoredGuestVo" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="eng_name" property="engName" jdbcType="VARCHAR" />
+    <result column="alias" property="alias" jdbcType="VARCHAR" />
+    <result column="id_no" property="idNo" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="nation_region_id" property="nationRegionId" jdbcType="VARCHAR" />
+    <result column="honor" property="honor" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="HonoredGuestResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="HonoredGuest_Column_List" />
+    from honored_guest
+    where id = #{id} and delete_flag = 0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    update honored_guest set delete_flag = 1 where id = #{id}
+  </delete>
+  <delete id="deleteByPrimaryKeys" parameterType="java.lang.String" >
+    update honored_guest set delete_flag = 1 where id in (${ids})
+  </delete>
+
+  <select id="findVoList" parameterType="com.sida.dcloud.activity.po.HonoredGuest" resultMap="HonoredGuestVoResultMap">
+    select
+    id, name, eng_name, alias, id_no, mobile, nation_region_id, created_user,created_at,sort
+    from honored_guest
+    <where>
+      delete_flag = 0
+      <if test="po.id != null and po.id != ''" >
+        and id = #{po.id}
+      </if>
+      <if test="po.name != null and po.name != ''" >
+        and instr(name, #{po.name})&gt;0
+      </if>
+      <if test="po.code != null and po.code != ''" >
+        and instr(code, #{po.code})&gt;0
+      </if>
+      <if test="po.remark != null and po.remark != ''" >
+        and instr(remark, #{po.remark})&gt;0
+      </if>
+    </where>
+    <if test="po.orderField != null and po.orderField != ''">
+      ORDER BY ${po.orderField}
+      <if test="po.orderString != null and po.orderString != ''">
+        ${po.orderString}
+      </if>
+    </if>
+  </select>
+
+  <select id="checkMultiCountByUnique" parameterType="com.sida.dcloud.activity.po.HonoredGuest" resultType="int">
+    select count(0) from honored_guest
+    <where>
+      delete_flag = 0 and (1=2
+      <if test="po.idNo != null and po.idNo != ''">
+        or id_no=#{po.idNo}
+      </if>
+      <if test="po.mobile != null and po.mobile != ''">
+        or mobile=#{po.mobile}
+      </if>)
+      <if test="po.id != null and po.id != ''">
+        <![CDATA[
+        and id <> #{po.id}
+        ]]>
+      </if>
+    </where>
+  </select>
+
+  <select id="findVoListByScheduleId" parameterType="String" resultMap="HonoredGuestVoResultMap">
+    select
+    a.id, a.name, a.eng_name, a.alias, a.id_no, a.mobile, a.nation_region_id, a.created_user,a.created_at,b.sort
+    from honored_guest a left join activity_rel_honored b on a.id=b.honored_guest_id
+    <where>
+      a.delete_flag = 0 and b.schedule_id = #{scheduleId}
+    </where>
+    order by b.sort asc
+  </select>
+</mapper>

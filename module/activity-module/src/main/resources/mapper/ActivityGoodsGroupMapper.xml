@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.activity.dao.ActivityGoodsGroupMapper" >
+  <resultMap id="ActivityGoodsGroupResultMap" type="com.sida.dcloud.activity.po.ActivityGoodsGroup" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="activity_id" property="activityId" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="discount" property="discount" jdbcType="DOUBLE" />
+    <result column="minus_amount" property="minusAmount" jdbcType="DOUBLE" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="remaining" property="remaining" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="ActivityGoodsGroup_Column_List" >
+    id, activity_id, name, discount, minus_amount, quantity, remaining, remark
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.activity.po.ActivityGoodsGroup" >
+    insert into activity_goods_group (id, activity_id, name, discount, minus_amount, quantity, 
+      remaining, remark)
+    values (#{id}, #{activityId}, #{name}, #{discount}, #{minusAmount}, #{quantity}, 
+      #{remaining}, #{remark})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.activity.po.ActivityGoodsGroup" >
+    insert into activity_goods_group
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="activityId != null" >
+        activity_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="discount != null" >
+        discount,
+      </if>
+      <if test="minusAmount != null" >
+        minus_amount,
+      </if>
+      <if test="quantity != null" >
+        quantity,
+      </if>
+      <if test="remaining != null" >
+        remaining,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="activityId != null" >
+        #{activityId},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="discount != null" >
+        #{discount},
+      </if>
+      <if test="minusAmount != null" >
+        #{minusAmount},
+      </if>
+      <if test="quantity != null" >
+        #{quantity},
+      </if>
+      <if test="remaining != null" >
+        #{remaining},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="id != null and id != ''" >
+        id = #{id}
+      </if>
+      <if test="activityId != null and activityId != ''" >
+        AND activity_id = #{activityId}
+      </if>
+      <if test="name != null and name != ''" >
+        AND name = #{name}
+      </if>
+      <if test="discount != null" >
+        AND discount = #{discount}
+      </if>
+      <if test="minusAmount != null" >
+        AND minus_amount = #{minusAmount}
+      </if>
+      <if test="quantity != null" >
+        AND quantity = #{quantity}
+      </if>
+      <if test="remaining != null" >
+        AND remaining = #{remaining}
+      </if>
+      <if test="remark != null and remark != ''" >
+        AND remark = #{remark}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.activity.po.ActivityGoodsGroup" resultMap="ActivityGoodsGroupResultMap" >
+    select 
+    <include refid="ActivityGoodsGroup_Column_List" />
+    from activity_goods_group
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update activity_goods_group
+    <set >
+      <if test="po.id != null" >
+        id = #{po.id},
+      </if>
+      <if test="po.activityId != null" >
+        activity_id = #{po.activityId},
+      </if>
+      <if test="po.name != null" >
+        name = #{po.name},
+      </if>
+      <if test="po.discount != null" >
+        discount = #{po.discount},
+      </if>
+      <if test="po.minusAmount != null" >
+        minus_amount = #{po.minusAmount},
+      </if>
+      <if test="po.quantity != null" >
+        quantity = #{po.quantity},
+      </if>
+      <if test="po.remaining != null" >
+        remaining = #{po.remaining},
+      </if>
+      <if test="po.remark != null" >
+        remark = #{po.remark},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+</mapper>

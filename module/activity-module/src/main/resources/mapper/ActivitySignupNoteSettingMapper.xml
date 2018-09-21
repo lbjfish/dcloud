@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.activity.dao.ActivitySignupNoteSettingMapper" >
+  <resultMap id="ActivitySignupNoteSettingResultMap" type="com.sida.dcloud.activity.po.ActivitySignupNoteSetting" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="display_name" property="displayName" jdbcType="VARCHAR" />
+    <result column="hide_status" property="hideStatus" jdbcType="BIT" />
+    <result column="allow_empty" property="allowEmpty" jdbcType="BIT" />
+    <result column="size_limit" property="sizeLimit" jdbcType="INTEGER" />
+    <result column="v_regexp" property="vRegexp" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="version" property="version" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="ActivitySignupNoteSetting_Column_List" >
+    id, delete_flag, name, code, display_name, hide_status, allow_empty, size_limit, 
+    v_regexp, sort, version
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.activity.po.ActivitySignupNoteSetting" >
+    insert into activity_signup_note_setting (id, delete_flag, name, code, display_name, hide_status, allow_empty, 
+      size_limit, v_regexp, sort, version)
+    values (#{id}, #{deleteFlag}, #{name}, #{code}, #{displayName}, #{hideStatus}, #{allowEmpty}, 
+      #{sizeLimit}, #{vRegexp}, #{sort}, #{version})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.activity.po.ActivitySignupNoteSetting" >
+    insert into activity_signup_note_setting
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="displayName != null" >
+        display_name,
+      </if>
+      <if test="hideStatus != null" >
+        hide_status,
+      </if>
+      <if test="allowEmpty != null" >
+        allow_empty,
+      </if>
+      <if test="sizeLimit != null" >
+        size_limit,
+      </if>
+      <if test="vRegexp != null" >
+        v_regexp,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="code != null" >
+        #{code},
+      </if>
+      <if test="displayName != null" >
+        #{displayName},
+      </if>
+      <if test="hideStatus != null" >
+        #{hideStatus},
+      </if>
+      <if test="allowEmpty != null" >
+        #{allowEmpty},
+      </if>
+      <if test="sizeLimit != null" >
+        #{sizeLimit},
+      </if>
+      <if test="vRegexp != null" >
+        #{vRegexp},
+      </if>
+      <if test="sort != null" >
+        #{sort},
+      </if>
+      <if test="version != null" >
+        #{version},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="id != null and id != ''" >
+        id = #{id}
+      </if>
+      <if test="deleteFlag != null" >
+        AND delete_flag = #{deleteFlag}
+      </if>
+      <if test="name != null and name != ''" >
+        AND name = #{name}
+      </if>
+      <if test="code != null and code != ''" >
+        AND code = #{code}
+      </if>
+      <if test="displayName != null and displayName != ''" >
+        AND display_name = #{displayName}
+      </if>
+      <if test="hideStatus != null" >
+        AND hide_status = #{hideStatus}
+      </if>
+      <if test="allowEmpty != null" >
+        AND allow_empty = #{allowEmpty}
+      </if>
+      <if test="sizeLimit != null" >
+        AND size_limit = #{sizeLimit}
+      </if>
+      <if test="vRegexp != null and vRegexp != ''" >
+        AND v_regexp = #{vRegexp}
+      </if>
+      <if test="sort != null" >
+        AND sort = #{sort}
+      </if>
+      <if test="version != null and version != ''" >
+        AND version = #{version}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.activity.po.ActivitySignupNoteSetting" resultMap="ActivitySignupNoteSettingResultMap" >
+    select 
+    <include refid="ActivitySignupNoteSetting_Column_List" />
+    from activity_signup_note_setting
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update activity_signup_note_setting
+    <set >
+      <if test="po.id != null" >
+        id = #{po.id},
+      </if>
+      <if test="po.deleteFlag != null" >
+        delete_flag = #{po.deleteFlag},
+      </if>
+      <if test="po.name != null" >
+        name = #{po.name},
+      </if>
+      <if test="po.code != null" >
+        code = #{po.code},
+      </if>
+      <if test="po.displayName != null" >
+        display_name = #{po.displayName},
+      </if>
+      <if test="po.hideStatus != null" >
+        hide_status = #{po.hideStatus},
+      </if>
+      <if test="po.allowEmpty != null" >
+        allow_empty = #{po.allowEmpty},
+      </if>
+      <if test="po.sizeLimit != null" >
+        size_limit = #{po.sizeLimit},
+      </if>
+      <if test="po.vRegexp != null" >
+        v_regexp = #{po.vRegexp},
+      </if>
+      <if test="po.sort != null" >
+        sort = #{po.sort},
+      </if>
+      <if test="po.version != null" >
+        version = #{po.version},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <!-- ***************************************************************************** -->
+  <!-- 以上自动生成，以下自定义 -->
+
+  <insert id="batchInsert" parameterType="java.util.List" >
+    insert into activity_signup_note_setting (id, delete_flag, name, code, display_name, hide_status, allow_empty, size_limit, v_regexp, sort, version)
+    values
+    <foreach collection="list" item="po" open="" close="" separator="," >
+      ( #{po.id}, #{po.deleteFlag}, #{po.name}, #{po.code}, #{po.displayName}, #{po.hideStatus}, #{po.allowEmpty}, #{po.sizeLimit},
+      #{po.vRegexp}, #{po.sort}, #{po.version}
+      )
+    </foreach>
+  </insert>
+
+  <select id="selectByPrimaryKey" resultMap="ActivitySignupNoteSettingResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="ActivitySignupNoteSetting_Column_List" />
+    from activity_signup_note_setting
+    where id = #{id}
+  </select>
+
+  <select id="selectByVersion" resultMap="ActivitySignupNoteSettingResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="ActivitySignupNoteSetting_Column_List" />
+    from activity_signup_note_setting
+    where version = #{version} and delete_flag = 0
+  </select>
+
+  <update id="deleteByVersion" parameterType="java.lang.String" >
+    update activity_signup_note_setting set delete_flag = 1
+    where version = #{version}
+  </update>
+
+  <update id="resumeByVersion" parameterType="java.lang.String" >
+    update activity_signup_note_setting set delete_flag = 0
+    where version = #{version}
+  </update>
+</mapper>

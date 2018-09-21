@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.activity.dao.SysUserActivityMapper" >
+  <resultMap id="SysUserActivityResultMap" type="com.sida.dcloud.activity.po.SysUserActivity" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="alias" property="alias" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="valid_date" property="validDate" jdbcType="TIMESTAMP" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="locked" property="locked" jdbcType="BIT" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="nationality" property="nationality" jdbcType="VARCHAR" />
+    <result column="id_type" property="idType" jdbcType="VARCHAR" />
+    <result column="id_num" property="idNum" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="wechat" property="wechat" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="SysUserActivity_Column_List" >
+    id, org_id, account, name, code, alias, email, valid_date, mobile, locked, description, 
+    nationality, id_type, id_num, sex, birthday, tel, qq, wechat
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.activity.po.SysUserActivity" >
+    insert into sys_user_activity (id, org_id, account, name, code, alias, email, valid_date, 
+      mobile, locked, description, nationality, id_type, id_num, sex, 
+      birthday, tel, qq, wechat)
+    values (#{id}, #{orgId}, #{account}, #{name}, #{code}, #{alias}, #{email}, #{validDate}, 
+      #{mobile}, #{locked}, #{description}, #{nationality}, #{idType}, #{idNum}, #{sex}, 
+      #{birthday}, #{tel}, #{qq}, #{wechat})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.activity.po.SysUserActivity" >
+    insert into sys_user_activity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="alias != null" >
+        alias,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="validDate != null" >
+        valid_date,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="locked != null" >
+        locked,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="nationality != null" >
+        nationality,
+      </if>
+      <if test="idType != null" >
+        id_type,
+      </if>
+      <if test="idNum != null" >
+        id_num,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="wechat != null" >
+        wechat,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="orgId != null" >
+        #{orgId},
+      </if>
+      <if test="account != null" >
+        #{account},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="code != null" >
+        #{code},
+      </if>
+      <if test="alias != null" >
+        #{alias},
+      </if>
+      <if test="email != null" >
+        #{email},
+      </if>
+      <if test="validDate != null" >
+        #{validDate},
+      </if>
+      <if test="mobile != null" >
+        #{mobile},
+      </if>
+      <if test="locked != null" >
+        #{locked},
+      </if>
+      <if test="description != null" >
+        #{description},
+      </if>
+      <if test="nationality != null" >
+        #{nationality},
+      </if>
+      <if test="idType != null" >
+        #{idType},
+      </if>
+      <if test="idNum != null" >
+        #{idNum},
+      </if>
+      <if test="sex != null" >
+        #{sex},
+      </if>
+      <if test="birthday != null" >
+        #{birthday},
+      </if>
+      <if test="tel != null" >
+        #{tel},
+      </if>
+      <if test="qq != null" >
+        #{qq},
+      </if>
+      <if test="wechat != null" >
+        #{wechat},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="id != null and id != ''" >
+        id = #{id}
+      </if>
+      <if test="orgId != null and orgId != ''" >
+        AND org_id = #{orgId}
+      </if>
+      <if test="account != null and account != ''" >
+        AND account = #{account}
+      </if>
+      <if test="name != null and name != ''" >
+        AND name = #{name}
+      </if>
+      <if test="code != null and code != ''" >
+        AND code = #{code}
+      </if>
+      <if test="alias != null and alias != ''" >
+        AND alias = #{alias}
+      </if>
+      <if test="email != null and email != ''" >
+        AND email = #{email}
+      </if>
+      <if test="validDate != null" >
+        AND valid_date = #{validDate}
+      </if>
+      <if test="mobile != null and mobile != ''" >
+        AND mobile = #{mobile}
+      </if>
+      <if test="locked != null" >
+        AND locked = #{locked}
+      </if>
+      <if test="description != null and description != ''" >
+        AND description = #{description}
+      </if>
+      <if test="nationality != null and nationality != ''" >
+        AND nationality = #{nationality}
+      </if>
+      <if test="idType != null and idType != ''" >
+        AND id_type = #{idType}
+      </if>
+      <if test="idNum != null and idNum != ''" >
+        AND id_num = #{idNum}
+      </if>
+      <if test="sex != null and sex != ''" >
+        AND sex = #{sex}
+      </if>
+      <if test="birthday != null" >
+        AND birthday = #{birthday}
+      </if>
+      <if test="tel != null and tel != ''" >
+        AND tel = #{tel}
+      </if>
+      <if test="qq != null and qq != ''" >
+        AND qq = #{qq}
+      </if>
+      <if test="wechat != null and wechat != ''" >
+        AND wechat = #{wechat}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.activity.po.SysUserActivity" resultMap="SysUserActivityResultMap" >
+    select 
+    <include refid="SysUserActivity_Column_List" />
+    from sys_user_activity
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update sys_user_activity
+    <set >
+      <if test="po.id != null" >
+        id = #{po.id},
+      </if>
+      <if test="po.orgId != null" >
+        org_id = #{po.orgId},
+      </if>
+      <if test="po.account != null" >
+        account = #{po.account},
+      </if>
+      <if test="po.name != null" >
+        name = #{po.name},
+      </if>
+      <if test="po.code != null" >
+        code = #{po.code},
+      </if>
+      <if test="po.alias != null" >
+        alias = #{po.alias},
+      </if>
+      <if test="po.email != null" >
+        email = #{po.email},
+      </if>
+      <if test="po.validDate != null" >
+        valid_date = #{po.validDate},
+      </if>
+      <if test="po.mobile != null" >
+        mobile = #{po.mobile},
+      </if>
+      <if test="po.locked != null" >
+        locked = #{po.locked},
+      </if>
+      <if test="po.description != null" >
+        description = #{po.description},
+      </if>
+      <if test="po.nationality != null" >
+        nationality = #{po.nationality},
+      </if>
+      <if test="po.idType != null" >
+        id_type = #{po.idType},
+      </if>
+      <if test="po.idNum != null" >
+        id_num = #{po.idNum},
+      </if>
+      <if test="po.sex != null" >
+        sex = #{po.sex},
+      </if>
+      <if test="po.birthday != null" >
+        birthday = #{po.birthday},
+      </if>
+      <if test="po.tel != null" >
+        tel = #{po.tel},
+      </if>
+      <if test="po.qq != null" >
+        qq = #{po.qq},
+      </if>
+      <if test="po.wechat != null" >
+        wechat = #{po.wechat},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <!-- ***************************************************************************** -->
+  <!-- 以上自动生成，以下自定义 -->
+
+  <update id="updateByUserPrimaryKey" >
+    update sys_user_activity
+    <set >
+      <if test="po.id != null" >
+        id = #{po.id},
+      </if>
+      <if test="po.orgId != null" >
+        org_id = #{po.orgId},
+      </if>
+      <if test="po.account != null" >
+        account = #{po.account},
+      </if>
+      <if test="po.name != null" >
+        name = #{po.name},
+      </if>
+      <if test="po.code != null" >
+        code = #{po.code},
+      </if>
+      <if test="po.alias != null" >
+        alias = #{po.alias},
+      </if>
+      <if test="po.email != null" >
+        email = #{po.email},
+      </if>
+      <if test="po.validDate != null" >
+        valid_date = #{po.validDate},
+      </if>
+      <if test="po.mobile != null" >
+        mobile = #{po.mobile},
+      </if>
+      <if test="po.locked != null" >
+        locked = #{po.locked},
+      </if>
+      <if test="po.description != null" >
+        description = #{po.description},
+      </if>
+      <if test="po.nationality != null" >
+        nationality = #{po.nationality},
+      </if>
+      <if test="po.idType != null" >
+        id_type = #{po.idType},
+      </if>
+      <if test="po.idNum != null" >
+        id_num = #{po.idNum},
+      </if>
+      <if test="po.sex != null" >
+        sex = #{po.sex},
+      </if>
+      <if test="po.birthday != null" >
+        birthday = #{po.birthday},
+      </if>
+      <if test="po.tel != null" >
+        tel = #{po.tel},
+      </if>
+      <if test="po.qq != null" >
+        qq = #{po.qq},
+      </if>
+      <if test="po.wechat != null" >
+        wechat = #{po.wechat},
+      </if>
+    </set>
+    where id = #{po.id}
+  </update>
+</mapper>

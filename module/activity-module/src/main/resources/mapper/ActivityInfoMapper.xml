@@ -1,0 +1,800 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.activity.dao.ActivityInfoMapper" >
+  <resultMap id="ActivityInfoResultMap" type="com.sida.dcloud.activity.po.ActivityInfo" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="created_user" property="createdUser" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="updated_user" property="updatedUser" jdbcType="VARCHAR" />
+    <result column="last_updated" property="lastUpdated" jdbcType="TIMESTAMP" />
+    <result column="disable" property="disable" jdbcType="BIT" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
+    <result column="red_string1" property="redString1" jdbcType="VARCHAR" />
+    <result column="red_string2" property="redString2" jdbcType="VARCHAR" />
+    <result column="red_string3" property="redString3" jdbcType="VARCHAR" />
+    <result column="red_string4" property="redString4" jdbcType="VARCHAR" />
+    <result column="red_string5" property="redString5" jdbcType="VARCHAR" />
+    <result column="red_string6" property="redString6" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="alias" property="alias" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="second_title" property="secondTitle" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="custom_title" property="customTitle" jdbcType="VARCHAR" />
+    <result column="custom_content" property="customContent" jdbcType="VARCHAR" />
+    <result column="hosts" property="hosts" jdbcType="VARCHAR" />
+    <result column="organizers" property="organizers" jdbcType="VARCHAR" />
+    <result column="co_organizers" property="coOrganizers" jdbcType="VARCHAR" />
+    <result column="link_man" property="linkMan" jdbcType="VARCHAR" />
+    <result column="link_phone" property="linkPhone" jdbcType="VARCHAR" />
+    <result column="multi_activity" property="multiActivity" jdbcType="BIT" />
+    <result column="multi_section" property="multiSection" jdbcType="BIT" />
+    <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+    <result column="region_id" property="regionId" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="DOUBLE" />
+    <result column="latitude" property="latitude" jdbcType="DOUBLE" />
+    <result column="banner_url" property="bannerUrl" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="sign_start_time" property="signStartTime" jdbcType="TIMESTAMP" />
+    <result column="sign_end_time" property="signEndTime" jdbcType="TIMESTAMP" />
+    <result column="approval_time" property="approvalTime" jdbcType="TIMESTAMP" />
+    <result column="responsible_org" property="responsibleOrg" jdbcType="VARCHAR" />
+    <result column="expenses" property="expenses" jdbcType="DOUBLE" />
+    <result column="favorite_count" property="favoriteCount" jdbcType="INTEGER" />
+    <result column="sign_count" property="signCount" jdbcType="INTEGER" />
+    <result column="comment_count" property="commentCount" jdbcType="INTEGER" />
+    <result column="alone_entrance" property="aloneEntrance" jdbcType="BIT" />
+    <result column="entrance_url" property="entranceUrl" jdbcType="VARCHAR" />
+    <result column="activity_status" property="activityStatus" jdbcType="VARCHAR" />
+    <result column="face_detection" property="faceDetection" jdbcType="BIT" />
+    <result column="buy_limit" property="buyLimit" jdbcType="INTEGER" />
+    <result column="ticket_remark" property="ticketRemark" jdbcType="VARCHAR" />
+    <result column="pay_expired" property="payExpired" jdbcType="INTEGER" />
+    <result column="pay_remark" property="payRemark" jdbcType="VARCHAR" />
+    <result column="refund_remark" property="refundRemark" jdbcType="VARCHAR" />
+    <result column="allow_refund" property="allowRefund" jdbcType="BIT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="ActivityInfo_Column_List" >
+    id, org_id, created_user, created_at, updated_user, last_updated, disable, delete_flag, 
+    red_string1, red_string2, red_string3, red_string4, red_string5, red_string6, name, 
+    code, alias, title, second_title, content, custom_title, custom_content, hosts, organizers, 
+    co_organizers, link_man, link_phone, multi_activity, multi_section, parent_id, region_id, 
+    address, longitude, latitude, banner_url, start_time, end_time, sign_start_time, 
+    sign_end_time, approval_time, responsible_org, expenses, favorite_count, sign_count, 
+    comment_count, alone_entrance, entrance_url, activity_status, face_detection, buy_limit, 
+    ticket_remark, pay_expired, pay_remark, refund_remark, allow_refund, remark
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.activity.po.ActivityInfo" >
+    insert into activity_info (id, org_id, created_user, created_at, updated_user, last_updated, 
+      disable, delete_flag, red_string1, red_string2, red_string3, red_string4, 
+      red_string5, red_string6, name, code, alias, title, second_title, 
+      content, custom_title, custom_content, hosts, organizers, co_organizers, 
+      link_man, link_phone, multi_activity, multi_section, parent_id, region_id, 
+      address, longitude, latitude, banner_url, start_time, end_time, 
+      sign_start_time, sign_end_time, approval_time, responsible_org, expenses, 
+      favorite_count, sign_count, comment_count, alone_entrance, entrance_url, 
+      activity_status, face_detection, buy_limit, ticket_remark, pay_expired, 
+      pay_remark, refund_remark, allow_refund, remark)
+    values (#{id}, #{orgId}, #{createdUser}, #{createdAt}, #{updatedUser}, #{lastUpdated}, 
+      #{disable}, #{deleteFlag}, #{redString1}, #{redString2}, #{redString3}, #{redString4}, 
+      #{redString5}, #{redString6}, #{name}, #{code}, #{alias}, #{title}, #{secondTitle}, 
+      #{content}, #{customTitle}, #{customContent}, #{hosts}, #{organizers}, #{coOrganizers}, 
+      #{linkMan}, #{linkPhone}, #{multiActivity}, #{multiSection}, #{parentId}, #{regionId}, 
+      #{address}, #{longitude}, #{latitude}, #{bannerUrl}, #{startTime}, #{endTime}, 
+      #{signStartTime}, #{signEndTime}, #{approvalTime}, #{responsibleOrg}, #{expenses}, 
+      #{favoriteCount}, #{signCount}, #{commentCount}, #{aloneEntrance}, #{entranceUrl}, 
+      #{activityStatus}, #{faceDetection}, #{buyLimit}, #{ticketRemark}, #{payExpired}, 
+      #{payRemark}, #{refundRemark}, #{allowRefund}, #{remark})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.activity.po.ActivityInfo" >
+    insert into activity_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="createdUser != null" >
+        created_user,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="updatedUser != null" >
+        updated_user,
+      </if>
+      <if test="lastUpdated != null" >
+        last_updated,
+      </if>
+      <if test="disable != null" >
+        disable,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="redString1 != null" >
+        red_string1,
+      </if>
+      <if test="redString2 != null" >
+        red_string2,
+      </if>
+      <if test="redString3 != null" >
+        red_string3,
+      </if>
+      <if test="redString4 != null" >
+        red_string4,
+      </if>
+      <if test="redString5 != null" >
+        red_string5,
+      </if>
+      <if test="redString6 != null" >
+        red_string6,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="alias != null" >
+        alias,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="secondTitle != null" >
+        second_title,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="customTitle != null" >
+        custom_title,
+      </if>
+      <if test="customContent != null" >
+        custom_content,
+      </if>
+      <if test="hosts != null" >
+        hosts,
+      </if>
+      <if test="organizers != null" >
+        organizers,
+      </if>
+      <if test="coOrganizers != null" >
+        co_organizers,
+      </if>
+      <if test="linkMan != null" >
+        link_man,
+      </if>
+      <if test="linkPhone != null" >
+        link_phone,
+      </if>
+      <if test="multiActivity != null" >
+        multi_activity,
+      </if>
+      <if test="multiSection != null" >
+        multi_section,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="regionId != null" >
+        region_id,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="bannerUrl != null" >
+        banner_url,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="signStartTime != null" >
+        sign_start_time,
+      </if>
+      <if test="signEndTime != null" >
+        sign_end_time,
+      </if>
+      <if test="approvalTime != null" >
+        approval_time,
+      </if>
+      <if test="responsibleOrg != null" >
+        responsible_org,
+      </if>
+      <if test="expenses != null" >
+        expenses,
+      </if>
+      <if test="favoriteCount != null" >
+        favorite_count,
+      </if>
+      <if test="signCount != null" >
+        sign_count,
+      </if>
+      <if test="commentCount != null" >
+        comment_count,
+      </if>
+      <if test="aloneEntrance != null" >
+        alone_entrance,
+      </if>
+      <if test="entranceUrl != null" >
+        entrance_url,
+      </if>
+      <if test="activityStatus != null" >
+        activity_status,
+      </if>
+      <if test="faceDetection != null" >
+        face_detection,
+      </if>
+      <if test="buyLimit != null" >
+        buy_limit,
+      </if>
+      <if test="ticketRemark != null" >
+        ticket_remark,
+      </if>
+      <if test="payExpired != null" >
+        pay_expired,
+      </if>
+      <if test="payRemark != null" >
+        pay_remark,
+      </if>
+      <if test="refundRemark != null" >
+        refund_remark,
+      </if>
+      <if test="allowRefund != null" >
+        allow_refund,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="orgId != null" >
+        #{orgId},
+      </if>
+      <if test="createdUser != null" >
+        #{createdUser},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedUser != null" >
+        #{updatedUser},
+      </if>
+      <if test="lastUpdated != null" >
+        #{lastUpdated},
+      </if>
+      <if test="disable != null" >
+        #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag},
+      </if>
+      <if test="redString1 != null" >
+        #{redString1},
+      </if>
+      <if test="redString2 != null" >
+        #{redString2},
+      </if>
+      <if test="redString3 != null" >
+        #{redString3},
+      </if>
+      <if test="redString4 != null" >
+        #{redString4},
+      </if>
+      <if test="redString5 != null" >
+        #{redString5},
+      </if>
+      <if test="redString6 != null" >
+        #{redString6},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="code != null" >
+        #{code},
+      </if>
+      <if test="alias != null" >
+        #{alias},
+      </if>
+      <if test="title != null" >
+        #{title},
+      </if>
+      <if test="secondTitle != null" >
+        #{secondTitle},
+      </if>
+      <if test="content != null" >
+        #{content},
+      </if>
+      <if test="customTitle != null" >
+        #{customTitle},
+      </if>
+      <if test="customContent != null" >
+        #{customContent},
+      </if>
+      <if test="hosts != null" >
+        #{hosts},
+      </if>
+      <if test="organizers != null" >
+        #{organizers},
+      </if>
+      <if test="coOrganizers != null" >
+        #{coOrganizers},
+      </if>
+      <if test="linkMan != null" >
+        #{linkMan},
+      </if>
+      <if test="linkPhone != null" >
+        #{linkPhone},
+      </if>
+      <if test="multiActivity != null" >
+        #{multiActivity},
+      </if>
+      <if test="multiSection != null" >
+        #{multiSection},
+      </if>
+      <if test="parentId != null" >
+        #{parentId},
+      </if>
+      <if test="regionId != null" >
+        #{regionId},
+      </if>
+      <if test="address != null" >
+        #{address},
+      </if>
+      <if test="longitude != null" >
+        #{longitude},
+      </if>
+      <if test="latitude != null" >
+        #{latitude},
+      </if>
+      <if test="bannerUrl != null" >
+        #{bannerUrl},
+      </if>
+      <if test="startTime != null" >
+        #{startTime},
+      </if>
+      <if test="endTime != null" >
+        #{endTime},
+      </if>
+      <if test="signStartTime != null" >
+        #{signStartTime},
+      </if>
+      <if test="signEndTime != null" >
+        #{signEndTime},
+      </if>
+      <if test="approvalTime != null" >
+        #{approvalTime},
+      </if>
+      <if test="responsibleOrg != null" >
+        #{responsibleOrg},
+      </if>
+      <if test="expenses != null" >
+        #{expenses},
+      </if>
+      <if test="favoriteCount != null" >
+        #{favoriteCount},
+      </if>
+      <if test="signCount != null" >
+        #{signCount},
+      </if>
+      <if test="commentCount != null" >
+        #{commentCount},
+      </if>
+      <if test="aloneEntrance != null" >
+        #{aloneEntrance},
+      </if>
+      <if test="entranceUrl != null" >
+        #{entranceUrl},
+      </if>
+      <if test="activityStatus != null" >
+        #{activityStatus},
+      </if>
+      <if test="faceDetection != null" >
+        #{faceDetection},
+      </if>
+      <if test="buyLimit != null" >
+        #{buyLimit},
+      </if>
+      <if test="ticketRemark != null" >
+        #{ticketRemark},
+      </if>
+      <if test="payExpired != null" >
+        #{payExpired},
+      </if>
+      <if test="payRemark != null" >
+        #{payRemark},
+      </if>
+      <if test="refundRemark != null" >
+        #{refundRemark},
+      </if>
+      <if test="allowRefund != null" >
+        #{allowRefund},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="id != null and id != ''" >
+        id = #{id}
+      </if>
+      <if test="orgId != null and orgId != ''" >
+        AND org_id = #{orgId}
+      </if>
+      <if test="createdUser != null and createdUser != ''" >
+        AND created_user = #{createdUser}
+      </if>
+      <if test="createdAt != null" >
+        AND created_at = #{createdAt}
+      </if>
+      <if test="updatedUser != null and updatedUser != ''" >
+        AND updated_user = #{updatedUser}
+      </if>
+      <if test="lastUpdated != null" >
+        AND last_updated = #{lastUpdated}
+      </if>
+      <if test="disable != null" >
+        AND disable = #{disable}
+      </if>
+      <if test="deleteFlag != null" >
+        AND delete_flag = #{deleteFlag}
+      </if>
+      <if test="redString1 != null and redString1 != ''" >
+        AND red_string1 = #{redString1}
+      </if>
+      <if test="redString2 != null and redString2 != ''" >
+        AND red_string2 = #{redString2}
+      </if>
+      <if test="redString3 != null and redString3 != ''" >
+        AND red_string3 = #{redString3}
+      </if>
+      <if test="redString4 != null and redString4 != ''" >
+        AND red_string4 = #{redString4}
+      </if>
+      <if test="redString5 != null and redString5 != ''" >
+        AND red_string5 = #{redString5}
+      </if>
+      <if test="redString6 != null and redString6 != ''" >
+        AND red_string6 = #{redString6}
+      </if>
+      <if test="name != null and name != ''" >
+        AND name = #{name}
+      </if>
+      <if test="code != null and code != ''" >
+        AND code = #{code}
+      </if>
+      <if test="alias != null and alias != ''" >
+        AND alias = #{alias}
+      </if>
+      <if test="title != null and title != ''" >
+        AND title = #{title}
+      </if>
+      <if test="secondTitle != null and secondTitle != ''" >
+        AND second_title = #{secondTitle}
+      </if>
+      <if test="content != null and content != ''" >
+        AND content = #{content}
+      </if>
+      <if test="customTitle != null and customTitle != ''" >
+        AND custom_title = #{customTitle}
+      </if>
+      <if test="customContent != null and customContent != ''" >
+        AND custom_content = #{customContent}
+      </if>
+      <if test="hosts != null and hosts != ''" >
+        AND hosts = #{hosts}
+      </if>
+      <if test="organizers != null and organizers != ''" >
+        AND organizers = #{organizers}
+      </if>
+      <if test="coOrganizers != null and coOrganizers != ''" >
+        AND co_organizers = #{coOrganizers}
+      </if>
+      <if test="linkMan != null and linkMan != ''" >
+        AND link_man = #{linkMan}
+      </if>
+      <if test="linkPhone != null and linkPhone != ''" >
+        AND link_phone = #{linkPhone}
+      </if>
+      <if test="multiActivity != null" >
+        AND multi_activity = #{multiActivity}
+      </if>
+      <if test="multiSection != null" >
+        AND multi_section = #{multiSection}
+      </if>
+      <if test="parentId != null and parentId != ''" >
+        AND parent_id = #{parentId}
+      </if>
+      <if test="regionId != null and regionId != ''" >
+        AND region_id = #{regionId}
+      </if>
+      <if test="address != null and address != ''" >
+        AND address = #{address}
+      </if>
+      <if test="longitude != null" >
+        AND longitude = #{longitude}
+      </if>
+      <if test="latitude != null" >
+        AND latitude = #{latitude}
+      </if>
+      <if test="bannerUrl != null and bannerUrl != ''" >
+        AND banner_url = #{bannerUrl}
+      </if>
+      <if test="startTime != null" >
+        AND start_time = #{startTime}
+      </if>
+      <if test="endTime != null" >
+        AND end_time = #{endTime}
+      </if>
+      <if test="signStartTime != null" >
+        AND sign_start_time = #{signStartTime}
+      </if>
+      <if test="signEndTime != null" >
+        AND sign_end_time = #{signEndTime}
+      </if>
+      <if test="approvalTime != null" >
+        AND approval_time = #{approvalTime}
+      </if>
+      <if test="responsibleOrg != null and responsibleOrg != ''" >
+        AND responsible_org = #{responsibleOrg}
+      </if>
+      <if test="expenses != null" >
+        AND expenses = #{expenses}
+      </if>
+      <if test="favoriteCount != null" >
+        AND favorite_count = #{favoriteCount}
+      </if>
+      <if test="signCount != null" >
+        AND sign_count = #{signCount}
+      </if>
+      <if test="commentCount != null" >
+        AND comment_count = #{commentCount}
+      </if>
+      <if test="aloneEntrance != null" >
+        AND alone_entrance = #{aloneEntrance}
+      </if>
+      <if test="entranceUrl != null and entranceUrl != ''" >
+        AND entrance_url = #{entranceUrl}
+      </if>
+      <if test="activityStatus != null and activityStatus != ''" >
+        AND activity_status = #{activityStatus}
+      </if>
+      <if test="faceDetection != null" >
+        AND face_detection = #{faceDetection}
+      </if>
+      <if test="buyLimit != null" >
+        AND buy_limit = #{buyLimit}
+      </if>
+      <if test="ticketRemark != null and ticketRemark != ''" >
+        AND ticket_remark = #{ticketRemark}
+      </if>
+      <if test="payExpired != null" >
+        AND pay_expired = #{payExpired}
+      </if>
+      <if test="payRemark != null and payRemark != ''" >
+        AND pay_remark = #{payRemark}
+      </if>
+      <if test="refundRemark != null and refundRemark != ''" >
+        AND refund_remark = #{refundRemark}
+      </if>
+      <if test="allowRefund != null" >
+        AND allow_refund = #{allowRefund}
+      </if>
+      <if test="remark != null and remark != ''" >
+        AND remark = #{remark}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.activity.po.ActivityInfo" resultMap="ActivityInfoResultMap" >
+    select 
+    <include refid="ActivityInfo_Column_List" />
+    from activity_info
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update activity_info
+    <set >
+      <if test="po.id != null" >
+        id = #{po.id},
+      </if>
+      <if test="po.orgId != null" >
+        org_id = #{po.orgId},
+      </if>
+      <if test="po.createdUser != null" >
+        created_user = #{po.createdUser},
+      </if>
+      <if test="po.createdAt != null" >
+        created_at = #{po.createdAt},
+      </if>
+      <if test="po.updatedUser != null" >
+        updated_user = #{po.updatedUser},
+      </if>
+      <if test="po.lastUpdated != null" >
+        last_updated = #{po.lastUpdated},
+      </if>
+      <if test="po.disable != null" >
+        disable = #{po.disable},
+      </if>
+      <if test="po.deleteFlag != null" >
+        delete_flag = #{po.deleteFlag},
+      </if>
+      <if test="po.redString1 != null" >
+        red_string1 = #{po.redString1},
+      </if>
+      <if test="po.redString2 != null" >
+        red_string2 = #{po.redString2},
+      </if>
+      <if test="po.redString3 != null" >
+        red_string3 = #{po.redString3},
+      </if>
+      <if test="po.redString4 != null" >
+        red_string4 = #{po.redString4},
+      </if>
+      <if test="po.redString5 != null" >
+        red_string5 = #{po.redString5},
+      </if>
+      <if test="po.redString6 != null" >
+        red_string6 = #{po.redString6},
+      </if>
+      <if test="po.name != null" >
+        name = #{po.name},
+      </if>
+      <if test="po.code != null" >
+        code = #{po.code},
+      </if>
+      <if test="po.alias != null" >
+        alias = #{po.alias},
+      </if>
+      <if test="po.title != null" >
+        title = #{po.title},
+      </if>
+      <if test="po.secondTitle != null" >
+        second_title = #{po.secondTitle},
+      </if>
+      <if test="po.content != null" >
+        content = #{po.content},
+      </if>
+      <if test="po.customTitle != null" >
+        custom_title = #{po.customTitle},
+      </if>
+      <if test="po.customContent != null" >
+        custom_content = #{po.customContent},
+      </if>
+      <if test="po.hosts != null" >
+        hosts = #{po.hosts},
+      </if>
+      <if test="po.organizers != null" >
+        organizers = #{po.organizers},
+      </if>
+      <if test="po.coOrganizers != null" >
+        co_organizers = #{po.coOrganizers},
+      </if>
+      <if test="po.linkMan != null" >
+        link_man = #{po.linkMan},
+      </if>
+      <if test="po.linkPhone != null" >
+        link_phone = #{po.linkPhone},
+      </if>
+      <if test="po.multiActivity != null" >
+        multi_activity = #{po.multiActivity},
+      </if>
+      <if test="po.multiSection != null" >
+        multi_section = #{po.multiSection},
+      </if>
+      <if test="po.parentId != null" >
+        parent_id = #{po.parentId},
+      </if>
+      <if test="po.regionId != null" >
+        region_id = #{po.regionId},
+      </if>
+      <if test="po.address != null" >
+        address = #{po.address},
+      </if>
+      <if test="po.longitude != null" >
+        longitude = #{po.longitude},
+      </if>
+      <if test="po.latitude != null" >
+        latitude = #{po.latitude},
+      </if>
+      <if test="po.bannerUrl != null" >
+        banner_url = #{po.bannerUrl},
+      </if>
+      <if test="po.startTime != null" >
+        start_time = #{po.startTime},
+      </if>
+      <if test="po.endTime != null" >
+        end_time = #{po.endTime},
+      </if>
+      <if test="po.signStartTime != null" >
+        sign_start_time = #{po.signStartTime},
+      </if>
+      <if test="po.signEndTime != null" >
+        sign_end_time = #{po.signEndTime},
+      </if>
+      <if test="po.approvalTime != null" >
+        approval_time = #{po.approvalTime},
+      </if>
+      <if test="po.responsibleOrg != null" >
+        responsible_org = #{po.responsibleOrg},
+      </if>
+      <if test="po.expenses != null" >
+        expenses = #{po.expenses},
+      </if>
+      <if test="po.favoriteCount != null" >
+        favorite_count = #{po.favoriteCount},
+      </if>
+      <if test="po.signCount != null" >
+        sign_count = #{po.signCount},
+      </if>
+      <if test="po.commentCount != null" >
+        comment_count = #{po.commentCount},
+      </if>
+      <if test="po.aloneEntrance != null" >
+        alone_entrance = #{po.aloneEntrance},
+      </if>
+      <if test="po.entranceUrl != null" >
+        entrance_url = #{po.entranceUrl},
+      </if>
+      <if test="po.activityStatus != null" >
+        activity_status = #{po.activityStatus},
+      </if>
+      <if test="po.faceDetection != null" >
+        face_detection = #{po.faceDetection},
+      </if>
+      <if test="po.buyLimit != null" >
+        buy_limit = #{po.buyLimit},
+      </if>
+      <if test="po.ticketRemark != null" >
+        ticket_remark = #{po.ticketRemark},
+      </if>
+      <if test="po.payExpired != null" >
+        pay_expired = #{po.payExpired},
+      </if>
+      <if test="po.payRemark != null" >
+        pay_remark = #{po.payRemark},
+      </if>
+      <if test="po.refundRemark != null" >
+        refund_remark = #{po.refundRemark},
+      </if>
+      <if test="po.allowRefund != null" >
+        allow_refund = #{po.allowRefund},
+      </if>
+      <if test="po.remark != null" >
+        remark = #{po.remark},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+</mapper>

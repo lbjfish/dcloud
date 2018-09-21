@@ -1,0 +1,876 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.activity.dao.CustomerActivitySignupNoteMapper" >
+  <resultMap id="CustomerActivitySignupNoteResultMap" type="com.sida.dcloud.activity.po.CustomerActivitySignupNote" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
+    <result column="red_string1" property="redString1" jdbcType="VARCHAR" />
+    <result column="red_string2" property="redString2" jdbcType="VARCHAR" />
+    <result column="red_string3" property="redString3" jdbcType="VARCHAR" />
+    <result column="red_string4" property="redString4" jdbcType="VARCHAR" />
+    <result column="red_string5" property="redString5" jdbcType="VARCHAR" />
+    <result column="red_string6" property="redString6" jdbcType="VARCHAR" />
+    <result column="note_no" property="noteNo" jdbcType="VARCHAR" />
+    <result column="activity_id" property="activityId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="position" property="position" jdbcType="VARCHAR" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="post_code" property="postCode" jdbcType="VARCHAR" />
+    <result column="mobile1_country_no" property="mobile1CountryNo" jdbcType="VARCHAR" />
+    <result column="mobile1_no" property="mobile1No" jdbcType="VARCHAR" />
+    <result column="mobile2_country_no" property="mobile2CountryNo" jdbcType="VARCHAR" />
+    <result column="mobile2_no" property="mobile2No" jdbcType="VARCHAR" />
+    <result column="phone1_country_no" property="phone1CountryNo" jdbcType="VARCHAR" />
+    <result column="phone_zone_no" property="phoneZoneNo" jdbcType="VARCHAR" />
+    <result column="phone1_no" property="phone1No" jdbcType="VARCHAR" />
+    <result column="phone2_country_no" property="phone2CountryNo" jdbcType="VARCHAR" />
+    <result column="phone2_zone_no" property="phone2ZoneNo" jdbcType="VARCHAR" />
+    <result column="phone2_no" property="phone2No" jdbcType="VARCHAR" />
+    <result column="fax_country_no" property="faxCountryNo" jdbcType="VARCHAR" />
+    <result column="fax_zone_no" property="faxZoneNo" jdbcType="VARCHAR" />
+    <result column="fax_no" property="faxNo" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="homepage" property="homepage" jdbcType="VARCHAR" />
+    <result column="qq_no" property="qqNo" jdbcType="VARCHAR" />
+    <result column="wx_no" property="wxNo" jdbcType="VARCHAR" />
+    <result column="region_id" property="regionId" jdbcType="VARCHAR" />
+    <result column="corp_domains" property="corpDomains" jdbcType="VARCHAR" />
+    <result column="interested_domains" property="interestedDomains" jdbcType="VARCHAR" />
+    <result column="attend_intent" property="attendIntent" jdbcType="VARCHAR" />
+    <result column="gain_channel" property="gainChannel" jdbcType="VARCHAR" />
+    <result column="it_type" property="itType" jdbcType="VARCHAR" />
+    <result column="id_no" property="idNo" jdbcType="VARCHAR" />
+    <result column="signup_time" property="signupTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="VARCHAR" />
+    <result column="field1" property="field1" jdbcType="VARCHAR" />
+    <result column="field2" property="field2" jdbcType="VARCHAR" />
+    <result column="field3" property="field3" jdbcType="VARCHAR" />
+    <result column="field4" property="field4" jdbcType="VARCHAR" />
+    <result column="field5" property="field5" jdbcType="VARCHAR" />
+    <result column="field6" property="field6" jdbcType="VARCHAR" />
+    <result column="field7" property="field7" jdbcType="VARCHAR" />
+    <result column="field8" property="field8" jdbcType="VARCHAR" />
+    <result column="field9" property="field9" jdbcType="VARCHAR" />
+    <result column="field10" property="field10" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="CustomerActivitySignupNote_Column_List" >
+    id, org_id, delete_flag, red_string1, red_string2, red_string3, red_string4, red_string5, 
+    red_string6, note_no, activity_id, user_id, name, sex, department, position, unit, 
+    address, post_code, mobile1_country_no, mobile1_no, mobile2_country_no, mobile2_no, 
+    phone1_country_no, phone_zone_no, phone1_no, phone2_country_no, phone2_zone_no, phone2_no, 
+    fax_country_no, fax_zone_no, fax_no, email, homepage, qq_no, wx_no, region_id, corp_domains, 
+    interested_domains, attend_intent, gain_channel, it_type, id_no, signup_time, remark, 
+    version, field1, field2, field3, field4, field5, field6, field7, field8, field9, 
+    field10
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.activity.po.CustomerActivitySignupNote" >
+    insert into customer_activity_signup_note (id, org_id, delete_flag, red_string1, red_string2, red_string3, 
+      red_string4, red_string5, red_string6, note_no, activity_id, user_id, 
+      name, sex, department, position, unit, address, post_code, 
+      mobile1_country_no, mobile1_no, mobile2_country_no, mobile2_no, phone1_country_no, 
+      phone_zone_no, phone1_no, phone2_country_no, phone2_zone_no, phone2_no, 
+      fax_country_no, fax_zone_no, fax_no, email, homepage, qq_no, wx_no, 
+      region_id, corp_domains, interested_domains, attend_intent, gain_channel, 
+      it_type, id_no, signup_time, remark, version, field1, field2, 
+      field3, field4, field5, field6, field7, field8, field9, field10
+      )
+    values (#{id}, #{orgId}, #{deleteFlag}, #{redString1}, #{redString2}, #{redString3}, 
+      #{redString4}, #{redString5}, #{redString6}, #{noteNo}, #{activityId}, #{userId}, 
+      #{name}, #{sex}, #{department}, #{position}, #{unit}, #{address}, #{postCode}, 
+      #{mobile1CountryNo}, #{mobile1No}, #{mobile2CountryNo}, #{mobile2No}, #{phone1CountryNo}, 
+      #{phoneZoneNo}, #{phone1No}, #{phone2CountryNo}, #{phone2ZoneNo}, #{phone2No}, 
+      #{faxCountryNo}, #{faxZoneNo}, #{faxNo}, #{email}, #{homepage}, #{qqNo}, #{wxNo}, 
+      #{regionId}, #{corpDomains}, #{interestedDomains}, #{attendIntent}, #{gainChannel}, 
+      #{itType}, #{idNo}, #{signupTime}, #{remark}, #{version}, #{field1}, #{field2}, 
+      #{field3}, #{field4}, #{field5}, #{field6}, #{field7}, #{field8}, #{field9}, #{field10}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.activity.po.CustomerActivitySignupNote" >
+    insert into customer_activity_signup_note
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="redString1 != null" >
+        red_string1,
+      </if>
+      <if test="redString2 != null" >
+        red_string2,
+      </if>
+      <if test="redString3 != null" >
+        red_string3,
+      </if>
+      <if test="redString4 != null" >
+        red_string4,
+      </if>
+      <if test="redString5 != null" >
+        red_string5,
+      </if>
+      <if test="redString6 != null" >
+        red_string6,
+      </if>
+      <if test="noteNo != null" >
+        note_no,
+      </if>
+      <if test="activityId != null" >
+        activity_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="position != null" >
+        position,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="postCode != null" >
+        post_code,
+      </if>
+      <if test="mobile1CountryNo != null" >
+        mobile1_country_no,
+      </if>
+      <if test="mobile1No != null" >
+        mobile1_no,
+      </if>
+      <if test="mobile2CountryNo != null" >
+        mobile2_country_no,
+      </if>
+      <if test="mobile2No != null" >
+        mobile2_no,
+      </if>
+      <if test="phone1CountryNo != null" >
+        phone1_country_no,
+      </if>
+      <if test="phoneZoneNo != null" >
+        phone_zone_no,
+      </if>
+      <if test="phone1No != null" >
+        phone1_no,
+      </if>
+      <if test="phone2CountryNo != null" >
+        phone2_country_no,
+      </if>
+      <if test="phone2ZoneNo != null" >
+        phone2_zone_no,
+      </if>
+      <if test="phone2No != null" >
+        phone2_no,
+      </if>
+      <if test="faxCountryNo != null" >
+        fax_country_no,
+      </if>
+      <if test="faxZoneNo != null" >
+        fax_zone_no,
+      </if>
+      <if test="faxNo != null" >
+        fax_no,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="homepage != null" >
+        homepage,
+      </if>
+      <if test="qqNo != null" >
+        qq_no,
+      </if>
+      <if test="wxNo != null" >
+        wx_no,
+      </if>
+      <if test="regionId != null" >
+        region_id,
+      </if>
+      <if test="corpDomains != null" >
+        corp_domains,
+      </if>
+      <if test="interestedDomains != null" >
+        interested_domains,
+      </if>
+      <if test="attendIntent != null" >
+        attend_intent,
+      </if>
+      <if test="gainChannel != null" >
+        gain_channel,
+      </if>
+      <if test="itType != null" >
+        it_type,
+      </if>
+      <if test="idNo != null" >
+        id_no,
+      </if>
+      <if test="signupTime != null" >
+        signup_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="field1 != null" >
+        field1,
+      </if>
+      <if test="field2 != null" >
+        field2,
+      </if>
+      <if test="field3 != null" >
+        field3,
+      </if>
+      <if test="field4 != null" >
+        field4,
+      </if>
+      <if test="field5 != null" >
+        field5,
+      </if>
+      <if test="field6 != null" >
+        field6,
+      </if>
+      <if test="field7 != null" >
+        field7,
+      </if>
+      <if test="field8 != null" >
+        field8,
+      </if>
+      <if test="field9 != null" >
+        field9,
+      </if>
+      <if test="field10 != null" >
+        field10,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="orgId != null" >
+        #{orgId},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag},
+      </if>
+      <if test="redString1 != null" >
+        #{redString1},
+      </if>
+      <if test="redString2 != null" >
+        #{redString2},
+      </if>
+      <if test="redString3 != null" >
+        #{redString3},
+      </if>
+      <if test="redString4 != null" >
+        #{redString4},
+      </if>
+      <if test="redString5 != null" >
+        #{redString5},
+      </if>
+      <if test="redString6 != null" >
+        #{redString6},
+      </if>
+      <if test="noteNo != null" >
+        #{noteNo},
+      </if>
+      <if test="activityId != null" >
+        #{activityId},
+      </if>
+      <if test="userId != null" >
+        #{userId},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="sex != null" >
+        #{sex},
+      </if>
+      <if test="department != null" >
+        #{department},
+      </if>
+      <if test="position != null" >
+        #{position},
+      </if>
+      <if test="unit != null" >
+        #{unit},
+      </if>
+      <if test="address != null" >
+        #{address},
+      </if>
+      <if test="postCode != null" >
+        #{postCode},
+      </if>
+      <if test="mobile1CountryNo != null" >
+        #{mobile1CountryNo},
+      </if>
+      <if test="mobile1No != null" >
+        #{mobile1No},
+      </if>
+      <if test="mobile2CountryNo != null" >
+        #{mobile2CountryNo},
+      </if>
+      <if test="mobile2No != null" >
+        #{mobile2No},
+      </if>
+      <if test="phone1CountryNo != null" >
+        #{phone1CountryNo},
+      </if>
+      <if test="phoneZoneNo != null" >
+        #{phoneZoneNo},
+      </if>
+      <if test="phone1No != null" >
+        #{phone1No},
+      </if>
+      <if test="phone2CountryNo != null" >
+        #{phone2CountryNo},
+      </if>
+      <if test="phone2ZoneNo != null" >
+        #{phone2ZoneNo},
+      </if>
+      <if test="phone2No != null" >
+        #{phone2No},
+      </if>
+      <if test="faxCountryNo != null" >
+        #{faxCountryNo},
+      </if>
+      <if test="faxZoneNo != null" >
+        #{faxZoneNo},
+      </if>
+      <if test="faxNo != null" >
+        #{faxNo},
+      </if>
+      <if test="email != null" >
+        #{email},
+      </if>
+      <if test="homepage != null" >
+        #{homepage},
+      </if>
+      <if test="qqNo != null" >
+        #{qqNo},
+      </if>
+      <if test="wxNo != null" >
+        #{wxNo},
+      </if>
+      <if test="regionId != null" >
+        #{regionId},
+      </if>
+      <if test="corpDomains != null" >
+        #{corpDomains},
+      </if>
+      <if test="interestedDomains != null" >
+        #{interestedDomains},
+      </if>
+      <if test="attendIntent != null" >
+        #{attendIntent},
+      </if>
+      <if test="gainChannel != null" >
+        #{gainChannel},
+      </if>
+      <if test="itType != null" >
+        #{itType},
+      </if>
+      <if test="idNo != null" >
+        #{idNo},
+      </if>
+      <if test="signupTime != null" >
+        #{signupTime},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+      <if test="version != null" >
+        #{version},
+      </if>
+      <if test="field1 != null" >
+        #{field1},
+      </if>
+      <if test="field2 != null" >
+        #{field2},
+      </if>
+      <if test="field3 != null" >
+        #{field3},
+      </if>
+      <if test="field4 != null" >
+        #{field4},
+      </if>
+      <if test="field5 != null" >
+        #{field5},
+      </if>
+      <if test="field6 != null" >
+        #{field6},
+      </if>
+      <if test="field7 != null" >
+        #{field7},
+      </if>
+      <if test="field8 != null" >
+        #{field8},
+      </if>
+      <if test="field9 != null" >
+        #{field9},
+      </if>
+      <if test="field10 != null" >
+        #{field10},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="id != null and id != ''" >
+        id = #{id}
+      </if>
+      <if test="orgId != null and orgId != ''" >
+        AND org_id = #{orgId}
+      </if>
+      <if test="deleteFlag != null" >
+        AND delete_flag = #{deleteFlag}
+      </if>
+      <if test="redString1 != null and redString1 != ''" >
+        AND red_string1 = #{redString1}
+      </if>
+      <if test="redString2 != null and redString2 != ''" >
+        AND red_string2 = #{redString2}
+      </if>
+      <if test="redString3 != null and redString3 != ''" >
+        AND red_string3 = #{redString3}
+      </if>
+      <if test="redString4 != null and redString4 != ''" >
+        AND red_string4 = #{redString4}
+      </if>
+      <if test="redString5 != null and redString5 != ''" >
+        AND red_string5 = #{redString5}
+      </if>
+      <if test="redString6 != null and redString6 != ''" >
+        AND red_string6 = #{redString6}
+      </if>
+      <if test="noteNo != null and noteNo != ''" >
+        AND note_no = #{noteNo}
+      </if>
+      <if test="activityId != null and activityId != ''" >
+        AND activity_id = #{activityId}
+      </if>
+      <if test="userId != null and userId != ''" >
+        AND user_id = #{userId}
+      </if>
+      <if test="name != null and name != ''" >
+        AND name = #{name}
+      </if>
+      <if test="sex != null and sex != ''" >
+        AND sex = #{sex}
+      </if>
+      <if test="department != null and department != ''" >
+        AND department = #{department}
+      </if>
+      <if test="position != null and position != ''" >
+        AND position = #{position}
+      </if>
+      <if test="unit != null and unit != ''" >
+        AND unit = #{unit}
+      </if>
+      <if test="address != null and address != ''" >
+        AND address = #{address}
+      </if>
+      <if test="postCode != null and postCode != ''" >
+        AND post_code = #{postCode}
+      </if>
+      <if test="mobile1CountryNo != null and mobile1CountryNo != ''" >
+        AND mobile1_country_no = #{mobile1CountryNo}
+      </if>
+      <if test="mobile1No != null and mobile1No != ''" >
+        AND mobile1_no = #{mobile1No}
+      </if>
+      <if test="mobile2CountryNo != null and mobile2CountryNo != ''" >
+        AND mobile2_country_no = #{mobile2CountryNo}
+      </if>
+      <if test="mobile2No != null and mobile2No != ''" >
+        AND mobile2_no = #{mobile2No}
+      </if>
+      <if test="phone1CountryNo != null and phone1CountryNo != ''" >
+        AND phone1_country_no = #{phone1CountryNo}
+      </if>
+      <if test="phoneZoneNo != null and phoneZoneNo != ''" >
+        AND phone_zone_no = #{phoneZoneNo}
+      </if>
+      <if test="phone1No != null and phone1No != ''" >
+        AND phone1_no = #{phone1No}
+      </if>
+      <if test="phone2CountryNo != null and phone2CountryNo != ''" >
+        AND phone2_country_no = #{phone2CountryNo}
+      </if>
+      <if test="phone2ZoneNo != null and phone2ZoneNo != ''" >
+        AND phone2_zone_no = #{phone2ZoneNo}
+      </if>
+      <if test="phone2No != null and phone2No != ''" >
+        AND phone2_no = #{phone2No}
+      </if>
+      <if test="faxCountryNo != null and faxCountryNo != ''" >
+        AND fax_country_no = #{faxCountryNo}
+      </if>
+      <if test="faxZoneNo != null and faxZoneNo != ''" >
+        AND fax_zone_no = #{faxZoneNo}
+      </if>
+      <if test="faxNo != null and faxNo != ''" >
+        AND fax_no = #{faxNo}
+      </if>
+      <if test="email != null and email != ''" >
+        AND email = #{email}
+      </if>
+      <if test="homepage != null and homepage != ''" >
+        AND homepage = #{homepage}
+      </if>
+      <if test="qqNo != null and qqNo != ''" >
+        AND qq_no = #{qqNo}
+      </if>
+      <if test="wxNo != null and wxNo != ''" >
+        AND wx_no = #{wxNo}
+      </if>
+      <if test="regionId != null and regionId != ''" >
+        AND region_id = #{regionId}
+      </if>
+      <if test="corpDomains != null and corpDomains != ''" >
+        AND corp_domains = #{corpDomains}
+      </if>
+      <if test="interestedDomains != null and interestedDomains != ''" >
+        AND interested_domains = #{interestedDomains}
+      </if>
+      <if test="attendIntent != null and attendIntent != ''" >
+        AND attend_intent = #{attendIntent}
+      </if>
+      <if test="gainChannel != null and gainChannel != ''" >
+        AND gain_channel = #{gainChannel}
+      </if>
+      <if test="itType != null and itType != ''" >
+        AND it_type = #{itType}
+      </if>
+      <if test="idNo != null and idNo != ''" >
+        AND id_no = #{idNo}
+      </if>
+      <if test="signupTime != null" >
+        AND signup_time = #{signupTime}
+      </if>
+      <if test="remark != null and remark != ''" >
+        AND remark = #{remark}
+      </if>
+      <if test="version != null and version != ''" >
+        AND version = #{version}
+      </if>
+      <if test="field1 != null and field1 != ''" >
+        AND field1 = #{field1}
+      </if>
+      <if test="field2 != null and field2 != ''" >
+        AND field2 = #{field2}
+      </if>
+      <if test="field3 != null and field3 != ''" >
+        AND field3 = #{field3}
+      </if>
+      <if test="field4 != null and field4 != ''" >
+        AND field4 = #{field4}
+      </if>
+      <if test="field5 != null and field5 != ''" >
+        AND field5 = #{field5}
+      </if>
+      <if test="field6 != null and field6 != ''" >
+        AND field6 = #{field6}
+      </if>
+      <if test="field7 != null and field7 != ''" >
+        AND field7 = #{field7}
+      </if>
+      <if test="field8 != null and field8 != ''" >
+        AND field8 = #{field8}
+      </if>
+      <if test="field9 != null and field9 != ''" >
+        AND field9 = #{field9}
+      </if>
+      <if test="field10 != null and field10 != ''" >
+        AND field10 = #{field10}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.activity.po.CustomerActivitySignupNote" resultMap="CustomerActivitySignupNoteResultMap" >
+    select 
+    <include refid="CustomerActivitySignupNote_Column_List" />
+    from customer_activity_signup_note
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update customer_activity_signup_note
+    <set >
+      <if test="po.id != null" >
+        id = #{po.id},
+      </if>
+      <if test="po.orgId != null" >
+        org_id = #{po.orgId},
+      </if>
+      <if test="po.deleteFlag != null" >
+        delete_flag = #{po.deleteFlag},
+      </if>
+      <if test="po.redString1 != null" >
+        red_string1 = #{po.redString1},
+      </if>
+      <if test="po.redString2 != null" >
+        red_string2 = #{po.redString2},
+      </if>
+      <if test="po.redString3 != null" >
+        red_string3 = #{po.redString3},
+      </if>
+      <if test="po.redString4 != null" >
+        red_string4 = #{po.redString4},
+      </if>
+      <if test="po.redString5 != null" >
+        red_string5 = #{po.redString5},
+      </if>
+      <if test="po.redString6 != null" >
+        red_string6 = #{po.redString6},
+      </if>
+      <if test="po.noteNo != null" >
+        note_no = #{po.noteNo},
+      </if>
+      <if test="po.activityId != null" >
+        activity_id = #{po.activityId},
+      </if>
+      <if test="po.userId != null" >
+        user_id = #{po.userId},
+      </if>
+      <if test="po.name != null" >
+        name = #{po.name},
+      </if>
+      <if test="po.sex != null" >
+        sex = #{po.sex},
+      </if>
+      <if test="po.department != null" >
+        department = #{po.department},
+      </if>
+      <if test="po.position != null" >
+        position = #{po.position},
+      </if>
+      <if test="po.unit != null" >
+        unit = #{po.unit},
+      </if>
+      <if test="po.address != null" >
+        address = #{po.address},
+      </if>
+      <if test="po.postCode != null" >
+        post_code = #{po.postCode},
+      </if>
+      <if test="po.mobile1CountryNo != null" >
+        mobile1_country_no = #{po.mobile1CountryNo},
+      </if>
+      <if test="po.mobile1No != null" >
+        mobile1_no = #{po.mobile1No},
+      </if>
+      <if test="po.mobile2CountryNo != null" >
+        mobile2_country_no = #{po.mobile2CountryNo},
+      </if>
+      <if test="po.mobile2No != null" >
+        mobile2_no = #{po.mobile2No},
+      </if>
+      <if test="po.phone1CountryNo != null" >
+        phone1_country_no = #{po.phone1CountryNo},
+      </if>
+      <if test="po.phoneZoneNo != null" >
+        phone_zone_no = #{po.phoneZoneNo},
+      </if>
+      <if test="po.phone1No != null" >
+        phone1_no = #{po.phone1No},
+      </if>
+      <if test="po.phone2CountryNo != null" >
+        phone2_country_no = #{po.phone2CountryNo},
+      </if>
+      <if test="po.phone2ZoneNo != null" >
+        phone2_zone_no = #{po.phone2ZoneNo},
+      </if>
+      <if test="po.phone2No != null" >
+        phone2_no = #{po.phone2No},
+      </if>
+      <if test="po.faxCountryNo != null" >
+        fax_country_no = #{po.faxCountryNo},
+      </if>
+      <if test="po.faxZoneNo != null" >
+        fax_zone_no = #{po.faxZoneNo},
+      </if>
+      <if test="po.faxNo != null" >
+        fax_no = #{po.faxNo},
+      </if>
+      <if test="po.email != null" >
+        email = #{po.email},
+      </if>
+      <if test="po.homepage != null" >
+        homepage = #{po.homepage},
+      </if>
+      <if test="po.qqNo != null" >
+        qq_no = #{po.qqNo},
+      </if>
+      <if test="po.wxNo != null" >
+        wx_no = #{po.wxNo},
+      </if>
+      <if test="po.regionId != null" >
+        region_id = #{po.regionId},
+      </if>
+      <if test="po.corpDomains != null" >
+        corp_domains = #{po.corpDomains},
+      </if>
+      <if test="po.interestedDomains != null" >
+        interested_domains = #{po.interestedDomains},
+      </if>
+      <if test="po.attendIntent != null" >
+        attend_intent = #{po.attendIntent},
+      </if>
+      <if test="po.gainChannel != null" >
+        gain_channel = #{po.gainChannel},
+      </if>
+      <if test="po.itType != null" >
+        it_type = #{po.itType},
+      </if>
+      <if test="po.idNo != null" >
+        id_no = #{po.idNo},
+      </if>
+      <if test="po.signupTime != null" >
+        signup_time = #{po.signupTime},
+      </if>
+      <if test="po.remark != null" >
+        remark = #{po.remark},
+      </if>
+      <if test="po.version != null" >
+        version = #{po.version},
+      </if>
+      <if test="po.field1 != null" >
+        field1 = #{po.field1},
+      </if>
+      <if test="po.field2 != null" >
+        field2 = #{po.field2},
+      </if>
+      <if test="po.field3 != null" >
+        field3 = #{po.field3},
+      </if>
+      <if test="po.field4 != null" >
+        field4 = #{po.field4},
+      </if>
+      <if test="po.field5 != null" >
+        field5 = #{po.field5},
+      </if>
+      <if test="po.field6 != null" >
+        field6 = #{po.field6},
+      </if>
+      <if test="po.field7 != null" >
+        field7 = #{po.field7},
+      </if>
+      <if test="po.field8 != null" >
+        field8 = #{po.field8},
+      </if>
+      <if test="po.field9 != null" >
+        field9 = #{po.field9},
+      </if>
+      <if test="po.field10 != null" >
+        field10 = #{po.field10},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <!-- ***************************************************************************** -->
+  <!-- 以上自动生成，以下自定义 -->
+  <resultMap id="TableMetaResultMap" type="com.sida.xiruo.po.common.TableMeta">
+    <result column="table_schema" property="tableSchema" jdbcType="VARCHAR" />
+    <result column="table_name" property="tableName" jdbcType="VARCHAR" />
+    <result column="column_name" property="columnName" jdbcType="VARCHAR" />
+    <result column="data_type" property="dataType" jdbcType="VARCHAR" />
+    <result column="column_comment" property="columnComment" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="CustomerActivitySignupNoteVoResultMap" type="com.sida.dcloud.activity.vo.CustomerActivitySignupNoteVo" >
+    <result column="note_no" property="noteNo" jdbcType="VARCHAR" />
+    <result column="activity_name" property="activityName" jdbcType="VARCHAR" />
+    <result column="user_account" property="userAccount" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="position" property="position" jdbcType="VARCHAR" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="findTableMeta" parameterType="com.sida.xiruo.po.common.TableMeta" resultMap="TableMetaResultMap" >
+    select column_name,data_type,column_comment
+    from information_schema.columns
+    where lower(table_name) = #{tableMeta.tableName} and lower(table_schema) = #{tableMeta.tableSchema} order by ordinal_position
+  </select>
+
+  <select id="findVoList" parameterType="com.sida.dcloud.activity.po.CustomerActivitySignupNote" resultMap="CustomerActivitySignupNoteVoResultMap">
+    select
+    id,name,code,created_user,created_at,sort
+    from customer_activity_signup_note note
+    left join sys_user_activity user on note.user_id=user
+    left join activity_info info on note.activity_id=info.id
+    <where>
+      note.delete_flag = 0
+      <if test="po.id != null and po.id != ''" >
+        and id = #{po.id}
+      </if>
+      <if test="po.name != null and po.name != ''" >
+        and instr(name, #{po.name})&gt;0
+      </if>
+      <if test="po.department != null and po.department != ''" >
+        and instr(department, #{po.department})&gt;0
+      </if>
+      <if test="po.position != null and po.position != ''" >
+        and instr(position, #{po.position})&gt;0
+      </if>
+      <if test="po.unit != null and po.unit != ''" >
+        and instr(unit, #{po.unit})&gt;0
+      </if>
+      <if test="po.adress != null and po.adress != ''" >
+        and instr(adress, #{po.adress})&gt;0
+      </if>
+    </where>
+    <if test="po.orderField != null and po.orderField != ''">
+      ORDER BY ${po.orderField}
+      <if test="po.orderString != null and po.orderString != ''">
+        ${po.orderString}
+      </if>
+    </if>
+  </select>
+
+  <!-- 同一人不允许重复报名同一活动 -->
+  <select id="checkMultiCountByUnique" parameterType="com.sida.dcloud.activity.po.CustomerActivitySignupNote" resultType="int">
+    select count(0) from customer_activity_signup_note
+    <where>
+      delete_flag = 0 and activity_id = #{po.activityId} and order_user = #{po.orderUser}
+      <if test="po.id != null and po.id != ''">
+        <![CDATA[
+        and id <> #{po.id}
+        ]]>
+      </if>
+    </where>
+  </select>
+</mapper>

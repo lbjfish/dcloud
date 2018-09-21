@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.activity.dao.ActivityScheduleMapper" >
+  <resultMap id="ActivityScheduleResultMap" type="com.sida.dcloud.activity.po.ActivitySchedule" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="created_user" property="createdUser" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="updated_user" property="updatedUser" jdbcType="VARCHAR" />
+    <result column="last_updated" property="lastUpdated" jdbcType="TIMESTAMP" />
+    <result column="disable" property="disable" jdbcType="BIT" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
+    <result column="red_string1" property="redString1" jdbcType="VARCHAR" />
+    <result column="red_string2" property="redString2" jdbcType="VARCHAR" />
+    <result column="red_string3" property="redString3" jdbcType="VARCHAR" />
+    <result column="red_string4" property="redString4" jdbcType="VARCHAR" />
+    <result column="red_string5" property="redString5" jdbcType="VARCHAR" />
+    <result column="red_string6" property="redString6" jdbcType="VARCHAR" />
+    <result column="activity_id" property="activityId" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="subject" property="subject" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="ActivitySchedule_Column_List" >
+    id, org_id, created_user, created_at, updated_user, last_updated, disable, delete_flag, 
+    red_string1, red_string2, red_string3, red_string4, red_string5, red_string6, activity_id, 
+    start_time, end_time, location, subject, remark
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.activity.po.ActivitySchedule" >
+    insert into activity_schedule (id, org_id, created_user, created_at, updated_user, last_updated, 
+      disable, delete_flag, red_string1, red_string2, red_string3, red_string4, 
+      red_string5, red_string6, activity_id, start_time, end_time, location, 
+      subject, remark)
+    values (#{id}, #{orgId}, #{createdUser}, #{createdAt}, #{updatedUser}, #{lastUpdated}, 
+      #{disable}, #{deleteFlag}, #{redString1}, #{redString2}, #{redString3}, #{redString4}, 
+      #{redString5}, #{redString6}, #{activityId}, #{startTime}, #{endTime}, #{location}, 
+      #{subject}, #{remark})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.activity.po.ActivitySchedule" >
+    insert into activity_schedule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="createdUser != null" >
+        created_user,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="updatedUser != null" >
+        updated_user,
+      </if>
+      <if test="lastUpdated != null" >
+        last_updated,
+      </if>
+      <if test="disable != null" >
+        disable,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="redString1 != null" >
+        red_string1,
+      </if>
+      <if test="redString2 != null" >
+        red_string2,
+      </if>
+      <if test="redString3 != null" >
+        red_string3,
+      </if>
+      <if test="redString4 != null" >
+        red_string4,
+      </if>
+      <if test="redString5 != null" >
+        red_string5,
+      </if>
+      <if test="redString6 != null" >
+        red_string6,
+      </if>
+      <if test="activityId != null" >
+        activity_id,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="location != null" >
+        location,
+      </if>
+      <if test="subject != null" >
+        subject,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="orgId != null" >
+        #{orgId},
+      </if>
+      <if test="createdUser != null" >
+        #{createdUser},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedUser != null" >
+        #{updatedUser},
+      </if>
+      <if test="lastUpdated != null" >
+        #{lastUpdated},
+      </if>
+      <if test="disable != null" >
+        #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag},
+      </if>
+      <if test="redString1 != null" >
+        #{redString1},
+      </if>
+      <if test="redString2 != null" >
+        #{redString2},
+      </if>
+      <if test="redString3 != null" >
+        #{redString3},
+      </if>
+      <if test="redString4 != null" >
+        #{redString4},
+      </if>
+      <if test="redString5 != null" >
+        #{redString5},
+      </if>
+      <if test="redString6 != null" >
+        #{redString6},
+      </if>
+      <if test="activityId != null" >
+        #{activityId},
+      </if>
+      <if test="startTime != null" >
+        #{startTime},
+      </if>
+      <if test="endTime != null" >
+        #{endTime},
+      </if>
+      <if test="location != null" >
+        #{location},
+      </if>
+      <if test="subject != null" >
+        #{subject},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="id != null and id != ''" >
+        id = #{id}
+      </if>
+      <if test="orgId != null and orgId != ''" >
+        AND org_id = #{orgId}
+      </if>
+      <if test="createdUser != null and createdUser != ''" >
+        AND created_user = #{createdUser}
+      </if>
+      <if test="createdAt != null" >
+        AND created_at = #{createdAt}
+      </if>
+      <if test="updatedUser != null and updatedUser != ''" >
+        AND updated_user = #{updatedUser}
+      </if>
+      <if test="lastUpdated != null" >
+        AND last_updated = #{lastUpdated}
+      </if>
+      <if test="disable != null" >
+        AND disable = #{disable}
+      </if>
+      <if test="deleteFlag != null" >
+        AND delete_flag = #{deleteFlag}
+      </if>
+      <if test="redString1 != null and redString1 != ''" >
+        AND red_string1 = #{redString1}
+      </if>
+      <if test="redString2 != null and redString2 != ''" >
+        AND red_string2 = #{redString2}
+      </if>
+      <if test="redString3 != null and redString3 != ''" >
+        AND red_string3 = #{redString3}
+      </if>
+      <if test="redString4 != null and redString4 != ''" >
+        AND red_string4 = #{redString4}
+      </if>
+      <if test="redString5 != null and redString5 != ''" >
+        AND red_string5 = #{redString5}
+      </if>
+      <if test="redString6 != null and redString6 != ''" >
+        AND red_string6 = #{redString6}
+      </if>
+      <if test="activityId != null and activityId != ''" >
+        AND activity_id = #{activityId}
+      </if>
+      <if test="startTime != null" >
+        AND start_time = #{startTime}
+      </if>
+      <if test="endTime != null" >
+        AND end_time = #{endTime}
+      </if>
+      <if test="location != null and location != ''" >
+        AND location = #{location}
+      </if>
+      <if test="subject != null and subject != ''" >
+        AND subject = #{subject}
+      </if>
+      <if test="remark != null and remark != ''" >
+        AND remark = #{remark}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.activity.po.ActivitySchedule" resultMap="ActivityScheduleResultMap" >
+    select 
+    <include refid="ActivitySchedule_Column_List" />
+    from activity_schedule
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update activity_schedule
+    <set >
+      <if test="po.id != null" >
+        id = #{po.id},
+      </if>
+      <if test="po.orgId != null" >
+        org_id = #{po.orgId},
+      </if>
+      <if test="po.createdUser != null" >
+        created_user = #{po.createdUser},
+      </if>
+      <if test="po.createdAt != null" >
+        created_at = #{po.createdAt},
+      </if>
+      <if test="po.updatedUser != null" >
+        updated_user = #{po.updatedUser},
+      </if>
+      <if test="po.lastUpdated != null" >
+        last_updated = #{po.lastUpdated},
+      </if>
+      <if test="po.disable != null" >
+        disable = #{po.disable},
+      </if>
+      <if test="po.deleteFlag != null" >
+        delete_flag = #{po.deleteFlag},
+      </if>
+      <if test="po.redString1 != null" >
+        red_string1 = #{po.redString1},
+      </if>
+      <if test="po.redString2 != null" >
+        red_string2 = #{po.redString2},
+      </if>
+      <if test="po.redString3 != null" >
+        red_string3 = #{po.redString3},
+      </if>
+      <if test="po.redString4 != null" >
+        red_string4 = #{po.redString4},
+      </if>
+      <if test="po.redString5 != null" >
+        red_string5 = #{po.redString5},
+      </if>
+      <if test="po.redString6 != null" >
+        red_string6 = #{po.redString6},
+      </if>
+      <if test="po.activityId != null" >
+        activity_id = #{po.activityId},
+      </if>
+      <if test="po.startTime != null" >
+        start_time = #{po.startTime},
+      </if>
+      <if test="po.endTime != null" >
+        end_time = #{po.endTime},
+      </if>
+      <if test="po.location != null" >
+        location = #{po.location},
+      </if>
+      <if test="po.subject != null" >
+        subject = #{po.subject},
+      </if>
+      <if test="po.remark != null" >
+        remark = #{po.remark},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+</mapper>

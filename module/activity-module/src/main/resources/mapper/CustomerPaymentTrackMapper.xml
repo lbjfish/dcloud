@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.activity.dao.CustomerPaymentTrackMapper" >
+  <resultMap id="CustomerPaymentTrackResultMap" type="com.sida.dcloud.activity.po.CustomerPaymentTrack" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="activity_id" property="activityId" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="pay_amount" property="payAmount" jdbcType="DOUBLE" />
+    <result column="payment_mode" property="paymentMode" jdbcType="VARCHAR" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="succeed" property="succeed" jdbcType="BIT" />
+    <result column="failed_reason" property="failedReason" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="CustomerPaymentTrack_Column_List" >
+    id, activity_id, org_id, user_id, pay_amount, payment_mode, pay_time, succeed, failed_reason, 
+    remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="CustomerPaymentTrackResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="CustomerPaymentTrack_Column_List" />
+    from customer_payment_track
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from customer_payment_track
+    where id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.sida.dcloud.activity.po.CustomerPaymentTrack" >
+    insert into customer_payment_track (id, activity_id, org_id, user_id, pay_amount, payment_mode, 
+      pay_time, succeed, failed_reason, remark)
+    values (#{id}, #{activityId}, #{orgId}, #{userId}, #{payAmount}, #{paymentMode}, 
+      #{payTime}, #{succeed}, #{failedReason}, #{remark})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.activity.po.CustomerPaymentTrack" >
+    insert into customer_payment_track
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="activityId != null" >
+        activity_id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="payAmount != null" >
+        pay_amount,
+      </if>
+      <if test="paymentMode != null" >
+        payment_mode,
+      </if>
+      <if test="payTime != null" >
+        pay_time,
+      </if>
+      <if test="succeed != null" >
+        succeed,
+      </if>
+      <if test="failedReason != null" >
+        failed_reason,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="activityId != null" >
+        #{activityId},
+      </if>
+      <if test="orgId != null" >
+        #{orgId},
+      </if>
+      <if test="userId != null" >
+        #{userId},
+      </if>
+      <if test="payAmount != null" >
+        #{payAmount},
+      </if>
+      <if test="paymentMode != null" >
+        #{paymentMode},
+      </if>
+      <if test="payTime != null" >
+        #{payTime},
+      </if>
+      <if test="succeed != null" >
+        #{succeed},
+      </if>
+      <if test="failedReason != null" >
+        #{failedReason},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sida.dcloud.activity.po.CustomerPaymentTrack" >
+    update customer_payment_track
+    <set >
+      <if test="activityId != null" >
+        activity_id = #{activityId},
+      </if>
+      <if test="orgId != null" >
+        org_id = #{orgId},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId},
+      </if>
+      <if test="payAmount != null" >
+        pay_amount = #{payAmount},
+      </if>
+      <if test="paymentMode != null" >
+        payment_mode = #{paymentMode},
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime},
+      </if>
+      <if test="succeed != null" >
+        succeed = #{succeed},
+      </if>
+      <if test="failedReason != null" >
+        failed_reason = #{failedReason},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sida.dcloud.activity.po.CustomerPaymentTrack" >
+    update customer_payment_track
+    set activity_id = #{activityId},
+      org_id = #{orgId},
+      user_id = #{userId},
+      pay_amount = #{payAmount},
+      payment_mode = #{paymentMode},
+      pay_time = #{payTime},
+      succeed = #{succeed},
+      failed_reason = #{failedReason},
+      remark = #{remark}
+    where id = #{id}
+  </update>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="activityId != null and activityId != ''" >
+        activity_id = #{activityId}
+      </if>
+      <if test="orgId != null and orgId != ''" >
+        AND org_id = #{orgId}
+      </if>
+      <if test="userId != null and userId != ''" >
+        AND user_id = #{userId}
+      </if>
+      <if test="payAmount != null" >
+        AND pay_amount = #{payAmount}
+      </if>
+      <if test="paymentMode != null and paymentMode != ''" >
+        AND payment_mode = #{paymentMode}
+      </if>
+      <if test="payTime != null" >
+        AND pay_time = #{payTime}
+      </if>
+      <if test="succeed != null" >
+        AND succeed = #{succeed}
+      </if>
+      <if test="failedReason != null and failedReason != ''" >
+        AND failed_reason = #{failedReason}
+      </if>
+      <if test="remark != null and remark != ''" >
+        AND remark = #{remark}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.activity.po.CustomerPaymentTrack" resultMap="CustomerPaymentTrackResultMap" >
+    select 
+    <include refid="CustomerPaymentTrack_Column_List" />
+    from customer_payment_track
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update customer_payment_track
+    <set >
+      <if test="po.activityId != null" >
+        activity_id = #{po.activityId},
+      </if>
+      <if test="po.orgId != null" >
+        org_id = #{po.orgId},
+      </if>
+      <if test="po.userId != null" >
+        user_id = #{po.userId},
+      </if>
+      <if test="po.payAmount != null" >
+        pay_amount = #{po.payAmount},
+      </if>
+      <if test="po.paymentMode != null" >
+        payment_mode = #{po.paymentMode},
+      </if>
+      <if test="po.payTime != null" >
+        pay_time = #{po.payTime},
+      </if>
+      <if test="po.succeed != null" >
+        succeed = #{po.succeed},
+      </if>
+      <if test="po.failedReason != null" >
+        failed_reason = #{po.failedReason},
+      </if>
+      <if test="po.remark != null" >
+        remark = #{po.remark},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <!-- ***************************************************************************** -->
+  <!-- 以上自动生成，以下自定义 -->
+
+  <select id="findList" parameterType="com.sida.dcloud.activity.po.CustomerPaymentTrack" resultMap="CustomerPaymentTrackResultMap">
+    select
+    <include refid="CustomerPaymentTrack_Column_List" />
+    from customer_payment_track
+    <where>
+      1=1
+      <if test="po.id != null and po.id != ''" >
+        and id = #{po.id}
+      </if>
+      <if test="po.payTimeStart != null and po.payTimeStart != ''" >
+        and pay_time &gt; #{po.payTimeStart}
+      </if>
+      <if test="po.payTimeEnd != null and po.payTimeEnd != ''" >
+        and pay_time &lt; #{po.payTimeEnd}
+      </if>
+      <if test="po.payAmountDown != null and po.payAmountDown != ''" >
+        and pay_amount &gt; #{po.payAmountDown}
+      </if>
+      <if test="po.payAmountUp != null and po.payAmountUp != ''" >
+        and pay_amount &lt; #{po.payAmountUp}
+      </if>
+      <if test="po.remark != null and po.remark != ''" >
+        and instr(remark, #{po.remark})&gt;0
+      </if>
+      <if test="po.failedReason != null and po.failedReason != ''" >
+        and instr(failed_reason, #{po.failedReason})&gt;0
+      </if>
+      <if test="po.paymentMode != null and po.paymentMode != ''" >
+        and payment_mode = #{po.paymentMode}
+      </if>
+      <if test="po.succeed != null and po.succeed != ''" >
+        and succeed = #{po.succeed}
+      </if>
+    </where>
+    <if test="po.orderField != null and po.orderField != ''">
+      ORDER BY ${po.orderField}
+      <if test="po.orderString != null and po.orderString != ''">
+        ${po.orderString}
+      </if>
+    </if>
+  </select>
+
+  <select id="findListByActivityId" parameterType="String" resultMap="CustomerPaymentTrackResultMap">
+    select
+    <include refid="CustomerPaymentTrack_Column_List" />
+    from customer_payment_track
+    <where>
+      activity_id = #{activityId}
+    </where>
+    order by pay_time desc
+  </select>
+
+  <select id="findListByUserId" parameterType="String" resultMap="CustomerPaymentTrackResultMap">
+    select
+    <include refid="CustomerPaymentTrack_Column_List" />
+    from customer_payment_track
+    <where>
+      user_id = #{userId}
+    </where>
+    order by pay_time desc
+  </select>
+</mapper>
