@@ -62,4 +62,6 @@
 7. system-module --> required<br/>
 8. others business service<br/>
 <br/>
----
+---------------------------------------
+1. 本地环境编译前需指定maven projects-->profiles-->dev
+2. 本地启动DescoveryApplication需要设置Edit configurations-->Configration-->Program arguments，添加"--spring.profiles.active=localhost";
