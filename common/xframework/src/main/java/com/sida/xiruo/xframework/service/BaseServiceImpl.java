@@ -26,7 +26,7 @@ public abstract class BaseServiceImpl<T extends BaseEntity> implements IBaseServ
 
     @Override
     public int deleteByPrimaryKeys(String ids) {
-        return getBaseDao().deleteByPrimaryKeys(ids.replaceAll("^|$|(?=,[^,]+?)|(?<=[^,]+?,)", "'"));
+        return getBaseDao().deleteByPrimaryKeys(Xiruo.insertSingleQuoteToString(ids));
     }
 
     @Override

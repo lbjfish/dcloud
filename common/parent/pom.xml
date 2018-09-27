@@ -208,7 +208,7 @@
                 <log.file.level>ERROR</log.file.level>
                 <log.mybatis.level>DEBUG</log.mybatis.level>
 
-                <access-domain-url>http://localhost:10020/apis</access-domain-url>
+                <!--<access-domain-url>http://localhost:10020/apis</access-domain-url>-->
 
                 <discovery-service>discovery-service-jlf</discovery-service>
                 <config-service>config-service-jlf</config-service>
@@ -224,6 +224,67 @@
                 <activity-module>activity-module-jlf</activity-module>
                 <content-module>content-module-jlf</content-module>
                 <operation-module>operation-module-jlf</operation-module>
+
+            </properties>
+        </profile>
+
+        <profile>
+            <id>test</id>
+            <properties>
+                <profile.name>test</profile.name>
+                <discovery1.address>172.16.0.12</discovery1.address>
+                <discovery2.address>172.16.0.13</discovery2.address>
+                <discovery3.address>172.16.0.14</discovery3.address>
+                <discovery1.port>10001</discovery1.port>
+                <discovery2.port>10001</discovery2.port>
+                <discovery3.port>10001</discovery3.port>
+
+                <discovery-zone1>http://@discovery1.address@:@discovery1.port@/eureka/</discovery-zone1>
+                <discovery-zone2>http://@discovery2.address@:@discovery2.port@/eureka/</discovery-zone2>
+                <discovery-zone3>http://@discovery3.address@:@discovery3.port@/eureka/</discovery-zone3>
+
+                <default-zone>http://@discovery1.address@:@discovery1.port@/eureka/,http://@discovery2.address@:@discovery2.port@/eureka/,http://@discovery3.address@:@discovery3.port@/eureka/</default-zone>
+
+                <svn.uri>svn://172.16.0.11/sida</svn.uri>
+                <svn.name>sida</svn.name>
+                <svn.username>reader</svn.username>
+                <svn.password>reader</svn.password>
+                <svn.default-label>config</svn.default-label>
+                <service.config.port>8888</service.config.port>
+                <swagger.enable>true</swagger.enable>
+
+                <!-- 网络异常时自我保护，注册中心不注销任何客户端 -->
+                <enableSelfPreservation>true</enableSelfPreservation>
+
+                <!-- 客户端到注册中心拉取服务列表的间隔时间 -->
+                <registry-fetch-interval-seconds>30</registry-fetch-interval-seconds>
+                <!-- 注册中心主动扫描客户端间隔时间 -->
+                <eviction-interval-timer-in-ms>30000</eviction-interval-timer-in-ms>
+                <!-- 客户端未收到心跳过期时间 -->
+                <lease-expiration-duration-in-seconds>60</lease-expiration-duration-in-seconds>
+                <!-- 客户端向注册中心发送心跳的间隔时间 -->
+                <lease-renewal-interval-in-seconds>20</lease-renewal-interval-in-seconds>
+
+                <log.console.level>INFO</log.console.level>
+                <log.file.level>ERROR</log.file.level>
+                <log.mybatis.level>DEBUG</log.mybatis.level>
+
+                <!--<access-domain-url>http://localhost:10020/apis</access-domain-url>-->
+
+                <discovery-service>discovery-service</discovery-service>
+                <config-service>config-service</config-service>
+
+                <security-edge-service>security-edge-service</security-edge-service>
+                <auth-service>auth-service</auth-service>
+                <!--<workflow-service>workflow-service</workflow-service>-->
+                <schedule-service>schedule-service</schedule-service>
+                <event-service>event-service</event-service>
+
+                <system-module>system-module</system-module>
+                <training-module>training-module</training-module>
+                <activity-module>activity-module</activity-module>
+                <content-module>content-module</content-module>
+                <operation-module>operation-module</operation-module>
 
             </properties>
         </profile>

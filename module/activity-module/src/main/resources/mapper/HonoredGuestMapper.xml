@@ -436,6 +436,10 @@
     </where>
   </select>
 
+  <select id="checkRemovableByRel" parameterType="java.lang.String" resultType="int">
+    select count(0) from activity_rel_honored where honored_guest_id in (${ids})
+  </select>
+
   <select id="findVoListByScheduleId" parameterType="String" resultMap="HonoredGuestVoResultMap">
     select
     a.id, a.name, a.eng_name, a.alias, a.id_no, a.mobile, a.nation_region_id, a.created_user,a.created_at,b.sort

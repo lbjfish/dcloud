@@ -797,4 +797,104 @@
       </foreach>
     </if>
   </update>
+
+  <!-- ***************************************************************************** -->
+  <!-- 以上自动生成，以下自定义 -->
+
+  <resultMap id="ActivityInfoVoResultMap" type="com.sida.dcloud.activity.vo.ActivityInfoVo" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="hosts" property="hosts" jdbcType="VARCHAR" />
+    <result column="multi_activity" property="multiActivity" jdbcType="BIT" />
+    <result column="multi_section" property="multiSection" jdbcType="BIT" />
+    <result column="region_id" property="regionId" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="responsible_org" property="responsibleOrg" jdbcType="VARCHAR" />
+    <result column="expenses" property="expenses" jdbcType="DOUBLE" />
+    <result column="activity_status" property="activityStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="ActivityInfoResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="ActivityInfo_Column_List" />
+    from activity_info
+    where id = #{id} and delete_flag = 0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    update activity_info set delete_flag = 1 where id = #{id}
+  </delete>
+  <delete id="deleteByPrimaryKeys" parameterType="java.lang.String" >
+    update activity_info set delete_flag = 1 where id in (${ids})
+  </delete>
+
+  <select id="findVoList" parameterType="com.sida.dcloud.activity.po.ActivityInfo" resultMap="ActivityInfoVoResultMap">
+    select
+    id, name, hosts, multo_activity, multi_section, region_id, start_time, end_time, responsible_org, expenses, activity_status
+    from activity_info
+    <where>
+      delete_flag = 0
+      <if test="po.id != null and po.id != ''" >
+        and id = #{po.id}
+      </if>
+      <if test="po.name != null and po.name != ''" >
+        and instr(name, #{po.name})&gt;0
+      </if>
+       <if test="po.remark != null and po.remark != ''" >
+        and instr(remark, #{po.remark})&gt;0
+      </if>
+    </where>
+    <if test="po.orderField != null and po.orderField != ''">
+      ORDER BY ${po.orderField}
+      <if test="po.orderString != null and po.orderString != ''">
+        ${po.orderString}
+      </if>
+    </if>
+  </select>
+
+  <select id="checkMultiCountByUnique" parameterType="com.sida.dcloud.activity.po.ActivityInfo" resultType="int">
+    select count(0) from activity_info
+    <where>
+      delete_flag = 0 and (1=2
+      <if test="po.name != null and po.name != ''">
+        or name=#{po.name}
+      </if>)
+      <if test="po.id != null and po.id != ''">
+        <![CDATA[
+        and id <> #{po.id}
+        ]]>
+      </if>
+    </where>
+  </select>
+
+  <select id="checkRemovableByRel" parameterType="java.lang.String" resultType="int">
+    select count(0) from activity_goods_rel_group where goods_id in (${ids})
+  </select>
+
+  <select id="checkCountForActivityStatus" parameterType="java.lang.String" resultType="int">
+    select count(0) from activity_info where CAST(activity_status as signed) > CAST(${activityStatus} as sighed) and id in (${ids})
+  </select>
+
+  <update id="updateActivityStatus" >
+    update activity_info
+    <set>activity_status = #{activityStatus}</set>
+    <where>activity_id = #{activityId}</where>
+  </update>
+
+  <update id="increaseCommentCount" >
+    update activity_info
+    <set>comment_count = comment_count + #{count}</set>
+    <where>activity_id = #{activityId}</where>
+  </update>
+
+  <update id="increaseFavoriteCount" >
+    update activity_info
+    <set>favorite_count = favorite_count + #{count}</set>
+    <where>activity_id = #{activityId}</where>
+  </update>
+
+  <update id="increaseSignCount" >
+    update activity_info
+    <set>sign_count = sign_count + #{count}</set>
+    <where>activity_id = #{activityId}</where>
+  </update>
 </mapper>

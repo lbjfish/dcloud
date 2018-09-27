@@ -10,5 +10,4 @@ import java.util.List;
 public interface CustomerActivitySignupNoteService extends IBaseService<CustomerActivitySignupNote> {
     List<TableMeta> findTableMeta();
     List<CustomerActivitySignupNote> findVoList(@Param("po")CustomerActivitySignupNote po);
-    int checkMultiCountByUnique(@Param("po")CustomerActivitySignupNote po);
 }

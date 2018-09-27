@@ -299,6 +299,17 @@
 
   <!-- ***************************************************************************** -->
   <!-- 以上自动生成，以下自定义 -->
+  u.id, u.created_at, u.account, u.code, u.name, u.alias, u.mobile, u.id_num
+  <resultMap id="SysUserActivityVoResultMap" type="com.sida.dcloud.activity.vo.SysUserActivityVo">
+    <result column="id" property="id" jdbcType="VARCHAR"/>
+    <result column="account" property="account" jdbcType="VARCHAR"/>
+    <result column="name" property="name" jdbcType="VARCHAR"/>
+    <result column="code" property="code" jdbcType="VARCHAR"/>
+    <result column="alias" property="alias" jdbcType="VARCHAR"/>
+    <result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+    <result column="idNum" property="idNum" jdbcType="VARCHAR"/>
+    <result column="valid_date" property="validDate" jdbcType="TIMESTAMP" />
+  </resultMap>
 
   <update id="updateByUserPrimaryKey" >
     update sys_user_activity
@@ -363,4 +374,23 @@
     </set>
     where id = #{po.id}
   </update>
+
+  <select id="selectVoList" parameterType="com.sida.dcloud.activity.po.SysUserActivity" resultMap="SysUserActivityVoResultMap" >
+    select
+    u.id, u.created_at, u.account, u.code, u.name, u.alias, u.mobile, u.id_num
+    from sys_user_activity u
+    WHERE 1=1
+    <if test="account != null and account != ''" >
+      AND u.account LIKE concat('%',#{account},'%')
+    </if>
+    <if test="name != null and name != ''" >
+      AND u.name like concat('%',#{name},'%')
+    </if>
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY u.${orderField}
+      <if test="orderString != null and orderString != ''" >
+        ${orderString}
+      </if>
+    </if>
+  </select>
 </mapper>

@@ -17,22 +17,26 @@
     <result column="pay_price" property="payPrice" jdbcType="DOUBLE" />
     <result column="quantity" property="quantity" jdbcType="INTEGER" />
     <result column="remaining" property="remaining" jdbcType="INTEGER" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
     <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
     <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="ActivityGoods_Column_List" >
     id, org_id, delete_flag, red_string1, red_string2, red_string3, red_string4, red_string5, 
-    red_string6, activity_id, name, original_price, pay_price, quantity, remaining, start_time, 
-    end_time, remark
+    red_string6, activity_id, name, original_price, pay_price, quantity, remaining, sort, 
+    add_time, start_time, end_time, remark
   </sql>
   <insert id="insert" parameterType="com.sida.dcloud.activity.po.ActivityGoods" >
     insert into activity_goods (id, org_id, delete_flag, red_string1, red_string2, red_string3, 
       red_string4, red_string5, red_string6, activity_id, name, original_price, 
-      pay_price, quantity, remaining, start_time, end_time, remark)
+      pay_price, quantity, remaining, sort, add_time, start_time, end_time, 
+      remark)
     values (#{id}, #{orgId}, #{deleteFlag}, #{redString1}, #{redString2}, #{redString3}, 
       #{redString4}, #{redString5}, #{redString6}, #{activityId}, #{name}, #{originalPrice}, 
-      #{payPrice}, #{quantity}, #{remaining}, #{startTime}, #{endTime}, #{remark})
+      #{payPrice}, #{quantity}, #{remaining}, #{sort}, #{addTime}, #{startTime}, #{endTime}, 
+      #{remark})
   </insert>
   <insert id="insertSelective" parameterType="com.sida.dcloud.activity.po.ActivityGoods" >
     insert into activity_goods
@@ -81,6 +85,12 @@
       </if>
       <if test="remaining != null" >
         remaining,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="addTime != null" >
+        add_time,
       </if>
       <if test="startTime != null" >
         start_time,
@@ -137,6 +147,12 @@
       </if>
       <if test="remaining != null" >
         #{remaining},
+      </if>
+      <if test="sort != null" >
+        #{sort},
+      </if>
+      <if test="addTime != null" >
+        #{addTime},
       </if>
       <if test="startTime != null" >
         #{startTime},
@@ -195,6 +211,12 @@
       </if>
       <if test="remaining != null" >
         AND remaining = #{remaining}
+      </if>
+      <if test="sort != null" >
+        AND sort = #{sort}
+      </if>
+      <if test="addTime != null" >
+        AND add_time = #{addTime}
       </if>
       <if test="startTime != null" >
         AND start_time = #{startTime}
@@ -267,6 +289,12 @@
       <if test="po.remaining != null" >
         remaining = #{po.remaining},
       </if>
+      <if test="po.sort != null" >
+        sort = #{po.sort},
+      </if>
+      <if test="po.addTime != null" >
+        add_time = #{po.addTime},
+      </if>
       <if test="po.startTime != null" >
         start_time = #{po.startTime},
       </if>
@@ -284,4 +312,87 @@
       </foreach>
     </if>
   </update>
+
+  <!-- ***************************************************************************** -->
+  <!-- 以上自动生成，以下自定义 -->
+
+  <resultMap id="ActivityGoodsVoResultMap" type="com.sida.dcloud.activity.vo.ActivityGoodsVo" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="activity_id" property="activityId" jdbcType="VARCHAR" />
+    <result column="original_price" property="originalPrice" jdbcType="DOUBLE" />
+    <result column="pay_price" property="payPrice" jdbcType="DOUBLE" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="remaining" property="remaining" jdbcType="INTEGER" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="ActivityGoodsResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="ActivityGoods_Column_List" />
+    from activity_goods
+    where id = #{id} and delete_flag = 0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    update activity_goods set delete_flag = 1 where id = #{id}
+  </delete>
+  <delete id="deleteByPrimaryKeys" parameterType="java.lang.String" >
+    update activity_goods set delete_flag = 1 where id in (${ids})
+  </delete>
+
+  <select id="checkMultiCountByUnique" parameterType="com.sida.dcloud.activity.po.ActivityGoods" resultType="int">
+    select count(0) from activity_goods
+    <where>
+      delete_flag = 0 and activity_id = #{po.activityId} and (1=2
+      <if test="po.name != null and po.name != ''">
+        or name=#{po.name}
+      </if>)
+      <if test="po.id != null and po.id != ''">
+        <![CDATA[
+        and id <> #{po.id}
+        ]]>
+      </if>
+    </where>
+  </select>
+
+  <select id="findVoList" parameterType="com.sida.dcloud.activity.po.ActivityGoods" resultMap="ActivityGoodsVoResultMap">
+    select
+    id,activity_id,original_price,pay_price,quantity,remaining,start_time,end_time
+    from activity_goods
+    <where>
+      delete_flag = 0
+      <if test="po.id != null and po.id != ''" >
+        and id = #{po.id}
+      </if>
+      <if test="po.name != null and po.name != ''" >
+        and instr(name, #{po.name})&gt;0
+      </if>
+      <if test="po.remark != null and po.remark != ''" >
+        and instr(remark, #{po.remark})&gt;0
+      </if>
+    </where>
+    <if test="po.orderField != null and po.orderField != ''">
+      ORDER BY ${po.orderField}
+      <if test="po.orderString != null and po.orderString != ''">
+        ${po.orderString}
+      </if>
+    </if>
+  </select>
+
+  <select id="checkRemovableByRel" parameterType="java.lang.String" resultType="int">
+    select count(0) from activity_goods_rel_group where goods_id in (${ids})
+  </select>
+
+  <select id="findGoodsListByActivityId" resultMap="ActivityGoodsVoResultMap" parameterType="java.lang.String" >
+    select id,activity_id,original_price,pay_price,quantity,remaining,start_time,end_time
+    from activity_goods
+    where activity_id = #{activityId} and delete_flag = 0 order by sort asc
+  </select>
+
+  <select id="findGoodsListByGroupId" resultMap="ActivityGoodsVoResultMap" parameterType="java.lang.String" >
+    select goods.id,goods.activity_id,goods.original_price,goods.pay_price,goods.quantity,goods.remaining,goods.start_time,goods.end_time
+    from activity_goods goods
+    left join activity_goods_rel_group rel on goods.id = rel.goods_id
+    left join activity_goods_group g on g.id = rel.group_id
+    where goods.activity_id = #{activityId} and goods.delete_flag = 0 order by rel.sort asc
+  </select>
 </mapper>

@@ -15,12 +15,15 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 public @interface RedisLock {
+    long KEEP_MILLS = 30000;
+    long SLEEP_MILLS = 200;
+    int RETRY_TIMES = 5;
 
     /** 锁的资源，redis的key*/
     String value() default "default";
 
     /** 持锁时间,单位毫秒*/
-    long keepMills() default 30000;
+    long keepMills() default KEEP_MILLS;
 
     /** 当获取失败时候动作*/
     LockFailAction action() default LockFailAction.CONTINUE;
@@ -33,8 +36,8 @@ public @interface RedisLock {
     }
 
     /** 重试的间隔时间,设置GIVEUP忽略此项*/
-    long sleepMills() default 200;
+    long sleepMills() default SLEEP_MILLS;
 
     /** 重试次数*/
-    int retryTimes() default 5;
+    int retryTimes() default RETRY_TIMES;
 }

@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("activityRelHonored")
-@Api(description = "活动安排与嘉宾关联表")
+@Api(description = "活动安排与嘉宾关联关系")
 public class ActivityRelHonoredController extends BaseController {
     private static final Logger logger = LoggerFactory.getLogger(ActivityRelHonoredController.class);
 
@@ -25,13 +25,13 @@ public class ActivityRelHonoredController extends BaseController {
     private ActivityRelHonoredService activityRelHonoredService;
 
     @RequestMapping(value = "/removeByScheduleId", method = RequestMethod.GET)
-    @ApiOperation(value = "根据活动安排删除嘉宾")
-    public Object remove(@RequestParam("scheduleId") @ApiParam("活动安排id") String scheduleId) {
+    @ApiOperation(value = "根据活动安排删除嘉宾关联关系")
+    public Object removeByScheduleId(@RequestParam("scheduleId") @ApiParam("活动安排id") String scheduleId) {
         return toResult(activityRelHonoredService.deleteByScheduleId(scheduleId));
     }
 
     @RequestMapping(value = "/saveOrUpdate", method = RequestMethod.POST)
-    @ApiOperation(value = "根据活动安排更新嘉宾")
+    @ApiOperation(value = "根据活动安排更新嘉宾关联关系")
     public Object saveOrUpdate(@RequestBody @ApiParam("JSON集合") List<ActivityRelHonored> poList) {
         return toResult(activityRelHonoredService.saveOrUpdate(poList));
     }

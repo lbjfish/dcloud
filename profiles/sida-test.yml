@@ -1,0 +1,199 @@
+common:
+  host: server-app1
+  ip: 172.16.0.12
+  middlewareip: 172.16.0.11
+  database:
+    ip: 172.16.0.10
+    port: 3306
+    username: to4GSzhR6JU=
+    password: 5gO+CvyJbls=
+  author:
+    name: jianglingfeng
+    alias: jianglingfeng
+  rabbitmq:
+    host: ${common.middlewareip}
+    port: 5672
+    username: admin
+    password: admin
+    virtualHost: /
+    addresses: ${common.middlewareip}:5672,${common.middlewareip}:5673
+  redis:
+    addresses: ${common.middlewareip}:7000,${common.middlewareip}:7001,${common.middlewareip}:7002,${common.middlewareip}:7003,${common.middlewareip}:7004,${common.middlewareip}:7005
+    connectionTimeout: 5000
+    soTimeout: 2000
+    maxRedirections: 10
+    isAuth: false
+    password:
+    healthcheck:
+      database: 0
+      host: ${common.middlewareip}
+      port: 7000
+      timeout: 5000
+    pool:
+      # 是否启用后进先出, 默认true
+      lifo: true
+      # 最大连接数, 默认8个
+      maxTotal: 1024
+      # 最大空闲连接数, 默认8个
+      maxIdle: 100
+      # 最小空闲连接数, 默认0
+      minIdle: 3
+      # 获取连接时的最大等待毫秒数(如果设置为阻塞时BlockWhenExhausted),如果超时就抛异常, 小于零:阻塞不确定的时间,  默认-1
+      maxWaitMillis: 3000
+      # 在获取连接的时候检查有效性, 默认false
+      testOnBorrow: true
+      # 创建连接的时候检查有效性, 默认false
+      testOnCreate: false
+      # 返回连接的时候检查有效性, 默认false
+      testOnReturn: false
+      # 在空闲时检查有效性, 默认false
+      testWhileIdle: true
+  zipkin:
+    base-url: http://${common.ip}:10008
+  sleuth:
+    datasource:
+      driverClassName: com.mysql.jdbc.Driver # com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://${common.database.ip}:${common.database.port}/zipkin?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false
+      username: ${common.database.username}
+      password: ${common.database.password}
+    sampler:
+      # PercentageBasedSampler
+      # 日志采样百分比 0.0 - 1.0
+      percentage: 0.1
+  mongodb:
+    test:
+      uri: mongodb://${common.middlewareip}:27017,${common.middlewareip}:27027/test
+      username: test
+      password: test
+    logs:
+      uri: mongodb://${common.middlewareip}:27017,${common.middlewareip}:27027/logs
+      username: loguser
+      password: loguser
+  kafka:
+    addresses: ${common.middlewareip}:9092;${common.middlewareip}:9093;${common.middlewareip}:9094
+  zookeeper:
+    addresses: ${common.middlewareip}:2181,${common.middlewareip}:2182,${common.middlewareip}:2183,${common.middlewareip}:2184,${common.middlewareip}:2185
+  security:
+    datasource:
+      driverClassName: com.mysql.jdbc.Driver
+      url: jdbc:mysql://${common.database.ip}:${common.database.port}/system?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false
+      username: ${common.database.username}
+      password: ${common.database.password}
+  system:
+    datasource:
+      driverClassName: com.mysql.jdbc.Driver
+      url: jdbc:mysql://${common.database.ip}:${common.database.port}/system?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false
+      username: ${common.database.username}
+      password: ${common.database.password}
+    teachpositioncode: jly,jjy,zljly,jxzc
+  schedule:
+    datasource:
+      driverClassName: com.mysql.jdbc.Driver
+      url: jdbc:mysql://${common.database.ip}:${common.database.port}/schedule?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false
+      username: ${common.database.username}
+      password: ${common.database.password}
+    token: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbml6YXRpb25QYXRoIjpudWxsLCJyb2xlIjpbbnVsbF0sImNvZGUiOjIwMCwiZGF0YSI6IiIsInVzZXJfbmFtZSI6IuWumuaXtuS7u-WKoem7mOiupOeUqOaItyIsInJvbGVJZCI6bnVsbCwiYXZhdGFyIjoid3d3LmJhaWR1LmNvbS9pbWcvYmRfbG9nbzEucG5nIiwiY2VydElkIjpudWxsLCJzdG9yZUlkIjpudWxsLCJtZXNzYWdlIjoiIiwiY2xpZW50X2lkIjoiY2x6XzIwMTcxMjA3Iiwib3JnYW5pemF0aW9uSWQiOm51bGwsInRvdGFsIjowLCJhcmVhSWQiOm51bGwsInVzZXJfaWQiOiJ0ZXN0X3N5bmNocm9uaXphdGlvbiIsIm9yZ19pZCI6bnVsbCwic2NvcGUiOlsib3BlbmlkIl0sInVzZXJBY2NvdW50Ijoic3luYyIsInJvbGVDb2RlIjpudWxsLCJuYW1lIjoi5a6a5pe25Lu75Yqh6buY6K6k55So5oi3Iiwicm9sZU5hbWUiOm51bGwsImp0aSI6ImY0MGQ4ZDBiLTM1ZmUtNDk2OS05ZWIxLTgxZDBmOTc0ZWQ1OCIsInN0YXR1cyI6dHJ1ZX0.RV3j9cVFGbpBa7flMrGpAIx93r2-OZJIuWowdjU4U4Qd9iFuaxatBwYpk9p8NwEUY8jiSn4oiZaBiVdY25qOzuOf-W-yrHnu0WW2cjIw-g0u7tBOjjSfRyRQYWgBlIO-YCthLiPISoyvSaa3g2mzNaRdrCpY17zrAV_1t0OtJGIjCSa1MjkDkQVN9WNq1xQsUr81Gks3oAFB2zad44_8CL18-jcUKMmVl07xXGomi7PICVEBv96FoPOhaipkh7f_MB-4Fu_h_T1SmmrUqno2VHy89qTUMrDDaPq7vzKn9o4-nmejexA5hdK4zPTDxdR54VkAsjLWshiaHIiyiU21hQ
+
+  training:
+    datasource:
+      driverClassName: com.mysql.jdbc.Driver
+      master:
+        url: jdbc:mysql://${common.database.ip}:${common.database.port}/training?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false&allowMultiQueries=true
+        username: ${common.database.username}
+        password: ${common.database.password}
+      business:
+        url: jdbc:mysql://${common.database.ip}:${common.database.port}/training_r?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false&allowMultiQueries=true
+        username: ${common.database.username}
+        password: ${common.database.password}
+  activity:
+    datasource:
+      driverClassName: com.mysql.jdbc.Driver
+      master:
+        url: jdbc:mysql://${common.database.ip}:${common.database.port}/activity?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false&allowMultiQueries=true
+        username: ${common.database.username}
+        password: ${common.database.password}
+      business:
+        url: jdbc:mysql://${common.database.ip}:${common.database.port}/activity_r?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false&allowMultiQueries=true
+        username: ${common.database.username}
+        password: ${common.database.password}
+  content:
+    datasource:
+      driverClassName: com.mysql.jdbc.Driver
+      master:
+        url: jdbc:mysql://${common.database.ip}:${common.database.port}/content?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false&allowMultiQueries=true
+        username: ${common.database.username}
+        password: ${common.database.password}
+      business:
+        url: jdbc:mysql://${common.database.ip}:${common.database.port}/content_r?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false&allowMultiQueries=true
+        username: ${common.database.username}
+        password: ${common.database.password}
+  operation:
+      datasource:
+        driverClassName: com.mysql.jdbc.Driver
+        master:
+          url: jdbc:mysql://${common.database.ip}:${common.database.port}/operation?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false&allowMultiQueries=true
+          username: ${common.database.username}
+          password: ${common.database.password}
+        business:
+          url: jdbc:mysql://${common.database.ip}:${common.database.port}/operation_r?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false&allowMultiQueries=true
+          username: ${common.database.username}
+          password: ${common.database.password}
+
+  quartz:
+      datasource:
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://${common.database.ip}:${common.database.port}/schedule?useUnicode=true&characterEncoding=utf-8
+        username: ${common.database.username}
+        password: ${common.database.password}
+service:
+  amqp:
+    port: 10008
+  security:
+    auth:
+      port: 10019
+    edge:
+      port: 10020
+  workflow:
+    port: 10011
+  schedule:
+    port: 10080
+  drools:
+    port: 10066
+
+module:
+  system:
+    port: 10006
+  activity:
+    port: 10021
+  content:
+    port: 10022
+  operation:
+    port: 10023
+
+
+qiniu:
+  bucket: lili
+  ak: wTZfpMov09_Pvgpzt01kVbTGoFKMcMf2CUmYs5n2
+  sk: CzQMFHoGeNOVuF_0sG96oFzrQtVdRx25-aQrudp1
+  domain: http://7xnvu2.com1.z0.glb.clouddn.com/
+  bucketPublic: lili-public
+  domainOfBucket: http://o7d94lzvx.bkt.clouddn.com/
+  defaultImg: FnjqWFunVDKhLb3fDO0OeDCFzuWB
+
+yuntongxun:
+  appId: 8a216da862467c3a0162670a9b970db8   # 《车厘子》应用ID
+  appIdForCloud: 8aaf0708582eefe901584304fcd30e68   # 《喱喱驾培云》应用ID
+  appIdForStudent: 8a48b55150b36d920150b6bb984b0806   # 《喱喱学车》应用ID
+  appIdForCoach: 8a216da862a86c900162ae2fb20e0367   # 《喱喱云教练》应用ID
+  server:
+    ip: app.cloopen.com                     # 服务器IP
+    port: 8883                              # 服务器端口
+  account:
+    sid: 8a48b551505b4af001505fe1a2ca0ce8   # 开发者账号
+    token: bdfb63826c2740b68a780c8c35441007 # 开发者账号
+
+actor:
+  akka:
+    cluster:
+      host: 127.0.0.1
+      seed-nodes: "127.0.0.1:2551,127.0.0.1:2552,127.0.0.1:2553"

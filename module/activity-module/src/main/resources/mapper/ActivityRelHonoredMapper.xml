@@ -89,9 +89,10 @@
 
   <insert id="batchInsert" parameterType="java.util.List" >
     insert into activity_rel_honored (honored_guest_id, schedule_id, sort)
-    values
-    <foreach collection="list" item="po" open="" close="" separator="," >
-      ( #{po.honoredGuestId}, #{po.scheduleId}, #{po.sort} )
+    <foreach collection="list" item="po" open="" close="" separator="union all" >
+      select #{po.honoredGuestId}, #{po.scheduleId}, #{po.sort}
+      from dual
+      where not exists (select * from activity_rel_honored where honored_guest_id = #{po.honoredGuestId} and schedule_id = #{po.scheduleId})
     </foreach>
   </insert>
 

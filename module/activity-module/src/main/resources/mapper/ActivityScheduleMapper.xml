@@ -312,4 +312,11 @@
       </foreach>
     </if>
   </update>
+
+  <!-- ***************************************************************************** -->
+  <!-- 以上自动生成，以下自定义 -->
+
+  <select id="checkRemovableByRel" parameterType="java.lang.String" resultType="int">
+    select count(0) from activity_rel_honored where schedule_id in (${ids})
+  </select>
 </mapper>

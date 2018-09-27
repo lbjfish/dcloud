@@ -1,9 +1,15 @@
 package com.sida.dcloud.activity.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.sida.dcloud.activity.dao.SysUserActivityMapper;
+import com.sida.dcloud.activity.po.HonoredGuest;
 import com.sida.dcloud.activity.po.SysUserActivity;
 import com.sida.dcloud.activity.service.SysUserActivityService;
+import com.sida.dcloud.activity.vo.HonoredGuestVo;
+import com.sida.dcloud.activity.vo.SysUserActivityVo;
 import com.sida.dcloud.auth.po.SysUser;
+import com.sida.dcloud.auth.vo.SysUserVo;
 import com.sida.xiruo.xframework.dao.IMybatisDao;
 import com.sida.xiruo.xframework.lock.redis.RedisLock;
 import com.sida.xiruo.xframework.service.BaseServiceImpl;
@@ -40,5 +46,12 @@ public class SysUserActivityServiceImpl extends BaseServiceImpl<SysUserActivity>
     @Override
     public int updateUser(SysUser user) {
         return sysUserActivityMapper.updateByUserPrimaryKey(user);
+    }
+
+    @Override
+    public Page<SysUserActivityVo> findPageList(SysUserActivity po) {
+        PageHelper.startPage(po.getP(),po.getS());
+        List<SysUserActivityVo> voList = sysUserActivityMapper.selectVoList(po);
+        return (Page) voList;
     }
 }

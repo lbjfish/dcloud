@@ -1,18 +1,18 @@
-/**
- * create by jianglingfeng
- * @date 2018-09
- */
-package com.sida.dcloud.activity.po;
+package com.sida.dcloud.activity.vo;
 
-import com.sida.xiruo.po.common.BaseEntity;
+import com.sida.xiruo.po.common.UserCentricDTO;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.Serializable;
 
-public class ActivityGoodsGroup extends BaseEntity implements Serializable {
-    @ApiModelProperty("活动id（关联activity_info表id）")
+public class ActivityGoodsGroupVo extends UserCentricDTO {
+    private static final long serialVersionUID = 1L;
+
+    @ApiModelProperty("id")
+    private String id;
+
+    @ApiModelProperty("活动id")
     private String activityId;
 
-    @ApiModelProperty("组合名称")
+    @ApiModelProperty("组名称")
     private String name;
 
     @ApiModelProperty("折扣")
@@ -27,20 +27,20 @@ public class ActivityGoodsGroup extends BaseEntity implements Serializable {
     @ApiModelProperty("余量")
     private Integer remaining;
 
-    @ApiModelProperty("排序值（值越小越靠前）")
-    private Integer sort;
+    public String getId() {
+        return id;
+    }
 
-    @ApiModelProperty("备注")
-    private String remark;
-
-    private static final long serialVersionUID = 1L;
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getActivityId() {
         return activityId;
     }
 
     public void setActivityId(String activityId) {
-        this.activityId = activityId == null ? null : activityId.trim();
+        this.activityId = activityId;
     }
 
     public String getName() {
@@ -48,7 +48,7 @@ public class ActivityGoodsGroup extends BaseEntity implements Serializable {
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
     public Double getDiscount() {
@@ -81,21 +81,5 @@ public class ActivityGoodsGroup extends BaseEntity implements Serializable {
 
     public void setRemaining(Integer remaining) {
         this.remaining = remaining;
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
     }
 }

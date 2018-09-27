@@ -14,5 +14,6 @@ import java.util.List;
 public interface HonoredGuestMapper extends IMybatisDao<HonoredGuest> {
     List<HonoredGuestVo> findVoList(@Param("po")HonoredGuest po);
     int checkMultiCountByUnique(@Param("po")HonoredGuest po);
+    int checkRemovableByRel(@Param("ids") String ids);
     List<HonoredGuestVo> findVoListByScheduleId(@Param("scheduleId")String scheduleId);
 }

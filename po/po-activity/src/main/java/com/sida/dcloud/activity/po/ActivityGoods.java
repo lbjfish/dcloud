@@ -28,6 +28,12 @@ public class ActivityGoods extends BaseEntity implements Serializable {
     @ApiModelProperty("商品余量")
     private Integer remaining;
 
+    @ApiModelProperty("排序值（值越小越靠前）")
+    private Integer sort;
+
+    @ApiModelProperty("添加时间")
+    private Date addTime;
+
     @ApiModelProperty("有效起始时间")
     private Date startTime;
 
@@ -85,6 +91,22 @@ public class ActivityGoods extends BaseEntity implements Serializable {
 
     public void setRemaining(Integer remaining) {
         this.remaining = remaining;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
+    public Date getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(Date addTime) {
+        this.addTime = addTime;
     }
 
     public Date getStartTime() {

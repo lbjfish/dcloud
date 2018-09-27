@@ -865,7 +865,7 @@
   <select id="checkMultiCountByUnique" parameterType="com.sida.dcloud.activity.po.CustomerActivitySignupNote" resultType="int">
     select count(0) from customer_activity_signup_note
     <where>
-      delete_flag = 0 and activity_id = #{po.activityId} and order_user = #{po.orderUser}
+      delete_flag = 0 and activity_id = #{po.activityId} and user_id = #{po.userId}
       <if test="po.id != null and po.id != ''">
         <![CDATA[
         and id <> #{po.id}

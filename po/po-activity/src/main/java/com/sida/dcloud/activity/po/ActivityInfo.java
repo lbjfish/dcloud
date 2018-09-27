@@ -8,8 +8,11 @@ import com.sida.xiruo.po.common.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class ActivityInfo extends BaseEntity implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @ApiModelProperty("活动名称")
     private String name;
 
@@ -136,7 +139,16 @@ public class ActivityInfo extends BaseEntity implements Serializable {
     @ApiModelProperty("备注")
     private String remark;
 
-    private static final long serialVersionUID = 1L;
+    @ApiModelProperty("商品集合")
+    private List<ActivityGoods> activityGoodsList;
+
+    public List<ActivityGoods> getActivityGoodsList() {
+        return activityGoodsList;
+    }
+
+    public void setActivityGoodsList(List<ActivityGoods> activityGoodsList) {
+        this.activityGoodsList = activityGoodsList;
+    }
 
     public String getName() {
         return name;

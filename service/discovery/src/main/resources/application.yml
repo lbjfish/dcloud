@@ -20,7 +20,7 @@ eureka:
     eviction-interval-timer-in-ms: @eviction-interval-timer-in-ms@ # 定期扫描间隔（单位毫秒，默认是6*1000）
   client:
     serviceUrl:
-      defaultZone: @discovery-zone1@
+      defaultZone: @default-zone@
     fetch-registry: true
     register-with-eureka: true
 
@@ -45,7 +45,7 @@ eureka:
     eviction-interval-timer-in-ms: @eviction-interval-timer-in-ms@ # 定期扫描间隔（单位毫秒，默认是6*1000）
   client:
     serviceUrl:
-      defaultZone: @discovery-zone2@
+      defaultZone: @default-zone@
 
 ---
 spring:
@@ -68,4 +68,4 @@ eureka:
     eviction-interval-timer-in-ms: @eviction-interval-timer-in-ms@ # 定期扫描间隔（单位毫秒，默认是6*1000）
   client:
     serviceUrl:
-      defaultZone: @discovery-zone3@
+      defaultZone: @default-zone@

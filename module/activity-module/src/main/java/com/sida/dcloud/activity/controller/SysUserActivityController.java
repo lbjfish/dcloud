@@ -1,6 +1,8 @@
 package com.sida.dcloud.activity.controller;
 
 import com.sida.dcloud.activity.po.ActivitySignupNoteSetting;
+import com.sida.dcloud.activity.po.HonoredGuest;
+import com.sida.dcloud.activity.po.SysUserActivity;
 import com.sida.dcloud.activity.service.SysUserActivityService;
 import com.sida.dcloud.auth.po.SysUser;
 import com.sida.xiruo.xframework.controller.BaseController;
@@ -11,12 +13,10 @@ import org.activiti.engine.ActivitiException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("sysUserActivity")
@@ -26,6 +26,25 @@ public class SysUserActivityController extends BaseController {
 
     @Autowired
     private SysUserActivityService sysUserActivityService;
+
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    @ApiOperation(value = "条件查系统用户投影列表")
+    public Object list(@RequestBody @ApiParam("JSON参数") SysUserActivity param) {
+        Optional.ofNullable(param.getOrderField()).orElseGet(() -> {
+            param.setOrderField("sort");
+            param.setOrderString("asc");
+            return "";
+        });
+        Object object = sysUserActivityService.findPageList(param);
+        return toResult(object);
+    }
+
+    @RequestMapping(value = "/findOne", method = RequestMethod.GET)
+    @ApiOperation(value = "根据系统用户投影主键id获取信息")
+    public Object findOne(@RequestParam("id") @ApiParam("id")String id) {
+        SysUserActivity one = sysUserActivityService.selectByPrimaryKey(id);
+        return toResult(one);
+    }
 
     @RequestMapping(value="batchUpdate", method = RequestMethod.POST)
     @ApiOperation("批量更新用户数据")

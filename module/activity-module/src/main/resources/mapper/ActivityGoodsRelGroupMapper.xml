@@ -83,4 +83,20 @@
       </foreach>
     </if>
   </update>
+
+  <!-- ***************************************************************************** -->
+  <!-- 以上自动生成，以下自定义 -->
+
+  <insert id="batchInsert" parameterType="java.util.List" >
+    insert into activity_goods_rel_group (goods_id, group_id, sort)
+    <foreach collection="list" item="po" open="" close="" separator="union all" >
+      select #{po.goodsId}, #{po.groupId}, #{po.sort}
+      from dual
+      where not exists (select * from activity_goods_rel_group where goods_id = #{po.goodsId} and group_id = #{po.groupId})
+    </foreach>
+  </insert>
+
+  <delete id="deleteByGroupId" parameterType="java.lang.String" >
+    delete activity_goods_rel_group where group_id = #{groupId}
+  </delete>
 </mapper>

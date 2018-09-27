@@ -678,4 +678,32 @@ public class Xiruo {
 			throw new IllegalArgumentException("Expected a Class, ParameterizedType, or GenericArrayType, but <" + type + "> is of type " + className);
 		}
 	}
+
+	/**
+	 * a,b,c -> "a","b","c"
+	 * @param source
+	 * @return
+	 */
+	public static String insertDoubleQuoteToString(String source) {
+		return insertChToString(source, "\"");
+	}
+
+	/**
+	 * a,b,c -> 'a','b','c'
+	 * @param source
+	 * @return
+	 */
+	public static String insertSingleQuoteToString(String source) {
+		return insertChToString(source, "'");
+	}
+
+	/**
+	 *
+	 * @param source
+	 * @param ch
+	 * @return
+	 */
+	public static String insertChToString(String source, String ch) {
+    	return source.replaceAll("^|$|(?=,[^,]+?)|(?<=[^,]+?,)", ch);
+	}
 }
