@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.activity.dao.ActivitySignupNoteVersionMapper" >
+  <resultMap id="ActivitySignupNoteVersionResultMap" type="com.sida.dcloud.activity.po.ActivitySignupNoteVersion" >
+    <result column="version" property="version" jdbcType="VARCHAR" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
+    <result column="version_time" property="versionTime" jdbcType="TIMESTAMP" />
+    <result column="current_used" property="currentUsed" jdbcType="BIT" />
+  </resultMap>
+  <sql id="ActivitySignupNoteVersion_Column_List" >
+    version, delete_flag, version_time, current_used
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.activity.po.ActivitySignupNoteVersion" >
+    insert into activity_signup_note_version (version, delete_flag, version_time, current_used)
+    values (#{version}, #{deleteFlag}, #{versionTime}, #{currentUsed})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.activity.po.ActivitySignupNoteVersion" >
+    insert into activity_signup_note_version
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="versionTime != null" >
+        version_time,
+      </if>
+      <if test="currentUsed != null" >
+        current_used,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="version != null" >
+        #{version},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag},
+      </if>
+      <if test="versionTime != null" >
+        #{versionTime},
+      </if>
+      <if test="currentUsed != null" >
+        #{currentUsed},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="version != null and version != ''" >
+        version = #{version}
+      </if>
+      <if test="deleteFlag != null" >
+        AND delete_flag = #{deleteFlag}
+      </if>
+      <if test="versionTime != null" >
+        AND version_time = #{versionTime}
+      </if>
+      <if test="currentUsed != null" >
+        AND current_used = #{currentUsed}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.activity.po.ActivitySignupNoteVersion" resultMap="ActivitySignupNoteVersionResultMap" >
+    select 
+    <include refid="ActivitySignupNoteVersion_Column_List" />
+    from activity_signup_note_version
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update activity_signup_note_version
+    <set >
+      <if test="po.version != null" >
+        version = #{po.version},
+      </if>
+      <if test="po.deleteFlag != null" >
+        delete_flag = #{po.deleteFlag},
+      </if>
+      <if test="po.versionTime != null" >
+        version_time = #{po.versionTime},
+      </if>
+      <if test="po.currentUsed != null" >
+        current_used = #{po.currentUsed},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <!-- ***************************************************************************** -->
+  <!-- 以上自动生成，以下自定义 -->
+
+  <update id="deleteByVersion" parameterType="java.lang.String" >
+    update activity_signup_note_version set delete_flag = 1
+    where version = #{version}
+  </update>
+
+  <update id="resumeByVersion" parameterType="java.lang.String" >
+    update activity_signup_note_version set delete_flag = 0
+    where version = #{version}
+  </update>
+
+  <insert id="insertVersion" parameterType="com.sida.dcloud.activity.po.ActivitySignupNoteVersion" >
+    insert into activity_signup_note_version (version, delete_flag, version_time, current_used)
+    select #{po.version}, #{po.deleteFlag}, #{po.versionTime}, #{po.currentUsed}
+      from dual
+      where not exists (select * from activity_signup_note_version where version = #{po.version})
+  </insert>
+
+  <select id="getCurrentUsedVerion" parameterType="java.lang.String" resultMap="ActivitySignupNoteVersionResultMap" >
+    select * from activity_signup_note_version where current_used = true
+  </select>
+
+  <select id="selectByVerion" parameterType="java.lang.String" resultMap="ActivitySignupNoteVersionResultMap" >
+    select * from activity_signup_note_version where version = #{version}
+  </select>
+  
+  <update id="setCurrentUsedVersion" parameterType="java.lang.String">
+    <![CDATA[
+    update activity_signup_note_version set current_userd = false where version <> #{version};
+    update activity_signup_note_version set delete_flag = 0, current_userd = true where version = #{version};
+    ]]>
+  </update>
+</mapper>
