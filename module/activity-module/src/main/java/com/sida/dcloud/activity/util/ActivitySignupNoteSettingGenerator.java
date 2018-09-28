@@ -1,5 +1,6 @@
 package com.sida.dcloud.activity.util;
 
+import com.google.common.base.CaseFormat;
 import com.sida.dcloud.activity.po.ActivitySignupNoteSetting;
 import com.sida.dcloud.activity.service.CustomerActivitySignupNoteService;
 import com.sida.xiruo.common.util.Xiruo;
@@ -42,8 +43,8 @@ public final class ActivitySignupNoteSettingGenerator {
 
     private ActivitySignupNoteSetting fillActivitySignupNoteSetting(TableMeta tableMeta) {
         ActivitySignupNoteSetting setting = new ActivitySignupNoteSetting();
-        setting.setName(tableMeta.getColumnComment());
-        setting.setCode(tableMeta.getColumnName());
+        setting.setName(tableMeta.getColumnName());
+        setting.setCode(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, tableMeta.getColumnName()));
         setting.setDisplayName(tableMeta.getColumnComment());
         setting.setDeleteFlag(false);
         setting.setHideStatus(true);

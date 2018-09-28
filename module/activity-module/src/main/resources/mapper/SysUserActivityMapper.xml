@@ -299,7 +299,7 @@
 
   <!-- ***************************************************************************** -->
   <!-- 以上自动生成，以下自定义 -->
-  u.id, u.created_at, u.account, u.code, u.name, u.alias, u.mobile, u.id_num
+
   <resultMap id="SysUserActivityVoResultMap" type="com.sida.dcloud.activity.vo.SysUserActivityVo">
     <result column="id" property="id" jdbcType="VARCHAR"/>
     <result column="account" property="account" jdbcType="VARCHAR"/>

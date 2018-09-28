@@ -5,4 +5,7 @@ public class ActivityException extends RuntimeException {
         super(msg);
     }
 
+    public ActivityException(Exception e) {
+        super(e);
+    }
 }

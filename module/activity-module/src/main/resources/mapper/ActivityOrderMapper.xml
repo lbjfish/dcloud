@@ -338,4 +338,56 @@
       </foreach>
     </if>
   </update>
+
+
+  <!-- ***************************************************************************** -->
+  <!-- 以上自动生成，以下自定义 -->
+
+  <resultMap id="ActivityOrderVoResultMap" type="com.sida.dcloud.activity.vo.ActivityOrderVo" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="activity_id" property="activityId" jdbcType="VARCHAR" />
+    <result column="order_user" property="orderUser" jdbcType="VARCHAR" />
+    <result column="note_id" property="noteId" jdbcType="VARCHAR" />
+    <result column="order_name" property="orderName" jdbcType="VARCHAR" />
+    <result column="activity_order_status" property="activityOrderStatus" jdbcType="VARCHAR" />
+    <result column="goods_amount" property="goodsAmount" jdbcType="DOUBLE" />
+    <result column="minus_amount" property="minusAmount" jdbcType="DOUBLE" />
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="ActivityOrderResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="ActivityOrder_Column_List" />
+    from activity_order
+    where id = #{id} and delete_flag = 0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    update activity_order set delete_flag = 1 where id = #{id}
+  </delete>
+  <delete id="deleteByPrimaryKeys" parameterType="java.lang.String" >
+    update activity_order set delete_flag = 1 where id in (${ids})
+  </delete>
+
+  <select id="findVoList" parameterType="com.sida.dcloud.activity.po.ActivityOrder" resultMap="ActivityOrderVoResultMap">
+    select
+    id, order_no, activity_id, order_user, note_id, order_name, activity_order_status, goodsAmount, minusAmount
+    from activity_order
+    <where>
+      delete_flag = 0
+      <if test="po.id != null and po.id != ''" >
+        and id = #{po.id}
+      </if>
+      <if test="po.orderName != null and po.orderName != ''" >
+        and instr(order_name, #{po.orderName})&gt;0
+      </if>
+      <if test="po.orderNo != null and po.orderNo != ''" >
+        and instr(order_no, #{po.orderNo})&gt;0
+      </if>
+    </where>
+    <if test="po.orderField != null and po.orderField != ''">
+      ORDER BY ${po.orderField}
+      <if test="po.orderString != null and po.orderString != ''">
+        ${po.orderString}
+      </if>
+    </if>
+  </select>
 </mapper>

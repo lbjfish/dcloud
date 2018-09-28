@@ -121,7 +121,7 @@ public class ActivityInfoServiceImpl extends BaseServiceImpl<ActivityInfo> imple
     }
 
     /**
-     *
+     * 活动状态更新需加锁
      * @param activityId
      * @param activityStatus
      * @return

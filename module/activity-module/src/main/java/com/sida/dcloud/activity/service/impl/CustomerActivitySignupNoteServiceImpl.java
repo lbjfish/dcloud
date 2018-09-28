@@ -1,32 +1,51 @@
 package com.sida.dcloud.activity.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.sida.dcloud.activity.common.ActivityException;
 import com.sida.dcloud.activity.dao.CustomerActivitySignupNoteMapper;
 import com.sida.dcloud.activity.po.ActivityGoods;
+import com.sida.dcloud.activity.po.ActivitySignupNoteSetting;
 import com.sida.dcloud.activity.po.CustomerActivitySignupNote;
+import com.sida.dcloud.activity.service.ActivitySignupNoteSettingService;
+import com.sida.dcloud.activity.service.ActivitySignupNoteVersionService;
 import com.sida.dcloud.activity.service.CustomerActivitySignupNoteService;
+import com.sida.dcloud.activity.util.ActivityCacheUtil;
+import com.sida.dcloud.activity.vo.ActivityInfoVo;
+import com.sida.dcloud.activity.vo.CustomerActivitySignupNoteVo;
+import com.sida.xiruo.common.components.StringUtils;
 import com.sida.xiruo.po.common.TableMeta;
 import com.sida.xiruo.xframework.dao.IMybatisDao;
 import com.sida.xiruo.xframework.lock.DistributedLock;
 import com.sida.xiruo.xframework.lock.redis.RedisLock;
 import com.sida.xiruo.xframework.service.BaseServiceImpl;
+import com.sida.xiruo.xframework.util.StringUtil;
+import net.sf.json.regexp.RegexpUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.lang.reflect.Field;
+import java.util.*;
 
 @Service
 public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<CustomerActivitySignupNote> implements CustomerActivitySignupNoteService {
     private static final Logger LOG = LoggerFactory.getLogger(CustomerActivitySignupNoteServiceImpl.class);
     private static final String LOCK_KEY_CHECK_MULTI = "LOCK_KEY_CHECK_MULTI_" + CustomerActivitySignupNoteServiceImpl.class.getName();
+    private static final Field[] NOTE_FIELD_ARRAY = CustomerActivitySignupNote.class.getDeclaredFields();
 
     @Autowired
     private DistributedLock distributedLock;
+    @Autowired
+    private ActivityCacheUtil activityCacheUtil;
 
     @Autowired
     private CustomerActivitySignupNoteMapper customerActivitySignupNoteMapper;
+    @Autowired
+    private ActivitySignupNoteSettingService activitySignupNoteSettingService;
+    @Autowired
+    private ActivitySignupNoteVersionService activitySignupNoteVersionService;
 
     @Override
     public IMybatisDao<CustomerActivitySignupNote> getBaseDao() {
@@ -43,8 +62,10 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
     }
 
     @Override
-    public List<CustomerActivitySignupNote> findVoList(CustomerActivitySignupNote po) {
-        return customerActivitySignupNoteMapper.findVoList(po);
+    public Page<CustomerActivitySignupNoteVo> findPageList(CustomerActivitySignupNote po) {
+        PageHelper.startPage(po.getP(),po.getS());
+        List<CustomerActivitySignupNoteVo> voList = customerActivitySignupNoteMapper.findVoList(po);
+        return (Page) voList;
     }
 
     /**
@@ -54,6 +75,7 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
      */
     @Override
     public int insert(CustomerActivitySignupNote po) {
+        checkValidationForSetting(po);
         boolean lock = distributedLock.lock(LOCK_KEY_CHECK_MULTI, RedisLock.KEEP_MILLS, RedisLock.RETRY_TIMES, RedisLock.SLEEP_MILLS);
         int result = -1;
         if(!lock) {
@@ -84,6 +106,7 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
      */
     @Override
     public int updateByPrimaryKey(CustomerActivitySignupNote po) {
+        checkValidationForSetting(po);
         boolean lock = distributedLock.lock(LOCK_KEY_CHECK_MULTI, RedisLock.KEEP_MILLS, RedisLock.RETRY_TIMES, RedisLock.SLEEP_MILLS);
         int result = -1;
         if(!lock) {
@@ -105,5 +128,45 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
         }
 
         return result;
+    }
+
+    /**
+     * 根据报名设置检查用户输入有效性
+     * @param po
+     */
+    private void checkValidationForSetting(CustomerActivitySignupNote po) {
+        //从缓存获取报名规则
+        Map<String, ActivitySignupNoteSetting> settingMap = activityCacheUtil.getVersionSettingMap();
+        if(!settingMap.isEmpty()) {
+            Arrays.stream(NOTE_FIELD_ARRAY).forEach(field -> {
+                ActivitySignupNoteSetting setting = null;
+                if((setting = settingMap.get(field.getName())) != null) {
+                    //字段隐藏则无需判断
+                    if (setting.getHideStatus()) {
+                        //打开私有访问
+                        field.setAccessible(true);
+                        try {
+                            Object value = field.get(po);
+                            //为空校验
+                            if (!setting.getAllowEmpty() && (value == null || StringUtils.isBlank(value + ""))) {
+                                throw new ActivityException(String.format("[%s] 不能空", setting.getDisplayName()));
+                            }
+                            //长度校验
+                            if (setting.getSizeLimit() > 0 && String.valueOf(value).length() > setting.getSizeLimit()) {
+                                throw new ActivityException(String.format("[%s] 长度不能超过 %d", setting.getDisplayName(), setting.getSizeLimit()));
+                            }
+                            //正则表达式校验
+                            if (!StringUtils.isBlank(setting.getvRegexp())) {
+                                if (!RegexpUtils.getMatcher(setting.getvRegexp()).matches(String.valueOf(value))) {
+                                    throw new ActivityException(String.format("[%s] 不匹配设置的格式 [%s]", setting.getDisplayName(), setting.getvRegexp()));
+                                }
+                            }
+                        } catch (IllegalAccessException e) {
+                            throw new ActivityException(e);
+                        }
+                    }
+                }
+            });
+        }
     }
 }

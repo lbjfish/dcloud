@@ -39,7 +39,7 @@ public class TestController extends BaseController {
         redisUtil.set("name", "Xiruo");
         LOG.info("Value for name which in redis is {}", redisUtil.get("name"));
 
-
+        redisUtil.putInMap("abcdefg", null);
         return toResult();
     }
 

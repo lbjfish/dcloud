@@ -8,8 +8,6 @@ import com.sida.dcloud.activity.vo.HonoredGuestVo;
 import com.sida.xiruo.xframework.service.IBaseService;
 
 public interface ActivityInfoService extends IBaseService<ActivityInfo> {
-    String LOCK_KEY_CHECK_REMOVABLE = "LOCK_KEY_CHECK_REMOVABLE_" + ActivityInfoService.class.getName();
-
     Page<ActivityInfoVo> findPageList(ActivityInfo po);
     int updateActivityStatus(String activityId, String activityStatus);
     void increaseCommentCount(String activityId, int count);
