@@ -1,6 +1,7 @@
 package com.sida.dcloud.activity.controller;
 
 import com.sida.dcloud.activity.common.ActivityException;
+import com.sida.dcloud.activity.dto.ActivitySignupNoteDto;
 import com.sida.dcloud.activity.po.CustomerActivitySignupNote;
 import com.sida.dcloud.activity.service.CustomerActivitySignupNoteService;
 import com.sida.dcloud.service.event.config.EventConstants;
@@ -41,6 +42,13 @@ public class CustomerActivitySignupNoteController extends BaseController {
     @ApiOperation(value = "根据报名主键id获取信息")
     public Object findOne(@RequestParam("id") @ApiParam("id")String id) {
         CustomerActivitySignupNote one = customerActivitySignupNoteService.selectByPrimaryKey(id);
+        return toResult(one);
+    }
+
+    @RequestMapping(value = "/findOneToClient", method = RequestMethod.GET)
+    @ApiOperation(value = "根据报名主键id获取信息 - C端使用")
+    public Object findOneToClient(@RequestParam("id") @ApiParam("id")String id) {
+        ActivitySignupNoteDto one = customerActivitySignupNoteService.findOneToClient(id);
         return toResult(one);
     }
     /********************************************************************************/

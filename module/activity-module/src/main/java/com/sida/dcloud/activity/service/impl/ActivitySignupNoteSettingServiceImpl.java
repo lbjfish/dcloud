@@ -1,6 +1,7 @@
 package com.sida.dcloud.activity.service.impl;
 
 import com.sida.dcloud.activity.dao.ActivitySignupNoteSettingMapper;
+import com.sida.dcloud.activity.dto.ActivitySignupNoteSettingDto;
 import com.sida.dcloud.activity.po.ActivitySignupNoteSetting;
 import com.sida.dcloud.activity.service.ActivitySignupNoteSettingService;
 import com.sida.dcloud.activity.service.ActivitySignupNoteVersionService;
@@ -56,6 +57,11 @@ public class ActivitySignupNoteSettingServiceImpl extends BaseServiceImpl<Activi
     @Override
     public List<ActivitySignupNoteSetting> selectByVersion(String version) {
         return activitySignupNoteSettingMapper.selectByVersion(version);
+    }
+
+    @Override
+    public List<ActivitySignupNoteSettingDto> selectByVersionToClient(String version) {
+        return activitySignupNoteSettingMapper.selectByVersionToClient(version);
     }
 
     @Transactional(propagation = Propagation.REQUIRED)

@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sida.dcloud.activity.common.ActivityException;
 import com.sida.dcloud.activity.dao.CustomerActivitySignupNoteMapper;
+import com.sida.dcloud.activity.dto.ActivitySignupNoteDto;
 import com.sida.dcloud.activity.po.ActivityGoods;
 import com.sida.dcloud.activity.po.ActivitySignupNoteSetting;
 import com.sida.dcloud.activity.po.CustomerActivitySignupNote;
@@ -28,6 +29,7 @@ import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<CustomerActivitySignupNote> implements CustomerActivitySignupNoteService {
@@ -66,6 +68,33 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
         PageHelper.startPage(po.getP(),po.getS());
         List<CustomerActivitySignupNoteVo> voList = customerActivitySignupNoteMapper.findVoList(po);
         return (Page) voList;
+    }
+
+    @Override
+    public ActivitySignupNoteDto findOneToClient(String id) {
+        ActivitySignupNoteDto dto = null;
+        CustomerActivitySignupNote note = customerActivitySignupNoteMapper.selectByPrimaryKey(id);
+        if(null != note) {
+            dto = new ActivitySignupNoteDto();
+            String version = note.getVersion();
+            dto.setSettingList(activitySignupNoteSettingService.selectByVersionToClient(version));
+            Map<String, Object> valueMap = dto.getValueMap();
+            //将settingList里的所有字段名串起来
+            String codes = String.format(",%s,", dto.getSettingList().stream().map(setting -> setting.getCode()).reduce((code1, code2) -> String.format("%s,%s", code1, code2)).get());
+            //只有被设置的字段需要取值并返回，因为字段未知因此采用map存储返回
+            Arrays.stream(NOTE_FIELD_ARRAY).filter(field -> codes.indexOf(String.format(",%s,", field.getName())) > 0)
+                    .forEach(field -> {
+                        //打开私有访问
+                        field.setAccessible(true);
+                        try {
+                            Object value = field.get(note);
+                            valueMap.put(field.getName(), value);
+                        } catch (IllegalAccessException e) {
+                            throw new ActivityException(e);
+                        }
+                    });
+        }
+        return dto;
     }
 
     /**

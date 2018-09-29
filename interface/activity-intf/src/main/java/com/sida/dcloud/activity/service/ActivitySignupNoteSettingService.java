@@ -1,5 +1,6 @@
 package com.sida.dcloud.activity.service;
 
+import com.sida.dcloud.activity.dto.ActivitySignupNoteSettingDto;
 import com.sida.dcloud.activity.po.ActivitySignupNoteSetting;
 import com.sida.xiruo.xframework.service.IBaseService;
 
@@ -11,4 +12,6 @@ public interface ActivitySignupNoteSettingService extends IBaseService<ActivityS
     int deleteByVersion(String version);
     int resumeByVersion(String version);
     int updateSettingList(List<ActivitySignupNoteSetting> settingList);
+    //client api
+    List<ActivitySignupNoteSettingDto> selectByVersionToClient(String version);
 }

@@ -9,4 +9,5 @@ import com.sida.xiruo.xframework.service.IBaseService;
 
 public interface ActivityOrderService extends IBaseService<ActivityOrder> {
     Page<ActivityOrderVo> findPageList(ActivityOrder po);
+    int updateActivityOrderStatus(String orderId, String activityOrderStatus);
 }

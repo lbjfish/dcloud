@@ -26,12 +26,20 @@ public class ActivitySignupNoteSettingController extends BaseController {
     @Autowired
     private ActivitySignupNoteSettingService activitySignupNoteSettingService;
 
-    @RequestMapping(value="load", method = RequestMethod.GET)
+    @RequestMapping(value="findByVersion", method = RequestMethod.GET)
     @ApiOperation("根据版本加载设置数据")
-    public Object load(@ApiParam("版本") @RequestParam(value="version") String version) {
+    public Object findByVersion(@ApiParam("版本") @RequestParam(value="version") String version) {
         LOG.info("Version is {}", version);
         Optional.ofNullable(version).orElseThrow(() -> new ActivitiException("必须指定加载的版本"));
         return toResult(activitySignupNoteSettingService.selectByVersion(version));
+    }
+
+    @RequestMapping(value="findByVersionToClient", method = RequestMethod.GET)
+    @ApiOperation("根据版本加载设置数据 - C端使用")
+    public Object findByVersionToClient(@ApiParam("版本") @RequestParam(value="version") String version) {
+        LOG.info("Version is {}", version);
+        Optional.ofNullable(version).orElseThrow(() -> new ActivitiException("必须指定加载的版本"));
+        return toResult(activitySignupNoteSettingService.selectByVersionToClient(version));
     }
 
     @RequestMapping(value="generate", method = RequestMethod.GET)

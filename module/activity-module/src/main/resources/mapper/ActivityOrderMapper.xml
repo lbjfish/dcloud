@@ -390,4 +390,18 @@
       </if>
     </if>
   </select>
+
+  <select id="checkRemovableByRel" parameterType="java.lang.String" resultType="int">
+    select count(0) from activity_order_goods where order_id in (${ids})
+  </select>
+
+  <select id="checkCountForActivityOrderStatus" parameterType="java.lang.String" resultType="int">
+    select count(0) from activity_order where instr(${activityOrderStatus}, activity_order_status)&gt;0 and id in (${ids})
+  </select>
+
+  <update id="updateActivityOrderStatus" >
+    update activity_order
+    <set>activity_order_status = #{activityOrderStatus}</set>
+    <where>activity_id = #{activityId}</where>
+  </update>
 </mapper>

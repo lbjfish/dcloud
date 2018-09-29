@@ -15,4 +15,7 @@ import java.util.List;
 
 public interface ActivityOrderMapper extends IMybatisDao<ActivityOrder> {
     List<ActivityOrderVo> findVoList(@Param("po") ActivityOrder po);
+    int checkRemovableByRel(@Param("ids") String ids);
+    int checkCountForActivityOrderStatus(@Param("ids") String ids, @Param("activityOrderStatus") String activityOrderStatus);
+    int updateActivityOrderStatus(@Param("orderId")String orderId, @Param("activityOrderStatus")String activityOrderStatus);
 }

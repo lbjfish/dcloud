@@ -4,6 +4,7 @@
  */
 package com.sida.dcloud.activity.dao;
 
+import com.sida.dcloud.activity.dto.ActivitySignupNoteSettingDto;
 import com.sida.dcloud.activity.po.ActivitySignupNoteSetting;
 import com.sida.xiruo.xframework.dao.IMybatisDao;
 import feign.Param;
@@ -15,4 +16,5 @@ public interface ActivitySignupNoteSettingMapper extends IMybatisDao<ActivitySig
     List<ActivitySignupNoteSetting> selectByVersion(@Param("version") String version);
     int deleteByVersion(@Param("version") String version);
     int resumeByVersion(@Param("version") String version);
+    List<ActivitySignupNoteSettingDto> selectByVersionToClient(@Param("version") String version);
 }
