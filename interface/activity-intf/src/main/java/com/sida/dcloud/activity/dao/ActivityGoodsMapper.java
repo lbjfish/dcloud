@@ -4,9 +4,7 @@
  */
 package com.sida.dcloud.activity.dao;
 
-import com.sida.dcloud.activity.po.ActivityGoods;
-import com.sida.dcloud.activity.po.ActivityInfo;
-import com.sida.dcloud.activity.po.HonoredGuest;
+import com.sida.dcloud.activity.po.*;
 import com.sida.dcloud.activity.vo.ActivityGoodsVo;
 import com.sida.dcloud.activity.vo.HonoredGuestVo;
 import com.sida.xiruo.xframework.dao.IMybatisDao;
@@ -20,4 +18,6 @@ public interface ActivityGoodsMapper extends IMybatisDao<ActivityGoods> {
     int checkRemovableByRel(@Param("ids") String ids);
     List<ActivityGoodsVo> findGoodsListByActivityId(@Param("activityId") String activityId);
     List<ActivityGoodsVo> findGoodsListByGroupId(@Param("groupId") String groupId);
+    List<ActivityGoods> findListByIds(@Param("ids") String ids);
+    Double getTotalPayPriceByIds(@Param("ids") String ids);
 }

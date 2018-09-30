@@ -2,6 +2,7 @@ package com.sida.dcloud.activity.controller;
 
 import com.sida.dcloud.activity.common.ActivityException;
 import com.sida.dcloud.activity.po.ActivityOrder;
+import com.sida.dcloud.activity.po.ActivityOrderGoods;
 import com.sida.dcloud.activity.service.ActivityOrderService;
 import com.sida.dcloud.service.event.config.EventConstants;
 import com.sida.xiruo.xframework.controller.BaseController;
@@ -43,6 +44,18 @@ public class ActivityOrderController extends BaseController {
         ActivityOrder one = activityOrderService.selectByPrimaryKey(id);
         return toResult(one);
     }
+
+    @RequestMapping(value = "/findGoodsListByOrderId", method = RequestMethod.GET)
+    @ApiOperation(value = "根据活动订单主键id获取订单商品信息 - C端调用")
+    public Object findGoodsListByOrderId(@RequestParam("orderId") @ApiParam("订单id")String orderId) {
+        return toResult(activityOrderService.findGoodsListByOrderId(orderId));
+    }
+
+    @RequestMapping(value = "/findGoodsGroupListByOrderId", method = RequestMethod.GET)
+    @ApiOperation(value = "根据活动订单主键id获取订单商品组合信息 - C端调用")
+    public Object findGoodsGroupListByOrderId(@RequestParam("orderId") @ApiParam("订单id")String orderId) {
+        return toResult(activityOrderService.findGroupListByOrderId(orderId));
+    }
     /********************************************************************************/
 
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
@@ -72,10 +85,7 @@ public class ActivityOrderController extends BaseController {
     }
 
     private void checkForm(ActivityOrder param, int event) {
-        String id = Optional.ofNullable(param.getId()).orElse("");
-        if(EventConstants.EVENT_UPDATE == event && "".equals(id)) {
-            throw new ActivityException("更新操作时主键不能空");
-        }
+        checkIdEmpty(param, event);
 
         Optional.ofNullable(param.getOrderName()).orElseThrow(() ->new ActivityException("订单名称不能空"));
 

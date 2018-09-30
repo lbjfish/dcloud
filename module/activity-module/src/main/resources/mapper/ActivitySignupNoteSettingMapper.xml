@@ -223,7 +223,7 @@
     select code, display_name, allow_empty, size_limit, v_regexp
     from activity_signup_note_setting
     where version = #{version} and delete_flag = 0 and hide_status = false
-    order by sort asc
+    order by allow_empty asc, sort asc
   </select>
 
   <select id="selectByVersion" resultMap="ActivitySignupNoteSettingResultMap" parameterType="java.lang.String" >
@@ -231,6 +231,7 @@
     <include refid="ActivitySignupNoteSetting_Column_List" />
     from activity_signup_note_setting
     where version = #{version} and delete_flag = 0
+    order by allow_empty asc, sort asc
   </select>
 
   <update id="deleteByVersion" parameterType="java.lang.String" >

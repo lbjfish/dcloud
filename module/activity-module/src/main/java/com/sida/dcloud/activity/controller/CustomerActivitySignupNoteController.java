@@ -80,10 +80,7 @@ public class CustomerActivitySignupNoteController extends BaseController {
     }
 
     private void checkForm(CustomerActivitySignupNote param, int event) {
-        String id = Optional.ofNullable(param.getId()).orElse("");
-        if(EventConstants.EVENT_UPDATE == event && "".equals(id)) {
-            throw new ActivityException("更新操作时主键不能空");
-        }
+        checkIdEmpty(param, event);
 
         Optional.ofNullable(param.getUserId()).orElseThrow(() ->new ActivityException("用户不能空"));
         Optional.ofNullable(param.getVersion()).orElseThrow(() ->new ActivityException("版本号不能空"));

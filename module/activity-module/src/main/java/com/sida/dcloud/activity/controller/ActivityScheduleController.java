@@ -80,10 +80,7 @@ public class ActivityScheduleController extends BaseController {
     }
 
     private void checkForm(ActivitySchedule param, int event) {
-        String id = Optional.ofNullable(param.getId()).orElse("");
-        if(EventConstants.EVENT_UPDATE == event && "".equals(id)) {
-            throw new ActivityException("更新操作时主键不能空");
-        }
+        checkIdEmpty(param, event);
 
         Optional.ofNullable(param.getActivityId()).orElseThrow(() ->new ActivityException("活动不能空"));
         Optional.ofNullable(param.getStartTime()).orElseThrow(() ->new ActivityException("开始时间不能空"));

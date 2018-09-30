@@ -395,4 +395,16 @@
     left join activity_goods_group g on g.id = rel.group_id
     where goods.activity_id = #{activityId} and goods.delete_flag = 0 order by rel.sort asc
   </select>
+
+  <select id="findListByIds" resultMap="ActivityGoodsResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="ActivityGoods_Column_List" />
+    from activity_goods
+    where ids in ${ids} and delete_flag = 0
+    order by sort asc
+  </select>
+
+  <select id="getTotalPayPriceByIds" parameterType="java.lang.String" resultType="java.lang.Double">
+    select sum(pay_price) from activity_goods where id in ${ids}
+  </select>
 </mapper>

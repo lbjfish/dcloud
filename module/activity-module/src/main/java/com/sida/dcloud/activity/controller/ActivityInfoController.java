@@ -37,6 +37,12 @@ public class ActivityInfoController extends BaseController {
         return toResult(object);
     }
 
+    /**
+     * C端获取订单采取三段式请求
+     * 订单 -> 商品 -> 商品组合
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/findOne", method = RequestMethod.GET)
     @ApiOperation(value = "根据活动主键id获取信息")
     public Object findOne(@RequestParam("id") @ApiParam("id")String id) {
@@ -72,10 +78,7 @@ public class ActivityInfoController extends BaseController {
     }
 
     private void checkForm(ActivityInfo param, int event) {
-        String id = Optional.ofNullable(param.getId()).orElse("");
-        if(EventConstants.EVENT_UPDATE == event && "".equals(id)) {
-            throw new ActivityException("更新操作时主键不能空");
-        }
+        checkIdEmpty(param, event);
 
         Optional.ofNullable(param.getName()).orElseThrow(() ->new ActivityException("活动名称不能空"));
         Optional.ofNullable(param.getStartTime()).orElseThrow(() ->new ActivityException("活动开始时间不能空"));

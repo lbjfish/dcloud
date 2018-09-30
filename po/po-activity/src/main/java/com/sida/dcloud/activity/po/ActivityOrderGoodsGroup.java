@@ -8,17 +8,17 @@ import com.sida.xiruo.po.common.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
-public class ActivityOrderGoods extends BaseEntity implements Serializable {
+public class ActivityOrderGoodsGroup extends BaseEntity implements Serializable {
     @ApiModelProperty("订单id（关联activity_order表id）")
     private String orderId;
 
-    @ApiModelProperty("商品id（关联activity_goods表id）")
-    private String goodsId;
+    @ApiModelProperty("商品id（关联activity_goods_group表id）")
+    private String groupId;
 
-    @ApiModelProperty("商品销售价")
+    @ApiModelProperty("价钱")
     private Double payPrice;
 
-    @ApiModelProperty("商品数量")
+    @ApiModelProperty("数量")
     private Integer payCount;
 
     @ApiModelProperty("排序值（值越小越靠前）")
@@ -34,15 +34,15 @@ public class ActivityOrderGoods extends BaseEntity implements Serializable {
     }
 
     public void setOrderId(String orderId) {
-        this.orderId = orderId;
+        this.orderId = orderId == null ? null : orderId.trim();
     }
 
-    public String getGoodsId() {
-        return goodsId;
+    public String getGroupId() {
+        return groupId;
     }
 
-    public void setGoodsId(String goodsId) {
-        this.goodsId = goodsId == null ? null : goodsId.trim();
+    public void setGroupId(String groupId) {
+        this.groupId = groupId == null ? null : groupId.trim();
     }
 
     public Double getPayPrice() {

@@ -15,7 +15,10 @@ public class ActivityGoodsGroup extends BaseEntity implements Serializable {
     @ApiModelProperty("组合名称")
     private String name;
 
-    @ApiModelProperty("折扣")
+    @ApiModelProperty("销售价")
+    private Double payPrice;
+
+    @ApiModelProperty("折扣（暂未使用）")
     private Double discount;
 
     @ApiModelProperty("减免金额")
@@ -49,6 +52,14 @@ public class ActivityGoodsGroup extends BaseEntity implements Serializable {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
+    }
+
+    public Double getPayPrice() {
+        return payPrice;
+    }
+
+    public void setPayPrice(Double payPrice) {
+        this.payPrice = payPrice;
     }
 
     public Double getDiscount() {

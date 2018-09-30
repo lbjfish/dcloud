@@ -14,7 +14,9 @@ import com.sida.xiruo.xframework.vo.JsonResult;
 import com.github.pagehelper.Page;
 import org.apache.commons.beanutils.PropertyUtilsBean;
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.ss.formula.functions.T;
 import org.slf4j.LoggerFactory;
+import org.slf4j.event.EventConstants;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.jwt.JwtHelper;
 import org.springframework.security.oauth2.common.util.JsonParser;
@@ -395,5 +397,11 @@ public class BaseController {
         }
 
         po.setOrgId(user.getOrgId());
+    }
+
+    protected <T extends BaseEntity> void checkIdEmpty(T po, int event) {
+        if(Contants.EVENT_UPDATE == event) {
+            Optional.ofNullable(po.getId()).orElseThrow(() -> new RuntimeException("更新操作时主键不能空"));
+        }
     }
 }

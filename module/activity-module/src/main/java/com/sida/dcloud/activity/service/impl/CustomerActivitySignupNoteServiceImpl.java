@@ -35,7 +35,12 @@ import java.util.stream.Collectors;
 public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<CustomerActivitySignupNote> implements CustomerActivitySignupNoteService {
     private static final Logger LOG = LoggerFactory.getLogger(CustomerActivitySignupNoteServiceImpl.class);
     private static final String LOCK_KEY_CHECK_MULTI = "LOCK_KEY_CHECK_MULTI_" + CustomerActivitySignupNoteServiceImpl.class.getName();
-    private static final Field[] NOTE_FIELD_ARRAY = CustomerActivitySignupNote.class.getDeclaredFields();
+    private static final Map<String, Field> NOTE_FIELD_MAP = new HashMap<>();
+
+    static {
+        Field[] fieldArray = CustomerActivitySignupNote.class.getDeclaredFields();
+        Arrays.stream(fieldArray).forEach(field -> NOTE_FIELD_MAP.put(field.getName(), field));
+    }
 
     @Autowired
     private DistributedLock distributedLock;
@@ -46,8 +51,6 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
     private CustomerActivitySignupNoteMapper customerActivitySignupNoteMapper;
     @Autowired
     private ActivitySignupNoteSettingService activitySignupNoteSettingService;
-    @Autowired
-    private ActivitySignupNoteVersionService activitySignupNoteVersionService;
 
     @Override
     public IMybatisDao<CustomerActivitySignupNote> getBaseDao() {
@@ -72,19 +75,31 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
 
     @Override
     public ActivitySignupNoteDto findOneToClient(String id) {
-        ActivitySignupNoteDto dto = null;
-        CustomerActivitySignupNote note = customerActivitySignupNoteMapper.selectByPrimaryKey(id);
-        if(null != note) {
-            dto = new ActivitySignupNoteDto();
+        ActivitySignupNoteDto dto = new ActivitySignupNoteDto();
+        Optional.ofNullable(customerActivitySignupNoteMapper.selectByPrimaryKey(id)).ifPresent(note -> {
             String version = note.getVersion();
             dto.setSettingList(activitySignupNoteSettingService.selectByVersionToClient(version));
             Map<String, Object> valueMap = dto.getValueMap();
-            //将settingList里的所有字段名串起来
-            String codes = String.format(",%s,", dto.getSettingList().stream().map(setting -> setting.getCode()).reduce((code1, code2) -> String.format("%s,%s", code1, code2)).get());
-            //只有被设置的字段需要取值并返回，因为字段未知因此采用map存储返回
-            Arrays.stream(NOTE_FIELD_ARRAY).filter(field -> codes.indexOf(String.format(",%s,", field.getName())) > 0)
-                    .forEach(field -> {
-                        //打开私有访问
+            {
+                //此实现无法排序
+                //将settingList里的所有字段名串起来
+//            String codes = String.format(",%s,", dto.getSettingList().stream().map(setting -> setting.getCode()).reduce((code1, code2) -> String.format("%s,%s", code1, code2)).get());
+                //只有被设置的字段需要取值并返回，因为字段未知因此采用map存储返回
+//            Arrays.stream(NOTE_FIELD_ARRAY).filter(field -> codes.indexOf(String.format(",%s,", field.getName())) > 0)
+//                    .forEach(field -> {
+//                        //打开私有访问
+//                        field.setAccessible(true);
+//                        try {
+//                            Object value = field.get(note);
+//                            valueMap.put(field.getName(), value);
+//                        } catch (IllegalAccessException e) {
+//                            throw new ActivityException(e);
+//                        }
+//                    });
+            }
+            {
+                dto.getSettingList().forEach(setting -> {
+                    Optional.ofNullable(NOTE_FIELD_MAP.get(setting.getCode())).ifPresent(field -> {
                         field.setAccessible(true);
                         try {
                             Object value = field.get(note);
@@ -93,7 +108,9 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
                             throw new ActivityException(e);
                         }
                     });
-        }
+                });
+            }
+        });
         return dto;
     }
 
@@ -167,7 +184,7 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
         //从缓存获取报名规则
         Map<String, ActivitySignupNoteSetting> settingMap = activityCacheUtil.getVersionSettingMap();
         if(!settingMap.isEmpty()) {
-            Arrays.stream(NOTE_FIELD_ARRAY).forEach(field -> {
+            NOTE_FIELD_MAP.values().forEach(field -> {
                 ActivitySignupNoteSetting setting = null;
                 if((setting = settingMap.get(field.getName())) != null) {
                     //字段隐藏则无需判断

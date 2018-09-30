@@ -1,7 +1,6 @@
 package com.sida.dcloud.activity.controller;
 
 import com.sida.dcloud.activity.common.ActivityException;
-import com.sida.dcloud.activity.po.ActivityGoods;
 import com.sida.dcloud.activity.po.ActivityGoodsGroup;
 import com.sida.dcloud.activity.service.ActivityGoodsGroupService;
 import com.sida.dcloud.service.event.config.EventConstants;
@@ -86,10 +85,7 @@ public class ActivityGoodsGroupController extends BaseController {
     }
 
     private void checkForm(ActivityGoodsGroup param, int event) {
-        String id = Optional.ofNullable(param.getId()).orElse("");
-        if(EventConstants.EVENT_UPDATE == event && "".equals(id)) {
-            throw new ActivityException("更新操作时主键不能空");
-        }
+        checkIdEmpty(param, event);
 
         Optional.ofNullable(param.getName()).orElseThrow(() ->new ActivityException("必须指定组名称"));
 

@@ -52,6 +52,16 @@ public class ActivityGoodsServiceImpl extends BaseServiceImpl<ActivityGoods> imp
     }
 
     @Override
+    public List<ActivityGoods> findListByIds(String ids) {
+        return activityGoodsMapper.findListByIds(ids);
+    }
+
+    @Override
+    public Double getTotalPayPriceByIds(String ids) {
+        return activityGoodsMapper.getTotalPayPriceByIds(ids);
+    }
+
+    @Override
     public Page<ActivityGoodsVo> findPageList(ActivityGoods po) {
         PageHelper.startPage(po.getP(),po.getS());
         List<ActivityGoodsVo> voList = activityGoodsMapper.findVoList(po);

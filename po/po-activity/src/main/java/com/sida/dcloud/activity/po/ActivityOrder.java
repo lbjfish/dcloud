@@ -4,12 +4,17 @@
  */
 package com.sida.dcloud.activity.po;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sida.dcloud.activity.dto.IdAndCountDto;
 import com.sida.xiruo.po.common.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class ActivityOrder extends BaseEntity implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @ApiModelProperty("订单编号（由规则产生）")
     private String orderNo;
 
@@ -49,7 +54,27 @@ public class ActivityOrder extends BaseEntity implements Serializable {
     @ApiModelProperty("备注")
     private String remark;
 
-    private static final long serialVersionUID = 1L;
+//    @JsonIgnore
+    @ApiModelProperty("订单商品列表")
+    private List<IdAndCountDto> goodsList;
+    @ApiModelProperty("订单商品组合列表")
+    private List<IdAndCountDto> groupList;
+
+    public List<IdAndCountDto> getGoodsList() {
+        return goodsList;
+    }
+
+    public void setGoodsList(List<IdAndCountDto> goodsList) {
+        this.goodsList = goodsList;
+    }
+
+    public List<IdAndCountDto> getGroupList() {
+        return groupList;
+    }
+
+    public void setGroupList(List<IdAndCountDto> groupList) {
+        this.groupList = groupList;
+    }
 
     public String getOrderNo() {
         return orderNo;

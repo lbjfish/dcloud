@@ -15,6 +15,9 @@ public class ActivityGoodsGroupVo extends UserCentricDTO {
     @ApiModelProperty("组名称")
     private String name;
 
+    @ApiModelProperty("销售价")
+    private Double payPrice;
+
     @ApiModelProperty("折扣")
     private Double discount;
 
@@ -26,6 +29,14 @@ public class ActivityGoodsGroupVo extends UserCentricDTO {
 
     @ApiModelProperty("余量")
     private Integer remaining;
+
+    public Double getPayPrice() {
+        return payPrice;
+    }
+
+    public void setPayPrice(Double payPrice) {
+        this.payPrice = payPrice;
+    }
 
     public String getId() {
         return id;

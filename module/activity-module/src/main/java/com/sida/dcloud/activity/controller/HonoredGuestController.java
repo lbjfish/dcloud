@@ -80,10 +80,7 @@ public class HonoredGuestController extends BaseController {
     }
 
     private void checkForm(HonoredGuest param, int event) {
-        String id = Optional.ofNullable(param.getId()).orElse("");
-        if(EventConstants.EVENT_UPDATE == event && "".equals(id)) {
-            throw new ActivityException("更新操作时主键不能空");
-        }
+        checkIdEmpty(param, event);
 
         Optional.ofNullable(param.getName()).orElseThrow(() ->new ActivityException("名字不能空"));
         Optional.ofNullable(param.getHonor()).orElseThrow(() ->new ActivityException("头衔不能空"));

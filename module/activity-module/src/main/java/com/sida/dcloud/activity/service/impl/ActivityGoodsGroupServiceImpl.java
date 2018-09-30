@@ -4,13 +4,10 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sida.dcloud.activity.common.ActivityException;
 import com.sida.dcloud.activity.dao.ActivityGoodsGroupMapper;
-import com.sida.dcloud.activity.po.ActivityGoods;
 import com.sida.dcloud.activity.po.ActivityGoodsGroup;
 import com.sida.dcloud.activity.service.ActivityGoodsGroupService;
 import com.sida.dcloud.activity.service.ActivityGoodsRelGroupService;
-import com.sida.dcloud.activity.service.ActivityRelHonoredService;
 import com.sida.dcloud.activity.vo.ActivityGoodsGroupVo;
-import com.sida.dcloud.activity.vo.ActivityGoodsVo;
 import com.sida.xiruo.common.util.Xiruo;
 import com.sida.xiruo.xframework.dao.IMybatisDao;
 import com.sida.xiruo.xframework.lock.DistributedLock;
@@ -145,5 +142,15 @@ public class ActivityGoodsGroupServiceImpl extends BaseServiceImpl<ActivityGoods
     @Override
     public List<ActivityGoodsGroupVo> findGroupListByGoodsId(String goodsId) {
         return activityGoodsGroupMapper.findGroupListByGoodsId(goodsId);
+    }
+
+    @Override
+    public List<ActivityGoodsGroup> findListByIds(String ids) {
+        return activityGoodsGroupMapper.findListByIds(ids);
+    }
+
+    @Override
+    public int updateGroupPayPrice(String groupId, Double payPrice) {
+        return activityGoodsGroupMapper.updateGroupPayPrice(groupId, payPrice);
     }
 }

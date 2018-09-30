@@ -4,6 +4,7 @@
  */
 package com.sida.dcloud.activity.po;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sida.xiruo.po.common.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
@@ -139,6 +140,7 @@ public class ActivityInfo extends BaseEntity implements Serializable {
     @ApiModelProperty("备注")
     private String remark;
 
+    @JsonIgnore
     @ApiModelProperty("商品集合")
     private List<ActivityGoods> activityGoodsList;
 

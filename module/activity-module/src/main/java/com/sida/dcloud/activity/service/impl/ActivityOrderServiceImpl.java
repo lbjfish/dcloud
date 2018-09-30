@@ -2,12 +2,15 @@ package com.sida.dcloud.activity.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.google.common.util.concurrent.AtomicDouble;
 import com.sida.dcloud.activity.common.ActivityConstants;
 import com.sida.dcloud.activity.common.ActivityException;
+import com.sida.dcloud.activity.dao.ActivityOrderGoodsMapper;
 import com.sida.dcloud.activity.dao.ActivityOrderMapper;
+import com.sida.dcloud.activity.dto.IdAndCountDto;
+import com.sida.dcloud.activity.po.*;
 import com.sida.dcloud.activity.po.ActivityOrder;
-import com.sida.dcloud.activity.po.ActivityOrder;
-import com.sida.dcloud.activity.service.ActivityOrderService;
+import com.sida.dcloud.activity.service.*;
 import com.sida.dcloud.activity.vo.ActivityOrderVo;
 import com.sida.dcloud.activity.vo.ActivityOrderVo;
 import com.sida.xiruo.xframework.dao.IMybatisDao;
@@ -18,20 +21,30 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ActivityOrderServiceImpl extends BaseServiceImpl<ActivityOrder> implements ActivityOrderService {
     private static final Logger LOG = LoggerFactory.getLogger(ActivityOrderServiceImpl.class);
     
-    private static final String LOCK_KEY_CHECK_MULTI = "LOCK_KEY_CHECK_MULTI_" + ActivityOrderServiceImpl.class.getName();
+//    private static final String LOCK_KEY_CHECK_MULTI = "LOCK_KEY_CHECK_MULTI_" + ActivityOrderServiceImpl.class.getName();
     private static final String LOCK_KEY_CHECK_ACTIVITY_ORDER_STATUS = "LOCK_KEY_CHECK_ACTIVITY_ORDER_STATUS_" + ActivityOrderServiceImpl.class.getName();
 
     @Autowired
     private DistributedLock distributedLock;
     @Autowired
     private ActivityOrderMapper activityOrderMapper;
+    @Autowired
+    private ActivityGoodsService activityGoodsService;
+    @Autowired
+    private ActivityGoodsGroupService activityGoodsGroupService;
+    @Autowired
+    private ActivityOrderGoodsService activityOrderGoodsService;
+    @Autowired
+    private ActivityOrderGoodsGroupService activityOrderGoodsGroupService;
 
     @Override
     public IMybatisDao<ActivityOrder> getBaseDao() {
@@ -74,6 +87,96 @@ public class ActivityOrderServiceImpl extends BaseServiceImpl<ActivityOrder> imp
     }
 
     @Override
+    public List<ActivityOrderGoods> findGoodsListByOrderId(String orderId) {
+        return activityOrderGoodsService.findListByOrderId(orderId);
+    }
+
+    @Override
+    public List<ActivityOrderGoodsGroup> findGroupListByOrderId(String orderId) {
+        return activityOrderGoodsGroupService.findListByOrderId(orderId);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public int insert(ActivityOrder po) {
+        batchAction(po);
+        return super.insert(po);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public int updateByPrimaryKey(ActivityOrder po) {
+        batchAction(po);
+        return super.updateByPrimaryKey(po);
+    }
+
+    /**
+     * 从前端传的参数只有id，数量，排序值
+     * 商品销售价，折扣信息从数据库取原始商品和商品组合信息
+     * 最终得到总金额和总减免金额
+     * @param po 订单
+     */
+    private void batchAction(ActivityOrder po) {
+        Map<String, IdAndCountDto> map = new HashMap<>();
+        AtomicDouble totalAmount = new AtomicDouble(0);
+        AtomicDouble minusAmount = new AtomicDouble(0);
+        Optional.ofNullable(po.getGoodsList()).ifPresent(list -> {
+            if (!list.isEmpty()) {
+                StringBuilder builder = new StringBuilder("'0'");
+                list.stream().map(o -> {
+                    map.put(o.getId(), o);
+                    return String.format(",'%s'", o.getId());
+                }).forEach(builder::append);
+                List<ActivityGoods> originalGoodsList = activityGoodsService.findListByIds(builder.toString());
+                List<ActivityOrderGoods> goodsList = new ArrayList<>();
+                originalGoodsList.forEach(goods -> {
+                    Optional.ofNullable(map.get(goods.getId())).ifPresent(idAndCount -> {
+                        ActivityOrderGoods o = new ActivityOrderGoods();
+                        o.setOrderId(po.getId());
+                        o.setGoodsId(idAndCount.getId());
+                        o.setPayCount(idAndCount.getCount());
+                        o.setSort(idAndCount.getSort());
+                        o.setPayPrice(goods.getPayPrice());
+                        totalAmount.addAndGet(o.getPayPrice());
+                        goodsList.add(o);
+                    });
+                });
+                activityOrderGoodsService.batchInsert(goodsList);
+                map.clear();
+            }
+        });
+        Optional.ofNullable(po.getGroupList()).ifPresent(list -> {
+            if (!list.isEmpty()) {
+                StringBuilder builder = new StringBuilder("'0'");
+                list.stream().map(o -> {
+                    map.put(o.getId(), o);
+                    return String.format(",'%s'", o.getId());
+                }).forEach(builder::append);
+                List<ActivityGoodsGroup> originalGroupList = activityGoodsGroupService.findListByIds(builder.toString());
+                List<ActivityOrderGoodsGroup> groupList = new ArrayList<>();
+                originalGroupList.forEach(group -> {
+                    Optional.ofNullable(map.get(group.getId())).ifPresent(idAndCount -> {
+                        ActivityOrderGoodsGroup o = new ActivityOrderGoodsGroup();
+                        o.setOrderId(po.getId());
+                        o.setGroupId(idAndCount.getId());
+                        o.setPayCount(idAndCount.getCount());
+                        o.setSort(idAndCount.getSort());
+                        o.setPayPrice(group.getPayPrice());
+                        totalAmount.addAndGet(o.getPayPrice());
+                        minusAmount.addAndGet(group.getMinusAmount());
+                        groupList.add(o);
+                    });
+                });
+                activityOrderGoodsGroupService.batchInsert(groupList);
+                map.clear();
+            }
+        });
+        po.setGoodsAmount(totalAmount.get());
+        po.setMinusAmount(minusAmount.get());
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
     public int deleteByPrimaryKeys(String ids) {
         boolean lock = distributedLock.lock(LOCK_KEY_CHECK_ACTIVITY_ORDER_STATUS, RedisLock.KEEP_MILLS, RedisLock.RETRY_TIMES, RedisLock.SLEEP_MILLS);
         int result = -1;
@@ -84,9 +187,10 @@ public class ActivityOrderServiceImpl extends BaseServiceImpl<ActivityOrder> imp
             LOG.debug("Get lock success : " + LOCK_KEY_CHECK_ACTIVITY_ORDER_STATUS);
             try {
                 if (activityOrderMapper.checkCountForActivityOrderStatus(ids, ActivityConstants.REMOVABLE_ACTIVITY_ORDER_STATUS_FLAGS) > 0) {
-                    throw new ActivityException("次状态订单不允许删除");
+                    throw new ActivityException("此状态订单不允许删除");
                 }
                 result = activityOrderMapper.deleteByPrimaryKeys(ids);
+                activityOrderGoodsService.deleteByPrimaryKeys(ids);
             } catch(Exception e) {
                 LOG.error(getClass().getName() + ".deleteByPrimaryKeys method occured exception", e);
             } finally {

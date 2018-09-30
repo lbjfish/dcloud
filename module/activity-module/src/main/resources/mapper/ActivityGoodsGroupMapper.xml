@@ -5,6 +5,7 @@
     <result column="id" property="id" jdbcType="VARCHAR" />
     <result column="activity_id" property="activityId" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="pay_price" property="payPrice" jdbcType="DOUBLE" />
     <result column="discount" property="discount" jdbcType="DOUBLE" />
     <result column="minus_amount" property="minusAmount" jdbcType="DOUBLE" />
     <result column="quantity" property="quantity" jdbcType="INTEGER" />
@@ -13,13 +14,14 @@
     <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="ActivityGoodsGroup_Column_List" >
-    id, activity_id, name, discount, minus_amount, quantity, remaining, sort, remark
+    id, activity_id, name, pay_price, discount, minus_amount, quantity, remaining, sort, 
+    remark
   </sql>
   <insert id="insert" parameterType="com.sida.dcloud.activity.po.ActivityGoodsGroup" >
-    insert into activity_goods_group (id, activity_id, name, discount, minus_amount, quantity, 
-      remaining, sort, remark)
-    values (#{id}, #{activityId}, #{name}, #{discount}, #{minusAmount}, #{quantity}, 
-      #{remaining}, #{sort}, #{remark})
+    insert into activity_goods_group (id, activity_id, name, pay_price, discount, minus_amount, 
+      quantity, remaining, sort, remark)
+    values (#{id}, #{activityId}, #{name}, #{payPrice}, #{discount}, #{minusAmount}, 
+      #{quantity}, #{remaining}, #{sort}, #{remark})
   </insert>
   <insert id="insertSelective" parameterType="com.sida.dcloud.activity.po.ActivityGoodsGroup" >
     insert into activity_goods_group
@@ -32,6 +34,9 @@
       </if>
       <if test="name != null" >
         name,
+      </if>
+      <if test="payPrice != null" >
+        pay_price,
       </if>
       <if test="discount != null" >
         discount,
@@ -61,6 +66,9 @@
       </if>
       <if test="name != null" >
         #{name},
+      </if>
+      <if test="payPrice != null" >
+        #{payPrice},
       </if>
       <if test="discount != null" >
         #{discount},
@@ -92,6 +100,9 @@
       </if>
       <if test="name != null and name != ''" >
         AND name = #{name}
+      </if>
+      <if test="payPrice != null" >
+        AND pay_price = #{payPrice}
       </if>
       <if test="discount != null" >
         AND discount = #{discount}
@@ -137,6 +148,9 @@
       <if test="po.name != null" >
         name = #{po.name},
       </if>
+      <if test="po.payPrice != null" >
+        pay_price = #{po.payPrice},
+      </if>
       <if test="po.discount != null" >
         discount = #{po.discount},
       </if>
@@ -171,6 +185,7 @@
     <result column="id" property="id" jdbcType="VARCHAR" />
     <result column="activity_id" property="activityId" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="DOUBLE" />
+    <result column="pay_price" property="payPrice" jdbcType="DOUBLE" />
     <result column="discount" property="discount" jdbcType="DOUBLE" />
     <result column="minus_amount" property="minusAmount" jdbcType="DOUBLE" />
     <result column="quantity" property="quantity" jdbcType="INTEGER" />
@@ -205,13 +220,13 @@
   </select>
 
   <select id="findGroupListByActivityId" resultMap="ActivityGoodsGroupVoResultMap" parameterType="java.lang.String" >
-    select id,activity_id,name,discount,minus_amount,quantity,remaining
+    select id,activity_id,name,pay_price,discount,minus_amount,quantity,remaining
     from activity_goods_group
     where activity_id = #{activityId} order by sort asc
   </select>
 
   <select id="findGroupListByGoodsId" resultMap="ActivityGoodsGroupVoResultMap" parameterType="java.lang.String" >
-    select g.id,g.activity_id,g.name,g.discount,g.minus_amount,g.quantity,g.remaining
+    select g.id,g.activity_id,g.name,go.pay_price,g.discount,g.minus_amount,g.quantity,g.remaining
     from activity_goods_group g
     left join activity_goods_rel_group rel on rel.group_id = g.id
     left join activity_goods goods on goods.id = rel.goods_id
@@ -220,7 +235,7 @@
 
   <select id="findVoList" parameterType="com.sida.dcloud.activity.po.ActivityGoodsGroup" resultMap="ActivityGoodsGroupVoResultMap">
     select
-    id,activity_id,name,discount,minus_amount,quantity,remaining
+    id,activity_id,name,pay_price,discount,minus_amount,quantity,remaining
     from activity_goods_group
     <where>
       1=1
@@ -245,4 +260,16 @@
   <select id="checkRemovableByRel" parameterType="java.lang.String" resultType="int">
     select count(0) from activity_goods_rel_group where group_id in (${ids})
   </select>
+
+  <select id="findListByIds" resultMap="ActivityGoodsGroupResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="ActivityGoodsGroup_Column_List" />
+    from activity_goods_group
+    where ids in ${ids} and delete_flag = 0
+    order by sort asc
+  </select>
+
+  <update id="updateGroupPayPrice">
+    update activity_goods_group set pay_price = #{payPrice} where id = #{groupId}
+  </update>
 </mapper>

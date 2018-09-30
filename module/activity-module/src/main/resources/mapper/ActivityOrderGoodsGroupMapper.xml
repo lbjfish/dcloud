@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.sida.dcloud.activity.dao.ActivityOrderGoodsMapper" >
-  <resultMap id="ActivityOrderGoodsResultMap" type="com.sida.dcloud.activity.po.ActivityOrderGoods" >
+<mapper namespace="com.sida.dcloud.activity.dao.ActivityOrderGoodsGroupMapper" >
+  <resultMap id="ActivityOrderGoodsGroupResultMap" type="com.sida.dcloud.activity.po.ActivityOrderGoodsGroup" >
     <result column="id" property="id" jdbcType="VARCHAR" />
     <result column="org_id" property="orgId" jdbcType="VARCHAR" />
     <result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
@@ -12,26 +12,26 @@
     <result column="red_string5" property="redString5" jdbcType="VARCHAR" />
     <result column="red_string6" property="redString6" jdbcType="VARCHAR" />
     <result column="order_id" property="orderId" jdbcType="VARCHAR" />
-    <result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="group_id" property="groupId" jdbcType="VARCHAR" />
     <result column="pay_price" property="payPrice" jdbcType="DOUBLE" />
     <result column="pay_count" property="payCount" jdbcType="INTEGER" />
     <result column="sort" property="sort" jdbcType="INTEGER" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="ActivityOrderGoods_Column_List" >
-    id, org_id, delete_flag, red_string1, red_string2, red_string3, red_string4, red_string5, 
-    red_string6, order_id, goods_id, pay_price, pay_count, sort, remark
+  <sql id="ActivityOrderGoodsGroup_Column_List" >
+    id, org_id, delete_flag, red_string1, red_string2, red_string3, red_string4, red_string5,
+    red_string6, order_id, group_id, pay_price, pay_count, sort, remark
   </sql>
-  <insert id="insert" parameterType="com.sida.dcloud.activity.po.ActivityOrderGoods" >
-    insert into activity_order_goods (id, org_id, delete_flag, red_string1, red_string2, red_string3, 
-      red_string4, red_string5, red_string6, order_id, goods_id, pay_price, 
+  <insert id="insert" parameterType="com.sida.dcloud.activity.po.ActivityOrderGoodsGroup" >
+    insert into activity_order_goods_group (id, org_id, delete_flag, red_string1, red_string2, red_string3,
+      red_string4, red_string5, red_string6, order_id, group_id, pay_price,
       pay_count, sort, remark)
-    values (#{id}, #{orgId}, #{deleteFlag}, #{redString1}, #{redString2}, #{redString3}, 
-      #{redString4}, #{redString5}, #{redString6}, #{orderId}, #{goodsId}, #{payPrice}, 
+    values (#{id}, #{orgId}, #{deleteFlag}, #{redString1}, #{redString2}, #{redString3},
+      #{redString4}, #{redString5}, #{redString6}, #{orderId}, #{groupId}, #{payPrice},
       #{payCount}, #{sort}, #{remark})
   </insert>
-  <insert id="insertSelective" parameterType="com.sida.dcloud.activity.po.ActivityOrderGoods" >
-    insert into activity_order_goods
+  <insert id="insertSelective" parameterType="com.sida.dcloud.activity.po.ActivityOrderGoodsGroup" >
+    insert into activity_order_goods_group
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -63,8 +63,8 @@
       <if test="orderId != null" >
         order_id,
       </if>
-      <if test="goodsId != null" >
-        goods_id,
+      <if test="groupId != null" >
+        group_id,
       </if>
       <if test="payPrice != null" >
         pay_price,
@@ -110,8 +110,8 @@
       <if test="orderId != null" >
         #{orderId},
       </if>
-      <if test="goodsId != null" >
-        #{goodsId},
+      <if test="groupId != null" >
+        #{groupId},
       </if>
       <if test="payPrice != null" >
         #{payPrice},
@@ -159,8 +159,8 @@
       <if test="orderId != null and orderId != ''" >
         AND order_id = #{orderId}
       </if>
-      <if test="goodsId != null and goodsId != ''" >
-        AND goods_id = #{goodsId}
+      <if test="groupId != null and groupId != ''" >
+        AND group_id = #{groupId}
       </if>
       <if test="payPrice != null" >
         AND pay_price = #{payPrice}
@@ -176,10 +176,10 @@
       </if>
     </where>
   </sql>
-  <select id="selectByCondition" parameterType="com.sida.dcloud.activity.po.ActivityOrderGoods" resultMap="ActivityOrderGoodsResultMap" >
-    select 
-    <include refid="ActivityOrderGoods_Column_List" />
-    from activity_order_goods
+  <select id="selectByCondition" parameterType="com.sida.dcloud.activity.po.ActivityOrderGoodsGroup" resultMap="ActivityOrderGoodsGroupResultMap" >
+    select
+    <include refid="ActivityOrderGoodsGroup_Column_List" />
+    from activity_order_goods_group
     <include refid="Where_Condition" />
     <if test="orderField != null and orderField != ''" >
       ORDER BY ${orderField}
@@ -189,7 +189,7 @@
     </if>
   </select>
   <update id="updateByIdsSelective" >
-    update activity_order_goods
+    update activity_order_goods_group
     <set >
       <if test="po.id != null" >
         id = #{po.id},
@@ -221,8 +221,8 @@
       <if test="po.orderId != null" >
         order_id = #{po.orderId},
       </if>
-      <if test="po.goodsId != null" >
-        goods_id = #{po.goodsId},
+      <if test="po.groupId != null" >
+        group_id = #{po.groupId},
       </if>
       <if test="po.payPrice != null" >
         pay_price = #{po.payPrice},
@@ -248,31 +248,38 @@
   <!-- ***************************************************************************** -->
   <!-- 以上自动生成，以下自定义 -->
 
-  <select id="findListByOrderId" resultMap="ActivityOrderGoodsResultMap" parameterType="java.lang.String" >
+  <select id="findListByOrderId" resultMap="ActivityOrderGoodsGroupResultMap" parameterType="java.lang.String" >
     select
-    <include refid="ActivityOrderGoods_Column_List" />
-    from activity_order_goods
+    <include refid="ActivityOrderGoodsGroup_Column_List" />
+    from activity_order_goods_group
     where order_id = #{orderId} and delete_flag = 0
     order by sort asc
   </select>
 
+  <select id="findListByIds" resultMap="ActivityOrderGoodsGroupResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="ActivityOrderGoodsGroup_Column_List" />
+    from activity_order_goods_group
+    where ids in ${ids} and delete_flag = 0
+  </select>
+
   <insert id="batchInsert" parameterType="java.util.List" >
-    insert into activity_order_goods (order_id, goos_id, pay_price, pay_count, sort, remark)
+    insert into activity_order_goods_group (order_id, group_id, pay_price, pay_count, sort, remark)
     <foreach collection="list" item="po" open="" close="" separator="union all" >
-      select #{po.orderId}, #{po.goodsId}, #{po.payPrice}, #{po.payCount}, #{po.sort}, #{po.remark}
+      select #{po.orderId}, #{po.groupId}, #{po.payPrice}, #{po.payCount}, #{po.sort}, #{po.remark}
       from dual
-      where not exists (select * from activity_order_goods where order_id = #{po.orderId} and goos_id = #{po.goodsId})
+      where not exists (select * from activity_order_goods_group where order_id = #{po.orderId} and goos_id = #{po.groupId})
     </foreach>
   </insert>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    update activity_order_goods set delete_flag = 1 where id = #{id}
+    update activity_order_goods_group set delete_flag = 1 where id = #{id}
   </delete>
   <delete id="deleteByPrimaryKeys" parameterType="java.lang.String" >
-    update activity_order_goods set delete_flag = 1 where id in (${ids})
+    update activity_order_goods_group set delete_flag = 1 where id in (${ids})
   </delete>
 
   <delete id="physicalDeleteByOrderId" parameterType="java.lang.String" >
-    delete from activity_order_goods where order_id = #{orderId}
+    delete from activity_order_goods_group where order_id = #{orderId}
   </delete>
 </mapper>
