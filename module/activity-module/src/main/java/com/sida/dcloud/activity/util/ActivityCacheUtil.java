@@ -1,18 +1,33 @@
 package com.sida.dcloud.activity.util;
 
 import com.sida.dcloud.activity.po.ActivitySignupNoteSetting;
+import com.sida.dcloud.activity.service.ActivityOrderService;
 import com.sida.dcloud.activity.service.ActivitySignupNoteSettingService;
 import com.sida.dcloud.activity.service.ActivitySignupNoteVersionService;
+import com.sida.dcloud.activity.service.CustomerActivitySignupNoteService;
+import com.sida.dcloud.activity.service.impl.ActivityOrderServiceImpl;
+import com.sida.dcloud.activity.service.impl.CustomerActivitySignupNoteServiceImpl;
 import com.sida.dcloud.event.po.activity.*;
 import com.sida.xiruo.common.util.Xiruo;
 import com.sida.xiruo.xframework.cache.redis.RedisUtil;
+import com.sida.xiruo.xframework.cache.redis.XiruoRedisAtomicLong;
+import org.checkerframework.checker.units.qual.A;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.RedisOperations;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.GenericToStringSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.data.redis.support.atomic.RedisAtomicLong;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -20,8 +35,9 @@ import java.util.stream.Collectors;
 @Order(1)
 public class ActivityCacheUtil implements CommandLineRunner {
     private static final Logger LOG = LoggerFactory.getLogger(ActivityCacheUtil.class);
-    private static String CACHE_KEY_CURRENT_VERSION_SETTING = "CACHE_IN_REDIS_FOR_ACTIVITY_MODULE_CURRENT_VERSION_SETTING";
-    private static String CACHE_KEY_CURRENT_VERSION = "CACHE_IN_REDIS_FOR_ACTIVITY_MODULE_CURRENT_VERSION";
+    private static final String CACHE_KEY_CURRENT_VERSION_SETTING = "CACHE_IN_REDIS_FOR_ACTIVITY_MODULE_CURRENT_VERSION_SETTING";
+    private static final String CACHE_KEY_CURRENT_VERSION = "CACHE_IN_REDIS_FOR_ACTIVITY_MODULE_CURRENT_VERSION";
+    private static final String ACTION_NO_TEMPLATE = "ACTIVITY_%s_%s_%s";
 
     @Autowired
     private RedisUtil redisUtil;
@@ -29,7 +45,10 @@ public class ActivityCacheUtil implements CommandLineRunner {
     private ActivitySignupNoteVersionService activitySignupNoteVersionService;
     @Autowired
     private ActivitySignupNoteSettingService activitySignupNoteSettingService;
-
+    @Autowired
+    private CustomerActivitySignupNoteService customerActivitySignupNoteService;
+    @Autowired
+    private ActivityOrderService activityOrderService;
 
 
     public RedisUtil getRedisUtil() {
@@ -42,6 +61,7 @@ public class ActivityCacheUtil implements CommandLineRunner {
 //        Arrays.fill(array, '*');
 //        LOG.info(new String(array));
         initCurrentVersionSettingCacheInRedis(false);
+        initActionNos();
     }
 
     public void initCurrentVersionSettingCacheInRedis(boolean forceReload) {
@@ -92,4 +112,49 @@ public class ActivityCacheUtil implements CommandLineRunner {
     public String getCurrentVersion() {
         return (String)Optional.ofNullable(redisUtil.get(CACHE_KEY_CURRENT_VERSION)).orElse("");
     }
+
+    /**
+     * 初始化操作编号
+     */
+    private void initActionNos() {
+        initSignupActionNo();
+        initOrderActionNo();
+    }
+
+    private void initSignupActionNo() {
+        XiruoRedisAtomicLong actionNoCounter = new XiruoRedisAtomicLong(CustomerActivitySignupNoteServiceImpl.ACTION_NO_KEY, redisUtil.getRedisTemplate().getConnectionFactory(), Xiruo.TIMEPOINT.DAY);
+        if(actionNoCounter== null ||actionNoCounter.get() == 0) {
+            String actionNo = customerActivitySignupNoteService.getCurrentNoteNo();
+            if(!actionNo.equals("0")) {
+                int lastIndex = actionNo.lastIndexOf("_");
+                actionNoCounter.set(Xiruo.nullToLong(actionNo.substring(lastIndex + 1)) + 1);
+            }
+        }
+    }
+
+    private void initOrderActionNo() {
+        XiruoRedisAtomicLong actionNoCounter = new XiruoRedisAtomicLong(ActivityOrderServiceImpl.ACTION_NO_KEY, redisUtil.getRedisTemplate().getConnectionFactory(), Xiruo.TIMEPOINT.DAY);
+        if(actionNoCounter== null ||actionNoCounter.get() == 0) {
+            String actionNo = activityOrderService.getCurrentOrderNo();
+            if(!actionNo.equals("0")) {
+                int lastIndex = actionNo.lastIndexOf("_");
+                actionNoCounter.set(Xiruo.nullToLong(actionNo.substring(lastIndex + 1)) + 1);
+            }
+        }
+    }
+
+    /**
+     * 根据key获取操作编号
+     * @param key
+     * @return
+     */
+    public String getActionNoByKey(String key) {
+        XiruoRedisAtomicLong actionNoCounter = new XiruoRedisAtomicLong(key, redisUtil.getRedisTemplate().getConnectionFactory(), Xiruo.TIMEPOINT.DAY);
+        long counter = actionNoCounter.getAndIncrement();
+        return String.format(ACTION_NO_TEMPLATE
+                , key.toUpperCase()
+                , new SimpleDateFormat("yyyyMMdd").format("yyyyMMdd")
+                , new DecimalFormat("0000000000").format(counter));
+    }
+
 }

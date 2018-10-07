@@ -47,15 +47,14 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf()
-                .disable().formLogin().loginPage("/login").permitAll().and().authorizeRequests()
+                .disable().formLogin().loginPage("/login").permitAll()
+                .and().authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/validate/code/image").permitAll()
                 .anyRequest().authenticated();
 
         // 禁用缓存
         http.headers().cacheControl();
     }
-
-
 
 //    @Override
 //    protected void configure(AuthenticationManagerBuilder auth) throws Exception {

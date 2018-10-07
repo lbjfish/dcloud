@@ -16,4 +16,5 @@ public interface CustomerActivitySignupNoteService extends IBaseService<Customer
     List<TableMeta> findTableMeta();
     Page<CustomerActivitySignupNoteVo> findPageList(CustomerActivitySignupNote po);
     ActivitySignupNoteDto findOneToClient(String id);
+    String getCurrentNoteNo();
 }

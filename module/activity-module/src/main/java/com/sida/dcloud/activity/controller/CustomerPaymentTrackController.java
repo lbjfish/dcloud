@@ -6,6 +6,7 @@ import com.sida.dcloud.activity.po.HonoredGuest;
 import com.sida.dcloud.activity.service.CustomerPaymentTrackService;
 import com.sida.dcloud.service.event.config.EventConstants;
 import com.sida.xiruo.xframework.controller.BaseController;
+import com.sida.xiruo.xframework.util.UUID;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -64,6 +65,7 @@ public class CustomerPaymentTrackController extends BaseController {
     @ApiOperation(value = "新增支付日志")
     public Object insert(@RequestBody @ApiParam("日志JSON") CustomerPaymentTrack param) {
         param.setPayTime(new Date());
+        param.setId(UUID.create().toString());
         return toResult(customerPaymentTrackService.insert(param));
     }
 }

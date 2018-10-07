@@ -57,6 +57,25 @@ public class ActivityGoodsGroupController extends BaseController {
     }
 
     /********************************************************************************/
+    @RequestMapping(value = "/up", method = RequestMethod.POST)
+    @ApiOperation(value = "上架活动商品组")
+    public Object up(@RequestBody @ApiParam("活动商品组ids") List<String> ids) {
+        if(ids == null || ids.isEmpty()) {
+            throw new ActivityException("没有指定要上架的活动商品组");
+        }
+        activityGoodsGroupService.upByPrimaryKeys(String.join(",", ids));
+        return toResult();
+    }
+
+    @RequestMapping(value = "/down", method = RequestMethod.POST)
+    @ApiOperation(value = "下架活动商品组")
+    public Object down(@RequestBody @ApiParam("活动商品组ids") List<String> ids) {
+        if(ids == null || ids.isEmpty()) {
+            throw new ActivityException("没有指定要下架的活动商品组");
+        }
+        activityGoodsGroupService.downByPrimaryKeys(String.join(",", ids));
+        return toResult();
+    }
 
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
     @ApiOperation(value = "删除活动商品组")

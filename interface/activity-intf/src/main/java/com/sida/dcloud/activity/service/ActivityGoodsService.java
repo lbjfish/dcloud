@@ -13,4 +13,6 @@ public interface ActivityGoodsService extends IBaseService<ActivityGoods> {
     List<ActivityGoodsVo> findGoodsListByGroupId(String groupId);
     List<ActivityGoods> findListByIds(String ids);
     Double getTotalPayPriceByIds(String ids);
+    int upByPrimaryKeys(String ids);
+    int downByPrimaryKeys(String ids);
 }

@@ -1,6 +1,6 @@
 /**
  * create by jianglingfeng
- * @date 2018-09
+ * @date 2018-10
  */
 package com.sida.dcloud.activity.po;
 
@@ -39,6 +39,9 @@ public class ActivityGoods extends BaseEntity implements Serializable {
 
     @ApiModelProperty("有效结束时间")
     private Date endTime;
+
+    @ApiModelProperty("是否上架（0.否 1.是）")
+    private Boolean visible;
 
     @ApiModelProperty("备注")
     private String remark;
@@ -123,6 +126,14 @@ public class ActivityGoods extends BaseEntity implements Serializable {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    public Boolean getVisible() {
+        return visible;
+    }
+
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
     }
 
     public String getRemark() {

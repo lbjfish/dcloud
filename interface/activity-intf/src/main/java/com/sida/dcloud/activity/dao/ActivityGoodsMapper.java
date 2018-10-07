@@ -20,4 +20,6 @@ public interface ActivityGoodsMapper extends IMybatisDao<ActivityGoods> {
     List<ActivityGoodsVo> findGoodsListByGroupId(@Param("groupId") String groupId);
     List<ActivityGoods> findListByIds(@Param("ids") String ids);
     Double getTotalPayPriceByIds(@Param("ids") String ids);
+    int upByPrimaryKeys(@Param("ids") String ids);
+    int downByPrimaryKeys(@Param("ids") String ids);
 }

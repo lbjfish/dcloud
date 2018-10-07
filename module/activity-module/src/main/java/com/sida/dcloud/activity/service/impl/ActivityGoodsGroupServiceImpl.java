@@ -153,4 +153,14 @@ public class ActivityGoodsGroupServiceImpl extends BaseServiceImpl<ActivityGoods
     public int updateGroupPayPrice(String groupId, Double payPrice) {
         return activityGoodsGroupMapper.updateGroupPayPrice(groupId, payPrice);
     }
+
+    @Override
+    public int upByPrimaryKeys(String ids) {
+        return activityGoodsGroupMapper.upByPrimaryKeys(Xiruo.insertSingleQuoteToString(ids));
+    }
+
+    @Override
+    public int downByPrimaryKeys(String ids) {
+        return activityGoodsGroupMapper.downByPrimaryKeys(Xiruo.insertSingleQuoteToString(ids));
+    }
 }

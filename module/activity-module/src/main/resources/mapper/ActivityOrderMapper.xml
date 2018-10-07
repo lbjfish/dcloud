@@ -404,4 +404,8 @@
     <set>activity_order_status = #{activityOrderStatus}</set>
     <where>activity_id = #{activityId}</where>
   </update>
+
+  <select id="getCurrentOrderNo" resultType="String">
+    select max(a.order_no) from (select max(order_no) order_no from activity_order order by order_no desc  union all select 0 from dual) a
+  </select>
 </mapper>

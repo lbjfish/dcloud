@@ -75,7 +75,7 @@ security:
 #        key-uri:
       id: openid
       service-id: ${PREFIX:}system
-  ignored: sysAccessLog/**,authcodes/getRemoteAuthCode,sysUser/remoteRegister
+  ignored: sysAccessLog/**,authcodes/getRemoteAuthCode,sysUser/remoteRegister,init/loadDicTree
 
 
 eureka:

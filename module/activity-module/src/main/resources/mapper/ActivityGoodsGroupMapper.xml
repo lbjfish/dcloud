@@ -11,17 +11,18 @@
     <result column="quantity" property="quantity" jdbcType="INTEGER" />
     <result column="remaining" property="remaining" jdbcType="INTEGER" />
     <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="visible" property="visible" jdbcType="BIT" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="ActivityGoodsGroup_Column_List" >
     id, activity_id, name, pay_price, discount, minus_amount, quantity, remaining, sort, 
-    remark
+    visible, remark
   </sql>
   <insert id="insert" parameterType="com.sida.dcloud.activity.po.ActivityGoodsGroup" >
     insert into activity_goods_group (id, activity_id, name, pay_price, discount, minus_amount, 
-      quantity, remaining, sort, remark)
+      quantity, remaining, sort, visible, remark)
     values (#{id}, #{activityId}, #{name}, #{payPrice}, #{discount}, #{minusAmount}, 
-      #{quantity}, #{remaining}, #{sort}, #{remark})
+      #{quantity}, #{remaining}, #{sort}, #{visible}, #{remark})
   </insert>
   <insert id="insertSelective" parameterType="com.sida.dcloud.activity.po.ActivityGoodsGroup" >
     insert into activity_goods_group
@@ -52,6 +53,9 @@
       </if>
       <if test="sort != null" >
         sort,
+      </if>
+      <if test="visible != null" >
+        visible,
       </if>
       <if test="remark != null" >
         remark,
@@ -84,6 +88,9 @@
       </if>
       <if test="sort != null" >
         #{sort},
+      </if>
+      <if test="visible != null" >
+        #{visible},
       </if>
       <if test="remark != null" >
         #{remark},
@@ -118,6 +125,9 @@
       </if>
       <if test="sort != null" >
         AND sort = #{sort}
+      </if>
+      <if test="visible != null" >
+        AND visible = #{visible}
       </if>
       <if test="remark != null and remark != ''" >
         AND remark = #{remark}
@@ -166,6 +176,9 @@
       <if test="po.sort != null" >
         sort = #{po.sort},
       </if>
+      <if test="po.visible != null" >
+        visible = #{po.visible},
+      </if>
       <if test="po.remark != null" >
         remark = #{po.remark},
       </if>
@@ -203,6 +216,12 @@
   <delete id="deleteByPrimaryKeys" parameterType="java.lang.String" >
     delete from activity_goods_group where id in (${ids})
   </delete>
+  <delete id="upByPrimaryKeys" parameterType="java.lang.String" >
+    update activity_goods_group set visible = true where id in (${ids})
+  </delete>
+  <delete id="downByPrimaryKeys" parameterType="java.lang.String" >
+    update activity_goods_group set visible = false where id in (${ids})
+  </delete>
 
   <select id="checkMultiCountByUnique" parameterType="com.sida.dcloud.activity.po.ActivityGoods" resultType="int">
     select count(0) from activity_goods_group
@@ -238,7 +257,7 @@
     id,activity_id,name,pay_price,discount,minus_amount,quantity,remaining
     from activity_goods_group
     <where>
-      1=1
+      visible = true
       <if test="po.id != null and po.id != ''" >
         and id = #{po.id}
       </if>
@@ -265,7 +284,7 @@
     select
     <include refid="ActivityGoodsGroup_Column_List" />
     from activity_goods_group
-    where ids in ${ids} and delete_flag = 0
+    where ids in ${ids} and visible = true
     order by sort asc
   </select>
 

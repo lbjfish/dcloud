@@ -69,3 +69,13 @@ eureka:
   client:
     serviceUrl:
       defaultZone: @default-zone@
+
+info:
+  app:
+    name: @discovery-service@
+    auchor: Xiruo.Jiang
+    version: 1.0
+  build:
+    artifactId: @discovery-service@
+    version: 1.0-SNAPSHOT
+    date: 2018-9-18

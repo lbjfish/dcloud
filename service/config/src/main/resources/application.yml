@@ -52,3 +52,13 @@ eureka:
 management:
   security:
     enabled: false
+
+info:
+  app:
+    name: @config-service@
+    auchor: Xiruo.Jiang
+    version: 1.0
+  build:
+    artifactId: @config-service@
+    version: 1.0-SNAPSHOT
+    date: 2018-9-18

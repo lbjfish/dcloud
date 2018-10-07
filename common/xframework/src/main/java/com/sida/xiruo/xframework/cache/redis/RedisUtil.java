@@ -121,7 +121,7 @@ public class RedisUtil {
         return null;
     }
 
-    /**
+    /**getDicGroupMap
      * 获取所有数据字典分组
      * @return
      */

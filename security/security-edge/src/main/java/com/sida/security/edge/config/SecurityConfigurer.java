@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationManager;
@@ -59,7 +60,17 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .authorizeRequests().antMatchers("/sec/**","/editor-app/**","/diagram-viewer/**", "/login","/**/*.json","/**/*.js,/**/*.css","/apis/system/sysUser/remoteRegister","/apis/system/authcodes/getRemoteAuthCode").permitAll().anyRequest().authenticated()
+                .authorizeRequests()
+                .antMatchers(
+                        "/sec/**"
+                        , "/editor-app/**"
+                        , "/diagram-viewer/**"
+                        , "/login"
+                        , "/**/*.json"
+                        ,"/**/*.js,/**/*.css"
+                        , "/apis/system/sysUser/remoteRegister"
+                        , "/apis/system/authcodes/getRemoteAuthCode"
+                ).permitAll().anyRequest().authenticated()
                 /*.and()
                 .csrf().requireCsrfProtectionMatcher(csrfRequestMatcher()).csrfTokenRepository(csrfTokenRepository())*/
                 .and()
@@ -73,6 +84,11 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     }
 
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        //ignore
+        web.ignoring().antMatchers("/apis/system/init/loadDicTree");
+    }
 
     private OAuth2AuthenticationProcessingFilter oAuth2AuthenticationProcessingFilter() {
         OAuth2AuthenticationProcessingFilter oAuth2AuthenticationProcessingFilter =

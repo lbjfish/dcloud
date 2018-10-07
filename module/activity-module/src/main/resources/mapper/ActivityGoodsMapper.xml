@@ -21,22 +21,23 @@
     <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
     <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
     <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="visible" property="visible" jdbcType="BIT" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="ActivityGoods_Column_List" >
     id, org_id, delete_flag, red_string1, red_string2, red_string3, red_string4, red_string5, 
     red_string6, activity_id, name, original_price, pay_price, quantity, remaining, sort, 
-    add_time, start_time, end_time, remark
+    add_time, start_time, end_time, visible, remark
   </sql>
   <insert id="insert" parameterType="com.sida.dcloud.activity.po.ActivityGoods" >
     insert into activity_goods (id, org_id, delete_flag, red_string1, red_string2, red_string3, 
       red_string4, red_string5, red_string6, activity_id, name, original_price, 
       pay_price, quantity, remaining, sort, add_time, start_time, end_time, 
-      remark)
+      visible, remark)
     values (#{id}, #{orgId}, #{deleteFlag}, #{redString1}, #{redString2}, #{redString3}, 
       #{redString4}, #{redString5}, #{redString6}, #{activityId}, #{name}, #{originalPrice}, 
       #{payPrice}, #{quantity}, #{remaining}, #{sort}, #{addTime}, #{startTime}, #{endTime}, 
-      #{remark})
+      #{visible}, #{remark})
   </insert>
   <insert id="insertSelective" parameterType="com.sida.dcloud.activity.po.ActivityGoods" >
     insert into activity_goods
@@ -97,6 +98,9 @@
       </if>
       <if test="endTime != null" >
         end_time,
+      </if>
+      <if test="visible != null" >
+        visible,
       </if>
       <if test="remark != null" >
         remark,
@@ -159,6 +163,9 @@
       </if>
       <if test="endTime != null" >
         #{endTime},
+      </if>
+      <if test="visible != null" >
+        #{visible},
       </if>
       <if test="remark != null" >
         #{remark},
@@ -223,6 +230,9 @@
       </if>
       <if test="endTime != null" >
         AND end_time = #{endTime}
+      </if>
+      <if test="visible != null" >
+        AND visible = #{visible}
       </if>
       <if test="remark != null and remark != ''" >
         AND remark = #{remark}
@@ -301,6 +311,9 @@
       <if test="po.endTime != null" >
         end_time = #{po.endTime},
       </if>
+      <if test="po.visible != null" >
+        visible = #{po.visible},
+      </if>
       <if test="po.remark != null" >
         remark = #{po.remark},
       </if>
@@ -337,6 +350,12 @@
   </delete>
   <delete id="deleteByPrimaryKeys" parameterType="java.lang.String" >
     update activity_goods set delete_flag = 1 where id in (${ids})
+  </delete>
+  <delete id="upByPrimaryKeys" parameterType="java.lang.String" >
+    update activity_goods set visible = true where id in (${ids})
+  </delete>
+  <delete id="downByPrimaryKeys" parameterType="java.lang.String" >
+    update activity_goods set visible = false where id in (${ids})
   </delete>
 
   <select id="checkMultiCountByUnique" parameterType="com.sida.dcloud.activity.po.ActivityGoods" resultType="int">
@@ -385,7 +404,7 @@
   <select id="findGoodsListByActivityId" resultMap="ActivityGoodsVoResultMap" parameterType="java.lang.String" >
     select id,activity_id,original_price,pay_price,quantity,remaining,start_time,end_time
     from activity_goods
-    where activity_id = #{activityId} and delete_flag = 0 order by sort asc
+    where activity_id = #{activityId}and delete_flag = 0 and visbile = true order by sort asc
   </select>
 
   <select id="findGoodsListByGroupId" resultMap="ActivityGoodsVoResultMap" parameterType="java.lang.String" >
@@ -400,11 +419,11 @@
     select
     <include refid="ActivityGoods_Column_List" />
     from activity_goods
-    where ids in ${ids} and delete_flag = 0
+    where ids in ${ids} and delete_flag = 0 and visbile = true
     order by sort asc
   </select>
 
   <select id="getTotalPayPriceByIds" parameterType="java.lang.String" resultType="java.lang.Double">
-    select sum(pay_price) from activity_goods where id in ${ids}
+    select sum(pay_price) from activity_goods where id in ${ids} and delete_flag = 0 and visbile = true
   </select>
 </mapper>

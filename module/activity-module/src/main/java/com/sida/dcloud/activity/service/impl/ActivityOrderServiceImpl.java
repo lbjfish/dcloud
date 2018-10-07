@@ -11,6 +11,7 @@ import com.sida.dcloud.activity.dto.IdAndCountDto;
 import com.sida.dcloud.activity.po.*;
 import com.sida.dcloud.activity.po.ActivityOrder;
 import com.sida.dcloud.activity.service.*;
+import com.sida.dcloud.activity.util.ActivityCacheUtil;
 import com.sida.dcloud.activity.vo.ActivityOrderVo;
 import com.sida.dcloud.activity.vo.ActivityOrderVo;
 import com.sida.xiruo.xframework.dao.IMybatisDao;
@@ -29,12 +30,14 @@ import java.util.*;
 @Service
 public class ActivityOrderServiceImpl extends BaseServiceImpl<ActivityOrder> implements ActivityOrderService {
     private static final Logger LOG = LoggerFactory.getLogger(ActivityOrderServiceImpl.class);
-    
+    public static final String ACTION_NO_KEY = "ORDER";
 //    private static final String LOCK_KEY_CHECK_MULTI = "LOCK_KEY_CHECK_MULTI_" + ActivityOrderServiceImpl.class.getName();
     private static final String LOCK_KEY_CHECK_ACTIVITY_ORDER_STATUS = "LOCK_KEY_CHECK_ACTIVITY_ORDER_STATUS_" + ActivityOrderServiceImpl.class.getName();
 
     @Autowired
     private DistributedLock distributedLock;
+    @Autowired
+    private ActivityCacheUtil activityCacheUtil;
     @Autowired
     private ActivityOrderMapper activityOrderMapper;
     @Autowired
@@ -96,10 +99,16 @@ public class ActivityOrderServiceImpl extends BaseServiceImpl<ActivityOrder> imp
         return activityOrderGoodsGroupService.findListByOrderId(orderId);
     }
 
+    @Override
+    public String getCurrentOrderNo() {
+        return activityOrderMapper.getCurrentOrderNo();
+    }
+
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public int insert(ActivityOrder po) {
         batchAction(po);
+        po.setOrderNo(activityCacheUtil.getActionNoByKey(ACTION_NO_KEY));
         return super.insert(po);
     }
 

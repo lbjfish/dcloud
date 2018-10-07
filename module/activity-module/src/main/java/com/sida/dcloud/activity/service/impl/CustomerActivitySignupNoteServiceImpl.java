@@ -5,14 +5,11 @@ import com.github.pagehelper.PageHelper;
 import com.sida.dcloud.activity.common.ActivityException;
 import com.sida.dcloud.activity.dao.CustomerActivitySignupNoteMapper;
 import com.sida.dcloud.activity.dto.ActivitySignupNoteDto;
-import com.sida.dcloud.activity.po.ActivityGoods;
 import com.sida.dcloud.activity.po.ActivitySignupNoteSetting;
 import com.sida.dcloud.activity.po.CustomerActivitySignupNote;
 import com.sida.dcloud.activity.service.ActivitySignupNoteSettingService;
-import com.sida.dcloud.activity.service.ActivitySignupNoteVersionService;
 import com.sida.dcloud.activity.service.CustomerActivitySignupNoteService;
 import com.sida.dcloud.activity.util.ActivityCacheUtil;
-import com.sida.dcloud.activity.vo.ActivityInfoVo;
 import com.sida.dcloud.activity.vo.CustomerActivitySignupNoteVo;
 import com.sida.xiruo.common.components.StringUtils;
 import com.sida.xiruo.po.common.TableMeta;
@@ -20,7 +17,6 @@ import com.sida.xiruo.xframework.dao.IMybatisDao;
 import com.sida.xiruo.xframework.lock.DistributedLock;
 import com.sida.xiruo.xframework.lock.redis.RedisLock;
 import com.sida.xiruo.xframework.service.BaseServiceImpl;
-import com.sida.xiruo.xframework.util.StringUtil;
 import net.sf.json.regexp.RegexpUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,12 +25,12 @@ import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<CustomerActivitySignupNote> implements CustomerActivitySignupNoteService {
     private static final Logger LOG = LoggerFactory.getLogger(CustomerActivitySignupNoteServiceImpl.class);
     private static final String LOCK_KEY_CHECK_MULTI = "LOCK_KEY_CHECK_MULTI_" + CustomerActivitySignupNoteServiceImpl.class.getName();
+    public static final String ACTION_NO_KEY = "SIGNUP";
     private static final Map<String, Field> NOTE_FIELD_MAP = new HashMap<>();
 
     static {
@@ -114,6 +110,11 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
         return dto;
     }
 
+    @Override
+    public String getCurrentNoteNo() {
+        return customerActivitySignupNoteMapper.getCurrentNoteNo();
+    }
+
     /**
      * 新增和更新操作都需要进行重复检验，因此要进行锁互斥
      * @param po
@@ -133,6 +134,7 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
                 if (customerActivitySignupNoteMapper.checkMultiCountByUnique(po) > 0) {
                     throw new ActivityException("用户不允许重复报名同一活动");
                 }
+                po.setNoteNo(activityCacheUtil.getActionNoByKey(ACTION_NO_KEY));
                 result = super.insert(po);
             } catch(Exception e) {
                 LOG.error(getClass().getName() + ".insert method occured exception", e);

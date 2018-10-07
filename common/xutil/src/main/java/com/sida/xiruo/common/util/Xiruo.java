@@ -1,7 +1,11 @@
 package com.sida.xiruo.common.util;
 
+import org.omg.CORBA.TIMEOUT;
+
 import java.lang.reflect.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -705,5 +709,62 @@ public class Xiruo {
 	 */
 	public static String insertChToString(String source, String ch) {
     	return source.replaceAll("^|$|(?=,[^,]+?)|(?<=[^,]+?,)", ch);
+	}
+
+	/**
+	 * 到达某个时间点还有？秒
+	 * 1. 到达下一分钟
+	 * 2. 到达下一小时
+	 * 。。。
+	 */
+	public static enum TIMEPOINT {
+		MINUTE,
+		HOUR,
+		DAY,
+		WEEK,
+		MONTH,
+		YEAR;
+
+		public static String concatAll() {
+			return Arrays.stream(values()).map(value -> value.name()).reduce((value1, value2) -> String.format("%s,%s", value1, value2)).get();
+		}
+	}
+
+	/**
+	 *
+	 * @param timepoint
+	 * @return
+	 */
+	public static long getLiveTime(TIMEPOINT timepoint) {
+		LocalDateTime datetime = LocalDateTime.now();
+		//天数
+		int dayCount = 0;
+		long liveTime = 0;
+		switch (timepoint) {
+			case YEAR:
+				if(dayCount == 0) {
+					int lastDayInYear = datetime.with(TemporalAdjusters.lastDayOfYear()).getDayOfYear();
+					dayCount = lastDayInYear - datetime.getDayOfYear();
+				}
+			case MONTH:
+				if(dayCount == 0) {
+					int lastDayInMonth = datetime.with(TemporalAdjusters.lastDayOfMonth()).getDayOfMonth();
+					dayCount = lastDayInMonth - datetime.getDayOfMonth();
+				}
+			case WEEK:
+				if(dayCount == 0) {
+					dayCount = 7 - datetime.getDayOfWeek().getValue();
+				}
+			case DAY:
+				liveTime += (dayCount * 24 + (23 - datetime.getHour())) * 3600;
+			case HOUR:
+				liveTime += (59 - datetime.getMinute()) * 60;
+			case MINUTE:
+				liveTime += 59 - datetime.getSecond();
+				break;
+			default:
+				throw new RuntimeException(String.format("timepoint must be one of enum TIMEPOINT [%s]", TIMEPOINT.concatAll()));
+		}
+		return liveTime;
 	}
 }

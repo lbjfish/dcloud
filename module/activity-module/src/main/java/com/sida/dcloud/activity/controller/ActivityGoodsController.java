@@ -2,7 +2,6 @@ package com.sida.dcloud.activity.controller;
 
 import com.sida.dcloud.activity.common.ActivityException;
 import com.sida.dcloud.activity.po.ActivityGoods;
-import com.sida.dcloud.activity.po.HonoredGuest;
 import com.sida.dcloud.activity.service.ActivityGoodsService;
 import com.sida.dcloud.service.event.config.EventConstants;
 import com.sida.xiruo.xframework.controller.BaseController;
@@ -58,6 +57,25 @@ public class ActivityGoodsController extends BaseController {
     }
 
     /********************************************************************************/
+    @RequestMapping(value = "/up", method = RequestMethod.POST)
+    @ApiOperation(value = "上架活动商品")
+    public Object up(@RequestBody @ApiParam("活动商品ids") List<String> ids) {
+        if(ids == null || ids.isEmpty()) {
+            throw new ActivityException("没有指定要上架的活动商品");
+        }
+        activityGoodsService.upByPrimaryKeys(String.join(",", ids));
+        return toResult();
+    }
+
+    @RequestMapping(value = "/down", method = RequestMethod.POST)
+    @ApiOperation(value = "下架活动商品")
+    public Object down(@RequestBody @ApiParam("活动商品ids") List<String> ids) {
+        if(ids == null || ids.isEmpty()) {
+            throw new ActivityException("没有指定要下架的活动商品");
+        }
+        activityGoodsService.downByPrimaryKeys(String.join(",", ids));
+        return toResult();
+    }
 
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
     @ApiOperation(value = "删除活动商品")

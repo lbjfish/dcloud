@@ -32,7 +32,7 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
         log.info("==================decide方法执行了===========");
         while (ite.hasNext()){
             ConfigAttribute ca = ite.next();
-            String neelRole = ((SecurityConfig) ca).getAttribute();
+            String neelRole = ca.getAttribute();
             for (GrantedAuthority ga : authentication.getAuthorities()){
                 log.info("=====needRole===="+neelRole+"   +====用户权限===="+ga.getAuthority());
                 if (neelRole.trim().equals(ga.getAuthority())){

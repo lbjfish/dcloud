@@ -7,6 +7,7 @@ import com.sida.dcloud.system.service.SysCommonService;
 import com.sida.dcloud.system.service.SysEmployeeService;
 import com.sida.dcloud.system.service.SysOrgService;
 import com.sida.dcloud.system.service.SysPositionService;
+import com.sida.xiruo.xframework.cache.redis.RedisUtil;
 import com.sida.xiruo.xframework.controller.BaseController;
 import com.sida.xiruo.xframework.exception.ServiceException;
 import com.sida.xiruo.xframework.util.BlankUtil;
@@ -16,11 +17,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,6 +41,8 @@ public class InitController extends BaseController {
     private SysEmployeeService sysEmployeeService;
     @Autowired
     private SysPositionService sysPositionService;
+    @Autowired
+    private RedisUtil redisUtil;
 
     @PostMapping("/firstInitOrg")
     @ApiOperation("首次初始化片区门店")
@@ -59,5 +61,29 @@ public class InitController extends BaseController {
     @ApiOperation("初始化系统")
     public Object initSystem(@RequestBody @ApiParam("JSON参数") InitSystemDTO initSystemDTO) {
         return toResult();
+    }
+
+    /********************************/
+    @GetMapping("/loadDicTree")
+    @ApiOperation("加载所有字典")
+    public Object loadDicTree() {
+        List<Object> list = new ArrayList<>();
+        redisUtil.getDicGroupMap().forEach((code, name) -> list.add(new HashMap<String, Object>() {
+            {
+                put("code", code);
+                put("name", name);
+                put("values", new ArrayList<Object>() {
+                    {
+                        redisUtil.getDicCodeNameMapByGroupCode(code).forEach((c, n) -> add(new HashMap<String, String> () {
+                            {
+                                put("code", c);
+                                put("name", n);
+                            }
+                        }));
+                    }
+                });
+            }
+        }));
+        return toResult(list);
     }
 }

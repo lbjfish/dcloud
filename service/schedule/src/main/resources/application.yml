@@ -88,3 +88,13 @@ security:
 #        key-uri:
       id: openid
       service-id: ${PREFIX:}schedule
+
+info:
+  app:
+    name: @schedule-service@
+    auchor: Xiruo
+    version: 1.0
+  build:
+    artifactId: @schedule-service@
+    version: 1.0-SNAPSHOT
+    date: 2018-7-18

@@ -1,6 +1,6 @@
 /**
  * create by jianglingfeng
- * @date 2018-09
+ * @date 2018-10
  */
 package com.sida.dcloud.activity.po;
 
@@ -32,6 +32,9 @@ public class ActivityGoodsGroup extends BaseEntity implements Serializable {
 
     @ApiModelProperty("排序值（值越小越靠前）")
     private Integer sort;
+
+    @ApiModelProperty("是否上架（0.否 1.是）")
+    private Boolean visible;
 
     @ApiModelProperty("备注")
     private String remark;
@@ -100,6 +103,14 @@ public class ActivityGoodsGroup extends BaseEntity implements Serializable {
 
     public void setSort(Integer sort) {
         this.sort = sort;
+    }
+
+    public Boolean getVisible() {
+        return visible;
+    }
+
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
     }
 
     public String getRemark() {

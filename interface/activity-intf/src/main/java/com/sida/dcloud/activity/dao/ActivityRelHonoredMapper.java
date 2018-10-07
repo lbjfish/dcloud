@@ -4,7 +4,6 @@
  */
 package com.sida.dcloud.activity.dao;
 
-import com.sida.dcloud.activity.po.ActivityGoods;
 import com.sida.dcloud.activity.po.ActivityRelHonored;
 import com.sida.xiruo.xframework.dao.IMybatisDao;
 import org.apache.ibatis.annotations.Param;

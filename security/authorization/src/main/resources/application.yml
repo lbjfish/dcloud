@@ -80,3 +80,13 @@ management:
   health:
     redis:
       enabled: false
+
+info:
+  app:
+    name: @auth-service@
+    auchor: Xiruo.Jiang
+    version: 1.0
+  build:
+    artifactId: @auth-service@
+    version: 1.0-SNAPSHOT
+    date: 2018-9-18

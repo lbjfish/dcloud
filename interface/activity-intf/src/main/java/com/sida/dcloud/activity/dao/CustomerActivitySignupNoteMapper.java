@@ -16,4 +16,5 @@ public interface CustomerActivitySignupNoteMapper extends IMybatisDao<CustomerAc
     List<TableMeta> findTableMeta(@Param("tableMeta") TableMeta tableMeta);
     List<CustomerActivitySignupNoteVo> findVoList(@Param("po")CustomerActivitySignupNote po);
     int checkMultiCountByUnique(@Param("po")CustomerActivitySignupNote po);
+    String getCurrentNoteNo();
 }
