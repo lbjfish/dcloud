@@ -33,8 +33,7 @@ public class UserDetailsServiceImpl /*extends SysUserServiceImpl*/ implements Us
             List<SysRole> list = sysRoleMapper.selectRolesByUserId(user.getId());
 
             List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-            SimpleGrantedAuthority auth = null;
-            list.stream().forEach(u->grantedAuthorities.add(new SimpleGrantedAuthority(u.getName())));
+            list.forEach(role->grantedAuthorities.add(new SimpleGrantedAuthority(role.getName())));
             return new UserDetailsVo(user,grantedAuthorities);
         }else {
             throw new UsernameNotFoundException(String.format("User %s does not exist",username));

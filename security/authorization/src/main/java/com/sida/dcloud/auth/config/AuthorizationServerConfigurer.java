@@ -58,8 +58,10 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter converter = new ClzJwtAccessTokenConverter(sysUserService);
-        KeyPair keyPair = new KeyStoreKeyFactory(new ClassPathResource("clzdev.jks"), "chelizi201723".toCharArray())
-                .getKeyPair("chelizidev");
+//        KeyPair keyPair = new KeyStoreKeyFactory(new ClassPathResource("clzdev.jks"), "chelizi201723".toCharArray())
+//                .getKeyPair("chelizidev");
+        KeyPair keyPair = new KeyStoreKeyFactory(new ClassPathResource("sida.jks"), "sidasida".toCharArray())
+                .getKeyPair("sida");
         converter.setKeyPair(keyPair);
         return converter;
     }
@@ -70,7 +72,8 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
     }
 
     private TokenGranter tokenGranter(AuthorizationServerEndpointsConfigurer endpoints){
-        List<TokenGranter> granters = new ArrayList<TokenGranter>(Arrays.asList(endpoints.getTokenGranter()));
+        List<TokenGranter> granters = new ArrayList<TokenGranter>();
+        granters.add(endpoints.getTokenGranter());
         granters.add(new FaceIdTokenGranter(
                 authenticationManager,
                 endpoints.getTokenServices(),

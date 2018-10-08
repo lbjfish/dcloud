@@ -5,55 +5,94 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
+import java.util.Optional;
 
 /**
  * Created by Xiruo on 2017/7/21.
  */
-public class UserDetailsVo extends SysUser implements UserDetails {
+public class UserDetailsVo /*extends SysUser*/ implements UserDetails, Serializable {
+    private static final long serialVersionUID = 1L;
+    private Collection<? extends GrantedAuthority> authorities;
+    private String username;
+    private Boolean accountNonExpired = true;
+    private Boolean accountNonLocked;
+    private Boolean credentialsNonExpired;
+    private Boolean enabled;
+    private String password;
+    private String id;
+    private String orgId;
+    private String name;
+    private String faceId;
 
-    private Collection<? extends GrantedAuthority> authorities ;
-
-    public UserDetailsVo(){
+    private UserDetailsVo(){
     }
-    public UserDetailsVo(SysUser user,Collection<GrantedAuthority> authorities){
-        BeanUtils.copyProperties(user, this);
+    public UserDetailsVo(SysUser user, Collection<GrantedAuthority> authorities){
+//        BeanUtils.copyProperties(user, this);
      /*  super(user);*/
         this.authorities = authorities;
+        this.id = user.getId();
+        this.orgId = user.getOrgId();
+        this.name = user.getName();
+        this.faceId = user.getFaceId();
+        this.username = user.getAccount();
+        Optional.ofNullable(user.getValidDate()).ifPresent(datetime -> this.accountNonExpired = datetime.getTime() >= System.currentTimeMillis());
+        this.accountNonLocked = !user.getLocked();
+        this.credentialsNonExpired = true;
+        this.enabled = !user.getDisable();
+        this.password = user.getPassword();
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }
 
-    public void setAuthorities(Collection<GrantedAuthority> authorities){
-        this.authorities = authorities;
-    }
     @Override
     public String getUsername() {
 //        return getName();
-        return getAccount();
+        return username;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return true/*getValidDate().getTime() >= System.currentTimeMillis()*/;
+        return accountNonExpired;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return !getLocked();
+        return accountNonLocked;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return credentialsNonExpired;
     }
 
     @Override
     public boolean isEnabled() {
-        return !getDisable();
+        return enabled;
     }
 
+    @Override
+    public String getPassword() {
+        return password;
+    }
 
+    public String getId() {
+        return id;
+    }
+
+    public String getOrgId() {
+        return orgId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getFaceId() {
+        return faceId;
+    }
 }

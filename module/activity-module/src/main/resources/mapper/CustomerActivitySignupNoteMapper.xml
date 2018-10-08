@@ -875,6 +875,6 @@
   </select>
 
   <select id="getCurrentNoteNo" resultType="String">
-    select max(a.note_no) from (select max(note_no) note_no from customer_activity_signup_note order by note_no desc union all select 0 from dual) a
+    select max(a.note_no) from ((select max(note_no) note_no from customer_activity_signup_note order by note_no desc) union all select 0 from dual) a
   </select>
 </mapper>
