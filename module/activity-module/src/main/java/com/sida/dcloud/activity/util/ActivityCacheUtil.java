@@ -119,6 +119,14 @@ public class ActivityCacheUtil implements CommandLineRunner {
     private void initActionNos() {
         initSignupActionNo();
         initOrderActionNo();
+        initSignupThirdPartCode();
+    }
+
+    private void initSignupThirdPartCode() {
+        RedisAtomicLong actionNoCounter = new RedisAtomicLong(CustomerActivitySignupNoteServiceImpl.THIRD_PART_CODE_KEY, redisUtil.getRedisTemplate().getConnectionFactory());
+        if(actionNoCounter== null ||actionNoCounter.get() == 0) {
+            actionNoCounter.set(System.currentTimeMillis() / 1000);
+        }
     }
 
     private void initSignupActionNo() {
@@ -157,4 +165,13 @@ public class ActivityCacheUtil implements CommandLineRunner {
                 , new DecimalFormat("0000000000").format(counter));
     }
 
+    /**
+     *
+     * @return
+     */
+    public String getThirdPartCode() {
+        RedisAtomicLong actionNoCounter = new RedisAtomicLong(CustomerActivitySignupNoteServiceImpl.THIRD_PART_CODE_KEY, redisUtil.getRedisTemplate().getConnectionFactory());
+        long counter = actionNoCounter.getAndIncrement();
+        return new DecimalFormat("0000000000").format(counter);
+    }
 }

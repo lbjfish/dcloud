@@ -19,8 +19,8 @@ import static com.sida.dcloud.event.po.EventMessage.BACKEND_REGISTRATION;
 /**
  * Created by Xiruo on 2017/7/3.
  */
-@Component(EventConstants.FRONTEND_ACTOR_NAME)
-@Scope("prototype")
+//@Component(EventConstants.FRONTEND_ACTOR_NAME)
+//@Scope("prototype")
 public class EventFrontendActor extends AbstractActor {
     private final static Logger LOG = LoggerFactory.getLogger(EventFrontendActor.class);
 

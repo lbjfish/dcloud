@@ -2,7 +2,9 @@ package com.sida.dcloud.system.service;
 
 import com.sida.dcloud.auth.po.SysRegion;
 import com.sida.dcloud.auth.vo.RegionTreeDTO;
+import com.sida.dcloud.system.dto.SysRegionSingleLayerDto;
 import com.sida.xiruo.xframework.service.IBaseService;
+import org.apache.ibatis.annotations.Param;
 import org.dom4j.Document;
 
 import java.util.List;
@@ -70,4 +72,7 @@ public interface SysRegionService extends IBaseService<SysRegion> {
      * @param code
      */
     String getNameByCode(String code);
+
+    List<SysRegionSingleLayerDto> findSysRegionSingleLayerDtoByLevel(String level);
+    int updateSysRegionPinyin();
 }

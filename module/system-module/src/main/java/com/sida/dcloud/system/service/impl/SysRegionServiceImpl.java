@@ -5,9 +5,11 @@ import com.sida.dcloud.auth.po.SysRegion;
 import com.sida.dcloud.auth.vo.RegionTreeDTO;
 import com.sida.dcloud.system.common.CollectorConstants;
 import com.sida.dcloud.system.dao.SysRegionMapper;
+import com.sida.dcloud.system.dto.SysRegionSingleLayerDto;
 import com.sida.dcloud.system.service.FileService;
 import com.sida.dcloud.system.service.SysRegionService;
 import com.sida.xiruo.common.util.ErrorCodeEnums;
+import com.sida.xiruo.common.util.PinYinUtil;
 import com.sida.xiruo.common.util.SystemUtil;
 import com.sida.xiruo.common.util.Xiruo;
 import com.sida.xiruo.xframework.dao.IMybatisDao;
@@ -28,6 +30,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
@@ -439,5 +442,23 @@ public class SysRegionServiceImpl extends BaseServiceImpl<SysRegion> implements 
             return regions.get(0).getName();
         }
         return null;
+    }
+
+    @Override
+    public List<SysRegionSingleLayerDto> findSysRegionSingleLayerDtoByLevel(String level) {
+        return sysRegionMapper.findSysRegionSingleLayerDtoByLevel(level);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public int updateSysRegionPinyin() {
+        sysRegionMapper.selectByCondition(new SysRegion()).forEach(region -> {
+            SysRegionSingleLayerDto dto = new SysRegionSingleLayerDto();
+            dto.setId(region.getId());
+            dto.setPinyin(PinYinUtil.getPingYin(region.getName()));
+            dto.setCapitalPinyin(PinYinUtil.getFirstSpell(region.getName()));
+            sysRegionMapper.updateSysRegionPinyin(dto);
+        });
+        return 0;
     }
 }

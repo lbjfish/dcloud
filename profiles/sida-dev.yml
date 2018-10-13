@@ -172,13 +172,27 @@ module:
 
 
 qiniu:
-  bucket: lili
-  ak: wTZfpMov09_Pvgpzt01kVbTGoFKMcMf2CUmYs5n2
-  sk: CzQMFHoGeNOVuF_0sG96oFzrQtVdRx25-aQrudp1
-  domain: http://7xnvu2.com1.z0.glb.clouddn.com/
-  bucketPublic: lili-public
-  domainOfBucket: http://o7d94lzvx.bkt.clouddn.com/
+  bucket: butong
+  ak: aHDek6zQjLqjrpKw8JZXnr-07x4CK5rQZDRb1eno
+  sk: XfSpuC4WerQhivxDbDGBeEHn0j4LKKx226VX35Ba
+  domain: http://pgf86ugyn.bkt.clouddn.com/
+  bucketPublic: butong-public
+  domainOfBucket: http://pgf8indq4.bkt.clouddn.com/
+  defaultHeader: http://pgf8indq4.bkt.clouddn.com/defult_photo@3x.png
   defaultImg: FnjqWFunVDKhLb3fDO0OeDCFzuWB
+
+jpush:
+  appKey: 6924b97096d0dde827d4799b
+  masterSecret: 296acbca7ad5e2c5820acd49
+
+#qiniu:
+#  bucket: lili
+#  ak: wTZfpMov09_Pvgpzt01kVbTGoFKMcMf2CUmYs5n2
+#  sk: CzQMFHoGeNOVuF_0sG96oFzrQtVdRx25-aQrudp1
+#  domain: http://7xnvu2.com1.z0.glb.clouddn.com/
+#  bucketPublic: lili-public
+#  domainOfBucket: http://o7d94lzvx.bkt.clouddn.com/
+#  defaultImg: FnjqWFunVDKhLb3fDO0OeDCFzuWB
 
 yuntongxun:
   appId: 8a216da862467c3a0162670a9b970db8   # 《车厘子》应用ID

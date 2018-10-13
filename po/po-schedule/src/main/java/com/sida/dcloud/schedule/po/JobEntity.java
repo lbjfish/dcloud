@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class JobEntity implements Serializable {
-    @ApiModelProperty("任务ID")
+    @ApiModelProperty(value = "任务ID", example = "1")
     private Long jobId;
     @ApiModelProperty("任务名称")
     private String jobName;

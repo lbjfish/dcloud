@@ -1,20 +1,35 @@
 package com.sida.xiruo.po.common;
 
-public class UserCentricDTO extends PageParam {
-    private String createdUser;
-    private String createdUserName;
-    private String createdUserAccount;
-    private String createdUserAlias;
-    private String createdUserCode;
-    private String createdUserEmail;
-    private String createdUserMobile;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+public class UserCentricDTO extends PageParam {
+    @JsonIgnore
+    private String createdUser;
+    @JsonIgnore
+    private String createdUserName;
+    @JsonIgnore
+    private String createdUserAccount;
+    @JsonIgnore
+    private String createdUserAlias;
+    @JsonIgnore
+    private String createdUserCode;
+    @JsonIgnore
+    private String createdUserEmail;
+    @JsonIgnore
+    private String createdUserMobile;
+    @JsonIgnore
     private String updatedUser;
+    @JsonIgnore
     private String updatedUserName;
+    @JsonIgnore
     private String updatedUserAccount;
+    @JsonIgnore
     private String updatedUserAlias;
+    @JsonIgnore
     private String updatedUserCode;
+    @JsonIgnore
     private String updatedUserEmail;
+    @JsonIgnore
     private String updatedUserMobile;
 
     public String getCreatedUser() {

@@ -33,10 +33,17 @@ public class SysRegionController extends BaseController {
         return toResult();
     }
 
-    @RequestMapping(value = "/tree", method = RequestMethod.POST)
+    @RequestMapping(value = "/tree", method = RequestMethod.GET)
     @ApiOperation(value = "获取地区树")
     public Object tree() {
         Object object = sysRegionService.findTree();
+        return toResult(object);
+    }
+
+    @RequestMapping(value = "/singlelevel", method = RequestMethod.GET)
+    @ApiOperation(value = "根据级别获取扁平化地区数据")
+    public Object singlelevel(@RequestParam("level") @ApiParam("层级（COUNTRY, PROVINCE, CITY, AREA）") String level) {
+        Object object = sysRegionService.findSysRegionSingleLayerDtoByLevel(level);
         return toResult(object);
     }
 

@@ -17,4 +17,5 @@ public interface CustomerActivitySignupNoteMapper extends IMybatisDao<CustomerAc
     List<CustomerActivitySignupNoteVo> findVoList(@Param("po")CustomerActivitySignupNote po);
     int checkMultiCountByUnique(@Param("po")CustomerActivitySignupNote po);
     String getCurrentNoteNo();
+    String getCurrentThirdPartCode();
 }

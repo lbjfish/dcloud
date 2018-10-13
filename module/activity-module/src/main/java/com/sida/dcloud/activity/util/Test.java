@@ -4,19 +4,14 @@ import com.google.common.base.CaseFormat;
 import com.sida.dcloud.activity.po.CustomerActivitySignupNote;
 import com.sida.xiruo.common.util.MD5Util;
 import com.sida.xiruo.common.util.Xiruo;
-import com.sida.xiruo.xframework.cache.redis.XiruoRedisAtomicLong;
-import com.sida.xiruo.xframework.util.DESUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
-import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public final class Test {
     static class LOG {
@@ -79,5 +74,7 @@ public final class Test {
         while (capacity < initialCapacity)
             capacity <<= 1;
         LOG.info(capacity);
+
+        LOG.info(String.valueOf(System.currentTimeMillis()).length());
     }
 }

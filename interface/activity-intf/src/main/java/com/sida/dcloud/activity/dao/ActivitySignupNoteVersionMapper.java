@@ -5,12 +5,8 @@
 package com.sida.dcloud.activity.dao;
 
 import com.sida.dcloud.activity.po.ActivitySignupNoteVersion;
-import com.sida.dcloud.activity.po.CustomerActivitySignupNote;
-import com.sida.dcloud.activity.vo.CustomerActivitySignupNoteVo;
 import com.sida.xiruo.xframework.dao.IMybatisDao;
 import feign.Param;
-
-import java.util.List;
 
 public interface ActivitySignupNoteVersionMapper extends IMybatisDao<ActivitySignupNoteVersion> {
     int insertVersion(@Param("po") ActivitySignupNoteVersion po);

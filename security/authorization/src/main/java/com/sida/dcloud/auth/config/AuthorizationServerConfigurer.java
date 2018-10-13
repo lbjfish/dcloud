@@ -1,6 +1,6 @@
 package com.sida.dcloud.auth.config;
 
-import com.sida.dcloud.auth.authentication.ClzJwtAccessTokenConverter;
+import com.sida.dcloud.auth.authentication.CustomJwtAccessTokenConverter;
 import com.sida.dcloud.auth.authentication.FaceIdTokenGranter;
 import com.sida.dcloud.auth.authentication.MsgAuthCodeTokenGranter;
 import com.sida.dcloud.auth.service.SysUserService;
@@ -47,6 +47,8 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
     private SysUserService sysUserService;
     @Autowired
     private JedisCluster jedisCluster;
+    @Autowired
+    private CustomJwtAccessTokenConverter customJwtAccessTokenConverter;
 
     /*
     避免循环依赖，源类中已使用@Service注解这里不需要重复定义@Bean，直接使用即可
@@ -54,17 +56,6 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
     public ClientDetailsServiceImpl clientDetailsServiceImpl(){
         return new ClientDetailsServiceImpl();
     }*/
-
-    @Bean
-    public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        JwtAccessTokenConverter converter = new ClzJwtAccessTokenConverter(sysUserService);
-//        KeyPair keyPair = new KeyStoreKeyFactory(new ClassPathResource("clzdev.jks"), "chelizi201723".toCharArray())
-//                .getKeyPair("chelizidev");
-        KeyPair keyPair = new KeyStoreKeyFactory(new ClassPathResource("sida.jks"), "sidasida".toCharArray())
-                .getKeyPair("sida");
-        converter.setKeyPair(keyPair);
-        return converter;
-    }
 
     @Bean
     public AuthorizationCodeServices redisAuthorizationCodeServices() {
@@ -78,15 +69,12 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
                 authenticationManager,
                 endpoints.getTokenServices(),
                 endpoints.getClientDetailsService(),
-                endpoints.getOAuth2RequestFactory(),
-                FaceIdTokenGranter.GRANT_TYPE));
+                endpoints.getOAuth2RequestFactory()));
         granters.add(new MsgAuthCodeTokenGranter(
                 authenticationManager,
                 endpoints.getTokenServices(),
                 endpoints.getClientDetailsService(),
-                endpoints.getOAuth2RequestFactory(),
-                MsgAuthCodeTokenGranter.GRANT_TYPE
-        ));
+                endpoints.getOAuth2RequestFactory()));
         return new CompositeTokenGranter(granters);
     }
 
@@ -105,7 +93,7 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         /*endpoints.pathMapping("/oauth/confirm_access", "/authorize");
         endpoints.pathMapping("/oauth/login", "/login");*/
-        endpoints.authenticationManager(authenticationManager).accessTokenConverter(jwtAccessTokenConverter());
+        endpoints.authenticationManager(authenticationManager).accessTokenConverter(customJwtAccessTokenConverter);
         endpoints.authorizationCodeServices(redisAuthorizationCodeServices());
         endpoints.tokenGranter(tokenGranter(endpoints));
     }

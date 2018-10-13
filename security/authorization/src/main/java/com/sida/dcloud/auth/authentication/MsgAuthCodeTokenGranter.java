@@ -21,8 +21,8 @@ public class MsgAuthCodeTokenGranter extends AbstractTokenGranter {
     public static final String GRANT_TYPE = "msgAuthCode";
 
     private AuthenticationManager authenticationManager;
-    public MsgAuthCodeTokenGranter(AuthenticationManager authenticationManager, AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory, String grantType) {
-        super(tokenServices, clientDetailsService, requestFactory, grantType);
+    public MsgAuthCodeTokenGranter(AuthenticationManager authenticationManager, AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory) {
+        super(tokenServices, clientDetailsService, requestFactory, GRANT_TYPE);
         this.authenticationManager = authenticationManager;
     }
 

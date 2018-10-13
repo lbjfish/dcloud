@@ -1,0 +1,688 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.operation.dao.CommonUserMapper" >
+  <resultMap id="CommonUserResultMap" type="com.sida.dcloud.operation.po.CommonUser" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="approval_status" property="approvalStatus" jdbcType="BIT" />
+    <result column="member_status" property="memberStatus" jdbcType="BIT" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="expired_time" property="expiredTime" jdbcType="TIMESTAMP" />
+    <result column="red_string1" property="redString1" jdbcType="VARCHAR" />
+    <result column="red_string2" property="redString2" jdbcType="VARCHAR" />
+    <result column="red_string3" property="redString3" jdbcType="VARCHAR" />
+    <result column="red_string4" property="redString4" jdbcType="VARCHAR" />
+    <result column="red_string5" property="redString5" jdbcType="VARCHAR" />
+    <result column="red_string6" property="redString6" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="alias" property="alias" jdbcType="VARCHAR" />
+    <result column="region_id" property="regionId" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="VARCHAR" />
+    <result column="owner_url" property="ownerUrl" jdbcType="VARCHAR" />
+    <result column="face_url" property="faceUrl" jdbcType="VARCHAR" />
+    <result column="nationality" property="nationality" jdbcType="VARCHAR" />
+    <result column="cardtype" property="cardtype" jdbcType="VARCHAR" />
+    <result column="idcard" property="idcard" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="postcode" property="postcode" jdbcType="VARCHAR" />
+    <result column="reg_time" property="regTime" jdbcType="TIMESTAMP" />
+    <result column="approval_time" property="approvalTime" jdbcType="TIMESTAMP" />
+    <result column="last_login" property="lastLogin" jdbcType="TIMESTAMP" />
+    <result column="user_cat" property="userCat" jdbcType="VARCHAR" />
+    <result column="read_count" property="readCount" jdbcType="INTEGER" />
+    <result column="lauded_count" property="laudedCount" jdbcType="INTEGER" />
+    <result column="commented_count" property="commentedCount" jdbcType="INTEGER" />
+    <result column="cared_count" property="caredCount" jdbcType="INTEGER" />
+    <result column="title_count" property="titleCount" jdbcType="INTEGER" />
+    <result column="comment_count" property="commentCount" jdbcType="INTEGER" />
+    <result column="laud_count" property="laudCount" jdbcType="INTEGER" />
+    <result column="care_count" property="careCount" jdbcType="INTEGER" />
+    <result column="active_status" property="activeStatus" jdbcType="BIT" />
+    <result column="online_minutes" property="onlineMinutes" jdbcType="INTEGER" />
+    <result column="facebook_no" property="facebookNo" jdbcType="VARCHAR" />
+    <result column="twitter_no" property="twitterNo" jdbcType="VARCHAR" />
+    <result column="sina_weibo" property="sinaWeibo" jdbcType="VARCHAR" />
+    <result column="homepage" property="homepage" jdbcType="VARCHAR" />
+    <result column="introduce" property="introduce" jdbcType="VARCHAR" />
+    <result column="vplus" property="vplus" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="alipay_no" property="alipayNo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="CommonUser_Column_List" >
+    id, approval_status, member_status, start_time, expired_time, red_string1, red_string2, 
+    red_string3, red_string4, red_string5, red_string6, name, alias, region_id, sex, 
+    birthday, owner_url, face_url, nationality, cardtype, idcard, phone, address, postcode, 
+    reg_time, approval_time, last_login, user_cat, read_count, lauded_count, commented_count, 
+    cared_count, title_count, comment_count, laud_count, care_count, active_status, online_minutes, 
+    facebook_no, twitter_no, sina_weibo, homepage, introduce, vplus, remark, alipay_no
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.operation.po.CommonUser" >
+    insert into common_user (id, approval_status, member_status, start_time, expired_time, 
+      red_string1, red_string2, red_string3, red_string4, red_string5, red_string6, 
+      name, alias, region_id, sex, birthday, owner_url, face_url, nationality, 
+      cardtype, idcard, phone, address, postcode, reg_time, approval_time, 
+      last_login, user_cat, read_count, lauded_count, commented_count, cared_count, 
+      title_count, comment_count, laud_count, care_count, active_status, online_minutes, 
+      facebook_no, twitter_no, sina_weibo, homepage, introduce, vplus, 
+      remark, alipay_no)
+    values (#{id}, #{approvalStatus}, #{memberStatus}, #{startTime}, #{expiredTime}, 
+      #{redString1}, #{redString2}, #{redString3}, #{redString4}, #{redString5}, #{redString6}, 
+      #{name}, #{alias}, #{regionId}, #{sex}, #{birthday}, #{ownerUrl}, #{faceUrl}, #{nationality}, 
+      #{cardtype}, #{idcard}, #{phone}, #{address}, #{postcode}, #{regTime}, #{approvalTime}, 
+      #{lastLogin}, #{userCat}, #{readCount}, #{laudedCount}, #{commentedCount}, #{caredCount}, 
+      #{titleCount}, #{commentCount}, #{laudCount}, #{careCount}, #{activeStatus}, #{onlineMinutes}, 
+      #{facebookNo}, #{twitterNo}, #{sinaWeibo}, #{homepage}, #{introduce}, #{vplus}, 
+      #{remark}, #{alipayNo})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.operation.po.CommonUser" >
+    insert into common_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="approvalStatus != null" >
+        approval_status,
+      </if>
+      <if test="memberStatus != null" >
+        member_status,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="expiredTime != null" >
+        expired_time,
+      </if>
+      <if test="redString1 != null" >
+        red_string1,
+      </if>
+      <if test="redString2 != null" >
+        red_string2,
+      </if>
+      <if test="redString3 != null" >
+        red_string3,
+      </if>
+      <if test="redString4 != null" >
+        red_string4,
+      </if>
+      <if test="redString5 != null" >
+        red_string5,
+      </if>
+      <if test="redString6 != null" >
+        red_string6,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="alias != null" >
+        alias,
+      </if>
+      <if test="regionId != null" >
+        region_id,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="ownerUrl != null" >
+        owner_url,
+      </if>
+      <if test="faceUrl != null" >
+        face_url,
+      </if>
+      <if test="nationality != null" >
+        nationality,
+      </if>
+      <if test="cardtype != null" >
+        cardtype,
+      </if>
+      <if test="idcard != null" >
+        idcard,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="postcode != null" >
+        postcode,
+      </if>
+      <if test="regTime != null" >
+        reg_time,
+      </if>
+      <if test="approvalTime != null" >
+        approval_time,
+      </if>
+      <if test="lastLogin != null" >
+        last_login,
+      </if>
+      <if test="userCat != null" >
+        user_cat,
+      </if>
+      <if test="readCount != null" >
+        read_count,
+      </if>
+      <if test="laudedCount != null" >
+        lauded_count,
+      </if>
+      <if test="commentedCount != null" >
+        commented_count,
+      </if>
+      <if test="caredCount != null" >
+        cared_count,
+      </if>
+      <if test="titleCount != null" >
+        title_count,
+      </if>
+      <if test="commentCount != null" >
+        comment_count,
+      </if>
+      <if test="laudCount != null" >
+        laud_count,
+      </if>
+      <if test="careCount != null" >
+        care_count,
+      </if>
+      <if test="activeStatus != null" >
+        active_status,
+      </if>
+      <if test="onlineMinutes != null" >
+        online_minutes,
+      </if>
+      <if test="facebookNo != null" >
+        facebook_no,
+      </if>
+      <if test="twitterNo != null" >
+        twitter_no,
+      </if>
+      <if test="sinaWeibo != null" >
+        sina_weibo,
+      </if>
+      <if test="homepage != null" >
+        homepage,
+      </if>
+      <if test="introduce != null" >
+        introduce,
+      </if>
+      <if test="vplus != null" >
+        vplus,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="alipayNo != null" >
+        alipay_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="approvalStatus != null" >
+        #{approvalStatus},
+      </if>
+      <if test="memberStatus != null" >
+        #{memberStatus},
+      </if>
+      <if test="startTime != null" >
+        #{startTime},
+      </if>
+      <if test="expiredTime != null" >
+        #{expiredTime},
+      </if>
+      <if test="redString1 != null" >
+        #{redString1},
+      </if>
+      <if test="redString2 != null" >
+        #{redString2},
+      </if>
+      <if test="redString3 != null" >
+        #{redString3},
+      </if>
+      <if test="redString4 != null" >
+        #{redString4},
+      </if>
+      <if test="redString5 != null" >
+        #{redString5},
+      </if>
+      <if test="redString6 != null" >
+        #{redString6},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="alias != null" >
+        #{alias},
+      </if>
+      <if test="regionId != null" >
+        #{regionId},
+      </if>
+      <if test="sex != null" >
+        #{sex},
+      </if>
+      <if test="birthday != null" >
+        #{birthday},
+      </if>
+      <if test="ownerUrl != null" >
+        #{ownerUrl},
+      </if>
+      <if test="faceUrl != null" >
+        #{faceUrl},
+      </if>
+      <if test="nationality != null" >
+        #{nationality},
+      </if>
+      <if test="cardtype != null" >
+        #{cardtype},
+      </if>
+      <if test="idcard != null" >
+        #{idcard},
+      </if>
+      <if test="phone != null" >
+        #{phone},
+      </if>
+      <if test="address != null" >
+        #{address},
+      </if>
+      <if test="postcode != null" >
+        #{postcode},
+      </if>
+      <if test="regTime != null" >
+        #{regTime},
+      </if>
+      <if test="approvalTime != null" >
+        #{approvalTime},
+      </if>
+      <if test="lastLogin != null" >
+        #{lastLogin},
+      </if>
+      <if test="userCat != null" >
+        #{userCat},
+      </if>
+      <if test="readCount != null" >
+        #{readCount},
+      </if>
+      <if test="laudedCount != null" >
+        #{laudedCount},
+      </if>
+      <if test="commentedCount != null" >
+        #{commentedCount},
+      </if>
+      <if test="caredCount != null" >
+        #{caredCount},
+      </if>
+      <if test="titleCount != null" >
+        #{titleCount},
+      </if>
+      <if test="commentCount != null" >
+        #{commentCount},
+      </if>
+      <if test="laudCount != null" >
+        #{laudCount},
+      </if>
+      <if test="careCount != null" >
+        #{careCount},
+      </if>
+      <if test="activeStatus != null" >
+        #{activeStatus},
+      </if>
+      <if test="onlineMinutes != null" >
+        #{onlineMinutes},
+      </if>
+      <if test="facebookNo != null" >
+        #{facebookNo},
+      </if>
+      <if test="twitterNo != null" >
+        #{twitterNo},
+      </if>
+      <if test="sinaWeibo != null" >
+        #{sinaWeibo},
+      </if>
+      <if test="homepage != null" >
+        #{homepage},
+      </if>
+      <if test="introduce != null" >
+        #{introduce},
+      </if>
+      <if test="vplus != null" >
+        #{vplus},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+      <if test="alipayNo != null" >
+        #{alipayNo},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="id != null and id != ''" >
+        id = #{id}
+      </if>
+      <if test="approvalStatus != null" >
+        AND approval_status = #{approvalStatus}
+      </if>
+      <if test="memberStatus != null" >
+        AND member_status = #{memberStatus}
+      </if>
+      <if test="startTime != null" >
+        AND start_time = #{startTime}
+      </if>
+      <if test="expiredTime != null" >
+        AND expired_time = #{expiredTime}
+      </if>
+      <if test="redString1 != null and redString1 != ''" >
+        AND red_string1 = #{redString1}
+      </if>
+      <if test="redString2 != null and redString2 != ''" >
+        AND red_string2 = #{redString2}
+      </if>
+      <if test="redString3 != null and redString3 != ''" >
+        AND red_string3 = #{redString3}
+      </if>
+      <if test="redString4 != null and redString4 != ''" >
+        AND red_string4 = #{redString4}
+      </if>
+      <if test="redString5 != null and redString5 != ''" >
+        AND red_string5 = #{redString5}
+      </if>
+      <if test="redString6 != null and redString6 != ''" >
+        AND red_string6 = #{redString6}
+      </if>
+      <if test="name != null and name != ''" >
+        AND name = #{name}
+      </if>
+      <if test="alias != null and alias != ''" >
+        AND alias = #{alias}
+      </if>
+      <if test="regionId != null and regionId != ''" >
+        AND region_id = #{regionId}
+      </if>
+      <if test="sex != null and sex != ''" >
+        AND sex = #{sex}
+      </if>
+      <if test="birthday != null and birthday != ''" >
+        AND birthday = #{birthday}
+      </if>
+      <if test="ownerUrl != null and ownerUrl != ''" >
+        AND owner_url = #{ownerUrl}
+      </if>
+      <if test="faceUrl != null and faceUrl != ''" >
+        AND face_url = #{faceUrl}
+      </if>
+      <if test="nationality != null and nationality != ''" >
+        AND nationality = #{nationality}
+      </if>
+      <if test="cardtype != null and cardtype != ''" >
+        AND cardtype = #{cardtype}
+      </if>
+      <if test="idcard != null and idcard != ''" >
+        AND idcard = #{idcard}
+      </if>
+      <if test="phone != null and phone != ''" >
+        AND phone = #{phone}
+      </if>
+      <if test="address != null and address != ''" >
+        AND address = #{address}
+      </if>
+      <if test="postcode != null and postcode != ''" >
+        AND postcode = #{postcode}
+      </if>
+      <if test="regTime != null" >
+        AND reg_time = #{regTime}
+      </if>
+      <if test="approvalTime != null" >
+        AND approval_time = #{approvalTime}
+      </if>
+      <if test="lastLogin != null" >
+        AND last_login = #{lastLogin}
+      </if>
+      <if test="userCat != null and userCat != ''" >
+        AND user_cat = #{userCat}
+      </if>
+      <if test="readCount != null" >
+        AND read_count = #{readCount}
+      </if>
+      <if test="laudedCount != null" >
+        AND lauded_count = #{laudedCount}
+      </if>
+      <if test="commentedCount != null" >
+        AND commented_count = #{commentedCount}
+      </if>
+      <if test="caredCount != null" >
+        AND cared_count = #{caredCount}
+      </if>
+      <if test="titleCount != null" >
+        AND title_count = #{titleCount}
+      </if>
+      <if test="commentCount != null" >
+        AND comment_count = #{commentCount}
+      </if>
+      <if test="laudCount != null" >
+        AND laud_count = #{laudCount}
+      </if>
+      <if test="careCount != null" >
+        AND care_count = #{careCount}
+      </if>
+      <if test="activeStatus != null" >
+        AND active_status = #{activeStatus}
+      </if>
+      <if test="onlineMinutes != null" >
+        AND online_minutes = #{onlineMinutes}
+      </if>
+      <if test="facebookNo != null and facebookNo != ''" >
+        AND facebook_no = #{facebookNo}
+      </if>
+      <if test="twitterNo != null and twitterNo != ''" >
+        AND twitter_no = #{twitterNo}
+      </if>
+      <if test="sinaWeibo != null and sinaWeibo != ''" >
+        AND sina_weibo = #{sinaWeibo}
+      </if>
+      <if test="homepage != null and homepage != ''" >
+        AND homepage = #{homepage}
+      </if>
+      <if test="introduce != null and introduce != ''" >
+        AND introduce = #{introduce}
+      </if>
+      <if test="vplus != null" >
+        AND vplus = #{vplus}
+      </if>
+      <if test="remark != null and remark != ''" >
+        AND remark = #{remark}
+      </if>
+      <if test="alipayNo != null and alipayNo != ''" >
+        AND alipay_no = #{alipayNo}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.operation.po.CommonUser" resultMap="CommonUserResultMap" >
+    select 
+    <include refid="CommonUser_Column_List" />
+    from common_user
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update common_user
+    <set >
+      <if test="po.id != null" >
+        id = #{po.id},
+      </if>
+      <if test="po.approvalStatus != null" >
+        approval_status = #{po.approvalStatus},
+      </if>
+      <if test="po.memberStatus != null" >
+        member_status = #{po.memberStatus},
+      </if>
+      <if test="po.startTime != null" >
+        start_time = #{po.startTime},
+      </if>
+      <if test="po.expiredTime != null" >
+        expired_time = #{po.expiredTime},
+      </if>
+      <if test="po.redString1 != null" >
+        red_string1 = #{po.redString1},
+      </if>
+      <if test="po.redString2 != null" >
+        red_string2 = #{po.redString2},
+      </if>
+      <if test="po.redString3 != null" >
+        red_string3 = #{po.redString3},
+      </if>
+      <if test="po.redString4 != null" >
+        red_string4 = #{po.redString4},
+      </if>
+      <if test="po.redString5 != null" >
+        red_string5 = #{po.redString5},
+      </if>
+      <if test="po.redString6 != null" >
+        red_string6 = #{po.redString6},
+      </if>
+      <if test="po.name != null" >
+        name = #{po.name},
+      </if>
+      <if test="po.alias != null" >
+        alias = #{po.alias},
+      </if>
+      <if test="po.regionId != null" >
+        region_id = #{po.regionId},
+      </if>
+      <if test="po.sex != null" >
+        sex = #{po.sex},
+      </if>
+      <if test="po.birthday != null" >
+        birthday = #{po.birthday},
+      </if>
+      <if test="po.ownerUrl != null" >
+        owner_url = #{po.ownerUrl},
+      </if>
+      <if test="po.faceUrl != null" >
+        face_url = #{po.faceUrl},
+      </if>
+      <if test="po.nationality != null" >
+        nationality = #{po.nationality},
+      </if>
+      <if test="po.cardtype != null" >
+        cardtype = #{po.cardtype},
+      </if>
+      <if test="po.idcard != null" >
+        idcard = #{po.idcard},
+      </if>
+      <if test="po.phone != null" >
+        phone = #{po.phone},
+      </if>
+      <if test="po.address != null" >
+        address = #{po.address},
+      </if>
+      <if test="po.postcode != null" >
+        postcode = #{po.postcode},
+      </if>
+      <if test="po.regTime != null" >
+        reg_time = #{po.regTime},
+      </if>
+      <if test="po.approvalTime != null" >
+        approval_time = #{po.approvalTime},
+      </if>
+      <if test="po.lastLogin != null" >
+        last_login = #{po.lastLogin},
+      </if>
+      <if test="po.userCat != null" >
+        user_cat = #{po.userCat},
+      </if>
+      <if test="po.readCount != null" >
+        read_count = #{po.readCount},
+      </if>
+      <if test="po.laudedCount != null" >
+        lauded_count = #{po.laudedCount},
+      </if>
+      <if test="po.commentedCount != null" >
+        commented_count = #{po.commentedCount},
+      </if>
+      <if test="po.caredCount != null" >
+        cared_count = #{po.caredCount},
+      </if>
+      <if test="po.titleCount != null" >
+        title_count = #{po.titleCount},
+      </if>
+      <if test="po.commentCount != null" >
+        comment_count = #{po.commentCount},
+      </if>
+      <if test="po.laudCount != null" >
+        laud_count = #{po.laudCount},
+      </if>
+      <if test="po.careCount != null" >
+        care_count = #{po.careCount},
+      </if>
+      <if test="po.activeStatus != null" >
+        active_status = #{po.activeStatus},
+      </if>
+      <if test="po.onlineMinutes != null" >
+        online_minutes = #{po.onlineMinutes},
+      </if>
+      <if test="po.facebookNo != null" >
+        facebook_no = #{po.facebookNo},
+      </if>
+      <if test="po.twitterNo != null" >
+        twitter_no = #{po.twitterNo},
+      </if>
+      <if test="po.sinaWeibo != null" >
+        sina_weibo = #{po.sinaWeibo},
+      </if>
+      <if test="po.homepage != null" >
+        homepage = #{po.homepage},
+      </if>
+      <if test="po.introduce != null" >
+        introduce = #{po.introduce},
+      </if>
+      <if test="po.vplus != null" >
+        vplus = #{po.vplus},
+      </if>
+      <if test="po.remark != null" >
+        remark = #{po.remark},
+      </if>
+      <if test="po.alipayNo != null" >
+        alipay_no = #{po.alipayNo},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <!-- ***************************************************************************** -->
+  <!-- 以上自动生成，以下自定义 -->
+
+  <select id="selectByPrimaryKeyToAuth" resultType="java.util.Map" parameterType="java.lang.String" >
+    select
+    birthday, sex, region_id, introduce
+    from common_user
+    where id = #{id}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="CommonUserResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="CommonUser_Column_List" />
+    from common_user
+    where id = #{id}
+  </select>
+
+  <update id="saveOrUpdateDto" parameterType="com.sida.dcloud.operation.dto.CommonUserOperation">
+    insert into common_user (id, alipay_no, sina_weibo, facebook_no, twitter_no, name, alias, owner_url, birthday, remark)
+      select #{dto.id},#{dto.alipayNo},#{dto.sinaWeibo},#{dto.facebookNo},#{dto.twitterNo},
+      #{dto.name}, #{dto.mobile}, #{dto.ownerUrl}, #{dto.birthday}, #{dto.remark}
+      from dual
+      where not exists (select id from common_user where id = #{dto.id})
+  </update>
+</mapper>

@@ -19,8 +19,8 @@ import org.springframework.stereotype.Component;
 /**
  * Created by Xiruo on 2018/7/27.
  */
-@Component("ActivityInfoActor")
-@Scope("prototype")
+//@Component("ActivityInfoActor")
+//@Scope("prototype")
 public class ActivityInfoActor extends AbstractActor {
     private final static Logger LOG = LoggerFactory.getLogger(ActivityInfoActor.class);
 

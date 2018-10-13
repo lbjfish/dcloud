@@ -6,6 +6,7 @@ import com.sida.dcloud.auth.vo.SysUserVo;
 import com.sida.xiruo.common.util.Xiruo;
 import com.sida.xiruo.po.common.BaseDTO;
 import com.sida.xiruo.po.common.BaseEntity;
+import com.sida.xiruo.po.common.UserCentricDTO;
 import com.sida.xiruo.xframework.common.Contants;
 import com.sida.xiruo.xframework.exception.ControllerException;
 import com.sida.xiruo.xframework.util.BlankUtil;

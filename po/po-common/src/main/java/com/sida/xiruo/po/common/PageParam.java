@@ -13,7 +13,7 @@ public class PageParam implements Serializable{
     @ApiModelProperty(value = "页数(不传或为负则为不分页)", example = "1")
     private Integer p;
 
-    @ApiModelProperty(value = "每页条数", example = "10")
+    @ApiModelProperty(value = "每页条数", example = "20")
     private Integer s;
 
     public Integer getP() {
@@ -25,7 +25,7 @@ public class PageParam implements Serializable{
     }
 
     public Integer getS() {
-        return (s!=null&&s>0)?s:10;
+        return (s!=null&&s>0)?s:20;
     }
 
     public void setS(Integer s) {

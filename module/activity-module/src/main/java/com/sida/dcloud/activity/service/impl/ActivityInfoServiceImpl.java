@@ -40,6 +40,7 @@ public class ActivityInfoServiceImpl extends BaseServiceImpl<ActivityInfo> imple
 
     @Override
     public Page<ActivityInfoVo> findPageList(ActivityInfo po) {
+//        LOG.info("每页 {} 条", po.getS());
         PageHelper.startPage(po.getP(),po.getS());
         List<ActivityInfoVo> voList = activityInfoMapper.findVoList(po);
         return (Page) voList;

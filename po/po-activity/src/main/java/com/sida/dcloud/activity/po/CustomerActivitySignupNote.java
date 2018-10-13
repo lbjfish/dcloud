@@ -1,6 +1,6 @@
 /**
  * create by jianglingfeng
- * @date 2018-09
+ * @date 2018-10
  */
 package com.sida.dcloud.activity.po;
 
@@ -12,6 +12,9 @@ import java.util.Date;
 public class CustomerActivitySignupNote extends BaseEntity implements Serializable {
     @ApiModelProperty("报名表编号（由规则产生）")
     private String noteNo;
+
+    @ApiModelProperty("第三方识别码")
+    private String thirdPartCode;
 
     @ApiModelProperty("活动id（关联activity_info表id）")
     private String activityId;
@@ -159,6 +162,14 @@ public class CustomerActivitySignupNote extends BaseEntity implements Serializab
 
     public void setNoteNo(String noteNo) {
         this.noteNo = noteNo == null ? null : noteNo.trim();
+    }
+
+    public String getThirdPartCode() {
+        return thirdPartCode;
+    }
+
+    public void setThirdPartCode(String thirdPartCode) {
+        this.thirdPartCode = thirdPartCode == null ? null : thirdPartCode.trim();
     }
 
     public String getActivityId() {

@@ -400,4 +400,23 @@
       </foreach>
     </if>
   </select>
+
+  <!-- 新增2018-10-09 -->
+  <resultMap id="SysRegionSingleLayerDtoResultMap" type="com.sida.dcloud.system.dto.SysRegionSingleLayerDto" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="VARCHAR" />
+    <result column="post_code" property="postCode" jdbcType="VARCHAR" />
+    <result column="pinyin" property="pinyin" jdbcType="VARCHAR" />
+    <result column="capital_pinyin" property="capitalPinyin" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="findSysRegionSingleLayerDtoByLevel" parameterType="java.util.List" resultMap="SysRegionSingleLayerDtoResultMap" >
+    select id,code,name,level,post_code,pinyin,capital_pinyin from sys_region
+    where delete_flag = 0 and disable = 0 and level = UPPER(#{level})
+    order by capital_pinyin asc, pinyin asc
+  </select>
+  <update id="updateSysRegionPinyin">
+    update sys_region set pinyin = #{po.pinyin}, capital_pinyin = #{po.capitalPinyin} where id = #{po.id}
+  </update>
 </mapper>

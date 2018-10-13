@@ -31,6 +31,7 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
     private static final Logger LOG = LoggerFactory.getLogger(CustomerActivitySignupNoteServiceImpl.class);
     private static final String LOCK_KEY_CHECK_MULTI = "LOCK_KEY_CHECK_MULTI_" + CustomerActivitySignupNoteServiceImpl.class.getName();
     public static final String ACTION_NO_KEY = "SIGNUP";
+    public static final String THIRD_PART_CODE_KEY = "THIRD_PART_CODE";
     private static final Map<String, Field> NOTE_FIELD_MAP = new HashMap<>();
 
     static {
@@ -115,6 +116,11 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
         return customerActivitySignupNoteMapper.getCurrentNoteNo();
     }
 
+    @Override
+    public String getCurrentThirdPartCode() {
+        return customerActivitySignupNoteMapper.getCurrentThirdPartCode();
+    }
+
     /**
      * 新增和更新操作都需要进行重复检验，因此要进行锁互斥
      * @param po
@@ -135,7 +141,9 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
                     throw new ActivityException("用户不允许重复报名同一活动");
                 }
                 po.setNoteNo(activityCacheUtil.getActionNoByKey(ACTION_NO_KEY));
+                po.setThirdPartCode(activityCacheUtil.getThirdPartCode());
                 result = super.insert(po);
+                sendCodeToThirdPart(po.getThirdPartCode());
             } catch(Exception e) {
                 LOG.error(getClass().getName() + ".insert method occured exception", e);
             } finally {
@@ -146,6 +154,16 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
 
         return result;
     }
+
+    /**
+     * Todo
+     * 发送识别码到第三方
+     * @param code
+     */
+    private void sendCodeToThirdPart(String code){
+
+    }
+
 
     /**
      * 新增和更新操作都需要进行重复检验，因此要进行锁互斥

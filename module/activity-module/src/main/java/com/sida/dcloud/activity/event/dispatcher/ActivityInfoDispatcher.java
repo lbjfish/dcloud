@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 
 import static akka.pattern.PatternsCS.ask;
 
-@Component
+//@Component
 public class ActivityInfoDispatcher extends BaseClientConfig implements IEventDispatcher<ActivityInfo> {
     private final static Logger LOG = LoggerFactory.getLogger(ActivityInfoDispatcher.class);
 

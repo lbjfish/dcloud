@@ -3,10 +3,7 @@ package com.sida.dcloud.system.controller;
 import com.sida.dcloud.auth.po.SysOrg;
 import com.sida.dcloud.auth.vo.InitStoreDTO;
 import com.sida.dcloud.auth.vo.InitSystemDTO;
-import com.sida.dcloud.system.service.SysCommonService;
-import com.sida.dcloud.system.service.SysEmployeeService;
-import com.sida.dcloud.system.service.SysOrgService;
-import com.sida.dcloud.system.service.SysPositionService;
+import com.sida.dcloud.system.service.*;
 import com.sida.xiruo.xframework.cache.redis.RedisUtil;
 import com.sida.xiruo.xframework.controller.BaseController;
 import com.sida.xiruo.xframework.exception.ServiceException;
@@ -36,7 +33,7 @@ public class InitController extends BaseController {
     @Autowired
     private SysOrgService sysOrgService;
     @Autowired
-    private SysCommonService sysCommonService;
+    private SysRegionService sysRegionService;
     @Autowired
     private SysEmployeeService sysEmployeeService;
     @Autowired
@@ -48,6 +45,13 @@ public class InitController extends BaseController {
     @ApiOperation("首次初始化片区门店")
     public Object firstInitOrg() {
         sysOrgService.firstInitOrg();
+        return toResult();
+    }
+
+    @RequestMapping(value = "/updateSysRegionPinyin", method = RequestMethod.GET)
+    @ApiOperation(value = "更新地区拼音字段")
+    public Object updateSysRegionPinyin() {
+        sysRegionService.updateSysRegionPinyin();
         return toResult();
     }
 

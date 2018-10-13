@@ -13,6 +13,7 @@ import cn.jpush.api.push.model.notification.AndroidNotification;
 import cn.jpush.api.push.model.notification.IosNotification;
 import cn.jpush.api.push.model.notification.Notification;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -24,17 +25,17 @@ public class JpushClientUtil {
 
     private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(JpushClientUtil.class);
 
-    //@Value("${jpush.appKey}")
-    private static final String appKey = "cffd2570c01c7a00fb7dce91";
+    @Value("${jpush.appKey}")
+    private String appKey;// = "cffd2570c01c7a00fb7dce91";
 
-    //@Value("${jpush.masterSecret}")
-    private static final String masterSecret = "a3389384fca8b603af63937f";
+    @Value("${jpush.masterSecret}")
+    private String masterSecret;// = "a3389384fca8b603af63937f";
 
-    private static JPushClient jPushClient =null;
+    private JPushClient jPushClient = null;
 
     @PostConstruct
     public void init() {
-        jPushClient=new JPushClient(masterSecret,appKey);
+        jPushClient = new JPushClient(masterSecret,appKey);
     }
     /**
      * 推送给设备标识参数的用户

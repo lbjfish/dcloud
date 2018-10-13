@@ -29,8 +29,8 @@ public class ActivityInfoController extends BaseController {
     @ApiOperation(value = "条件查活动列表")
     public Object list(@RequestBody @ApiParam("JSON参数") ActivityInfo param) {
         Optional.ofNullable(param.getOrderField()).orElseGet(() -> {
-            param.setOrderField("sort");
-            param.setOrderString("asc");
+            param.setOrderField("start_time");
+            param.setOrderString("desc");
             return "";
         });
         Object object = activityInfoService.findPageList(param);

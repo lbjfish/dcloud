@@ -3,9 +3,10 @@ package com.sida.dcloud.system.dto;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class SysRegionSingleLayerDto implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @ApiModelProperty("通用字段：主键id")
     private String id;
 
@@ -18,11 +19,22 @@ public class SysRegionSingleLayerDto implements Serializable {
     @ApiModelProperty("邮政编码")
     private String postCode;
 
+    @ApiModelProperty("级别")
+    private String level;
+
     @ApiModelProperty("拼音")
     private String pinyin;
 
     @ApiModelProperty("拼音首字母")
     private String capitalPinyin;
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
 
     public String getId() {
         return id;
@@ -71,6 +83,4 @@ public class SysRegionSingleLayerDto implements Serializable {
     public void setCapitalPinyin(String capitalPinyin) {
         this.capitalPinyin = capitalPinyin;
     }
-
-    private static final long serialVersionUID = 1L;
 }

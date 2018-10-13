@@ -12,6 +12,7 @@
     <result column="red_string5" property="redString5" jdbcType="VARCHAR" />
     <result column="red_string6" property="redString6" jdbcType="VARCHAR" />
     <result column="note_no" property="noteNo" jdbcType="VARCHAR" />
+    <result column="third_part_code" property="thirdPartCode" jdbcType="VARCHAR" />
     <result column="activity_id" property="activityId" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
@@ -61,18 +62,18 @@
   </resultMap>
   <sql id="CustomerActivitySignupNote_Column_List" >
     id, org_id, delete_flag, red_string1, red_string2, red_string3, red_string4, red_string5, 
-    red_string6, note_no, activity_id, user_id, name, sex, department, position, unit, 
-    address, post_code, mobile1_country_no, mobile1_no, mobile2_country_no, mobile2_no, 
-    phone1_country_no, phone_zone_no, phone1_no, phone2_country_no, phone2_zone_no, phone2_no, 
-    fax_country_no, fax_zone_no, fax_no, email, homepage, qq_no, wx_no, region_id, corp_domains, 
-    interested_domains, attend_intent, gain_channel, it_type, id_no, signup_time, remark, 
-    version, field1, field2, field3, field4, field5, field6, field7, field8, field9, 
-    field10
+    red_string6, note_no, third_part_code, activity_id, user_id, name, sex, department, 
+    position, unit, address, post_code, mobile1_country_no, mobile1_no, mobile2_country_no, 
+    mobile2_no, phone1_country_no, phone_zone_no, phone1_no, phone2_country_no, phone2_zone_no, 
+    phone2_no, fax_country_no, fax_zone_no, fax_no, email, homepage, qq_no, wx_no, region_id, 
+    corp_domains, interested_domains, attend_intent, gain_channel, it_type, id_no, signup_time, 
+    remark, version, field1, field2, field3, field4, field5, field6, field7, field8, 
+    field9, field10
   </sql>
   <insert id="insert" parameterType="com.sida.dcloud.activity.po.CustomerActivitySignupNote" >
     insert into customer_activity_signup_note (id, org_id, delete_flag, red_string1, red_string2, red_string3, 
-      red_string4, red_string5, red_string6, note_no, activity_id, user_id, 
-      name, sex, department, position, unit, address, post_code, 
+      red_string4, red_string5, red_string6, note_no, third_part_code, activity_id, 
+      user_id, name, sex, department, position, unit, address, post_code, 
       mobile1_country_no, mobile1_no, mobile2_country_no, mobile2_no, phone1_country_no, 
       phone_zone_no, phone1_no, phone2_country_no, phone2_zone_no, phone2_no, 
       fax_country_no, fax_zone_no, fax_no, email, homepage, qq_no, wx_no, 
@@ -81,8 +82,8 @@
       field3, field4, field5, field6, field7, field8, field9, field10
       )
     values (#{id}, #{orgId}, #{deleteFlag}, #{redString1}, #{redString2}, #{redString3}, 
-      #{redString4}, #{redString5}, #{redString6}, #{noteNo}, #{activityId}, #{userId}, 
-      #{name}, #{sex}, #{department}, #{position}, #{unit}, #{address}, #{postCode}, 
+      #{redString4}, #{redString5}, #{redString6}, #{noteNo}, #{thirdPartCode}, #{activityId}, 
+      #{userId}, #{name}, #{sex}, #{department}, #{position}, #{unit}, #{address}, #{postCode}, 
       #{mobile1CountryNo}, #{mobile1No}, #{mobile2CountryNo}, #{mobile2No}, #{phone1CountryNo}, 
       #{phoneZoneNo}, #{phone1No}, #{phone2CountryNo}, #{phone2ZoneNo}, #{phone2No}, 
       #{faxCountryNo}, #{faxZoneNo}, #{faxNo}, #{email}, #{homepage}, #{qqNo}, #{wxNo}, 
@@ -123,6 +124,9 @@
       </if>
       <if test="noteNo != null" >
         note_no,
+      </if>
+      <if test="thirdPartCode != null" >
+        third_part_code,
       </if>
       <if test="activityId != null" >
         activity_id,
@@ -293,6 +297,9 @@
       </if>
       <if test="noteNo != null" >
         #{noteNo},
+      </if>
+      <if test="thirdPartCode != null" >
+        #{thirdPartCode},
       </if>
       <if test="activityId != null" >
         #{activityId},
@@ -465,6 +472,9 @@
       </if>
       <if test="noteNo != null and noteNo != ''" >
         AND note_no = #{noteNo}
+      </if>
+      <if test="thirdPartCode != null and thirdPartCode != ''" >
+        AND third_part_code = #{thirdPartCode}
       </if>
       <if test="activityId != null and activityId != ''" >
         AND activity_id = #{activityId}
@@ -650,6 +660,9 @@
       </if>
       <if test="po.noteNo != null" >
         note_no = #{po.noteNo},
+      </if>
+      <if test="po.thirdPartCode != null" >
+        third_part_code = #{po.thirdPartCode},
       </if>
       <if test="po.activityId != null" >
         activity_id = #{po.activityId},
@@ -876,5 +889,9 @@
 
   <select id="getCurrentNoteNo" resultType="String">
     select max(a.note_no) from ((select max(note_no) note_no from customer_activity_signup_note order by note_no desc) union all select 0 from dual) a
+  </select>
+
+  <select id="getCurrentThirdPartCode" resultType="String">
+    select max(a.third_part_code) from ((select max(third_part_code) third_part_code from customer_activity_signup_note order by third_part_code desc) union all select 0 from dual) a
   </select>
 </mapper>

@@ -1,7 +1,6 @@
 package com.sida.dcloud.activity.controller;
 
 import com.sida.dcloud.activity.po.ActivitySignupNoteVersion;
-import com.sida.dcloud.activity.po.CustomerActivitySignupNote;
 import com.sida.dcloud.activity.service.ActivitySignupNoteVersionService;
 import com.sida.xiruo.xframework.controller.BaseController;
 import io.swagger.annotations.Api;

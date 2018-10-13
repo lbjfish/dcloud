@@ -87,7 +87,14 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         //ignore
-        web.ignoring().antMatchers("/apis/system/init/loadDicTree");
+        web.ignoring().antMatchers(
+                "/apis/system/init/loadDicTree",
+//                "/apis/system/init/updateSysRegionPinyin",
+                "/apis/system/sysRegion/singlelevel",
+                "/apis/system/sysRegion/tree",
+                "/apis/activity/activityInfo/list",
+                "/apis/activity/activityInfo/findOne"
+                );
     }
 
     private OAuth2AuthenticationProcessingFilter oAuth2AuthenticationProcessingFilter() {
