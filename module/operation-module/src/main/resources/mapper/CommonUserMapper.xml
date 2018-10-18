@@ -679,10 +679,16 @@
   </select>
 
   <update id="saveOrUpdateDto" parameterType="com.sida.dcloud.operation.dto.CommonUserOperation">
-    insert into common_user (id, alipay_no, sina_weibo, facebook_no, twitter_no, name, alias, owner_url, birthday, remark)
+    insert into common_user (id, alipay_no, sina_weibo, facebook_no, twitter_no, name, alias, owner_url, birthday, introduce, remark)
       select #{dto.id},#{dto.alipayNo},#{dto.sinaWeibo},#{dto.facebookNo},#{dto.twitterNo},
-      #{dto.name}, #{dto.mobile}, #{dto.ownerUrl}, #{dto.birthday}, #{dto.remark}
+      #{dto.name}, #{dto.mobile}, #{dto.ownerUrl}, #{dto.birthday}, #{dto.remark}, #{dto.remark}
       from dual
       where not exists (select id from common_user where id = #{dto.id})
+  </update>
+
+  <update id="updateUserInfo" parameterType="com.sida.dcloud.operation.dto.CommonUserOperation">
+    update common_user set name = #{dto.name}, birthday = #{dto.birthday}, introduce = #{dto.remark},
+    sex = #{dto.sex}, region_id = #{dto.regionId}, owner_url = #{dto.ownerUrl}
+    where id = #{dto.id}
   </update>
 </mapper>

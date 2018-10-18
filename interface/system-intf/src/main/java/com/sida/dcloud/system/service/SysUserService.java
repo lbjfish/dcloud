@@ -245,5 +245,10 @@ public interface SysUserService extends IBaseService<SysUser> {
      */
     int selectUserCount();
 
-    public void createUserByOrderList(List<SysUser> listUser);
+    void createUserByOrderList(List<SysUser> listUser);
+
+    int saveOrUpdateDto(Map<String, String> map);
+    int updateMobile(Map<String, String> map);
+    int updateUserInfo(Map<String, String> map);
+    int updateUserPassword(Map<String, String> map);
 }

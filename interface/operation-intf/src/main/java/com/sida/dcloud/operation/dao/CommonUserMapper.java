@@ -14,4 +14,5 @@ import java.util.Map;
 public interface CommonUserMapper extends IMybatisDao<CommonUser> {
     Map<String, String> selectByPrimaryKeyToAuth(@Param("id") String id);
     int saveOrUpdateDto(@Param("dto") CommonUserOperation dto);
+    int updateUserInfo(@Param("dto")CommonUserOperation dto);
 }

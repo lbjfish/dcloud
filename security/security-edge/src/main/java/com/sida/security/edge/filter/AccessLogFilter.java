@@ -15,11 +15,13 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Date;
+import java.util.Optional;
+import java.util.logging.Logger;
 
 @Component
 @WebFilter
 public class AccessLogFilter implements Filter {
-
+    private static final Logger LOG = Logger.getLogger(AccessLogFilter.class.getName());
     @Resource
     private SystemClientInvoker systemClientInvoker;
 
@@ -48,6 +50,11 @@ public class AccessLogFilter implements Filter {
             String url = request.getRequestURL().toString();
             if(!url.contains("swagger") && !url.contains("api-docs") && !url.contains("health")) {
                 SysUserVo user = LoginManager.getUser();
+
+                if(user.getId() == null || user.getId().equals("0")) {
+                    LOG.warning("Access login user is null");
+                    return;
+                }
                 SysAccessLogDetail detail = new SysAccessLogDetail();
                 detail.setId(UUIDGenerate.getNextId());
                 detail.setUrl(url);

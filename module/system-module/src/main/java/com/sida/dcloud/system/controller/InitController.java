@@ -90,4 +90,17 @@ public class InitController extends BaseController {
         }));
         return toResult(list);
     }
+
+    @GetMapping("/loadGlobalVariable")
+    @ApiOperation("加载所有全局变量")
+    public Object loadGlobalVariable() {
+        List<Object> list = new ArrayList<>();
+        redisUtil.getGlobalVariableMap().forEach((code, name) -> list.add(new HashMap<String, Object>() {
+            {
+                put("code", code);
+                put("name", name);
+            }
+        }));
+        return toResult(list);
+    }
 }

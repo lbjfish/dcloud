@@ -37,6 +37,31 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     private static final String CSRF_COOKIE_NAME = "XSRF-TOKEN";
     private static final String CSRF_HEADER_NAME = "X-XSRF-TOKEN";
 
+    private static final String[] NOT_REQUIRED_LOGIN_URL_ARRAY = {
+            "/sec/**"
+            , "/editor-app/**"
+            , "/diagram-viewer/**"
+            , "/login"
+            , "/**/*.json"
+            ,"/**/*.js,/**/*.css"
+            , "/apis/system/sysUser/remoteRegister"
+            , "/apis/system/authcodes/getRemoteAuthCode",
+
+            //设计云
+            "/apis/system/init/loadDicTree",
+            "/apis/system/init/loadGlobalVariable",
+//            "/apis/system/init/updateSysRegionPinyin",
+            "/apis/system/sysRegion/singlelevel",
+            "/apis/system/sysRegion/threelevel",
+            "/apis/system/sysRegion/tree",
+            "/apis/system/sysUserCustomer/*",
+            "/apis/activity/sysUserCustomer/*",
+            "/apis/content/sysUserCustomer/*",
+            "/apis/activity/activityInfo/list",
+            "/apis/activity/activityInfo/findOne",
+            "/apis/operation/sysUserOperation/*"
+    };
+
     @Autowired
     private ResourceServerTokenServices resourceServerTokenServices;
 
@@ -61,16 +86,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers(
-                        "/sec/**"
-                        , "/editor-app/**"
-                        , "/diagram-viewer/**"
-                        , "/login"
-                        , "/**/*.json"
-                        ,"/**/*.js,/**/*.css"
-                        , "/apis/system/sysUser/remoteRegister"
-                        , "/apis/system/authcodes/getRemoteAuthCode"
-                ).permitAll().anyRequest().authenticated()
+                .antMatchers(NOT_REQUIRED_LOGIN_URL_ARRAY).permitAll().anyRequest().authenticated()
                 /*.and()
                 .csrf().requireCsrfProtectionMatcher(csrfRequestMatcher()).csrfTokenRepository(csrfTokenRepository())*/
                 .and()
@@ -86,15 +102,21 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        //ignore
-        web.ignoring().antMatchers(
-                "/apis/system/init/loadDicTree",
-//                "/apis/system/init/updateSysRegionPinyin",
-                "/apis/system/sysRegion/singlelevel",
-                "/apis/system/sysRegion/tree",
-                "/apis/activity/activityInfo/list",
-                "/apis/activity/activityInfo/findOne"
-                );
+        //ignore 写在这儿无法记录登录用户从而记录日志，通过permitAll通过则ok
+//        web.ignoring().antMatchers(
+//                "/apis/system/init/loadDicTree",
+//                "/apis/system/init/loadGlobalVariable",
+////                "/apis/system/init/updateSysRegionPinyin",
+//                "/apis/system/sysRegion/singlelevel",
+//                "/apis/system/sysRegion/threelevel",
+//                "/apis/system/sysRegion/tree",
+//                "/apis/system/sysUserCustomer/*",
+//                "/apis/activity/sysUserCustomer/*",
+//                "/apis/content/sysUserCustomer/*",
+//                "/apis/activity/activityInfo/list",
+//                "/apis/activity/activityInfo/findOne",
+//                "/apis/operation/sysUserOperation/*"
+//                );
     }
 
     private OAuth2AuthenticationProcessingFilter oAuth2AuthenticationProcessingFilter() {

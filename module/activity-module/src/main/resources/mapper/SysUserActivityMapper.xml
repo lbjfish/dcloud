@@ -393,4 +393,24 @@
       </if>
     </if>
   </select>
+
+
+  <insert id="insertDto" parameterType="java.util.Map">
+    insert into sys_user_activity (id, wechat, qq, name, account, birthday, description, mobile)
+    select #{map.id},#{map.wechat}, #{map.qq},
+    #{map.name}, #{map.mobile}, str_to_date(#{map.birthday}, '%Y%m%d'), #{map.remark}, #{map.mobile}
+    from dual
+    where not exists (select id from sys_user where id = #{map.id})
+  </insert>
+
+  <update id="updateMobile" parameterType="java.util.Map">
+    update sys_user_activity set mobile = #{map.mobile}
+    where id = #{map.id}
+  </update>
+
+  <update id="updateUserInfo" parameterType="java.util.Map">
+    update sys_user_activity set name = #{map.name}, birthday = #{map.birthday}, description = #{map.remark},
+    sex = #{map.sex}
+    where id = #{map.id}
+  </update>
 </mapper>

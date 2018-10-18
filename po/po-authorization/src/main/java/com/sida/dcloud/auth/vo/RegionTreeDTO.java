@@ -21,6 +21,27 @@ public class RegionTreeDTO{
     private Integer sort;
     @ApiModelProperty(value = "子节点")
     private List<RegionTreeDTO> children = new ArrayList<>();
+    @ApiModelProperty("拼音")
+    private String pinyin;
+
+    @ApiModelProperty("拼音首字母")
+    private String capitalPinyin;
+
+    public String getPinyin() {
+        return pinyin;
+    }
+
+    public void setPinyin(String pinyin) {
+        this.pinyin = pinyin;
+    }
+
+    public String getCapitalPinyin() {
+        return capitalPinyin;
+    }
+
+    public void setCapitalPinyin(String capitalPinyin) {
+        this.capitalPinyin = capitalPinyin;
+    }
 
     public String getId() {
         return id;

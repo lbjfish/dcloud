@@ -1,10 +1,13 @@
 package com.sida.dcloud.system.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-public class SysRegionSingleLayerDto implements Serializable {
+public class SysRegionLayerDto implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("通用字段：主键id")
@@ -27,6 +30,38 @@ public class SysRegionSingleLayerDto implements Serializable {
 
     @ApiModelProperty("拼音首字母")
     private String capitalPinyin;
+
+    @JsonIgnore
+    private String parentId;
+    @JsonIgnore
+    private int sort;
+
+    @ApiModelProperty("子节点")
+    private List<SysRegionLayerDto> children = new ArrayList<>();
+
+    public List<SysRegionLayerDto> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<SysRegionLayerDto> children) {
+        this.children = children;
+    }
+
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
+    }
+
+    public int getSort() {
+        return sort;
+    }
+
+    public void setSort(int sort) {
+        this.sort = sort;
+    }
 
     public String getLevel() {
         return level;

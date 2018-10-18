@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SysUserActivityServiceImpl extends BaseServiceImpl<SysUserActivity> implements SysUserActivityService {
@@ -53,5 +54,20 @@ public class SysUserActivityServiceImpl extends BaseServiceImpl<SysUserActivity>
         PageHelper.startPage(po.getP(),po.getS());
         List<SysUserActivityVo> voList = sysUserActivityMapper.selectVoList(po);
         return (Page) voList;
+    }
+
+    @Override
+    public int inertDto(Map<String, String> map) {
+        return sysUserActivityMapper.insertDto(map);
+    }
+
+    @Override
+    public int updateMobile(Map<String, String> map) {
+        return sysUserActivityMapper.updateMobile(map);
+    }
+
+    @Override
+    public int updateUserInfo(Map<String, String> map) {
+        return sysUserActivityMapper.updateUserInfo(map);
     }
 }

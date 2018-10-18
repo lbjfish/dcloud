@@ -36,6 +36,10 @@ public class RedisUtil {
         return null;
     }
 
+    public Map<String, Object> getGlobalVariableMap() {
+        return getEntriesFromMap(RedisKey.GLOBAL_VARIABLE);
+    }
+
     /**
      * 通过分组编码得到分组下所有数据字典键值对（01:男，02:女）
      * 主要用于数据导出时，数据字典键转成excel需要的值
@@ -299,6 +303,20 @@ public class RedisUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return result;
+    }
+
+    /**
+     *
+     * @param redisKey
+     * @param mapKey
+     * @param mapValue
+     * @param expireSeconds
+     * @return
+     */
+    public boolean putInMap(final String redisKey, String mapKey, Object mapValue, long expireSeconds) {
+        boolean result = putInMap(redisKey, mapKey, mapValue);
+        redisTemplate.expire(redisKey, expireSeconds, TimeUnit.SECONDS);
         return result;
     }
 

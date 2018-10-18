@@ -70,13 +70,13 @@ public class ActivityInfoVo extends UserCentricDTO {
     private String activityStatus;
 
     @ApiModelProperty("子活动集合")
-    private List<ChildActivityInfoVo> children;
+    private List<ActivityInfoChildVo> children;
 
-    public List<ChildActivityInfoVo> getChildren() {
+    public List<ActivityInfoChildVo> getChildren() {
         return children;
     }
 
-    public void setChildren(List<ChildActivityInfoVo> children) {
+    public void setChildren(List<ActivityInfoChildVo> children) {
         this.children = children;
     }
 

@@ -14,6 +14,7 @@ import org.springframework.security.oauth2.provider.authentication.OAuth2Authent
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  *
@@ -33,38 +34,44 @@ public final class LoginManager {
         try{
             user.setId("0");
             user.setOrgId("0");
-            OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) SecurityContextHolder.getContext().getAuthentication().getDetails();
-            String token = details.getTokenValue();
-            JsonParser jsonParser = JsonParserFactory.create();
-            if (token !=null){
-                Map<String, Object> map = jsonParser.parseMap(JwtHelper.decode(token).getClaims());
-                user.setId((String) map.get("user_id"));
-                user.setOrgId((String) map.get("org_id"));
-                user.setName(map.get("name")+"");
-
-                user.setUserAccount(map.get("userAccount")==null?"":map.get("userAccount").toString());
-                user.setRoleId(map.get("roleId")==null?"":map.get("roleId").toString());
-                user.setRoleCode(map.get("roleCode")==null?"":map.get("roleCode").toString());
-                user.setRoleName(map.get("roleName")==null?"":map.get("roleName").toString());
-                user.setOrganizationId(map.get("organizationId")==null?"":map.get("organizationId").toString());
-                user.setOrganizationPath(map.get("organizationPath")==null?"":map.get("organizationPath").toString());
-                user.setAreaId(map.get("areaId")==null?"":map.get("areaId").toString());
-                user.setStoreId(map.get("storeId")==null?"":map.get("storeId").toString());
-                user.setCertId(map.get("certId")==null?"":map.get("certId").toString());
-
-                user.setPermissionLevel(map.get("permissionLevel")==null?0:Integer.valueOf(map.get("permissionLevel").toString()));
-                user.setPermissionOrgId(map.get("permissionOrgId")==null?"":map.get("permissionOrgId").toString());
-
-                List<LinkedHashMap> roleListMap = map.get("roleList")==null?null: (List)map.get("roleList");
-                List<RoleDTO> roleList = Lists.newArrayList();
-                if (BlankUtil.isNotEmpty(roleListMap)){
-                    for (LinkedHashMap hashMap :roleListMap){
-                        RoleDTO dto = (RoleDTO) BeanCovertUtil.convertMap(RoleDTO.class,hashMap);
-                        roleList.add(dto);
-                    }
-                }
-                user.setRoleList(roleList);
+            if(SecurityContextHolder.getContext().getAuthentication() == null) {
+                return user;
             }
+            OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails)SecurityContextHolder.getContext().getAuthentication().getDetails();
+//            Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
+//                    .map(auth -> auth.getDetails()).ifPresent(details -> {
+                String token = details.getTokenValue();
+                JsonParser jsonParser = JsonParserFactory.create();
+                if (token != null) {
+                    Map<String, Object> map = jsonParser.parseMap(JwtHelper.decode(token).getClaims());
+                    user.setId((String) map.get("user_id"));
+                    user.setOrgId((String) map.get("org_id"));
+                    user.setName(map.get("name") + "");
+
+                    user.setUserAccount(map.get("userAccount") == null ? "" : map.get("userAccount").toString());
+                    user.setRoleId(map.get("roleId") == null ? "" : map.get("roleId").toString());
+                    user.setRoleCode(map.get("roleCode") == null ? "" : map.get("roleCode").toString());
+                    user.setRoleName(map.get("roleName") == null ? "" : map.get("roleName").toString());
+                    user.setOrganizationId(map.get("organizationId") == null ? "" : map.get("organizationId").toString());
+                    user.setOrganizationPath(map.get("organizationPath") == null ? "" : map.get("organizationPath").toString());
+                    user.setAreaId(map.get("areaId") == null ? "" : map.get("areaId").toString());
+                    user.setStoreId(map.get("storeId") == null ? "" : map.get("storeId").toString());
+                    user.setCertId(map.get("certId") == null ? "" : map.get("certId").toString());
+
+                    user.setPermissionLevel(map.get("permissionLevel") == null ? 0 : Integer.valueOf(map.get("permissionLevel").toString()));
+                    user.setPermissionOrgId(map.get("permissionOrgId") == null ? "" : map.get("permissionOrgId").toString());
+
+                    List<LinkedHashMap> roleListMap = map.get("roleList") == null ? null : (List) map.get("roleList");
+                    List<RoleDTO> roleList = Lists.newArrayList();
+                    if (BlankUtil.isNotEmpty(roleListMap)) {
+                        for (LinkedHashMap hashMap : roleListMap) {
+                            RoleDTO dto = (RoleDTO) BeanCovertUtil.convertMap(RoleDTO.class, hashMap);
+                            roleList.add(dto);
+                        }
+                    }
+                    user.setRoleList(roleList);
+                }
+//            });
         }catch (Exception e){
             e.printStackTrace();
         }

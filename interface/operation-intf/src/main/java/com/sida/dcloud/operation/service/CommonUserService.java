@@ -10,4 +10,5 @@ import java.util.Map;
 public interface CommonUserService extends IBaseService<CommonUser> {
     Map<String, String> selectByPrimaryKeyToAuth(String id);
     int saveOrUpdateDto(CommonUserOperation dto);
+    int updateUserInfo(CommonUserOperation dto);
 }

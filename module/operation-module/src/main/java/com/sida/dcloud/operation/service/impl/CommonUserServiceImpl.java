@@ -34,4 +34,9 @@ public class CommonUserServiceImpl extends BaseServiceImpl<CommonUser> implement
     public int saveOrUpdateDto(CommonUserOperation dto) {
         return commonUserMapper.saveOrUpdateDto(dto);
     }
+
+    @Override
+    public int updateUserInfo(CommonUserOperation dto) {
+        return commonUserMapper.updateUserInfo(dto);
+    }
 }

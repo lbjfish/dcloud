@@ -40,6 +40,13 @@ public class SysRegionController extends BaseController {
         return toResult(object);
     }
 
+    @RequestMapping(value = "/threelevel", method = RequestMethod.GET)
+    @ApiOperation(value = "获取地区树（国家省份城市）")
+    public Object threelevel() {
+        Object object = sysRegionService.findThreeLevelTree();
+        return toResult(object);
+    }
+
     @RequestMapping(value = "/singlelevel", method = RequestMethod.GET)
     @ApiOperation(value = "根据级别获取扁平化地区数据")
     public Object singlelevel(@RequestParam("level") @ApiParam("层级（COUNTRY, PROVINCE, CITY, AREA）") String level) {

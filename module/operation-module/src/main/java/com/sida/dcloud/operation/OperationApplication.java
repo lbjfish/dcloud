@@ -15,6 +15,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 
+import java.util.Optional;
+
 /***
  * Crete by
  */
@@ -40,8 +42,11 @@ public class OperationApplication {
         return new RequestInterceptor() {
             @Override
             public void apply(RequestTemplate requestTemplate) {
-                OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) SecurityContextHolder.getContext().getAuthentication().getDetails();
-                requestTemplate.header("Authorization","bearer "+details.getTokenValue());
+                Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
+                        .map(auth -> auth.getDetails()).ifPresent(details -> {
+                    String token = ((OAuth2AuthenticationDetails) details).getTokenValue();
+                    requestTemplate.header("Authorization", "bearer " + token);
+                });
             }
         };
     }

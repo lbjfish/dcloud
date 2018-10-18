@@ -10,6 +10,10 @@ import com.sida.xiruo.xframework.dao.IMybatisDao;
 import org.apache.ibatis.annotations.Param;
 
 public interface SysUserOperationMapper extends IMybatisDao<SysUserOperation> {
-    CommonUserOperation verifyBindStatus(@Param("loginFrom")String loginFrom, @Param("account")String account);
+    CommonUserOperation verifyBindStatus(@Param("dto")CommonUserOperation dto);
     int saveOrUpdateDto(@Param("dto")CommonUserOperation dto);
+    int updateMobile(@Param("dto")CommonUserOperation dto);
+    int updateUserInfo(@Param("dto")CommonUserOperation dto);
+    int updateUserPassword(@Param("dto")CommonUserOperation dto);
+    int checkMultiCountByUnique(@Param("dto")CommonUserOperation dto);
 }

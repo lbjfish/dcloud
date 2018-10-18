@@ -20,8 +20,8 @@ public class FaceIdTokenGranter extends AbstractTokenGranter {
     public static final String GRANT_TYPE = "faceId";
 
     private AuthenticationManager authenticationManager;
-    public FaceIdTokenGranter(AuthenticationManager authenticationManager, AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory) {
-        super(tokenServices, clientDetailsService, requestFactory, GRANT_TYPE);
+    public FaceIdTokenGranter(AuthenticationManager authenticationManager, AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory, String grantType) {
+        super(tokenServices, clientDetailsService, requestFactory, grantType);
         this.authenticationManager = authenticationManager;
     }
 

@@ -21,13 +21,13 @@ public class MsgAuthCodeTokenGranter extends AbstractTokenGranter {
     public static final String GRANT_TYPE = "msgAuthCode";
 
     private AuthenticationManager authenticationManager;
-    public MsgAuthCodeTokenGranter(AuthenticationManager authenticationManager, AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory) {
-        super(tokenServices, clientDetailsService, requestFactory, GRANT_TYPE);
+    public MsgAuthCodeTokenGranter(AuthenticationManager authenticationManager, AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory, String grantType) {
+        super(tokenServices, clientDetailsService, requestFactory, grantType);
         this.authenticationManager = authenticationManager;
     }
 
     public Authentication createAuthenticationTokenFromInput(Map<String, String> parameters) {
-        String principal = parameters.get("phone");
+        String principal = parameters.get("mobileType") + ":" +parameters.get("mobile");
         String msgAuthCode = parameters.get(GRANT_TYPE);
         return new MsgAuthCodeAuthenticationToken(principal, msgAuthCode);
     }
@@ -35,7 +35,7 @@ public class MsgAuthCodeTokenGranter extends AbstractTokenGranter {
     @Override
     protected OAuth2Authentication getOAuth2Authentication(ClientDetails client, TokenRequest tokenRequest) {
         Map<String, String> parameters = new LinkedHashMap<String, String>(tokenRequest.getRequestParameters());
-        String principal = parameters.get("phone");
+        String principal = parameters.get("mobileType") + ":" +parameters.get("mobile");
 
         Authentication userAuth = createAuthenticationTokenFromInput(parameters);
         ((AbstractAuthenticationToken) userAuth).setDetails(parameters);

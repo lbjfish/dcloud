@@ -403,6 +403,9 @@ public class BaseController {
     protected <T extends BaseEntity> void checkIdEmpty(T po, int event) {
         if(Contants.EVENT_UPDATE == event) {
             Optional.ofNullable(po.getId()).orElseThrow(() -> new RuntimeException("更新操作时主键不能空"));
+            if(!LoginManager.getCurrentUserId().equals(po.getId())) {
+                throw new RuntimeException(String.format("不能修改其他人的资料，登录用户[%s]，修改用户[%s]", LoginManager.getCurrentUserId(), po.getId()));
+            }
         }
     }
 }

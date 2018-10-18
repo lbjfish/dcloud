@@ -59,6 +59,53 @@
     <result column="summary" property="summary" jdbcType="VARCHAR" />
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
     <result column="custom_content" property="customContent" jdbcType="LONGVARCHAR" />
+    <association property="children" column="id" select="selectChildren"/>
+  </resultMap>
+  <resultMap id="ActivityInfoChildResultMap" type="com.sida.dcloud.activity.po.ActivityInfoChild" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="alias" property="alias" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="second_title" property="secondTitle" jdbcType="VARCHAR" />
+    <result column="custom_title" property="customTitle" jdbcType="VARCHAR" />
+    <result column="hosts" property="hosts" jdbcType="VARCHAR" />
+    <result column="organizers" property="organizers" jdbcType="VARCHAR" />
+    <result column="co_organizers" property="coOrganizers" jdbcType="VARCHAR" />
+    <result column="link_man" property="linkMan" jdbcType="VARCHAR" />
+    <result column="link_phone" property="linkPhone" jdbcType="VARCHAR" />
+    <result column="multi_activity" property="multiActivity" jdbcType="BIT" />
+    <result column="multi_section" property="multiSection" jdbcType="BIT" />
+    <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+    <result column="region_id" property="regionId" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="DOUBLE" />
+    <result column="latitude" property="latitude" jdbcType="DOUBLE" />
+    <result column="banner_url" property="bannerUrl" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="sign_start_time" property="signStartTime" jdbcType="TIMESTAMP" />
+    <result column="sign_end_time" property="signEndTime" jdbcType="TIMESTAMP" />
+    <result column="approval_time" property="approvalTime" jdbcType="TIMESTAMP" />
+    <result column="responsible_org" property="responsibleOrg" jdbcType="VARCHAR" />
+    <result column="expenses" property="expenses" jdbcType="DOUBLE" />
+    <result column="favorite_count" property="favoriteCount" jdbcType="INTEGER" />
+    <result column="sign_count" property="signCount" jdbcType="INTEGER" />
+    <result column="comment_count" property="commentCount" jdbcType="INTEGER" />
+    <result column="alone_entrance" property="aloneEntrance" jdbcType="BIT" />
+    <result column="entrance_url" property="entranceUrl" jdbcType="VARCHAR" />
+    <result column="activity_status" property="activityStatus" jdbcType="VARCHAR" />
+    <result column="face_detection" property="faceDetection" jdbcType="BIT" />
+    <result column="buy_limit" property="buyLimit" jdbcType="INTEGER" />
+    <result column="ticket_remark" property="ticketRemark" jdbcType="VARCHAR" />
+    <result column="pay_expired" property="payExpired" jdbcType="INTEGER" />
+    <result column="pay_remark" property="payRemark" jdbcType="VARCHAR" />
+    <result column="refund_remark" property="refundRemark" jdbcType="VARCHAR" />
+    <result column="allow_refund" property="allowRefund" jdbcType="BIT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="summary" property="summary" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="custom_content" property="customContent" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="ActivityInfo_Column_List" >
     id, org_id, created_user, created_at, updated_user, last_updated, disable, delete_flag, 
@@ -812,35 +859,44 @@
   <!-- 以上自动生成，以下自定义 -->
 
   <resultMap id="ActivityInfoVoResultMap" type="com.sida.dcloud.activity.vo.ActivityInfoVo" >
-  <result column="id" property="id" jdbcType="VARCHAR" />
-  <result column="title" property="title" jdbcType="VARCHAR" />
-  <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
-  <result column="name" property="name" jdbcType="VARCHAR" />
-  <result column="hosts" property="hosts" jdbcType="VARCHAR" />
-  <result column="summary" property="summary" jdbcType="VARCHAR" />
-  <result column="multi_activity" property="multiActivity" jdbcType="BIT" />
-  <result column="multi_section" property="multiSection" jdbcType="BIT" />
-  <result column="region_id" property="regionId" jdbcType="VARCHAR" />
-  <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
-  <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
-  <result column="sign_start_time" property="signStartTime" jdbcType="TIMESTAMP" />
-  <result column="sign_end_time" property="signEndTime" jdbcType="TIMESTAMP" />
-  <result column="responsible_org" property="responsibleOrg" jdbcType="VARCHAR" />
-  <result column="address" property="address" jdbcType="VARCHAR" />
-  <result column="banner_url" property="bannerUrl" jdbcType="VARCHAR" />
-  <result column="longitude" property="longitude" jdbcType="DOUBLE" />
-  <result column="latitude" property="latitude" jdbcType="DOUBLE" />
-  <result column="expenses" property="expenses" jdbcType="DOUBLE" />
-  <result column="activity_status" property="activityStatus" jdbcType="VARCHAR" />
-  <association property="children" column="id" select="selectChildren"/>
-</resultMap>
-  <resultMap id="ChildActivityInfoVoResultMap" type="com.sida.dcloud.activity.vo.ChildActivityInfoVo" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="hosts" property="hosts" jdbcType="VARCHAR" />
+    <result column="summary" property="summary" jdbcType="VARCHAR" />
+    <result column="multi_activity" property="multiActivity" jdbcType="BIT" />
+    <result column="multi_section" property="multiSection" jdbcType="BIT" />
+    <result column="region_id" property="regionId" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="sign_start_time" property="signStartTime" jdbcType="TIMESTAMP" />
+    <result column="sign_end_time" property="signEndTime" jdbcType="TIMESTAMP" />
+    <result column="responsible_org" property="responsibleOrg" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="banner_url" property="bannerUrl" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="DOUBLE" />
+    <result column="latitude" property="latitude" jdbcType="DOUBLE" />
+    <result column="expenses" property="expenses" jdbcType="DOUBLE" />
+    <result column="activity_status" property="activityStatus" jdbcType="VARCHAR" />
+    <association property="children" column="id" select="selectChildrenVo"/>
+  </resultMap>
+  <resultMap id="ActivityInfoChildVoResultMap" type="com.sida.dcloud.activity.vo.ActivityInfoChildVo" >
     <result column="id" property="id" jdbcType="VARCHAR" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="banner_url" property="bannerUrl" jdbcType="VARCHAR" />
     <result column="summary" property="summary" jdbcType="VARCHAR" />
   </resultMap>
-  <select id="selectChildren" resultMap="ChildActivityInfoVoResultMap" parameterType="java.lang.String" >
+
+  <select id="selectChildren" resultMap="ActivityInfoChildResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="ActivityInfo_Column_List" />
+    from activity_info
+    <where>
+      <![CDATA[delete_flag = 0 and parent_id <> 0 and parent_id is not null and parent_id = #{id}]]>
+    </where>
+  </select>
+  <select id="selectChildrenVo" resultMap="ActivityInfoChildVoResultMap" parameterType="java.lang.String" >
     select
     id, banner_url, title, summary
     from activity_info

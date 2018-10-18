@@ -11,6 +11,7 @@ import org.springframework.boot.actuate.autoconfigure.ManagementServerProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -18,6 +19,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.session.FindByIndexNameSessionRepository;
+import org.springframework.session.data.redis.RedisOperationsSessionRepository;
+import org.springframework.session.security.SpringSessionBackedSessionRegistry;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisCluster;
 
 
 /**
@@ -54,6 +60,21 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
         // 禁用缓存
         http.headers().cacheControl();
+        http.sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(false).expiredUrl("/login?expired")
+                .sessionRegistry(sessionRegistry());
+    }
+
+    @Bean
+    SpringSessionBackedSessionRegistry sessionRegistry() {
+        return new SpringSessionBackedSessionRegistry(getSessionRepository());
+    }
+
+    @Autowired
+    JedisConnectionFactory jedisConnectionFactory;
+
+    @Bean
+    public FindByIndexNameSessionRepository getSessionRepository() {
+        return new RedisOperationsSessionRepository(jedisConnectionFactory);
     }
 
 //    @Override

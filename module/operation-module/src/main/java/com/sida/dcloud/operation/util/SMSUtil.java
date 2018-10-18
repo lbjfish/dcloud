@@ -32,6 +32,8 @@ public final class SMSUtil {
     @Value("${environment}")
     private String environment;
 
+
+
     /**
      * 通用接口
      * @param phoneNum
@@ -76,6 +78,8 @@ public final class SMSUtil {
     }
 
     public void SMSSendMessageByHuaweiCloud(String phoneNum, String templateId,String[] datas) {
-
+        if (StringUtils.isEmpty(templateId)) {
+            templateId = "1"; // 当模版为空的时候则默认填写1
+        }
     }
 }

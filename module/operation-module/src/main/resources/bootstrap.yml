@@ -21,5 +21,7 @@ swagger:
 provider:
   system-module: @system-module@
   operation-module: @operation-module@
+  activity-module: @activity-module@
+  content-module: @content-module@
 
 environment: @profile.name@

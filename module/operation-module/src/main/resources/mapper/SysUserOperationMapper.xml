@@ -385,31 +385,29 @@
     <result column="password" property="password" jdbcType="VARCHAR" />
   </resultMap>
 
-  <select id="verifyBindStatus"  resultMap="CommonUserOperationResultMap" >
+  <select id="verifyBindStatus" parameterType="com.sida.dcloud.operation.dto.CommonUserOperation"  resultMap="CommonUserOperationResultMap" >
     select u.id,u.wechat,u.qq,c.alipay_no,c.sina_weibo,c.facebook_no,c.twitter_no,
     c.alias,c.owner_url,c.sex,c.birthday,c.remark,u.mobile
     from sys_user_operation u left join common_user c on u.id = c.id
     where 1 = 1
-    <choose >
-      <when test="loginFrom == '1'">
-        and u.wechat = #{account}
-      </when>
-      <when test="loginFrom == '2'">
-        and u.alipay_no = #{account}
-      </when>
-      <when test="loginFrom == '2'">
-        and u.qq = #{account}
-      </when>
-      <when test="loginFrom == '4'">
-        and u.sina_weibo = #{account}
-      </when>
-      <when test="loginFrom == '5'">
-        and u.facebook_no = #{account}
-      </when>
-      <when test="loginFrom == '6'">
-        and u.twitter_no = #{account}
-      </when>
-    </choose>
+      <if test="dto.wechat != null">
+        and u.wechat = #{dto.wechat}
+      </if>
+      <if test="dto.alipayNo ！= null">
+        and c.alipay_no = #{dto.alipayNo}
+      </if>
+      <if test="dto.qq != null">
+        and u.qq = #{dto.qq}
+      </if>
+      <if test="dto.sinaWeibo ！= null">
+        and c.sina_weibo = #{dto.sinaWeibo}
+      </if>
+      <if test="dto.facebookNo ！= null">
+        and c.facebook_no = #{dto.facebookNo}
+      </if>
+      <if test="dto.twitterNo ！= null">
+        and c.twitter_no = #{dto.twitterNo}
+      </if>
   </select>
 
   <update id="saveOrUpdateDto" parameterType="com.sida.dcloud.operation.dto.CommonUserOperation">
@@ -419,4 +417,48 @@
     from dual
     where not exists (select id from sys_user_operation where id = #{dto.id})
   </update>
+
+  <update id="updateMobile" parameterType="com.sida.dcloud.operation.dto.CommonUserOperation">
+    update sys_user_operation set mobile = #{dto.mobile}
+    where id = #{dto.id}
+  </update>
+
+  <update id="updateUserInfo" parameterType="com.sida.dcloud.operation.dto.CommonUserOperation">
+    update sys_user_operation set name = #{dto.name}, birthday = #{dto.birthday}, description = #{dto.remark},
+    sex = #{dto.sex}
+    where id = #{dto.id}
+  </update>
+
+  <update id="updateUserPassword" parameterType="com.sida.dcloud.operation.dto.CommonUserOperation">
+    update sys_user_operation set password = #{dto.password}
+    where id = #{dto.id}
+  </update>
+
+  <select id="checkMultiCountByUnique" parameterType="com.sida.dcloud.operation.dto.CommonUserOperation" resultType="int">
+    select count(0) from sys_user_operation su left join common_user cu on su.id = cu.id
+    <where>
+      su.id &lt;&gt; #{dto.id} and (1 = 2
+      <if test="dto.wechat != null">
+        or su.mobile = #{dto.mobile}
+      </if>
+      <if test="dto.wechat != null">
+        or su.wechat = #{dto.wechat}
+      </if>
+      <if test="dto.alipayNo ！= null">
+        or cu.alipay_no = #{dto.alipayNo}
+      </if>
+      <if test="dto.qq != null">
+        or su.qq = #{dto.qq}
+      </if>
+      <if test="dto.sinaWeibo ！= null">
+        or cu.sina_weibo = #{dto.sinaWeibo}
+      </if>
+      <if test="dto.facebookNo ！= null">
+        or cu.facebook_no = #{dto.facebookNo}
+      </if>
+      <if test="dto.twitterNo ！= null">
+        or cu.twitter_no = #{dto.twitterNo}
+      </if>)
+    </where>
+  </select>
 </mapper>

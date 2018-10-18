@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 
-public class ChildActivityInfoVo implements Serializable {
+public class ActivityInfoChildVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("id")

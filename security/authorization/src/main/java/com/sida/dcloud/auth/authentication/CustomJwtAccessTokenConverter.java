@@ -6,58 +6,45 @@ import com.sida.dcloud.auth.vo.UserDetailsVo;
 import com.sida.dcloud.auth.vo.UserInfo;
 import com.sida.xiruo.xframework.util.BlankUtil;
 import com.google.common.collect.Lists;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
-import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-import java.security.KeyPair;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
-@Component
 public class CustomJwtAccessTokenConverter extends JwtAccessTokenConverter {
-
-    @Autowired
     private SysUserService sysUserService;
-
-    @Value("${qiniu.defaultHeader}")
     private String defaultHeader;
-
-    @PostConstruct
-    private void init() {
-        KeyPair keyPair = new KeyStoreKeyFactory(new ClassPathResource("sida.jks"), "sidasida".toCharArray())
-                .getKeyPair("sida");
-        setKeyPair(keyPair);
+    public CustomJwtAccessTokenConverter(SysUserService sysUserService, String defaultHeader) {
+        super();
+        this.sysUserService = sysUserService;
+        this.defaultHeader = defaultHeader;
     }
 
+
     @Override
-    public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
+    public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication){
         UserDetailsVo userDetailsVo = (UserDetailsVo)authentication.getUserAuthentication().getPrincipal();
         final Map<String,Object> additionInfo = new HashMap<>();
         UserInfo info = sysUserService.getUserInfo(userDetailsVo.getId(),false);
+        additionInfo.put("user_id",userDetailsVo.getId());
         additionInfo.put("id",userDetailsVo.getId());
 //        additionInfo.put("org_id",userDetailsVo.getOrgId());
         additionInfo.put("name",userDetailsVo.getName());
         List<String> roleList = Lists.newArrayList();
-        if (BlankUtil.isNotEmpty(info.getRoleList())){
-            for (RoleDTO dto : info.getRoleList()){
-                roleList.add(dto.getRoleCode());
-            }
-        }else {
-            roleList.add(info.getRoleCode());
-        }
+//        if (BlankUtil.isNotEmpty(info.getRoleList())){
+//            for (RoleDTO dto : info.getRoleList()){
+//                roleList.add(dto.getRoleCode());
+//            }
+//        }else {
+//            roleList.add(info.getRoleCode());
+//        }
         additionInfo.put("role",roleList);
-//        additionInfo.put("avatar",defaultHeader);//头像，功能暂无
-        additionInfo.put("header",defaultHeader);//头像，功能暂无
+//        additionInfo.put("avatar","http://o7d94lzvx.bkt.clouddn.com/default_portrait_msg@3x.png");//头像，功能暂无
+        additionInfo.put("header",defaultHeader);
 
         //其他信息
         additionInfo.put("userAccount",info.getUserAccount());
@@ -89,7 +76,6 @@ public class CustomJwtAccessTokenConverter extends JwtAccessTokenConverter {
         additionInfo.put("code",200);
         additionInfo.put("message","");
         additionInfo.put("total",0);
-
 //                additionInfo.put("positionId",info.getPositionId());
 //                additionInfo.put("positionName",info.getPositionName());
 //                additionInfo.put("phone",info.getPhone());

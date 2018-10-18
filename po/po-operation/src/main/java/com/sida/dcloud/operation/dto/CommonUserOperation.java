@@ -17,7 +17,7 @@ public class CommonUserOperation extends BaseEntity {
     private String qq;
     @ApiModelProperty(name = "新浪微博", example = "xiaosage")
     private String sinaWeibo;
-    @ApiModelProperty(name = "脸书好", example = "xiaosage")
+    @ApiModelProperty(name = "脸书号", example = "xiaosage")
     private String facebookNo;
     @ApiModelProperty(name = "推特号", example = "xiaosage")
     private String twitterNo;
@@ -37,6 +37,26 @@ public class CommonUserOperation extends BaseEntity {
     private String verifyCode;
     @ApiModelProperty(name = "密码", example = "123321")
     private String password;
+    @ApiModelProperty(name = "终端类型", example = "IOS")
+    private String mobileType;
+    @ApiModelProperty(name = "地区id", example = "")
+    private String regionId;
+
+    public String getRegionId() {
+        return regionId;
+    }
+
+    public void setRegionId(String regionId) {
+        this.regionId = regionId;
+    }
+
+    public String getMobileType() {
+        return mobileType;
+    }
+
+    public void setMobileType(String mobileType) {
+        this.mobileType = mobileType;
+    }
 
     public String getWechat() {
         return wechat;

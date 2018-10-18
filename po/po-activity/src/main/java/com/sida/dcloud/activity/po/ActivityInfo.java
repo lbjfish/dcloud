@@ -8,6 +8,7 @@ import com.sida.xiruo.po.common.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class ActivityInfo extends BaseEntity implements Serializable {
     @ApiModelProperty("通用字段：禁用标识（0.可用  1.禁用）")
@@ -141,6 +142,17 @@ public class ActivityInfo extends BaseEntity implements Serializable {
 
     @ApiModelProperty("自定义活动描述")
     private String customContent;
+
+    @ApiModelProperty("子活动")
+    private List<ActivityInfoChild> children;
+
+    public List<ActivityInfoChild> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<ActivityInfoChild> children) {
+        this.children = children;
+    }
 
     private static final long serialVersionUID = 1L;
 

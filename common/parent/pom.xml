@@ -285,7 +285,7 @@
                 <event-service>event-service</event-service>
 
                 <system-module>system-module</system-module>
-                <training-module>training-module</training-module>
+                <!--<training-module>training-module</training-module>-->
                 <activity-module>activity-module</activity-module>
                 <content-module>content-module</content-module>
                 <operation-module>operation-module</operation-module>

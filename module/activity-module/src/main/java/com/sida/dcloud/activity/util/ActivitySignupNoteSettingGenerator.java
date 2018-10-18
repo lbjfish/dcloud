@@ -37,8 +37,22 @@ public final class ActivitySignupNoteSettingGenerator {
     @PostConstruct
     private void init() {
         settingList = new ArrayList<>();
-        List<TableMeta> metaList = customerActivitySignupNoteService.findTableMeta();
-        metaList.stream().filter(meta -> IGNORE_FIELDS.indexOf(String.format(",%s,", meta.getColumnName())) < 0).forEach(meta -> settingList.add(fillActivitySignupNoteSetting(meta)));
+        try {
+            int count = 0;
+            while (customerActivitySignupNoteService == null) {
+                Thread.sleep(500);
+                if(count++ > 10) {
+                    LOG.warn("customerActivitySignupNoteService 未初始化完成");
+                    return;
+                } else {
+                    LOG.warn("customerActivitySignupNoteService current status is null serial = {}", count);
+                }
+            }
+            List<TableMeta> metaList = customerActivitySignupNoteService.findTableMeta();
+            metaList.stream().filter(meta -> IGNORE_FIELDS.indexOf(String.format(",%s,", meta.getColumnName())) < 0).forEach(meta -> settingList.add(fillActivitySignupNoteSetting(meta)));
+        }catch(Exception e) {
+            LOG.error("customerActivitySignupNoteService is null.", e);
+        }
     }
 
     private ActivitySignupNoteSetting fillActivitySignupNoteSetting(TableMeta tableMeta) {

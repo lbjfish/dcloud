@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -34,8 +35,10 @@ import java.util.*;
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfigurer extends AuthorizationServerConfigurerAdapter {
-
     private static Logger logger = LoggerFactory.getLogger(AuthorizationServerConfigurer.class);
+    @Value("${qiniu.defaultHeader}")
+    private String defaultHeader;
+
     @Autowired
     @Qualifier("authenticationManagerBean")
     private AuthenticationManager authenticationManager;
@@ -47,8 +50,6 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
     private SysUserService sysUserService;
     @Autowired
     private JedisCluster jedisCluster;
-    @Autowired
-    private CustomJwtAccessTokenConverter customJwtAccessTokenConverter;
 
     /*
     避免循环依赖，源类中已使用@Service注解这里不需要重复定义@Bean，直接使用即可
@@ -58,23 +59,36 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
     }*/
 
     @Bean
-    public AuthorizationCodeServices redisAuthorizationCodeServices() {
-        return new RedisAuthorizationCodeServices(jedisCluster);
+    public JwtAccessTokenConverter jwtAccessTokenConverter() {
+        JwtAccessTokenConverter converter = new CustomJwtAccessTokenConverter(sysUserService, defaultHeader);
+//        KeyPair keyPair = new KeyStoreKeyFactory(new ClassPathResource("clzdev.jks"), "chelizi201723".toCharArray())
+//                .getKeyPair("chelizidev");
+        KeyPair keyPair = new KeyStoreKeyFactory(new ClassPathResource("sida.jks"), "sidasida".toCharArray())
+                .getKeyPair("sida");
+        converter.setKeyPair(keyPair);
+        return converter;
     }
 
+//    @Bean
+//    public AuthorizationCodeServices redisAuthorizationCodeServices() {
+//        return new RedisAuthorizationCodeServices(jedisCluster);
+//    }
+
     private TokenGranter tokenGranter(AuthorizationServerEndpointsConfigurer endpoints){
-        List<TokenGranter> granters = new ArrayList<TokenGranter>();
-        granters.add(endpoints.getTokenGranter());
+        List<TokenGranter> granters = new ArrayList<TokenGranter>(Arrays.asList(endpoints.getTokenGranter()));
         granters.add(new FaceIdTokenGranter(
                 authenticationManager,
                 endpoints.getTokenServices(),
                 endpoints.getClientDetailsService(),
-                endpoints.getOAuth2RequestFactory()));
+                endpoints.getOAuth2RequestFactory(),
+                FaceIdTokenGranter.GRANT_TYPE));
         granters.add(new MsgAuthCodeTokenGranter(
                 authenticationManager,
                 endpoints.getTokenServices(),
                 endpoints.getClientDetailsService(),
-                endpoints.getOAuth2RequestFactory()));
+                endpoints.getOAuth2RequestFactory(),
+                MsgAuthCodeTokenGranter.GRANT_TYPE
+        ));
         return new CompositeTokenGranter(granters);
     }
 
@@ -93,8 +107,8 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         /*endpoints.pathMapping("/oauth/confirm_access", "/authorize");
         endpoints.pathMapping("/oauth/login", "/login");*/
-        endpoints.authenticationManager(authenticationManager).accessTokenConverter(customJwtAccessTokenConverter);
-        endpoints.authorizationCodeServices(redisAuthorizationCodeServices());
+        endpoints.authenticationManager(authenticationManager).accessTokenConverter(jwtAccessTokenConverter());
+//        endpoints.authorizationCodeServices(redisAuthorizationCodeServices());
         endpoints.tokenGranter(tokenGranter(endpoints));
     }
 

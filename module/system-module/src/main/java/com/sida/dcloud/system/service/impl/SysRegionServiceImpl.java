@@ -5,7 +5,7 @@ import com.sida.dcloud.auth.po.SysRegion;
 import com.sida.dcloud.auth.vo.RegionTreeDTO;
 import com.sida.dcloud.system.common.CollectorConstants;
 import com.sida.dcloud.system.dao.SysRegionMapper;
-import com.sida.dcloud.system.dto.SysRegionSingleLayerDto;
+import com.sida.dcloud.system.dto.SysRegionLayerDto;
 import com.sida.dcloud.system.service.FileService;
 import com.sida.dcloud.system.service.SysRegionService;
 import com.sida.xiruo.common.util.ErrorCodeEnums;
@@ -67,6 +67,11 @@ public class SysRegionServiceImpl extends BaseServiceImpl<SysRegion> implements 
             dtoList.add(dto);
         }
         return BuildTree.buildTree(dtoList);
+    }
+
+    @Override
+    public List<SysRegionLayerDto> findThreeLevelTree(){
+        return BuildTree.buildTree(sysRegionMapper.findThreeLevelTree());
     }
 
     @Override
@@ -445,7 +450,7 @@ public class SysRegionServiceImpl extends BaseServiceImpl<SysRegion> implements 
     }
 
     @Override
-    public List<SysRegionSingleLayerDto> findSysRegionSingleLayerDtoByLevel(String level) {
+    public List<SysRegionLayerDto> findSysRegionSingleLayerDtoByLevel(String level) {
         return sysRegionMapper.findSysRegionSingleLayerDtoByLevel(level);
     }
 
@@ -453,7 +458,7 @@ public class SysRegionServiceImpl extends BaseServiceImpl<SysRegion> implements 
     @Override
     public int updateSysRegionPinyin() {
         sysRegionMapper.selectByCondition(new SysRegion()).forEach(region -> {
-            SysRegionSingleLayerDto dto = new SysRegionSingleLayerDto();
+            SysRegionLayerDto dto = new SysRegionLayerDto();
             dto.setId(region.getId());
             dto.setPinyin(PinYinUtil.getPingYin(region.getName()));
             dto.setCapitalPinyin(PinYinUtil.getFirstSpell(region.getName()));

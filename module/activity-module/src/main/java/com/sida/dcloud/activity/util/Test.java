@@ -1,9 +1,11 @@
 package com.sida.dcloud.activity.util;
 
 import com.google.common.base.CaseFormat;
+import com.sida.dcloud.activity.po.ActivityInfo;
 import com.sida.dcloud.activity.po.CustomerActivitySignupNote;
 import com.sida.xiruo.common.util.MD5Util;
 import com.sida.xiruo.common.util.Xiruo;
+import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +27,7 @@ public final class Test {
         }
     }
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         //e10adc3949ba59abbe56e057f20f883e
         LOG.info(MD5Util.MD5PWD("123456"));
         Field[] fields = CustomerActivitySignupNote.class.getDeclaredFields();
@@ -76,5 +78,11 @@ public final class Test {
         LOG.info(capacity);
 
         LOG.info(String.valueOf(System.currentTimeMillis()).length());
+
+        ActivityInfo info = new ActivityInfo();
+        info.setId("2132113");
+        info.setName("namename");
+        Map<String, String> mm = BeanUtils.describe(info);
+        LOG.info(mm.get("name"));
     }
 }

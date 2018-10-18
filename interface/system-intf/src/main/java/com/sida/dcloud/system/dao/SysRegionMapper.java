@@ -1,7 +1,7 @@
 package com.sida.dcloud.system.dao;
 
 import com.sida.dcloud.auth.po.SysRegion;
-import com.sida.dcloud.system.dto.SysRegionSingleLayerDto;
+import com.sida.dcloud.system.dto.SysRegionLayerDto;
 import com.sida.xiruo.xframework.dao.IMybatisDao;
 import org.apache.ibatis.annotations.Param;
 
@@ -51,7 +51,9 @@ public interface SysRegionMapper extends IMybatisDao<SysRegion> {
      * @param level
      * @return
      */
-    List<SysRegionSingleLayerDto> findSysRegionSingleLayerDtoByLevel(@Param("level") String level);
+    List<SysRegionLayerDto> findSysRegionSingleLayerDtoByLevel(@Param("level") String level);
 
-    int updateSysRegionPinyin(@Param("po") SysRegionSingleLayerDto po);
+    int updateSysRegionPinyin(@Param("po") SysRegionLayerDto po);
+
+    List<SysRegionLayerDto> findThreeLevelTree();
 }

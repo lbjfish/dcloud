@@ -403,9 +403,6 @@
       <if test="po.name != null and po.name != ''" >
         and instr(name, #{po.name})&gt;0
       </if>
-      <if test="po.code != null and po.code != ''" >
-        and instr(code, #{po.code})&gt;0
-      </if>
       <if test="po.remark != null and po.remark != ''" >
         and instr(remark, #{po.remark})&gt;0
       </if>
