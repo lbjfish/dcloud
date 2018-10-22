@@ -14,6 +14,9 @@ public class ActivityGoodsVo extends UserCentricDTO {
     @ApiModelProperty("活动id")
     private String activityId;
 
+    @ApiModelProperty("商品名称")
+    private String name;
+
     @ApiModelProperty("原始价")
     private double originalPrice;
 
@@ -31,6 +34,14 @@ public class ActivityGoodsVo extends UserCentricDTO {
 
     @ApiModelProperty("结束时间")
     private Date endTime;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getId() {
         return id;

@@ -400,7 +400,7 @@
     select #{map.id},#{map.wechat}, #{map.qq},
     #{map.name}, #{map.mobile}, str_to_date(#{map.birthday}, '%Y%m%d'), #{map.remark}, #{map.mobile}
     from dual
-    where not exists (select id from sys_user where id = #{map.id})
+    where not exists (select id from sys_user_content where id = #{map.id})
   </insert>
 
   <update id="updateMobile" parameterType="java.util.Map">
@@ -411,6 +411,27 @@
   <update id="updateUserInfo" parameterType="java.util.Map">
     update sys_user_content set name = #{map.name}, birthday = #{map.birthday}, description = #{map.remark},
     sex = #{map.sex}
-    where id = #{map.id}
+    where where (id = #{map.id} or mobile = #{map.mobile})
+  </update>
+
+  <update id="unbindThirdPartAccount">
+    update sys_user_content set
+    <choose>
+      <when test="loginFrom = '1'">wechat=''</when>
+      <when test="loginFrom = '3'">qq=''</when>
+    </choose>
+    where mobile = #{mobile}
+  </update>
+
+  <update id="bindThirdPartAccount" parameterType="java.util.Map">
+    update sys_user_content set
+    wechat = #{map.wechat}, qq = #{map.qq}
+    where mobile = #{map.mobile}
+  </update>
+
+  <update id="testDistributeTransaction">
+    update sys_user_content set
+    description = #{remark}
+    where id = #{id}
   </update>
 </mapper>

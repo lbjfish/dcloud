@@ -332,6 +332,7 @@
   <resultMap id="ActivityGoodsVoResultMap" type="com.sida.dcloud.activity.vo.ActivityGoodsVo" >
     <result column="id" property="id" jdbcType="VARCHAR" />
     <result column="activity_id" property="activityId" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="original_price" property="originalPrice" jdbcType="DOUBLE" />
     <result column="pay_price" property="payPrice" jdbcType="DOUBLE" />
     <result column="quantity" property="quantity" jdbcType="INTEGER" />
@@ -375,7 +376,7 @@
 
   <select id="findVoList" parameterType="com.sida.dcloud.activity.po.ActivityGoods" resultMap="ActivityGoodsVoResultMap">
     select
-    id,activity_id,original_price,pay_price,quantity,remaining,start_time,end_time
+    id,activity_id,original_price,pay_price,quantity,remaining,start_time,end_time,name
     from activity_goods
     <where>
       delete_flag = 0
@@ -402,13 +403,19 @@
   </select>
 
   <select id="findGoodsListByActivityId" resultMap="ActivityGoodsVoResultMap" parameterType="java.lang.String" >
-    select id,activity_id,original_price,pay_price,quantity,remaining,start_time,end_time
+    select id,activity_id,original_price,pay_price,quantity,remaining,start_time,end_time,name
     from activity_goods
-    where activity_id = #{activityId}and delete_flag = 0 and visbile = true order by sort asc
+    where activity_id = #{activityId}and delete_flag = 0 and visible = true order by activity_id asc,sort asc
+  </select>
+
+  <select id="findGoodsListByActivityIds" resultMap="ActivityGoodsVoResultMap" parameterType="java.lang.String" >
+    select id,activity_id,original_price,pay_price,quantity,remaining,start_time,end_time,name
+    from activity_goods
+    where instr(#{activityIds}, activity_id) &gt; 0 and delete_flag = 0 and visible = true order by activity_id asc, sort asc
   </select>
 
   <select id="findGoodsListByGroupId" resultMap="ActivityGoodsVoResultMap" parameterType="java.lang.String" >
-    select goods.id,goods.activity_id,goods.original_price,goods.pay_price,goods.quantity,goods.remaining,goods.start_time,goods.end_time
+    select goods.id,goods.activity_id,goods.original_price,goods.pay_price,goods.quantity,goods.remaining,goods.start_time,goods.end_time,goods.name
     from activity_goods goods
     left join activity_goods_rel_group rel on goods.id = rel.goods_id
     left join activity_goods_group g on g.id = rel.group_id
@@ -419,7 +426,7 @@
     select
     <include refid="ActivityGoods_Column_List" />
     from activity_goods
-    where ids in ${ids} and delete_flag = 0 and visbile = true
+    where instr(#{ids},id)&gt;0 and delete_flag = 0 and visible = true
     order by sort asc
   </select>
 

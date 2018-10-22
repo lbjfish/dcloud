@@ -1,11 +1,27 @@
 package com.sida.dcloud.operation.common;
 
-public class OperationException extends RuntimeException {
-    public OperationException(String msg) {
-        super(msg);
+import com.sida.xiruo.xframework.exception.BaseRuntimeException;
+
+public class OperationException extends BaseRuntimeException {
+    private static final long	serialVersionUID	= 1L;
+
+    public OperationException() {
+        super("500");
     }
 
-    public OperationException(Exception e) {
-        super(e);
+    public OperationException(String message) {
+        super(message);
+    }
+
+    public OperationException(Object code, String message) {
+        super(code, message);
+    }
+
+    public OperationException(Throwable cause) {
+        super(cause);
+    }
+
+    public OperationException(Throwable cause, Object code) {
+        super(cause, code);
     }
 }

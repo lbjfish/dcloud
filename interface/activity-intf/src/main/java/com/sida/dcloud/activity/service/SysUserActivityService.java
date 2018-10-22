@@ -17,7 +17,11 @@ public interface SysUserActivityService extends IBaseService<SysUserActivity> {
     int updateUser(SysUser user);
     Page<SysUserActivityVo> findPageList(SysUserActivity po);
 
-    int inertDto(Map<String, String> map);
+    int insertDto(Map<String, String> map);
     int updateMobile(Map<String, String> map);
     int updateUserInfo(Map<String, String> map);
+    int bindThirdPartAccount(Map<String, String> map);
+    int unbindThirdPartAccount(String loginFrom, String mobile);
+
+    int testDistributeTransaction(String id, String remark);
 }

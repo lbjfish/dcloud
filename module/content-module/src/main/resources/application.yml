@@ -112,6 +112,17 @@ eureka:
     status-page-url-path: /info
     health-check-url-path: /health
 
+tm:
+  manager:
+    url: @tm-manager-url@
+logging:
+  level:
+    com:
+      codingapi: warn
+#Ribbon的负载均衡策略
+ribbon.NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+ribbon.MaxAutoRetriesNextServer: 0
+
 management:
   health:
     redis:

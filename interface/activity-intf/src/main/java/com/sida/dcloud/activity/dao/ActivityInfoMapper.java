@@ -15,6 +15,7 @@ import java.util.List;
 
 public interface ActivityInfoMapper extends IMybatisDao<ActivityInfo> {
     List<ActivityInfoVo> findVoList(@Param("po") ActivityInfo po);
+    List<ActivityInfo> selectSelfAndChildrenByPrimaryKey(@Param("id")String id);
     int checkMultiCountByUnique(@Param("po")ActivityInfo po);
     int checkRemovableByRel(@Param("ids") String ids);
     int checkCountForActivityStatus(@Param("ids") String ids, @Param("activityStatus") String activityStatus);

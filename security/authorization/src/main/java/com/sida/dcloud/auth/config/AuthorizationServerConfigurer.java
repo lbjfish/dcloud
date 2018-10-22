@@ -5,7 +5,6 @@ import com.sida.dcloud.auth.authentication.FaceIdTokenGranter;
 import com.sida.dcloud.auth.authentication.MsgAuthCodeTokenGranter;
 import com.sida.dcloud.auth.service.SysUserService;
 import com.sida.dcloud.auth.service.impl.ClientDetailsServiceImpl;
-import com.sida.dcloud.auth.service.impl.RedisAuthorizationCodeServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

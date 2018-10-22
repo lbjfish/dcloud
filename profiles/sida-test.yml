@@ -82,9 +82,14 @@ common:
   system:
     datasource:
       driverClassName: com.mysql.jdbc.Driver
-      url: jdbc:mysql://${common.database.ip}:${common.database.port}/system?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false
-      username: ${common.database.username}
-      password: ${common.database.password}
+      master:
+        url: jdbc:mysql://${common.database.ip}:${common.database.port}/system?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false
+        username: ${common.database.username}
+        password: ${common.database.password}
+      business:
+        url: jdbc:mysql://${common.database.ip}:${common.database.port}/system_r?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false
+        username: ${common.database.username}
+        password: ${common.database.password}
     teachpositioncode: jly,jjy,zljly,jxzc
   schedule:
     datasource:

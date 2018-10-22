@@ -10,6 +10,7 @@ import java.util.List;
 public interface ActivityGoodsGroupService extends IBaseService<ActivityGoodsGroup> {
     Page<ActivityGoodsGroupVo> findPageList(ActivityGoodsGroup po);
     List<ActivityGoodsGroupVo> findGroupListByActivityId(String activityId);
+    List<ActivityGoodsGroupVo> findGroupListByActivityIds(String activityIds);
     List<ActivityGoodsGroupVo> findGroupListByGoodsId(String goodsId);
     List<ActivityGoodsGroup> findListByIds(String ids);
     int updateGroupPayPrice(String groupId, Double payPrice);

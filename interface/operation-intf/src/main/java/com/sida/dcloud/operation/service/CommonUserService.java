@@ -11,4 +11,9 @@ public interface CommonUserService extends IBaseService<CommonUser> {
     Map<String, String> selectByPrimaryKeyToAuth(String id);
     int saveOrUpdateDto(CommonUserOperation dto);
     int updateUserInfo(CommonUserOperation dto);
+    int bindThirdPartAccount(CommonUserOperation dto);
+    int unbindThirdPartAccount(String loginFrom, String mobile);
+    int updateFaceUrl(Map<String, String> map);
+
+    int testDistributeTransaction(String id, String remark);
 }

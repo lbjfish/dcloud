@@ -9,6 +9,8 @@ public class ActivitySignupNoteSettingDto implements Serializable {
 
     @ApiModelProperty("字段编码（驼峰名称）")
     private String code;
+    @ApiModelProperty("字段名称")
+    private String name;
     @ApiModelProperty("字段显示名")
     private String displayName;
     @ApiModelProperty("是否允许空（0：否，1：是）")
@@ -17,6 +19,34 @@ public class ActivitySignupNoteSettingDto implements Serializable {
     private Integer sizeLimit;
     @ApiModelProperty("校验正则表达式")
     private Integer vRegexp;
+    @ApiModelProperty("字段值")
+    private Object value;
+    @ApiModelProperty("版本号")
+    private Object version;
+
+    public Object getVersion() {
+        return version;
+    }
+
+    public void setVersion(Object version) {
+        this.version = version;
+    }
+
+    public Object getValue() {
+        return value;
+    }
+
+    public void setValue(Object value) {
+        this.value = value;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getCode() {
         return code;

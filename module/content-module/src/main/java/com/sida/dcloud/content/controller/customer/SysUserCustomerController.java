@@ -8,10 +8,7 @@ import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -24,11 +21,11 @@ public class SysUserCustomerController extends BaseController {
     @Autowired
     private SysUserContentService sysUserContentService;
 
-    @RequestMapping(value = "/inertDto", method = RequestMethod.POST)
+    @RequestMapping(value = "/insertDto", method = RequestMethod.POST)
     @ApiOperation(value = "同步用户数据到系统用户表，其他服务调用")
-    public Object inertDto(@RequestBody @ApiParam("JSON参数") Map<String, String> map) {
+    public Object insertDto(@RequestBody @ApiParam("JSON参数") Map<String, String> map) {
         //CommonUserOperation
-        return toResult(sysUserContentService.inertDto(map));
+        return toResult(sysUserContentService.insertDto(map));
     }
 
     @RequestMapping(value = "/updateMobile", method = RequestMethod.POST)
@@ -41,5 +38,23 @@ public class SysUserCustomerController extends BaseController {
     @ApiOperation(value = "更新用户资料")
     public Object updateUserInfo(@RequestBody @ApiParam("JSON参数") Map<String, String> map) {
         return toResult(sysUserContentService.updateUserInfo(map));
+    }
+
+    @RequestMapping(value = "/unbindThirdPartAccount", method = RequestMethod.GET)
+    @ApiOperation(value = "解绑第三方账号")
+    Object unbindThirdPartAccount(@RequestParam("loginFrom") @ApiParam("第三方账号类型：1. 微信，2. 阿里， 3. QQ ...") String loginFrom, @RequestParam("mobile") @ApiParam("手机号码") String mobile) {
+        return toResult(sysUserContentService.unbindThirdPartAccount(loginFrom, mobile));
+    }
+
+    @RequestMapping(value = "/bindThirdPartAccount", method = RequestMethod.POST)
+    @ApiOperation(value = "绑定第三方账号")
+    Object bindThirdPartAccount(@RequestBody @ApiParam("JSON参数") Map<String, String> map) {
+        return toResult(sysUserContentService.bindThirdPartAccount(map));
+    }
+
+    @RequestMapping(value = "/testDistributeTransaction", method = RequestMethod.GET)
+    @ApiOperation(value = "测试分布式事务")
+    Object testDistributeTransaction(@RequestParam("id") @ApiParam("id") String id, @RequestParam("remark") @ApiParam("描述") String remark) {
+        return toResult(sysUserContentService.testDistributeTransaction(id, remark));
     }
 }

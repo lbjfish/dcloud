@@ -61,7 +61,7 @@ public final class ActivitySignupNoteSettingGenerator {
         setting.setCode(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, tableMeta.getColumnName()));
         setting.setDisplayName(tableMeta.getColumnComment());
         setting.setDeleteFlag(false);
-        setting.setHideStatus(true);
+        setting.setHideStatus(false);
         setting.setAllowEmpty(true);
         setting.setSizeLimit(0);
         setting.setSort(settingList.size());

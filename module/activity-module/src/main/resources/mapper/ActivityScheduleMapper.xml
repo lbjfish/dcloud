@@ -322,7 +322,26 @@
     <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
     <result column="location" property="location" jdbcType="VARCHAR" />
     <result column="subject" property="subject" jdbcType="VARCHAR" />
+    <association property="honoredGuestVoList" column="id" select="selectHoneredsVo"/>
   </resultMap>
+  <resultMap id="HonoredGuestVoResultMap" type="com.sida.dcloud.activity.vo.HonoredGuestVo" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="eng_name" property="engName" jdbcType="VARCHAR" />
+    <result column="alias" property="alias" jdbcType="VARCHAR" />
+    <result column="id_no" property="idNo" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="nation_region_id" property="nationRegionId" jdbcType="VARCHAR" />
+    <result column="honor" property="honor" jdbcType="VARCHAR" />
+    <result column="introduce" property="introduce" jdbcType="VARCHAR" />
+    <result column="header_url" property="headerUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectHoneredsVo" resultMap="HonoredGuestVoResultMap" parameterType="java.lang.String" >
+    select
+    id, name, eng_name, alias, id_no, mobile, nation_region_id, honor, introduce, header_url
+    from activity_rel_honored ab join honored_guest a on a.id = ab.honored_guest_id and ab.schedule_id = #{id}
+    order by ab.sort asc
+  </select>
 
   <select id="checkRemovableByRel" parameterType="java.lang.String" resultType="int">
     select count(0) from activity_rel_honored where schedule_id in (${ids})
@@ -336,6 +355,9 @@
       delete_flag = 0
       <if test="po.id != null and po.id != ''" >
         and id = #{po.id}
+      </if>
+      <if test="po.activityId != null and po.activityId != ''" >
+        and activity_id = #{po.activityId}
       </if>
       <if test="po.subject != null and po.subject != ''" >
         and instr(subject, #{po.subject})&gt;0

@@ -29,3 +29,6 @@ eureka:
     fetch-registry: true
     serviceUrl:
       defaultZone: @default-zone@
+
+provider:
+  operation-module: @operation-module@

@@ -140,6 +140,11 @@ public class ActivityGoodsGroupServiceImpl extends BaseServiceImpl<ActivityGoods
     }
 
     @Override
+    public List<ActivityGoodsGroupVo> findGroupListByActivityIds(String activityIds) {
+        return activityGoodsGroupMapper.findGroupListByActivityIds(activityIds);
+    }
+
+    @Override
     public List<ActivityGoodsGroupVo> findGroupListByGoodsId(String goodsId) {
         return activityGoodsGroupMapper.findGroupListByGoodsId(goodsId);
     }

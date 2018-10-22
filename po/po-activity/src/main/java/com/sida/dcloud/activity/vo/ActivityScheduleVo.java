@@ -1,9 +1,11 @@
 package com.sida.dcloud.activity.vo;
 
+import com.sida.dcloud.activity.po.HonoredGuest;
 import com.sida.xiruo.po.common.UserCentricDTO;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Date;
+import java.util.List;
 
 public class ActivityScheduleVo extends UserCentricDTO {
     private static final long serialVersionUID = 1L;
@@ -24,6 +26,17 @@ public class ActivityScheduleVo extends UserCentricDTO {
 
     @ApiModelProperty("主题")
     private String subject;
+
+    @ApiModelProperty("嘉宾列表")
+    private List<HonoredGuestVo> honoredGuestVoList;
+
+    public List<HonoredGuestVo> getHonoredGuestVoList() {
+        return honoredGuestVoList;
+    }
+
+    public void setHonoredGuestVoList(List<HonoredGuestVo> honoredGuestVoList) {
+        this.honoredGuestVoList = honoredGuestVoList;
+    }
 
     public String getId() {
         return id;

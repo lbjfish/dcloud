@@ -110,7 +110,7 @@ public class CustomerActivitySignupNote extends BaseEntity implements Serializab
     private String gainChannel;
 
     @ApiModelProperty("证件类型（字典id_type）")
-    private String itType;
+    private String idType;
 
     @ApiModelProperty("证件号码")
     private String idNo;
@@ -420,12 +420,12 @@ public class CustomerActivitySignupNote extends BaseEntity implements Serializab
         this.gainChannel = gainChannel == null ? null : gainChannel.trim();
     }
 
-    public String getItType() {
-        return itType;
+    public String getIdType() {
+        return idType;
     }
 
-    public void setItType(String itType) {
-        this.itType = itType == null ? null : itType.trim();
+    public void setIdType(String idType) {
+        this.idType = idType == null ? null : idType.trim();
     }
 
     public String getIdNo() {

@@ -1,5 +1,6 @@
 package com.sida.dcloud.activity.service.impl;
 
+import com.codingapi.tx.annotation.TxTransaction;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.google.common.util.concurrent.AtomicDouble;
@@ -18,6 +19,8 @@ import com.sida.xiruo.xframework.dao.IMybatisDao;
 import com.sida.xiruo.xframework.lock.DistributedLock;
 import com.sida.xiruo.xframework.lock.redis.RedisLock;
 import com.sida.xiruo.xframework.service.BaseServiceImpl;
+import com.sida.xiruo.xframework.util.UUID;
+import org.activiti.engine.ActivitiException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,12 +107,32 @@ public class ActivityOrderServiceImpl extends BaseServiceImpl<ActivityOrder> imp
         return activityOrderMapper.getCurrentOrderNo();
     }
 
+    @TxTransaction
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public int insert(ActivityOrder po) {
-        batchAction(po);
         po.setOrderNo(activityCacheUtil.getActionNoByKey(ACTION_NO_KEY));
-        return super.insert(po);
+        checkValidationForOrder(po);
+        batchAction(po);
+        return activityOrderMapper.insertSelective(po);
+    }
+
+    /**
+     * 校验订单
+     * @param po
+     */
+    private void checkValidationForOrder(ActivityOrder po) {
+        Optional.ofNullable(po).orElseThrow(() -> new ActivitiException("订单不能为空"));
+        Optional.ofNullable(po.getNoteId()).orElseThrow(() -> new ActivitiException("报名表不能为空"));
+        if(po.getGoodsList().isEmpty() && po.getGroupList().isEmpty()) {
+            throw new ActivityException("必须选择至少一个活动商品/商品组下订单");
+        }
+        //订单状态
+        po.setActivityOrderStatus(ActivityConstants.ORDER_STATUS.NOT_PAY.getCode());
+        //订单名称 = 活动名称_订单编号
+        po.setOrderName(String.format("%s_%s", po.getOrderName(), po.getOrderName()));
+        //订单创建时间
+        po.setCreateTime(new Date());
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
@@ -125,22 +148,24 @@ public class ActivityOrderServiceImpl extends BaseServiceImpl<ActivityOrder> imp
      * 最终得到总金额和总减免金额
      * @param po 订单
      */
-    private void batchAction(ActivityOrder po) {
+    @Transactional(propagation = Propagation.REQUIRED)
+    void batchAction(ActivityOrder po) {
         Map<String, IdAndCountDto> map = new HashMap<>();
         AtomicDouble totalAmount = new AtomicDouble(0);
         AtomicDouble minusAmount = new AtomicDouble(0);
         Optional.ofNullable(po.getGoodsList()).ifPresent(list -> {
             if (!list.isEmpty()) {
-                StringBuilder builder = new StringBuilder("'0'");
+                StringBuilder builder = new StringBuilder("0");
                 list.stream().map(o -> {
                     map.put(o.getId(), o);
-                    return String.format(",'%s'", o.getId());
+                    return String.format(",%s", o.getId());
                 }).forEach(builder::append);
                 List<ActivityGoods> originalGoodsList = activityGoodsService.findListByIds(builder.toString());
                 List<ActivityOrderGoods> goodsList = new ArrayList<>();
                 originalGoodsList.forEach(goods -> {
                     Optional.ofNullable(map.get(goods.getId())).ifPresent(idAndCount -> {
                         ActivityOrderGoods o = new ActivityOrderGoods();
+                        o.setId(UUID.create().toString());
                         o.setOrderId(po.getId());
                         o.setGoodsId(idAndCount.getId());
                         o.setPayCount(idAndCount.getCount());
@@ -156,16 +181,17 @@ public class ActivityOrderServiceImpl extends BaseServiceImpl<ActivityOrder> imp
         });
         Optional.ofNullable(po.getGroupList()).ifPresent(list -> {
             if (!list.isEmpty()) {
-                StringBuilder builder = new StringBuilder("'0'");
+                StringBuilder builder = new StringBuilder("0");
                 list.stream().map(o -> {
                     map.put(o.getId(), o);
-                    return String.format(",'%s'", o.getId());
+                    return String.format(",%s", o.getId());
                 }).forEach(builder::append);
                 List<ActivityGoodsGroup> originalGroupList = activityGoodsGroupService.findListByIds(builder.toString());
                 List<ActivityOrderGoodsGroup> groupList = new ArrayList<>();
                 originalGroupList.forEach(group -> {
                     Optional.ofNullable(map.get(group.getId())).ifPresent(idAndCount -> {
                         ActivityOrderGoodsGroup o = new ActivityOrderGoodsGroup();
+                        o.setId(UUID.create().toString());
                         o.setOrderId(po.getId());
                         o.setGroupId(idAndCount.getId());
                         o.setPayCount(idAndCount.getCount());

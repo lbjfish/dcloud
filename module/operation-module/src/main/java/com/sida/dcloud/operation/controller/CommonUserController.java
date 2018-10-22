@@ -1,6 +1,7 @@
 package com.sida.dcloud.operation.controller;
 
 import com.sida.dcloud.operation.common.OperationException;
+import com.sida.dcloud.operation.dto.CommonUserOperation;
 import com.sida.dcloud.operation.po.CommonUser;
 import com.sida.dcloud.operation.service.CommonUserService;
 import com.sida.dcloud.service.event.config.EventConstants;
@@ -12,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import scala.annotation.meta.param;
 
 import java.util.Map;
 import java.util.Optional;
@@ -48,5 +50,13 @@ public class CommonUserController extends BaseController {
         CommonUser one = commonUserService.selectByPrimaryKey(id);
         return toResult(one);
     }
+    /********************************************************************************/
 
+    @RequestMapping(value = "/updateFaceUrl", method = RequestMethod.POST)
+    @ApiOperation(value = "更新人脸图片地址")
+    public Object updateFaceUrl(@RequestBody @ApiParam("用户信息JSON") Map<String, String> map) {
+        Optional.ofNullable(map.get("id")).orElseThrow(() -> new OperationException("id不能空"));
+        Optional.ofNullable(map.get("faceUrl")).orElseThrow(() -> new OperationException("人脸图片url不能空"));
+        return toResult(commonUserService.updateFaceUrl(map));
+    }
 }

@@ -424,7 +424,7 @@
     <include refid="SysUser_Column_List" />
     from sys_user
     where disable = false and delete_flag = false
-    and status = false  and approval_status = '1' and account = #{phone ,jdbcType=VARCHAR}
+     and (account = #{phone ,jdbcType=VARCHAR} or mobile = #{phone})
   </select>
 
   <select id="selectAll" resultMap="SysUserResultMap">

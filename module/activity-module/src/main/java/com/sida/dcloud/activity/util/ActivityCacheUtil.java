@@ -161,7 +161,7 @@ public class ActivityCacheUtil implements CommandLineRunner {
         long counter = actionNoCounter.getAndIncrement();
         return String.format(ACTION_NO_TEMPLATE
                 , key.toUpperCase()
-                , new SimpleDateFormat("yyyyMMdd").format("yyyyMMdd")
+                , new SimpleDateFormat("yyyyMMdd").format(new Date())
                 , new DecimalFormat("0000000000").format(counter));
     }
 

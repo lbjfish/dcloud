@@ -16,5 +16,8 @@
         <module>po</module>
         <module>interface</module>
         <module>module</module>
+        <!-- 分布式事务框架 -->
+        <module>tx-lcn-4.1.0</module>
+        <!--<module>springcloud-lcn-demo-master</module>-->
     </modules>
 </project>

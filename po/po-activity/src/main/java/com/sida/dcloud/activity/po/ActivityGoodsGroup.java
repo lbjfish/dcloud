@@ -7,6 +7,7 @@ package com.sida.dcloud.activity.po;
 import com.sida.xiruo.po.common.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
+import java.util.Date;
 
 public class ActivityGoodsGroup extends BaseEntity implements Serializable {
     @ApiModelProperty("活动id（关联activity_info表id）")
@@ -15,13 +16,16 @@ public class ActivityGoodsGroup extends BaseEntity implements Serializable {
     @ApiModelProperty("组合名称")
     private String name;
 
+    @ApiModelProperty("原价")
+    private Double originalPrice;
+
     @ApiModelProperty("销售价")
     private Double payPrice;
 
     @ApiModelProperty("折扣（暂未使用）")
     private Double discount;
 
-    @ApiModelProperty("减免金额")
+    @ApiModelProperty("减免金额（暂未使用）")
     private Double minusAmount;
 
     @ApiModelProperty("总量")
@@ -35,6 +39,15 @@ public class ActivityGoodsGroup extends BaseEntity implements Serializable {
 
     @ApiModelProperty("是否上架（0.否 1.是）")
     private Boolean visible;
+
+    @ApiModelProperty("添加时间")
+    private Date addTime;
+
+    @ApiModelProperty("开始时间")
+    private Date startTime;
+
+    @ApiModelProperty("结束时间")
+    private Date endTime;
 
     @ApiModelProperty("备注")
     private String remark;
@@ -55,6 +68,14 @@ public class ActivityGoodsGroup extends BaseEntity implements Serializable {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
+    }
+
+    public Double getOriginalPrice() {
+        return originalPrice;
+    }
+
+    public void setOriginalPrice(Double originalPrice) {
+        this.originalPrice = originalPrice;
     }
 
     public Double getPayPrice() {
@@ -111,6 +132,30 @@ public class ActivityGoodsGroup extends BaseEntity implements Serializable {
 
     public void setVisible(Boolean visible) {
         this.visible = visible;
+    }
+
+    public Date getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(Date addTime) {
+        this.addTime = addTime;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 
     public String getRemark() {

@@ -251,4 +251,8 @@ public interface SysUserService extends IBaseService<SysUser> {
     int updateMobile(Map<String, String> map);
     int updateUserInfo(Map<String, String> map);
     int updateUserPassword(Map<String, String> map);
+    int bindThirdPartAccount(Map<String, String> map);
+    int unbindThirdPartAccount(String loginFrom, String mobile);
+
+    int testDistributeTransaction(String id, String remark);
 }

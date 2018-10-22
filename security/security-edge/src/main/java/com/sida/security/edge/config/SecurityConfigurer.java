@@ -54,12 +54,15 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
             "/apis/system/sysRegion/singlelevel",
             "/apis/system/sysRegion/threelevel",
             "/apis/system/sysRegion/tree",
-            "/apis/system/sysUserCustomer/*",
-            "/apis/activity/sysUserCustomer/*",
-            "/apis/content/sysUserCustomer/*",
-            "/apis/activity/activityInfo/list",
-            "/apis/activity/activityInfo/findOne",
-            "/apis/operation/sysUserOperation/*"
+            "/apis/system/sysUserCustomer/**",
+            "/apis/system/compensate/notify",
+            "/apis/activity/sysUserCustomer/**",
+            "/apis/content/sysUserCustomer/**",
+            "/apis/activity/activityInfo/**",
+            "/apis/operation/sysUserOperation/**",
+            "/apis/activity/activitySchedule/**",
+            "/apis/activity/honoredGuest/**",
+            "/apis/operation/commonUser/findCommonUserById*"
     };
 
     @Autowired
@@ -95,8 +98,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .addFilterAfter(oAuth2AuthenticationProcessingFilter(), AbstractPreAuthenticatedProcessingFilter.class)
                 .addFilterAt(myFilterSecurityInterceptor, FilterSecurityInterceptor.class)
                 /*.addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class)*/
-                .logout().permitAll()
-                .logoutSuccessUrl("/");
+                .logout().logoutUrl("/logout").logoutSuccessUrl("/login").invalidateHttpSession(true).permitAll();
 
     }
 
@@ -126,7 +128,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
         oAuth2AuthenticationProcessingFilter.setStateless(false);
 //        CustomerOAuth2ExceptionRenderer exceptionRenderer = new CustomerOAuth2ExceptionRenderer();
         OAuth2AuthenticationEntryPoint o = new OAuth2AuthenticationEntryPoint();
-        o.setExceptionTranslator(new ClzWebResponseExceptionTranslator());
+        o.setExceptionTranslator(new SidaWebResponseExceptionTranslator());
 //        o.setExceptionRenderer(exceptionRenderer);
         oAuth2AuthenticationProcessingFilter.setAuthenticationEntryPoint(o);
 

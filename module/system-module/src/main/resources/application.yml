@@ -12,10 +12,10 @@ spring:
  #     password: ${common.redis.password}
   datasource:
     driver-class-name: ${common.system.datasource.driverClassName}
-    url: ${common.system.datasource.url}
+#    url: ${common.system.datasource.url}
     #url: jdbc:mysql://192.168.87.195:8806,192.168.87.195:8807/init_system?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false&roundRobinLoadBalance=true
-    username: ${common.system.datasource.username}
-    password: ${common.system.datasource.password}
+#    username: ${common.system.datasource.username}
+#    password: ${common.system.datasource.password}
     #url: jdbc:mysql://192.168.87.211:3306/system?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false&roundRobinLoadBalance=true
     #username: to4GSzhR6JU=
     #password: aL3+VIbS+o8=
@@ -37,6 +37,17 @@ spring:
     poolPreparedStatements: true
     maxOpenPreparedStatements: 20
     logabandoned: true
+    master:
+      url: ${common.system.datasource.master.url}
+      username: ${common.system.datasource.master.username}
+      password: ${common.system.datasource.master.password}
+    business:
+      #      url: ${common.content.datasource.business.url}
+      #      username: ${common.content.datasource.business.username}
+      #      password: ${common.content.datasource.business.password}
+      url: ${common.system.datasource.master.url}
+      username: ${common.system.datasource.master.username}
+      password: ${common.system.datasource.master.password}
   aop:
     auto: true
     proxy-target-class: true
@@ -74,7 +85,7 @@ security:
           -----END PUBLIC KEY-----
       id: openid
       service-id: ${PREFIX:}system
-  ignored: sysAccessLog/**,authcodes/getRemoteAuthCode,sysUser/remoteRegister,init/loadDicTree,sysRegion/tree,sysRegion/singlelevel,sysRegion/threelevel,init/loadGlobalVariable,sysUserCustomer/*
+  ignored: sysAccessLog/**,authcodes/getRemoteAuthCode,sysUser/remoteRegister,init/loadDicTree,sysRegion/tree,sysRegion/singlelevel,sysRegion/threelevel,init/loadGlobalVariable,sysUserCustomer/*,compensate/notify
 #    -----BEGIN PUBLIC KEY-----
 #    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhkKvh10MNmHMtYUH8C6v3kTQfF8P0zDPPCPVfH63mJ+1ujFuU1N0PvlmpyQI1kG+/+/kq68bacCY++viqlqnnl7ul8UX6N6yNG90JOoKnwUx4uTeS6K34Z5Li5EqDrH+9NeIa+3oJ0q56SOeG/iEccbOHCepYrW2coCWLn9ZJYBPqhd58iClWWXIpLnenQvG4a7hXilUEDPWc3/FLlgLU0cDMtewLh6lJX+MdRr1ZYEiJ0lysfAv9tC6E86rjHbZJTejhG3G40GRDaxQDmI63wbIohQ5ZvKqYAsiqXoB6/pK44c+E2RblrtEJpnGZMpg5OCud6+8/yrtY3g1AEOdswIDAQAB
 #    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhWURlgZFHBfRCNtAPrDX2qlNMpYCAd8oJTAxw3ohVsI3YYD7QzcD7dSyZYBv+IJnlULS8+sA9KeuXljyVUFP6uvcKOgqhKrOqDZUmqZGyXuUbFI747hfHEHhmEgvmppvc5SeId3ztGzbZGWcm4E3a7nCS9AS2ey/xUZKyuL1bg1/pYKFex3teNTJnyeuNU3s0U6TMltUuIwjh+StUmMkLiao6tGEq8TNHJpnR74CVTaoABw2SRn3wmDM3me8y8YW0lukehmnma8qDvEUNsOV5H+aUBTWQo5A8QXwgNTOi31HbK3bMhxWWkR8TG0EK50SPsGI47Upx9NBdD4NPyYf0QIDAQAB
@@ -93,8 +104,31 @@ eureka:
     ip-address: ${spring.cloud.client.ipAddress}
     lease-expiration-duration-in-seconds: @lease-expiration-duration-in-seconds@
     lease-renewal-interval-in-seconds: @lease-renewal-interval-in-seconds@
+    status-page-url-path: /info
+    health-check-url-path: /health
+
+tm:
+  manager:
+    url: @tm-manager-url@
+logging:
+  level:
+    com:
+      codingapi: warn
+#Ribbon的负载均衡策略
+ribbon.NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+ribbon.MaxAutoRetriesNextServer: 0
 
 management:
   health:
     redis:
       enabled: false
+
+info:
+  app:
+    name: system-module
+    auchor: Xiruo.Jiang
+    version: 1.0
+  build:
+    artifactId: system-module
+    version: 1.0-SNAPSHOT
+    date: 2018-9-18

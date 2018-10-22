@@ -28,12 +28,176 @@ public class SysUserVo extends SysUser{
     private String organizationId;
     @ApiModelProperty("所在组织path")
     private String organizationPath;
-    @ApiModelProperty("所处片区id，没有则为空")
-    private String areaId;
-    @ApiModelProperty("所处门店id，没有则为空")
-    private String storeId;
-    @ApiModelProperty("所处牌证部门id，没有则为空")
-    private String certId;
+
+    //C端用户信息
+    private boolean includeCustomerInfo;
+    private String ownerUrl;
+    private String faceUrl;
+    private String cardtype;
+    private String idcard;
+    private String phone;
+    private String address;
+    private String postcode;
+    private String regionId;
+    private String nationality;
+    private String homepage;
+    private String introduce;
+    private String wechat;
+    private String qq;
+    private String sinaWeibo;
+    private String alipayNo;
+    private String facebookNo;
+    private String twitterNo;
+
+    public boolean isIncludeCustomerInfo() {
+        return includeCustomerInfo;
+    }
+
+    public void setIncludeCustomerInfo(boolean includeCustomerInfo) {
+        this.includeCustomerInfo = includeCustomerInfo;
+    }
+
+    public String getOwnerUrl() {
+        return ownerUrl;
+    }
+
+    public void setOwnerUrl(String ownerUrl) {
+        this.ownerUrl = ownerUrl;
+    }
+
+    public String getFaceUrl() {
+        return faceUrl;
+    }
+
+    public void setFaceUrl(String faceUrl) {
+        this.faceUrl = faceUrl;
+    }
+
+    public String getCardtype() {
+        return cardtype;
+    }
+
+    public void setCardtype(String cardtype) {
+        this.cardtype = cardtype;
+    }
+
+    public String getIdcard() {
+        return idcard;
+    }
+
+    public void setIdcard(String idcard) {
+        this.idcard = idcard;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPostcode() {
+        return postcode;
+    }
+
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
+    }
+
+    public String getRegionId() {
+        return regionId;
+    }
+
+    public void setRegionId(String regionId) {
+        this.regionId = regionId;
+    }
+
+    @Override
+    public String getNationality() {
+        return nationality;
+    }
+
+    @Override
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
+
+    public String getHomepage() {
+        return homepage;
+    }
+
+    public void setHomepage(String homepage) {
+        this.homepage = homepage;
+    }
+
+    public String getIntroduce() {
+        return introduce;
+    }
+
+    public void setIntroduce(String introduce) {
+        this.introduce = introduce;
+    }
+
+    @Override
+    public String getWechat() {
+        return wechat;
+    }
+
+    @Override
+    public void setWechat(String wechat) {
+        this.wechat = wechat;
+    }
+
+    @Override
+    public String getQq() {
+        return qq;
+    }
+
+    @Override
+    public void setQq(String qq) {
+        this.qq = qq;
+    }
+
+    public String getSinaWeibo() {
+        return sinaWeibo;
+    }
+
+    public void setSinaWeibo(String sinaWeibo) {
+        this.sinaWeibo = sinaWeibo;
+    }
+
+    public String getAlipayNo() {
+        return alipayNo;
+    }
+
+    public void setAlipayNo(String alipayNo) {
+        this.alipayNo = alipayNo;
+    }
+
+    public String getFacebookNo() {
+        return facebookNo;
+    }
+
+    public void setFacebookNo(String facebookNo) {
+        this.facebookNo = facebookNo;
+    }
+
+    public String getTwitterNo() {
+        return twitterNo;
+    }
+
+    public void setTwitterNo(String twitterNo) {
+        this.twitterNo = twitterNo;
+    }
 
     public String getRoleId() {
         return roleId;
@@ -89,30 +253,6 @@ public class SysUserVo extends SysUser{
 
     public void setOrganizationPath(String organizationPath) {
         this.organizationPath = organizationPath;
-    }
-
-    public String getAreaId() {
-        return areaId;
-    }
-
-    public void setAreaId(String areaId) {
-        this.areaId = areaId;
-    }
-
-    public String getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(String storeId) {
-        this.storeId = storeId;
-    }
-
-    public String getCertId() {
-        return certId;
-    }
-
-    public void setCertId(String certId) {
-        this.certId = certId;
     }
 
     public List<RoleDTO> getRoleList() {

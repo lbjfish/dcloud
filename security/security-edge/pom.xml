@@ -115,6 +115,16 @@
             <groupId>com.sida</groupId>
             <artifactId>xframework</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.codingapi</groupId>
+                    <artifactId>transaction-springcloud</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.codingapi</groupId>
+                    <artifactId>tx-plugins-db</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.sida</groupId>

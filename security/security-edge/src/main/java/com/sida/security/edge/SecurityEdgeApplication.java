@@ -17,7 +17,8 @@ import org.springframework.web.filter.CorsFilter;
 @EnableZuulProxy
 @EnableFeignClients
 @SpringCloudApplication
-@ComponentScan(basePackages = {"com.sida.xiruo.xframework.cache.redis","com.sida.security.edge"})
+@ComponentScan(basePackages = {
+        "com.sida.xiruo.xframework.cache.redis","com.sida.security.edge"})
 public class SecurityEdgeApplication {
     public static void main(String[] args) {
         new SpringApplicationBuilder(SecurityEdgeApplication.class).web(true).run(args);

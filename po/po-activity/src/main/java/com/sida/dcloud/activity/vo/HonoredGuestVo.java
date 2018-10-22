@@ -8,6 +8,16 @@ import com.sida.xiruo.po.common.UserCentricDTO;
 import io.swagger.annotations.ApiModelProperty;
 
 public class HonoredGuestVo extends UserCentricDTO {
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return ((HonoredGuestVo)obj).getId().equals(id);
+    }
+
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("id")
@@ -34,8 +44,30 @@ public class HonoredGuestVo extends UserCentricDTO {
     @ApiModelProperty("移动电话号码")
     private String mobile;
 
+    @ApiModelProperty("简介")
+    private String introduce;
+
     @ApiModelProperty("排序值（越小越靠前）")
     private int sort;
+
+    @ApiModelProperty("用户头像（七牛云图片地址）")
+    private String headerUrl;
+
+    public String getHeaderUrl() {
+        return headerUrl;
+    }
+
+    public void setHeaderUrl(String headerUrl) {
+        this.headerUrl = headerUrl;
+    }
+
+    public String getIntroduce() {
+        return introduce;
+    }
+
+    public void setIntroduce(String introduce) {
+        this.introduce = introduce;
+    }
 
     public int getSort() {
         return sort;

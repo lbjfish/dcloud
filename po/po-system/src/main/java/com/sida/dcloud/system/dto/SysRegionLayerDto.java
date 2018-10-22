@@ -13,6 +13,9 @@ public class SysRegionLayerDto implements Serializable {
     @ApiModelProperty("通用字段：主键id")
     private String id;
 
+    @ApiModelProperty("i路径d")
+    private String path;
+
     @ApiModelProperty("地区编码")
     private String code;
 
@@ -38,6 +41,14 @@ public class SysRegionLayerDto implements Serializable {
 
     @ApiModelProperty("子节点")
     private List<SysRegionLayerDto> children = new ArrayList<>();
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
 
     public List<SysRegionLayerDto> getChildren() {
         return children;

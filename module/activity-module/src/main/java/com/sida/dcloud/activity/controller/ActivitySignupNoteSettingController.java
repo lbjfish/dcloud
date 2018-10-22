@@ -36,15 +36,15 @@ public class ActivitySignupNoteSettingController extends BaseController {
 
     @RequestMapping(value="findByVersionToClient", method = RequestMethod.GET)
     @ApiOperation("根据版本加载设置数据 - C端使用")
-    public Object findByVersionToClient(@ApiParam("版本") @RequestParam(value="version") String version) {
+    public Object findByVersionToClient(@ApiParam("版本") @RequestParam(value="version", required = false) String version) {
         LOG.info("Version is {}", version);
-        Optional.ofNullable(version).orElseThrow(() -> new ActivitiException("必须指定加载的版本"));
+//        Optional.ofNullable(version).orElseThrow(() -> new ActivitiException("必须指定加载的版本"));
         return toResult(activitySignupNoteSettingService.selectByVersionToClient(version));
     }
 
     @RequestMapping(value="generate", method = RequestMethod.GET)
     @ApiOperation("根据版本产生设置数据")
-    public Object generate(@ApiParam("版本") @RequestParam(value="version") String version) {
+    public Object generate(@ApiParam("版本") @RequestParam(value="version", required = false) String version) {
         version = Optional.ofNullable(version).orElse(Xiruo.dateToString(new Date(), "yyyyMMdd"));
         LOG.info("Version is {}", version);
         return toResult(activitySignupNoteSettingService.generateSetting(version));

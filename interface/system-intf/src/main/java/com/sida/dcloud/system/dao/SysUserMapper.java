@@ -230,4 +230,8 @@ public interface SysUserMapper extends IMybatisDao<SysUser> {
     int updateMobile(@Param("map") Map<String, String> map);
     int updateUserInfo(@Param("map") Map<String, String> map);
     int updateUserPassword(@Param("map") Map<String, String> map);
+    int bindThirdPartAccount(@Param("map") Map<String, String> map);
+    int unbindThirdPartAccount(@Param("loginFrom") String loginFrom, @Param("mobile") String mobile);
+
+    int testDistributeTransaction(@Param("id")String id, @Param("remark")String remark);
 }

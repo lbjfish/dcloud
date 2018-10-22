@@ -55,6 +55,7 @@ security:
 
 logging:
   level.org.springframework.security: DEBUG
+  level.com.codingapi: debug
 
 server:
   port: ${service.security.auth.port}
@@ -75,6 +76,14 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 60000
+
+tm:
+  manager:
+    url: @tm-manager-url@
+
+#Ribbon的负载均衡策略
+ribbon.NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+ribbon.MaxAutoRetriesNextServer: 0
 
 management:
   health:

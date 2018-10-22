@@ -54,6 +54,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf()
                 .disable().formLogin().loginPage("/login").permitAll()
+                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/login").invalidateHttpSession(true).permitAll()
                 .and().authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/validate/code/image").permitAll()
                 .anyRequest().authenticated();

@@ -49,6 +49,12 @@ public class ActivityInfoController extends BaseController {
         ActivityInfo one = activityInfoService.selectByPrimaryKey(id);
         return toResult(one);
     }
+
+    @RequestMapping(value = "/findOneWithGoods", method = RequestMethod.GET)
+    @ApiOperation(value = "根据活动主键id获取信息（包含商品和商品组）")
+    public Object findOneWithGoods(@RequestParam("id") @ApiParam("id")String id) {
+        return toResult(activityInfoService.findOneWithGoods(id));
+    }
     /********************************************************************************/
 
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
