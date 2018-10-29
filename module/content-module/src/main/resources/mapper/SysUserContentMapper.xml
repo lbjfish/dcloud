@@ -404,14 +404,14 @@
   </insert>
 
   <update id="updateMobile" parameterType="java.util.Map">
-    update sys_user_content set mobile = #{map.mobile}
+    update sys_user_content set mobile = #{map.mobile}, account = #{map.mobile}
     where id = #{map.id}
   </update>
 
   <update id="updateUserInfo" parameterType="java.util.Map">
     update sys_user_content set name = #{map.name}, birthday = #{map.birthday}, description = #{map.remark},
     sex = #{map.sex}
-    where where (id = #{map.id} or mobile = #{map.mobile})
+    where (id = #{map.id} or mobile = #{map.mobile})
   </update>
 
   <update id="unbindThirdPartAccount">

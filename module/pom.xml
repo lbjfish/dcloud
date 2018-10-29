@@ -10,7 +10,7 @@
 
     <modules>
         <module>system-module</module>
-        <module>training-module</module>
+        <!--<module>training-module</module>-->
         <module>activity-module</module>
         <module>content-module</module>
         <module>operation-module</module>

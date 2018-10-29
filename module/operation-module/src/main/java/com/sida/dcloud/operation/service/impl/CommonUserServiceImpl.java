@@ -1,6 +1,6 @@
 package com.sida.dcloud.operation.service.impl;
 
-import com.codingapi.tx.annotation.TxTransaction;
+//import com.codingapi.tx.annotation.TxTransaction;
 import com.sida.dcloud.operation.dao.CommonUserMapper;
 import com.sida.dcloud.operation.dto.CommonUserOperation;
 import com.sida.dcloud.operation.po.CommonUser;
@@ -51,7 +51,7 @@ public class CommonUserServiceImpl extends BaseServiceImpl<CommonUser> implement
         return commonUserMapper.unbindThirdPartAccount(loginFrom, mobile);
     }
 
-    @TxTransaction
+//    @TxTransaction
     @Override
     public int updateFaceUrl(Map<String, String> map) {
         return commonUserMapper.updateFaceUrl(map);

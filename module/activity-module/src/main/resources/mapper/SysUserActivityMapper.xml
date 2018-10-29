@@ -404,7 +404,7 @@
   </insert>
 
   <update id="updateMobile" parameterType="java.util.Map">
-    update sys_user_activity set mobile = #{map.mobile}
+    update sys_user_activity set mobile = #{map.mobile}, account = #{map.mobile}
     where id = #{map.id}
   </update>
 

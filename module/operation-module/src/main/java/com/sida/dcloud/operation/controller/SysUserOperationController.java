@@ -7,6 +7,7 @@ import com.sida.dcloud.operation.common.OperationException;
 import com.sida.dcloud.operation.dto.CommonUserOperation;
 import com.sida.dcloud.operation.po.SysUserOperation;
 import com.sida.dcloud.operation.service.SysUserOperationService;
+import com.sida.dcloud.operation.service.impl.SysUserOperationServiceImpl;
 import com.sida.dcloud.service.event.config.EventConstants;
 import com.sida.xiruo.common.components.encrypt.Base64;
 import com.sida.xiruo.xframework.controller.BaseController;
@@ -49,6 +50,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class SysUserOperationController extends BaseController {
     private static final Logger LOG = LoggerFactory.getLogger(SysUserOperationController.class);
 
+    @Value("${common.ip}")
+    private String authHost;
     @Value("${service.security.auth.port}")
     private String authPort;
     @Autowired
@@ -57,8 +60,9 @@ public class SysUserOperationController extends BaseController {
     @RequestMapping(value = "/generateMobileVerifyCode", method = RequestMethod.GET)
     @ApiOperation(value = "获取手机验证码")
     public Object generateMobileVerifyCode(@RequestParam("mobileType") @ApiParam("终端类型")String mobileType,
-            @RequestParam("mobile") @ApiParam("手机号码")String mobile) {
-        return toResult(sysUserOperationService.generateMobileVerifyCode(mobileType, mobile));
+            @RequestParam("mobile") @ApiParam("手机号码")String mobile,
+            @RequestParam(name = "templateId", defaultValue = "1") @ApiParam("业务模板id")int templateId) {
+        return toResult(sysUserOperationService.generateMobileVerifyCode(mobileType, mobile, templateId));
     }
 
     @RequestMapping(value = "/verifyBindStatus", method = RequestMethod.POST)
@@ -187,9 +191,9 @@ public class SysUserOperationController extends BaseController {
     private Object autoLogin(String mobile, String mobileType) {
         CloseableHttpResponse response = null;
         try {
-            String loginUrl = String.format("http://%s:%s/sec/oauth/token", request.getRemoteHost(), authPort);
+            String loginUrl = String.format("http://%s:%s/sec/oauth/token", authHost, authPort);
             {
-                String authCode = sysUserOperationService.generateMobileVerifyCode(mobileType, mobile);
+                String authCode = ((SysUserOperationServiceImpl)sysUserOperationService).generateMobileVerifyCode(mobileType, mobile);
                 HttpPost post = null;
                 try {
                     HttpClient httpClient = HttpClients.createDefault();

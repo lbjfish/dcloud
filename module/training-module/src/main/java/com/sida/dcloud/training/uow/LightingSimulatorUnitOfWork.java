@@ -47,7 +47,7 @@ public class LightingSimulatorUnitOfWork extends MybatisUnitOfWork<LightingSimul
         List<LightingSteps> list = po.getLightingStepsList();
         if(!list.isEmpty()) {
             list.forEach(step -> {
-                step.setId(UUID.create().toString());
+                step.setId(UUIDGenerate.getNextId());
                 step.setLightingSimulatorId(po.getId());
             });
             lightingStepsService.insertPos(list);

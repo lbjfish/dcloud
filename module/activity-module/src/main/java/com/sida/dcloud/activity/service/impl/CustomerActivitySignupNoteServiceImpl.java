@@ -1,6 +1,6 @@
 package com.sida.dcloud.activity.service.impl;
 
-import com.codingapi.tx.annotation.TxTransaction;
+//import com.codingapi.tx.annotation.TxTransaction;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sida.dcloud.activity.client.OperationClient;
@@ -83,6 +83,7 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
     @Override
     public Page<CustomerActivitySignupNoteVo> findPageList(CustomerActivitySignupNoteVo vo) {
         PageHelper.startPage(vo.getP(),vo.getS());
+//        vo.setUserId(LoginManager.getCurrentUserId());
         List<CustomerActivitySignupNoteVo> voList = customerActivitySignupNoteMapper.findVoList(vo);
         return (Page) voList;
     }
@@ -254,7 +255,7 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
     }
 
     @Override
-    @TxTransaction(isStart = true)
+//    @TxTransaction(isStart = true)
     @Transactional(propagation = Propagation.REQUIRED)
     public Map<String, String> insertSignupNoteAndOrder(ActivitySignupNoteDto dto) {
         Map<String, String> resMap = new HashMap<>();

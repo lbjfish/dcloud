@@ -1,6 +1,6 @@
 package com.sida.dcloud.operation.service.impl;
 
-import com.codingapi.tx.annotation.TxTransaction;
+//import com.codingapi.tx.annotation.TxTransaction;
 import com.sida.dcloud.operation.client.ActivityClient;
 import com.sida.dcloud.operation.client.ContentClient;
 import com.sida.dcloud.operation.client.SystemClient;
@@ -21,7 +21,7 @@ import com.sida.xiruo.xframework.lock.redis.RedisLock;
 import com.sida.xiruo.xframework.service.BaseServiceImpl;
 import com.sida.xiruo.xframework.util.BlankUtil;
 import com.sida.xiruo.xframework.util.MobileUtil;
-import com.sida.xiruo.xframework.util.UUID;
+import com.sida.xiruo.xframework.util.UUIDGenerate;
 import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,24 +71,32 @@ public class SysUserOperationServiceImpl extends BaseServiceImpl<SysUserOperatio
         return sysUserOperationMapper;
     }
 
-    @Override
     public String generateMobileVerifyCode(String mobileType, String mobile) {
         String verifyCode = MobileUtil.generateAuthCode();
         if (validity == 0){
-            validity = (long)10*60*1000;//若无，默认为10分钟有效时间
+            validity = 5 * 60 * 1000;//若无，默认为5分钟有效时间
         }
-        /**
-         * 发送验证码
-         */
-        smsUtil.SMSSendMessageByHuaweiCloud(mobile, OperationConstants.SMS_TEMPLATE_VERIFYCODE, new String[] {verifyCode});
-
-
         /**
          * 保存手机与验证码对应关系，同时绑定有效时间
          */
-        redisUtil.putInMap(RedisKey.SHORT_MSG_AUTH_CODE,mobileType + ":" + mobile, verifyCode, System.currentTimeMillis() + validity);
+        redisUtil.putInMap(RedisKey.SHORT_MSG_AUTH_CODE,mobileType + ":" + mobile, verifyCode, (System.currentTimeMillis() + validity) / 1000);
 //        System.out.println(redisUtil.getOneByMapKey(RedisKey.SHORT_MSG_AUTH_CODE,mobileType + ":" + mobile));
 //        System.out.println(mobileType + ":" + mobile);
+        return verifyCode;
+    }
+
+    @Override
+    public String generateMobileVerifyCode(String mobileType, String mobile, int templateId) {
+        String verifyCode = generateMobileVerifyCode(mobileType, mobile);
+        /**
+         * 发送验证码
+         */
+        try {
+            smsUtil.SMSSendMessage(mobile, templateId, new String[]{verifyCode});
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new OperationException(e);
+        }
         return verifyCode;
     }
 
@@ -112,7 +120,7 @@ public class SysUserOperationServiceImpl extends BaseServiceImpl<SysUserOperatio
      * @param dto
      * @return
      */
-    @TxTransaction(isStart=true)
+//    @TxTransaction(isStart=true)
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public int bindThirdPartAccount(CommonUserOperation dto) {
@@ -151,7 +159,7 @@ public class SysUserOperationServiceImpl extends BaseServiceImpl<SysUserOperatio
      * @param dto
      * @return
      */
-    @TxTransaction(isStart=true)
+//    @TxTransaction(isStart=true)
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public int unbindThirdPartAccount(CommonUserOperation dto) {
@@ -186,7 +194,7 @@ public class SysUserOperationServiceImpl extends BaseServiceImpl<SysUserOperatio
      * @param dto
      * @return
      */
-    @TxTransaction(isStart=true)
+//    @TxTransaction(isStart=true)
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public int bindMobile(CommonUserOperation dto) {
@@ -210,7 +218,7 @@ public class SysUserOperationServiceImpl extends BaseServiceImpl<SysUserOperatio
      * @param dto
      * @return
      */
-    @TxTransaction
+//    @TxTransaction
     @Transactional(propagation = Propagation.REQUIRED)
     int insertUserWithMobile(CommonUserOperation dto) {
         boolean lock = distributedLock.lock(LOCK_KEY_CHECK_MULTI, RedisLock.KEEP_MILLS, RedisLock.RETRY_TIMES, RedisLock.SLEEP_MILLS);
@@ -222,9 +230,10 @@ public class SysUserOperationServiceImpl extends BaseServiceImpl<SysUserOperatio
             LOG.debug("Get lock success : " + LOCK_KEY_CHECK_MULTI);
             try {
                 if (sysUserOperationMapper.checkMultiCountByUnique(dto) == 0) {
-                    String password = Optional.ofNullable(dto.getPassword()).orElse(MobileUtil.generateAuthCode());
+//                    String password = Optional.ofNullable(dto.getPassword()).orElse(MobileUtil.generateAuthCode());
+                    String password = dto.getMobile();
                     dto.setPassword(MD5Util.MD5PWD(password));
-                    dto.setId(UUID.create().toString());
+                    dto.setId(UUIDGenerate.getNextId());
                     result = sysUserOperationMapper.saveOrUpdateDto(dto);
                     Map<String, String> dtoMap = BeanUtils.describe(dto);
                     commonUserService.saveOrUpdateDto(dto);
@@ -248,7 +257,7 @@ public class SysUserOperationServiceImpl extends BaseServiceImpl<SysUserOperatio
      * @param dto
      * @return
      */
-    @TxTransaction(isStart=true)
+//    @TxTransaction(isStart=true)
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public int bindNewMobile(CommonUserOperation dto) {
@@ -272,7 +281,7 @@ public class SysUserOperationServiceImpl extends BaseServiceImpl<SysUserOperatio
      * @param dto
      * @return
      */
-    @TxTransaction
+//    @TxTransaction
     @Transactional(propagation = Propagation.REQUIRED)
     int updateUserWithMobile(CommonUserOperation dto) {
         boolean lock = distributedLock.lock(LOCK_KEY_CHECK_MULTI, RedisLock.KEEP_MILLS, RedisLock.RETRY_TIMES, RedisLock.SLEEP_MILLS);
@@ -308,7 +317,7 @@ public class SysUserOperationServiceImpl extends BaseServiceImpl<SysUserOperatio
      * @param dto
      * @return
      */
-    @TxTransaction(isStart=true)
+//    @TxTransaction(isStart=true)
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public int updateUserInfo(CommonUserOperation dto) {
@@ -330,7 +339,7 @@ public class SysUserOperationServiceImpl extends BaseServiceImpl<SysUserOperatio
      * @param dto
      * @return
      */
-    @TxTransaction(isStart=true)
+//    @TxTransaction(isStart=true)
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public int updateUserPassword(CommonUserOperation dto) {
@@ -355,7 +364,7 @@ public class SysUserOperationServiceImpl extends BaseServiceImpl<SysUserOperatio
      * 测试分布式事务
      * @return
      */
-    @TxTransaction(isStart=true)
+//    @TxTransaction(isStart=true)
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public int testDistributeTransaction(String id, String remark) {

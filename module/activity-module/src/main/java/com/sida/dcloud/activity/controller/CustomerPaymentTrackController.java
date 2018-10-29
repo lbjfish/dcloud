@@ -1,12 +1,9 @@
 package com.sida.dcloud.activity.controller;
 
-import com.sida.dcloud.activity.common.ActivityException;
 import com.sida.dcloud.activity.po.CustomerPaymentTrack;
-import com.sida.dcloud.activity.po.HonoredGuest;
 import com.sida.dcloud.activity.service.CustomerPaymentTrackService;
-import com.sida.dcloud.service.event.config.EventConstants;
 import com.sida.xiruo.xframework.controller.BaseController;
-import com.sida.xiruo.xframework.util.UUID;
+import com.sida.xiruo.xframework.util.UUIDGenerate;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -16,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -65,7 +61,7 @@ public class CustomerPaymentTrackController extends BaseController {
     @ApiOperation(value = "新增支付日志")
     public Object insert(@RequestBody @ApiParam("日志JSON") CustomerPaymentTrack param) {
         param.setPayTime(new Date());
-        param.setId(UUID.create().toString());
+        param.setId(UUIDGenerate.getNextId());
         return toResult(customerPaymentTrackService.insert(param));
     }
 }

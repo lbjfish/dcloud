@@ -1,6 +1,6 @@
 package com.sida.dcloud.system.service.impl;
 
-import com.codingapi.tx.annotation.TxTransaction;
+//import com.codingapi.tx.annotation.TxTransaction;
 import com.sida.dcloud.auth.common.SecConstant;
 import com.sida.dcloud.auth.common.SysEnums;
 import com.sida.dcloud.auth.po.*;
@@ -1297,7 +1297,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    @TxTransaction
+//    @TxTransaction
     @Override
     public int saveOrUpdateDto(Map<String, String> map) {
         AtomicInteger ai = new AtomicInteger(sysUserMapper.insertDto(map));
@@ -1311,37 +1311,37 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    @TxTransaction
+//    @TxTransaction
     @Override
     public int updateMobile(Map<String, String> map) {
         return sysUserMapper.updateMobile(map);
     }
     @Transactional(propagation = Propagation.REQUIRED)
-    @TxTransaction
+//    @TxTransaction
     @Override
     public int updateUserInfo(Map<String, String> map) {
         return sysUserMapper.updateUserInfo(map);
     }
     @Transactional(propagation = Propagation.REQUIRED)
-    @TxTransaction
+//    @TxTransaction
     @Override
     public int updateUserPassword(Map<String, String> map) {
         return sysUserMapper.updateUserPassword(map);
     }
     @Transactional(propagation = Propagation.REQUIRED)
-    @TxTransaction
+//    @TxTransaction
     @Override
     public int bindThirdPartAccount(Map<String, String> map) {
         return sysUserMapper.bindThirdPartAccount(map);
     }
     @Transactional(propagation = Propagation.REQUIRED)
-    @TxTransaction
+//    @TxTransaction
     @Override
     public int unbindThirdPartAccount(String loginFrom, String mobile) {
         return sysUserMapper.unbindThirdPartAccount(loginFrom, mobile);
     }
     @Transactional(propagation = Propagation.REQUIRED)
-    @TxTransaction
+//    @TxTransaction
     @Override
     public int testDistributeTransaction(String id, String remark) {
         return sysUserMapper.testDistributeTransaction(id, remark);

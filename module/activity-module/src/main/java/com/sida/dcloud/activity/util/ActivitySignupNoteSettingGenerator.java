@@ -77,7 +77,7 @@ public final class ActivitySignupNoteSettingGenerator {
 
     public List<ActivitySignupNoteSetting> generate(String version) {
         settingList.forEach(setting -> {
-            setting.setId(UUID.create().toString());
+            setting.setId(UUIDGenerate.getNextId());
             setting.setVersion(version);
         });
         return settingList;

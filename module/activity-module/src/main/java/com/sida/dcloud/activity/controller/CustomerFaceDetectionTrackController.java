@@ -3,7 +3,7 @@ package com.sida.dcloud.activity.controller;
 import com.sida.dcloud.activity.po.CustomerFaceDetectionTrack;
 import com.sida.dcloud.activity.service.CustomerFaceDetectionTrackService;
 import com.sida.xiruo.xframework.controller.BaseController;
-import com.sida.xiruo.xframework.util.UUID;
+import com.sida.xiruo.xframework.util.UUIDGenerate;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -61,7 +61,7 @@ public class CustomerFaceDetectionTrackController extends BaseController {
     @ApiOperation(value = "新增人脸识别日志")
     public Object insert(@RequestBody @ApiParam("日志JSON") CustomerFaceDetectionTrack param) {
         param.setThatTime(new Date());
-        param.setId(UUID.create().toString());
+        param.setId(UUIDGenerate.getNextId());
         return toResult(customerFaceDetectionTrackService.insert(param));
     }
 }

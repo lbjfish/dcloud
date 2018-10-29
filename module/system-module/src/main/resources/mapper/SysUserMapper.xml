@@ -1300,15 +1300,15 @@
   </select>
 
   <insert id="insertDto" parameterType="java.util.Map">
-    insert into sys_user (id, wechat, qq, name, account, birthday, description, mobile, password, delete_flag, disable)
+    insert into sys_user (id, wechat, qq, name, account, birthday, description, mobile, password, delete_flag, disable, status, created_at, last_updated, created_user, updated_user)
     select #{map.id},#{map.wechat}, #{map.qq},
-    #{map.name}, #{map.mobile}, str_to_date(#{map.birthday}, '%Y%m%d'), #{map.remark}, #{map.mobile}, #{map.password}, false, false
+    #{map.name}, #{map.mobile}, str_to_date(#{map.birthday}, '%Y%m%d'), #{map.remark}, #{map.mobile}, #{map.password}, false, false, false, now(), now(), #{map.createdUser}, #{map.updatedUser}
     from dual
     where not exists (select id from sys_user where id = #{map.id})
   </insert>
 
   <update id="updateMobile" parameterType="java.util.Map">
-    update sys_user set mobile = #{map.mobile}
+    update sys_user set mobile = #{map.mobile}, account = #{map.mobile}
     where id = #{map.id}
   </update>
 

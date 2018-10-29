@@ -3,12 +3,23 @@ package com.sida.security.edge.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.*;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.oauth2.client.OAuth2ClientContext;
+import org.springframework.security.oauth2.client.OAuth2RestOperations;
+import org.springframework.security.oauth2.client.OAuth2RestTemplate;
+import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
+import org.springframework.security.oauth2.client.token.AccessTokenProvider;
+import org.springframework.security.oauth2.client.token.AccessTokenProviderChain;
+import org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsAccessTokenProvider;
+import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeAccessTokenProvider;
+import org.springframework.security.oauth2.client.token.grant.implicit.ImplicitAccessTokenProvider;
+import org.springframework.security.oauth2.client.token.grant.password.ResourceOwnerPasswordAccessTokenProvider;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationManager;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationProcessingFilter;
@@ -16,12 +27,15 @@ import org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEn
 import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.regex.Pattern;
 
 
@@ -70,6 +84,24 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     @Autowired
     MyFilterSecurityInterceptor myFilterSecurityInterceptor;
+
+    /**
+     *
+     */
+//    @Bean
+//    @Primary
+//    @Autowired
+//    @Scope(value = "session", proxyMode = ScopedProxyMode.INTERFACES)
+//    public OAuth2RestOperations restTemplate(OAuth2ProtectedResourceDetails resource, OAuth2ClientContext oauth2ClientContext) {
+//        OAuth2RestTemplate oAuth2RestTemplate = new OAuth2RestTemplate(resource, oauth2ClientContext);
+//        AuthorizationCodeAccessTokenProvider provider = new AuthorizationCodeAccessTokenProvider();
+//        provider.setStateMandatory(false);
+//        AccessTokenProvider accessTokenProvider =
+//                new AccessTokenProviderChain(Arrays.asList(provider, new ImplicitAccessTokenProvider(), new ResourceOwnerPasswordAccessTokenProvider(), new ClientCredentialsAccessTokenProvider()));
+//        oAuth2RestTemplate.setAccessTokenProvider(accessTokenProvider);
+//        return oAuth2RestTemplate;
+//    }
+
     // 权限拦截器
     /*@Autowired
     private MyFilterSecurityInterceptor myFilterSecurityInterceptor;*/
@@ -96,6 +128,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
                /* .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class)*/
 //                .addFilterAfter(optionsHttpMethodFilter(), HeaderWriterFilter.class)
                 .addFilterAfter(oAuth2AuthenticationProcessingFilter(), AbstractPreAuthenticatedProcessingFilter.class)
+//                .addFilterBefore(oAuth2AuthenticationProcessingFilter(), BasicAuthenticationFilter.class)
                 .addFilterAt(myFilterSecurityInterceptor, FilterSecurityInterceptor.class)
                 /*.addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class)*/
                 .logout().logoutUrl("/logout").logoutSuccessUrl("/login").invalidateHttpSession(true).permitAll();
@@ -212,5 +245,16 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     public FilterInvocationSecurityMetadataSource securityMetadataSource(){
         return new MyInvocationSecurityMetadataSourceService();
     }*/
-
+//    @Autowired
+//    private OAuth2ClientContext oauth2ClientContext;
+//    @Bean
+//    public OAuth2RestTemplate oauth2RestTemplate(OAuth2ProtectedResourceDetails resource) {
+//        OAuth2RestTemplate template = new OAuth2RestTemplate(resource, oauth2ClientContext);
+//
+//        AuthorizationCodeAccessTokenProvider authCodeProvider = new AuthorizationCodeAccessTokenProvider();
+//        authCodeProvider.setStateMandatory(false);
+//        AccessTokenProviderChain provider = new AccessTokenProviderChain(Arrays.asList(authCodeProvider));
+//        template.setAccessTokenProvider(provider);
+//        return template;
+//    }
 }

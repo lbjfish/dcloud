@@ -115,10 +115,7 @@
     longitude, latitude, banner_url, start_time, end_time, sign_start_time, sign_end_time, 
     approval_time, responsible_org, expenses, favorite_count, sign_count, comment_count, 
     alone_entrance, entrance_url, activity_status, face_detection, buy_limit, ticket_remark, 
-    pay_expired, pay_remark, refund_remark, allow_refund, remark, summary
-  </sql>
-  <sql id="Blob_Column_List" >
-    content, custom_content
+    pay_expired, pay_remark, refund_remark, allow_refund, remark, summary, content, custom_content
   </sql>
   <insert id="insert" parameterType="com.sida.dcloud.activity.po.ActivityInfo" >
     insert into activity_info (id, org_id, created_user, created_at, updated_user, last_updated, 

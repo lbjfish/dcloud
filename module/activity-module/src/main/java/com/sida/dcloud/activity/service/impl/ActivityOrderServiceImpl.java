@@ -1,12 +1,11 @@
 package com.sida.dcloud.activity.service.impl;
 
-import com.codingapi.tx.annotation.TxTransaction;
+//import com.codingapi.tx.annotation.TxTransaction;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.google.common.util.concurrent.AtomicDouble;
 import com.sida.dcloud.activity.common.ActivityConstants;
 import com.sida.dcloud.activity.common.ActivityException;
-import com.sida.dcloud.activity.dao.ActivityOrderGoodsMapper;
 import com.sida.dcloud.activity.dao.ActivityOrderMapper;
 import com.sida.dcloud.activity.dto.IdAndCountDto;
 import com.sida.dcloud.activity.po.*;
@@ -14,12 +13,11 @@ import com.sida.dcloud.activity.po.ActivityOrder;
 import com.sida.dcloud.activity.service.*;
 import com.sida.dcloud.activity.util.ActivityCacheUtil;
 import com.sida.dcloud.activity.vo.ActivityOrderVo;
-import com.sida.dcloud.activity.vo.ActivityOrderVo;
 import com.sida.xiruo.xframework.dao.IMybatisDao;
 import com.sida.xiruo.xframework.lock.DistributedLock;
 import com.sida.xiruo.xframework.lock.redis.RedisLock;
 import com.sida.xiruo.xframework.service.BaseServiceImpl;
-import com.sida.xiruo.xframework.util.UUID;
+import com.sida.xiruo.xframework.util.UUIDGenerate;
 import org.activiti.engine.ActivitiException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -107,7 +105,7 @@ public class ActivityOrderServiceImpl extends BaseServiceImpl<ActivityOrder> imp
         return activityOrderMapper.getCurrentOrderNo();
     }
 
-    @TxTransaction
+//    @TxTransaction
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public int insert(ActivityOrder po) {
@@ -165,7 +163,7 @@ public class ActivityOrderServiceImpl extends BaseServiceImpl<ActivityOrder> imp
                 originalGoodsList.forEach(goods -> {
                     Optional.ofNullable(map.get(goods.getId())).ifPresent(idAndCount -> {
                         ActivityOrderGoods o = new ActivityOrderGoods();
-                        o.setId(UUID.create().toString());
+                        o.setId(UUIDGenerate.getNextId());
                         o.setOrderId(po.getId());
                         o.setGoodsId(idAndCount.getId());
                         o.setPayCount(idAndCount.getCount());
@@ -191,7 +189,7 @@ public class ActivityOrderServiceImpl extends BaseServiceImpl<ActivityOrder> imp
                 originalGroupList.forEach(group -> {
                     Optional.ofNullable(map.get(group.getId())).ifPresent(idAndCount -> {
                         ActivityOrderGoodsGroup o = new ActivityOrderGoodsGroup();
-                        o.setId(UUID.create().toString());
+                        o.setId(UUIDGenerate.getNextId());
                         o.setOrderId(po.getId());
                         o.setGroupId(idAndCount.getId());
                         o.setPayCount(idAndCount.getCount());

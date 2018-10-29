@@ -854,7 +854,7 @@
     select
     note.id id,
     note.note_no note_no,
-    activity.title title,
+    concat(activity.title,'_',note.third_part_code) title,
     activity.banner_url,
     activity.region_id,
     activity.start_time,
@@ -878,27 +878,30 @@
       <if test="vo.title != null and vo.title != ''" >
         and instr(activity.title, #{vo.title})&gt;0
       </if>
+      <if test="vo.userId != null and vo.userId != ''" >
+        and note.user_id = #{vo.userId}
+      </if>
       <if test="vo.orderStatus != null and vo.orderStatus != ''" >
         <choose>
           <!-- 待支付 -->
-          <when test="vo.orderStatus == '1'">and o.pay_time is null and goods_amount &gt; 0 and now() &lt;= activity.end_time</when>
+          <when test="vo.orderStatus == 1">and o.pay_time is null and goods_amount &gt; 0 and now() &lt;= activity.end_time</when>
           <!-- 待参加 -->
-          <when test="vo.orderStatus == '2'">and (o.pay_time is not null or goods_amount = 0) and now() &lt;= activity.end_time</when>
+          <when test="vo.orderStatus == 2">and (o.pay_time is not null or goods_amount = 0) and now() &lt;= activity.end_time</when>
           <!-- 已失效 -->
-          <when test="vo.orderStatus == '3'"></when>
+          <when test="vo.orderStatus == 3"></when>
           <!-- 已参加 -->
-          <when test="vo.orderStatus == '4'"></when>
+          <when test="vo.orderStatus == 4"></when>
           <!-- 待评价 -->
-          <when test="vo.orderStatus == '5'"></when>
+          <when test="vo.orderStatus == 5"></when>
           <!-- 已结束 -->
-          <when test="vo.orderStatus == '6'"></when>
+          <when test="vo.orderStatus == 6"></when>
           <!-- 已完成 -->
-          <when test="vo.orderStatus == '7'">and (o.pay_time is not null or goods_amount = 0) and now() &gt; activity.end_time</when>
+          <when test="vo.orderStatus == 7">and (o.pay_time is not null or goods_amount = 0) and now() &gt; activity.end_time</when>
           <!-- 已退款 -->
-          <when test="vo.orderStatus == '8'"></when>
+          <when test="vo.orderStatus == 8"></when>
           <!-- 已过期 -->
-          <when test="vo.orderStatus == '8'"></when>
-          <otherwise></otherwise>
+          <when test="vo.orderStatus == 9"></when>
+          <otherwise>#{vo.orderStatus}</otherwise>
         </choose>
       </if>
     </where>
@@ -906,7 +909,7 @@
       ORDER BY ${vo.orderField}
       <if test="vo.orderString != null and vo.orderString != ''">
         ${vo.orderString}
-      </if>
+      </if>,signup_time desc
     </if>
   </select>
 

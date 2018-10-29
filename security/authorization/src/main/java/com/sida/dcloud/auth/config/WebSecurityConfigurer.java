@@ -114,6 +114,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
         // 使用自定义身份验证组件
         auth.authenticationProvider(new FaceIdAuthenticationProvider(sysUserService))
                 .authenticationProvider(new MsgAuthCodeAuthenticationProvider(sysUserService));
+
     }
 
 }

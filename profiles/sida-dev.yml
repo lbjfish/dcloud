@@ -1,6 +1,7 @@
 common:
+  env: dev
   host: server-app1
-  ip: 172.16.0.12
+  ip: localhost
   middlewareip: 172.16.0.11
   database:
     ip: 172.16.0.10
@@ -180,11 +181,26 @@ qiniu:
   bucket: butong
   ak: aHDek6zQjLqjrpKw8JZXnr-07x4CK5rQZDRb1eno
   sk: XfSpuC4WerQhivxDbDGBeEHn0j4LKKx226VX35Ba
-  domain: http://pgf86ugyn.bkt.clouddn.com/
+  domain: http://qiniu.butongtech.com
   bucketPublic: butong-public
-  domainOfBucket: http://pgf8indq4.bkt.clouddn.com/
-  defaultHeader: http://pgf8indq4.bkt.clouddn.com/defult_photo@3x.png
+  domainOfBucket: http://pub.qiniu.butongtech.com
+  defaultHeader: http://pub.qiniu.butongtech.com/defult_photo@3x.png
   defaultImg: FnjqWFunVDKhLb3fDO0OeDCFzuWB
+
+huawei:
+  short_message:
+    app:
+      butong:
+        app_key: l551NiL9dyb7zGSBglZLhk331N1Y
+        app_secret: 1JYh8nyXrhzHZUKPZ5BIv2W2p2lB
+        app_in_url: https://api.rtc.huaweicloud.com:10443/sms/batchSendSms/v1
+        app_out_url: empty
+    sign: csms18090645
+    template:
+      reg_login: 121519ce992c43a1beb4c3df785f6d70
+      modify_password: 7bc40be716434fbeb36ed439891da336
+      change_mobile: 3e7fba01eac7426cbdba222f7b2bc181
+
 
 jpush:
   appKey: 6924b97096d0dde827d4799b

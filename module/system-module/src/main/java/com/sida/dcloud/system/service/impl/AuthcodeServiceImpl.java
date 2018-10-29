@@ -98,7 +98,7 @@ public class AuthcodeServiceImpl implements AuthcodeService {
          * 保存手机与验证码对应关系，同时绑定有效时间
          */
         redisUtil.putInMap(RedisKey.SHORT_MSG_AUTH_CODE,mobileType+mobile,datas[0]);
-        redisUtil.putInMap(RedisKey.SHORT_MSG_AUTH_CODE_VALIDITY,mobileType+mobile,System.currentTimeMillis()+validity);
+        redisUtil.putInMap(RedisKey.SHORT_MSG_AUTH_CODE_VALIDITY,mobileType+mobile,(System.currentTimeMillis()+validity) / 1000);
     }
 
     @Override

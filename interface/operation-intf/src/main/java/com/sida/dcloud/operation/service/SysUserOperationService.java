@@ -5,7 +5,7 @@ import com.sida.dcloud.operation.po.SysUserOperation;
 import com.sida.xiruo.xframework.service.IBaseService;
 
 public interface SysUserOperationService extends IBaseService<SysUserOperation> {
-    String generateMobileVerifyCode(String mobileType, String mobile);
+    String generateMobileVerifyCode(String mobileType, String mobile, int templateId);
     CommonUserOperation verifyBindStatus(CommonUserOperation dto);
     CommonUserOperation findThirdPartAccount(CommonUserOperation dto);
     int bindMobile(CommonUserOperation dto);

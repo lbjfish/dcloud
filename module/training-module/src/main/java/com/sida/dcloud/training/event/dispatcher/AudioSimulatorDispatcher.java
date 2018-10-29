@@ -43,7 +43,7 @@ public class AudioSimulatorDispatcher extends BaseClientConfig implements IEvent
 //        if(audioSimulatorService.checkMultiCountByUnique(po) > 0) {
 //            throw new TrainingException("名称和编码不能重复");
 //        }
-        Event event = Event.makeEvent(po, TrainingEventType.TRAINING_EVENT_AUDIO_SIMULATOR_INSERT, UUID.create().toString(), 2);
+        Event event = Event.makeEvent(po, TrainingEventType.TRAINING_EVENT_AUDIO_SIMULATOR_INSERT, UUIDGenerate.getNextId(), 2);
 
         ask(actorRef, new EventJob(event), new Timeout(EventConstants.DEFAULT_EVENT_TIMEOUT, TimeUnit.SECONDS))
                 .thenApply(reply -> {
@@ -68,7 +68,7 @@ public class AudioSimulatorDispatcher extends BaseClientConfig implements IEvent
     public void remove(String stringIds) {
         AudioSimulator po = new AudioSimulator();
         po.setStringIds(stringIds);
-        Event event = Event.makeEvent(po, TrainingEventType.TRAINING_EVENT_AUDIO_SIMULATOR_REMOVE,  UUID.create().toString(), 2);
+        Event event = Event.makeEvent(po, TrainingEventType.TRAINING_EVENT_AUDIO_SIMULATOR_REMOVE,  UUIDGenerate.getNextId(), 2);
 
         ask(actorRef, new EventJob(event), new Timeout(EventConstants.DEFAULT_EVENT_TIMEOUT, TimeUnit.SECONDS))
                 .thenApply(reply -> {

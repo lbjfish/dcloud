@@ -427,15 +427,15 @@
   </select>
 
   <update id="saveOrUpdateDto" parameterType="com.sida.dcloud.operation.dto.CommonUserOperation">
-    insert into sys_user_operation (id, wechat, qq, name, account, birthday, description, mobile, password)
+    insert into sys_user_operation (id, wechat, qq, name, account, birthday, description, mobile, password, last_updated, updated_user)
     select #{dto.id},#{dto.wechat}, #{dto.qq},
-    #{dto.name}, #{dto.mobile}, str_to_date(#{dto.birthday}, '%Y%m%d'), #{dto.remark}, #{dto.mobile}, #{dto.password}
+    #{dto.name}, #{dto.mobile}, str_to_date(#{dto.birthday}, '%Y%m%d'), #{dto.remark}, #{dto.mobile}, #{dto.password}, now(), #{dto.updatedUser}
     from dual
     where not exists (select id from sys_user_operation where id = #{dto.id})
   </update>
 
   <update id="updateMobile" parameterType="com.sida.dcloud.operation.dto.CommonUserOperation">
-    update sys_user_operation set mobile = #{dto.mobile}
+    update sys_user_operation set mobile = #{dto.mobile}, account = #{dto.mobile}
     where id = #{dto.id}
   </update>
 
@@ -480,26 +480,31 @@
   <select id="checkMultiCountByUnique" parameterType="com.sida.dcloud.operation.dto.CommonUserOperation" resultType="int">
     select count(0) from sys_user_operation su left join common_user cu on su.id = cu.id
     <where>
-      su.id &lt;&gt; #{dto.id} and (1 = 2
-      <if test="dto.mobile != null">
-        or su.mobile = #{dto.mobile}
+      1 = 1
+      <if test="dto.id != null and dto.id != ''">
+        and su.id &lt;&gt; #{dto.id}
       </if>
-      <if test="dto.wechat != null">
+      and (1 = 2
+      <if test="dto.mobile != null and dto.mobile != ''">
+        or su.mobile = #{dto.mobile}
+        or su.account = #{dto.mobile}
+      </if>
+      <if test="dto.wechat != null and dto.wechat != ''">
         or su.wechat = #{dto.wechat}
       </if>
-      <if test="dto.alipayNo != null">
+      <if test="dto.alipayNo != null and dto.alipayNo != ''">
         or cu.alipay_no = #{dto.alipayNo}
       </if>
-      <if test="dto.qq != null">
+      <if test="dto.qq != null and dto.qq != ''">
         or su.qq = #{dto.qq}
       </if>
-      <if test="dto.sinaWeibo != null">
+      <if test="dto.sinaWeibo != null and dto.sinaWeibo !=''">
         or cu.sina_weibo = #{dto.sinaWeibo}
       </if>
-      <if test="dto.facebookNo != null">
+      <if test="dto.facebookNo != null and dto.facebookNo != ''">
         or cu.facebook_no = #{dto.facebookNo}
       </if>
-      <if test="dto.twitterNo != null">
+      <if test="dto.twitterNo != null and dto.twitterNo != ''">
         or cu.twitter_no = #{dto.twitterNo}
       </if>)
     </where>

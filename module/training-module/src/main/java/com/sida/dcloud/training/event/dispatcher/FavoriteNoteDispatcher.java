@@ -12,7 +12,6 @@ import com.sida.dcloud.training.event.actor.FavoriteNoteActor;
 import com.sida.dcloud.training.po.FavoriteNote;
 import com.sida.dcloud.training.service.FavoriteNoteService;
 import com.sida.dcloud.xdomain.dispatcher.IEventDispatcher;
-import com.sida.xiruo.xframework.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

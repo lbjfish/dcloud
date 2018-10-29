@@ -10,7 +10,7 @@ import com.sida.dcloud.service.event.config.EventConstants;
 import com.sida.xiruo.xframework.common.Contants;
 import com.sida.xiruo.xframework.controller.BaseController;
 import com.sida.xiruo.xframework.controller.LoginManager;
-import com.sida.xiruo.xframework.util.UUID;
+import com.sida.xiruo.xframework.util.UUIDGenerate;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -37,7 +37,7 @@ public class CustomerActivitySignupNoteController extends BaseController {
     public Object list(@RequestBody @ApiParam("JSON参数") CustomerActivitySignupNoteVo param) {
         param.setUserId(LoginManager.getCurrentUserId());
         Optional.ofNullable(param.getOrderField()).orElseGet(() -> {
-            param.setOrderField("signup_time");
+            param.setOrderField("start_time");
             param.setOrderString("desc");
             return "";
         });
@@ -109,14 +109,14 @@ public class CustomerActivitySignupNoteController extends BaseController {
         Optional.ofNullable(param.getUserId()).orElseThrow(() ->new ActivityException("用户id不能空"));
         Optional.ofNullable(param.getActivityId()).orElseThrow(() ->new ActivityException("活动id不能空"));
         Optional.ofNullable(param.getSettingVersion()).orElseThrow(() ->new ActivityException("报名表设置版本不能空"));
-        param.getCustomerActivitySignupNote().setId(UUID.create().toString());
+        param.getCustomerActivitySignupNote().setId(UUIDGenerate.getNextId());
         param.getCustomerActivitySignupNote().setActivityId(param.getActivityId());
         param.getCustomerActivitySignupNote().setUserId(param.getUserId());
         param.getCustomerActivitySignupNote().setVersion(param.getSettingVersion());
         param.getCustomerActivitySignupNote().setDeleteFlag(false);
         param.getCustomerActivitySignupNote().setDisable(false);
         param.getCustomerActivitySignupNote().setSignupTime(new Date());
-        param.getActivityOrder().setId(UUID.create().toString());
+        param.getActivityOrder().setId(UUIDGenerate.getNextId());
         param.getActivityOrder().setActivityId(param.getActivityId());
         param.getActivityOrder().setOrderUser(param.getUserId());
         param.getActivityOrder().setNoteId(param.getCustomerActivitySignupNote().getId());

@@ -64,6 +64,10 @@ server:
   session:
     cookie:
       name: @auth-service@
+  servlet:
+    session:
+      cookie:
+        name: @auth-service@
 
 feign:
   hystrix:

@@ -667,7 +667,7 @@
 
   <select id="selectByPrimaryKeyToAuth" resultType="java.util.Map" parameterType="java.lang.String" >
     select
-    birthday, sex, region_id, introduce, owner_url
+    name, birthday, sex, region_id, introduce, owner_url
     from common_user
     where id = #{id}
   </select>
@@ -691,8 +691,8 @@
     sex = #{dto.sex}, region_id = #{dto.regionId}, owner_url = #{dto.ownerUrl}
     <where>
       1=1
-      <if test="map.id != null">and id = #{map.id}</if>
-      <if test="map.mobile != null">and id = (select id from sys_user_operation where mobile = #{map.mobile})</if>
+      <if test="dto.id != null">and id = #{dto.id}</if>
+      <if test="dto.mobile != null">and id = (select id from sys_user_operation where mobile = #{dto.mobile})</if>
     </where>
   </update>
 

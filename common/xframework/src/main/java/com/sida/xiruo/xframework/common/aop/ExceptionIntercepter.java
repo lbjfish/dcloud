@@ -21,6 +21,7 @@ public class ExceptionIntercepter {
     @ExceptionHandler(Throwable.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public JsonResult handleException(Throwable e) {
+        logger.error("请求过程中发生错误: ", e);
         return ExceptionUtil.getJsonResultByException(e);
     }
 

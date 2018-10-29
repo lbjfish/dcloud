@@ -369,7 +369,7 @@
 
   <select id="findVoList" parameterType="com.sida.dcloud.activity.po.ActivityOrder" resultMap="ActivityOrderVoResultMap">
     select
-    id, order_no, activity_id, order_user, note_id, order_name, activity_order_status, goodsAmount, minusAmount
+    id, order_no, activity_id, order_user, note_id, order_name, activity_order_status, goods_amount, minus_amount
     from activity_order
     <where>
       delete_flag = 0

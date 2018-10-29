@@ -41,11 +41,12 @@ public final class LoginManager {
      * @return
      */
     public static SysUserVo getUser() {
-        if(!user.getId().equals("0")) {
-            return user;
-        }
+//        if(!user.getId().equals("0")) {
+//            return user;
+//        }
         try{
-            if(SecurityContextHolder.getContext().getAuthentication() == null) {
+            if(SecurityContextHolder.getContext().getAuthentication() == null
+                || !(SecurityContextHolder.getContext().getAuthentication().getDetails() instanceof OAuth2AuthenticationDetails)) {
                 return user;
             }
 
@@ -79,8 +80,10 @@ public final class LoginManager {
                     List<RoleDTO> roleList = Lists.newArrayList();
                     if (BlankUtil.isNotEmpty(roleListMap)) {
                         for (LinkedHashMap hashMap : roleListMap) {
-                            RoleDTO dto = (RoleDTO) BeanCovertUtil.convertMap(RoleDTO.class, hashMap);
-                            roleList.add(dto);
+                            if(BlankUtil.isNotEmpty(hashMap)) {
+                                RoleDTO dto = (RoleDTO) BeanCovertUtil.convertMap(RoleDTO.class, hashMap);
+                                roleList.add(dto);
+                            }
                         }
                     }
                     user.setRoleList(roleList);

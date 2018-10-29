@@ -34,11 +34,10 @@ public final class UUIDGenerate {
 
 
     public static void main(String[] args) {
-        UUIDGenerate uuidGenerate=new UUIDGenerate();
-        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd-HH-mm sss");
+        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         System.out.println(f.format(new Date()));
         for(int i=0;i<10000;i++){
-          System.out.println(uuidGenerate.getNextId());
+          System.out.println(UUIDGenerate.getNextId());
         }
         System.out.println(f.format(new Date()));
 

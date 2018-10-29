@@ -282,7 +282,7 @@ public class SysRegionServiceImpl extends BaseServiceImpl<SysRegion> implements 
 
         //手动设置“中国”的数据
         SysRegion china = new SysRegion();
-        china.setId(UUID.randomUUID().toString());
+        china.setId(UUIDGenerate.getNextId());
         china.setCreatedAt(new Date());
         china.setLastUpdated(new Date());
         china.setDisable(false);

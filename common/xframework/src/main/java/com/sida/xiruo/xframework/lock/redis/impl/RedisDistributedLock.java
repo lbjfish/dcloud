@@ -2,9 +2,9 @@ package com.sida.xiruo.xframework.lock.redis.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import com.sida.xiruo.xframework.lock.AbstractDistributedLock;
+import com.sida.xiruo.xframework.util.UUIDGenerate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +75,7 @@ public class RedisDistributedLock extends AbstractDistributedLock {
                 @Override
                 public String doInRedis(RedisConnection connection) throws DataAccessException {
                     JedisCommands commands = (JedisCommands) connection.getNativeConnection();
-                    String uuid = UUID.randomUUID().toString();
+                    String uuid = UUIDGenerate.getNextId();
                     lockFlag.set(uuid);
                     return commands.set(key, uuid, "NX", "PX", expire);
                 }

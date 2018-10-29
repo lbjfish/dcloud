@@ -30,7 +30,7 @@ public class ActivityOrderController extends BaseController {
     @ApiOperation(value = "条件查活动订单列表")
     public Object list(@RequestBody @ApiParam("JSON参数") ActivityOrder param) {
         Optional.ofNullable(param.getOrderField()).orElseGet(() -> {
-            param.setOrderField("createTime");
+            param.setOrderField("create_time");
             param.setOrderString("desc");
             return "";
         });

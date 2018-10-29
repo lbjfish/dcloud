@@ -67,6 +67,17 @@ feign:
   httpclient:
     enabled: true
 
+hystrix:
+  metrics:
+    enabled: true
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
@@ -81,7 +92,7 @@ security:
       jwt:
         keyValue: |
           -----BEGIN PUBLIC KEY-----
-          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhkKvh10MNmHMtYUH8C6v3kTQfF8P0zDPPCPVfH63mJ+1ujFuU1N0PvlmpyQI1kG+/+/kq68bacCY++viqlqnnl7ul8UX6N6yNG90JOoKnwUx4uTeS6K34Z5Li5EqDrH+9NeIa+3oJ0q56SOeG/iEccbOHCepYrW2coCWLn9ZJYBPqhd58iClWWXIpLnenQvG4a7hXilUEDPWc3/FLlgLU0cDMtewLh6lJX+MdRr1ZYEiJ0lysfAv9tC6E86rjHbZJTejhG3G40GRDaxQDmI63wbIohQ5ZvKqYAsiqXoB6/pK44c+E2RblrtEJpnGZMpg5OCud6+8/yrtY3g1AEOdswIDAQAB
+          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqBM+s8fK9psrzkdRjEAHSMGW+jRBn0hcSe9UPgiNEUTIUZtRp0Mf7sSxYOh5neKrGyWr9tuBAhwiM1HOlEUumVY8ddsl9YhF3ZUXfl9RfTF9ibY6WvXZo9Lpw+ZuQJ3fwH9TRl5sdSP3U6FyLmljaQBh++m4fahzNrHJJXvCZdrHV5AdkqQmZnBl/QpzAE1dD9C8dXsnhSYv9djoxXk+DvbNvdYaYYghf+EzJCZO5OkSYUZbW0KhWsqXfjMt8kYC1CsRh8shqRhZ4BpJFY8sXpGQdWuU9ZRnQaOQRrh5lmuMQ61ZR0YsKfO8lof27Opsj45S0vdXt0hzBBW4VXa05wIDAQAB
           -----END PUBLIC KEY-----
       id: openid
       service-id: ${PREFIX:}system

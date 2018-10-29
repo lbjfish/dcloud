@@ -64,7 +64,6 @@ public class CustomerActivitySignupNoteVo extends UserCentricDTO {
     @ApiModelProperty("商品总金额")
     private Double goodsAmount;
 
-    @JsonIgnore
     @ApiModelProperty("订单状态，用于查询")
     private String orderStatus;
 
