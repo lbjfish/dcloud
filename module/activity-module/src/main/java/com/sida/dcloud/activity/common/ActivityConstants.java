@@ -54,11 +54,11 @@ public interface ActivityConstants {
 
     enum ORDER_STATUS {
         NOT_PAY("待付款", 1),
-        IS_SIGNUP("已报名", 2),
+        NOT_JOIN("待参加", 2),
         INVALID("已失效", 3),
         JOINED("已参加", 4),
         NOT_COMMENT("待评价", 5),
-        COMPLETED("已结束", 6),
+        COMPLETED("已完成", 6),
         CLOSED("已关闭", 7),
         REFUNDED("已退款", 8),
         EXPIRED("已过期", 9);

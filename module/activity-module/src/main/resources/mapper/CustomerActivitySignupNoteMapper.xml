@@ -48,6 +48,7 @@
     <result column="id_no" property="idNo" jdbcType="VARCHAR" />
     <result column="signup_time" property="signupTime" jdbcType="TIMESTAMP" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="face_url" property="faceUrl" jdbcType="VARCHAR" />
     <result column="version" property="version" jdbcType="VARCHAR" />
     <result column="field1" property="field1" jdbcType="VARCHAR" />
     <result column="field2" property="field2" jdbcType="VARCHAR" />
@@ -67,7 +68,7 @@
     mobile2_no, phone1_country_no, phone_zone_no, phone1_no, phone2_country_no, phone2_zone_no, 
     phone2_no, fax_country_no, fax_zone_no, fax_no, email, homepage, qq_no, wx_no, region_id, 
     corp_domains, interested_domains, attend_intent, gain_channel, id_type, id_no, signup_time, 
-    remark, version, field1, field2, field3, field4, field5, field6, field7, field8, 
+    remark, face_url, version, field1, field2, field3, field4, field5, field6, field7, field8,
     field9, field10
   </sql>
   <insert id="insert" parameterType="com.sida.dcloud.activity.po.CustomerActivitySignupNote" >
@@ -78,7 +79,7 @@
       phone_zone_no, phone1_no, phone2_country_no, phone2_zone_no, phone2_no, 
       fax_country_no, fax_zone_no, fax_no, email, homepage, qq_no, wx_no, 
       region_id, corp_domains, interested_domains, attend_intent, gain_channel, 
-      id_type, id_no, signup_time, remark, version, field1, field2, 
+      id_type, id_no, signup_time, remark, face_url, version, field1, field2,
       field3, field4, field5, field6, field7, field8, field9, field10
       )
     values (#{id}, #{orgId}, #{deleteFlag}, #{redString1}, #{redString2}, #{redString3}, 
@@ -88,7 +89,7 @@
       #{phoneZoneNo}, #{phone1No}, #{phone2CountryNo}, #{phone2ZoneNo}, #{phone2No}, 
       #{faxCountryNo}, #{faxZoneNo}, #{faxNo}, #{email}, #{homepage}, #{qqNo}, #{wxNo}, 
       #{regionId}, #{corpDomains}, #{interestedDomains}, #{attendIntent}, #{gainChannel}, 
-      #{idType}, #{idNo}, #{signupTime}, #{remark}, #{version}, #{field1}, #{field2}, 
+      #{idType}, #{idNo}, #{signupTime}, #{remark}, #{faceUrl}, #{version}, #{field1}, #{field2},
       #{field3}, #{field4}, #{field5}, #{field6}, #{field7}, #{field8}, #{field9}, #{field10}
       )
   </insert>
@@ -232,6 +233,9 @@
       </if>
       <if test="remark != null" >
         remark,
+      </if>
+      <if test="faceUrl != null" >
+        face_url,
       </if>
       <if test="version != null" >
         version,
@@ -405,6 +409,9 @@
       </if>
       <if test="remark != null" >
         #{remark},
+      </if>
+      <if test="faceUrl != null" >
+        #{faceUrl},
       </if>
       <if test="version != null" >
         #{version},
@@ -580,6 +587,9 @@
       </if>
       <if test="remark != null and remark != ''" >
         AND remark = #{remark}
+      </if>
+      <if test="faceUrl != null and faceUrl != ''" >
+        AND face_url = #{faceUrl}
       </if>
       <if test="version != null and version != ''" >
         AND version = #{version}
@@ -769,6 +779,9 @@
       <if test="po.remark != null" >
         remark = #{po.remark},
       </if>
+      <if test="po.faceUrl != null" >
+        face_url = #{po.faceUrl},
+      </if>
       <if test="po.version != null" >
         version = #{po.version},
       </if>
@@ -823,6 +836,7 @@
   <resultMap id="CustomerActivitySignupNoteVoResultMap" type="com.sida.dcloud.activity.vo.CustomerActivitySignupNoteVo" >
     <result column="id" property="id" jdbcType="VARCHAR" />
     <result column="note_no" property="noteNo" jdbcType="VARCHAR" />
+    <result column="activity_id" property="activityId" jdbcType="VARCHAR" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="banner_url" property="bannerUrl" jdbcType="VARCHAR" />
     <result column="region_id" property="regionId" jdbcType="VARCHAR" />
@@ -852,8 +866,9 @@
 
   <select id="findVoList" parameterType="com.sida.dcloud.activity.vo.CustomerActivitySignupNoteVo" resultMap="CustomerActivitySignupNoteVoResultMap">
     select
-    note.id id,
-    note.note_no note_no,
+    note.id,
+    note.note_no,
+    note.activity_id,
     concat(activity.title,'_',note.third_part_code) title,
     activity.banner_url,
     activity.region_id,

@@ -97,9 +97,10 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
         List<ActivityOrder> orderList = activityOrderService.selectByCondition(order);
         if(!orderList.isEmpty()) order = orderList.get(0);
         Map<String, String> resMap = new HashMap<>();
+        resMap.put("id", note.getId());
         resMap.put("signCode", note.getThirdPartCode());
         resMap.put("name", note.getName());
-        resMap.put("faceUrl", LoginManager.getUser().getFaceUrl());
+        resMap.put("faceUrl", note.getFaceUrl());
         resMap.put("orderId", order.getId());
         resMap.put("userId", note.getUserId());
         resMap.put("activityId", note.getActivityId());
@@ -286,13 +287,13 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
                 //插入订单
                 activityOrderService.insert(dto.getActivityOrder());
                 //更新人脸识别图片
-                Optional.ofNullable(dto.getFaceUrl()).ifPresent(faceUrl -> {
-                    Map<String, String> map = new HashMap<>();
-                    map.put("id", dto.getUserId());
-                    map.put("faceUrl", faceUrl);
-                    operationClient.updateFaceUrl(map);
-                    LoginManager.getUser().setFaceUrl(dto.getFaceUrl());
-                });
+//                Optional.ofNullable(dto.getFaceUrl()).ifPresent(faceUrl -> {
+//                    Map<String, String> map = new HashMap<>();
+//                    map.put("id", dto.getUserId());
+//                    map.put("faceUrl", faceUrl);
+//                    operationClient.updateFaceUrl(map);
+//                    LoginManager.getUser().setFaceUrl(dto.getFaceUrl());
+//                });
                 //发送验证码到第三方
                 sendCodeToThirdPart(note.getThirdPartCode());
             } catch(Exception e) {
@@ -304,6 +305,7 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
             }
         }
 //        resMap.put("result", result + "");
+        resMap.put("id", note.getId());
         resMap.put("signCode", note.getThirdPartCode());
         resMap.put("name", note.getName());
         resMap.put("faceUrl", dto.getFaceUrl());

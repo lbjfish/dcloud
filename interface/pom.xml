@@ -16,6 +16,6 @@
         <module>activity-intf</module>
         <module>content-intf</module>
         <module>operation-intf</module>
-        <module>elastic-job-intf</module>
+        <module>job-intf</module>
     </modules>
 </project>

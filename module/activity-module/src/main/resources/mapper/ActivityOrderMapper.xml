@@ -405,7 +405,30 @@
     <where>activity_id = #{activityId}</where>
   </update>
 
+  <update id="updateActivityOrderStatusByNoteId" >
+    update activity_order
+    <set>
+        activity_order_status = #{activityOrderStatus}
+        <if test="date != ''">
+          pay_time = str_to_date(#{date}, '%Y%m%d%H%i%s')
+        </if>
+    </set>
+    <where>note_id = #{noteId}</where>
+  </update>
+
   <select id="getCurrentOrderNo" resultType="String">
     select max(a.order_no) from ((select max(order_no) order_no from activity_order order by order_no desc) union all select 0 from dual) a
+  </select>
+
+  <select id="findOneByOrderNo" parameterType="java.lang.String" resultMap="ActivityOrderResultMap">
+    select
+      <include refid="ActivityOrder_Column_List" />
+    from activity_order where order_no = #{orderNo}
+  </select>
+
+  <select id="findOneByNoteId" parameterType="java.lang.String" resultMap="ActivityOrderResultMap">
+    select
+    <include refid="ActivityOrder_Column_List" />
+    from activity_order where note_id = #{noteId}
   </select>
 </mapper>

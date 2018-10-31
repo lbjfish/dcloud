@@ -18,6 +18,6 @@
         <module>po-activity</module>
         <module>po-content</module>
         <module>po-operation</module>
-        <module>po-elastic-job</module>
+        <module>po-job</module>
     </modules>
 </project>

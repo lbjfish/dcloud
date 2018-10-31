@@ -28,7 +28,7 @@ public class CustomerPaymentTrackController extends BaseController {
     @ApiOperation(value = "条件查支付日志列表")
     public Object list(@RequestBody @ApiParam("JSON参数") CustomerPaymentTrack param) {
         Optional.ofNullable(param.getOrderField()).orElseGet(() -> {
-            param.setOrderField("payTime");
+            param.setOrderField("pay_time");
             param.setOrderString("desc");
             return "";
         });

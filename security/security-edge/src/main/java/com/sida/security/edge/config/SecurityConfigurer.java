@@ -76,7 +76,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
             "/apis/operation/sysUserOperation/**",
             "/apis/activity/activitySchedule/**",
             "/apis/activity/honoredGuest/**",
-            "/apis/operation/commonUser/findCommonUserById*"
+            "/apis/operation/commonUser/findCommonUserById*",
+            "/apis/activity/payWithWeixin/xcxCallback*"
     };
 
     @Autowired

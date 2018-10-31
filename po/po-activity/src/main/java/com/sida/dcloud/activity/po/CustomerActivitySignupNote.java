@@ -121,6 +121,9 @@ public class CustomerActivitySignupNote extends BaseEntity implements Serializab
     @ApiModelProperty("备注")
     private String remark;
 
+    @ApiModelProperty("报名头像")
+    private String faceUrl;
+
     @ApiModelProperty("版本（YYYYMMDD）")
     private String version;
 
@@ -155,6 +158,14 @@ public class CustomerActivitySignupNote extends BaseEntity implements Serializab
     private String field10;
 
     private static final long serialVersionUID = 1L;
+
+    public String getFaceUrl() {
+        return faceUrl;
+    }
+
+    public void setFaceUrl(String faceUrl) {
+        this.faceUrl = faceUrl;
+    }
 
     public String getNoteNo() {
         return noteNo;

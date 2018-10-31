@@ -1,6 +1,7 @@
 package com.sida.dcloud.operation.util;
 
 import com.sida.xiruo.util.constant.CommonConstants;
+import com.sida.xiruo.xframework.util.DESUtils;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -22,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
@@ -63,7 +65,11 @@ public final class SMSUtil {
     @Value("${huawei.short_message.template.change_mobile}")
     private String changeMobileTempId;
 
-
+    @PostConstruct
+    private void init() {
+        appKey = DESUtils.getDecryptString(appKey);
+        appSecret = DESUtils.getDecryptString(appSecret);
+    }
 
     /**
      * 通用接口
@@ -72,13 +78,15 @@ public final class SMSUtil {
      * @param datas
      * @return
      */
-    public void SMSSendMessage(String phoneNum, int templateId, String[] datas) throws Exception {
+    public boolean SMSSendMessage(String phoneNum, int templateId, String[] datas) throws Exception {
 //        logger.debug("SMSSendMessage authcodeEnv: " + authcodeEnv + " |phoneNum:"+phoneNum + "|datas:"+Arrays.toString(datas));
-
+        boolean isSent = false;
         if(CommonConstants.ENV_PROD.equals(env)) {//生产环境才发送验证码
             SMSSendMessageByHuaweiCloud(phoneNum, templateId, datas);
+            isSent = true;
         }
         LOG.info("==============手机短信验证码：手机号码【"+phoneNum+"】,短信验证码【"+ StringUtils.join(datas, ",")+"】");
+        return isSent;
     }
 
 

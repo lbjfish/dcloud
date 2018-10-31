@@ -92,7 +92,9 @@ public class SysUserOperationServiceImpl extends BaseServiceImpl<SysUserOperatio
          * 发送验证码
          */
         try {
-            smsUtil.SMSSendMessage(mobile, templateId, new String[]{verifyCode});
+            if(smsUtil.SMSSendMessage(mobile, templateId, new String[]{verifyCode})) {
+                verifyCode = "";
+            }
         } catch (Exception e) {
             e.printStackTrace();
             throw new OperationException(e);
@@ -369,11 +371,11 @@ public class SysUserOperationServiceImpl extends BaseServiceImpl<SysUserOperatio
     @Override
     public int testDistributeTransaction(String id, String remark) {
         String s = System.currentTimeMillis() + "";
-        sysUserOperationMapper.testDistributeTransaction("100", s);
-        commonUserService.testDistributeTransaction("100", s);
-        systemClient.testDistributeTransaction("100", s);
-        activityClient.testDistributeTransaction("100", s);
-        contentClient.testDistributeTransaction("100", s);
+        sysUserOperationMapper.testDistributeTransaction(id, remark);
+        commonUserService.testDistributeTransaction(id, remark);
+        systemClient.testDistributeTransaction(id, remark);
+        activityClient.testDistributeTransaction(id, remark);
+        contentClient.testDistributeTransaction(id, remark);
         if("0".equals(id)) {
             int x = 100 / 0;
         }

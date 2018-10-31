@@ -25,6 +25,9 @@ public class CustomerActivitySignupNoteVo extends UserCentricDTO {
     @ApiModelProperty("报名表编号（由规则产生）")
     private String noteNo;
 
+    @ApiModelProperty("活动id")
+    private String activityId;
+
     @ApiModelProperty("活动主题")
     private String title;
 
@@ -66,6 +69,14 @@ public class CustomerActivitySignupNoteVo extends UserCentricDTO {
 
     @ApiModelProperty("订单状态，用于查询")
     private String orderStatus;
+
+    public String getActivityId() {
+        return activityId;
+    }
+
+    public void setActivityId(String activityId) {
+        this.activityId = activityId;
+    }
 
     public String getOrderStatus() {
         return orderStatus;

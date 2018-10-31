@@ -6,16 +6,47 @@
     <result column="activity_id" property="activityId" jdbcType="VARCHAR" />
     <result column="org_id" property="orgId" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="note_id" property="noteId" jdbcType="VARCHAR" />
     <result column="pay_amount" property="payAmount" jdbcType="DOUBLE" />
+    <result column="fee_type" property="feeType" jdbcType="VARCHAR" />
     <result column="payment_mode" property="paymentMode" jdbcType="VARCHAR" />
     <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="success_time" property="successTime" jdbcType="TIMESTAMP" />
     <result column="succeed" property="succeed" jdbcType="BIT" />
     <result column="failed_reason" property="failedReason" jdbcType="VARCHAR" />
+    <result column="appid" property="appid" jdbcType="VARCHAR" />
+    <result column="mch_id" property="mchId" jdbcType="VARCHAR" />
+    <result column="nonce_str" property="nonceStr" jdbcType="VARCHAR" />
+    <result column="sign" property="sign" jdbcType="VARCHAR" />
+    <result column="result_code" property="resultCode" jdbcType="VARCHAR" />
+    <result column="err_code" property="errCode" jdbcType="VARCHAR" />
+    <result column="err_code_des" property="errCodeDes" jdbcType="VARCHAR" />
+    <result column="body" property="body" jdbcType="VARCHAR" />
+    <result column="out_trade_no" property="outTradeNo" jdbcType="VARCHAR" />
+    <result column="spbill_create_ip" property="spbillCreateIp" jdbcType="VARCHAR" />
+    <result column="notify_url" property="notifyUrl" jdbcType="VARCHAR" />
+    <result column="trade_type" property="tradeType" jdbcType="VARCHAR" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="device_info" property="deviceInfo" jdbcType="VARCHAR" />
+    <result column="is_subscribe" property="isSubscribe" jdbcType="CHAR" />
+    <result column="trade_state" property="tradeState" jdbcType="VARCHAR" />
+    <result column="bank_type" property="bankType" jdbcType="VARCHAR" />
+    <result column="total_fee" property="totalFee" jdbcType="INTEGER" />
+    <result column="settlement_total_fee" property="settlementTotalFee" jdbcType="INTEGER" />
+    <result column="cash_fee" property="cashFee" jdbcType="INTEGER" />
+    <result column="cash_fee_type" property="cashFeeType" jdbcType="VARCHAR" />
+    <result column="transaction_id" property="transactionId" jdbcType="VARCHAR" />
+    <result column="attach" property="attach" jdbcType="VARCHAR" />
+    <result column="time_end" property="timeEnd" jdbcType="VARCHAR" />
+    <result column="trade_state_desc" property="tradeStateDesc" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="CustomerPaymentTrack_Column_List" >
-    id, activity_id, org_id, user_id, pay_amount, payment_mode, pay_time, succeed, failed_reason, 
-    remark
+    id, activity_id, org_id, user_id, note_id, pay_amount, fee_type, payment_mode, pay_time, 
+    success_time, succeed, failed_reason, appid, mch_id, nonce_str, sign, result_code, 
+    err_code, err_code_des, body, out_trade_no, spbill_create_ip, notify_url, trade_type, 
+    openid, device_info, is_subscribe, trade_state, bank_type, total_fee, settlement_total_fee, 
+    cash_fee, cash_fee_type, transaction_id, attach, time_end, trade_state_desc, remark
   </sql>
   <select id="selectByPrimaryKey" resultMap="CustomerPaymentTrackResultMap" parameterType="java.lang.String" >
     select 
@@ -28,10 +59,20 @@
     where id = #{id}
   </delete>
   <insert id="insert" parameterType="com.sida.dcloud.activity.po.CustomerPaymentTrack" >
-    insert into customer_payment_track (id, activity_id, org_id, user_id, pay_amount, payment_mode, 
-      pay_time, succeed, failed_reason, remark)
-    values (#{id}, #{activityId}, #{orgId}, #{userId}, #{payAmount}, #{paymentMode}, 
-      #{payTime}, #{succeed}, #{failedReason}, #{remark})
+    insert into customer_payment_track (id, activity_id, org_id, user_id, note_id, pay_amount, fee_type, 
+      payment_mode, pay_time, success_time, succeed, failed_reason, appid, 
+      mch_id, nonce_str, sign, result_code, err_code, err_code_des, body, 
+      out_trade_no, spbill_create_ip, notify_url, trade_type, openid, device_info, 
+      is_subscribe, trade_state, bank_type, total_fee, settlement_total_fee, 
+      cash_fee, cash_fee_type, transaction_id, attach, time_end, trade_state_desc, 
+      remark)
+    values (#{id}, #{activityId}, #{orgId}, #{userId}, #{noteId}, #{payAmount}, #{feeType}, 
+      #{paymentMode}, #{payTime}, #{successTime}, #{succeed}, #{failedReason}, #{appid}, 
+      #{mchId}, #{nonceStr}, #{sign}, #{resultCode}, #{errCode}, #{errCodeDes}, #{body}, 
+      #{outTradeNo}, #{spbillCreateIp}, #{notifyUrl}, #{tradeType}, #{openid}, #{deviceInfo}, 
+      #{isSubscribe}, #{tradeState}, #{bankType}, #{totalFee}, #{settlementTotalFee}, 
+      #{cashFee}, #{cashFeeType}, #{transactionId}, #{attach}, #{timeEnd}, #{tradeStateDesc}, 
+      #{remark})
   </insert>
   <insert id="insertSelective" parameterType="com.sida.dcloud.activity.po.CustomerPaymentTrack" >
     insert into customer_payment_track
@@ -48,8 +89,14 @@
       <if test="userId != null" >
         user_id,
       </if>
+      <if test="noteId != null" >
+        note_id,
+      </if>
       <if test="payAmount != null" >
         pay_amount,
+      </if>
+      <if test="feeType != null" >
+        fee_type,
       </if>
       <if test="paymentMode != null" >
         payment_mode,
@@ -57,11 +104,89 @@
       <if test="payTime != null" >
         pay_time,
       </if>
+      <if test="successTime != null" >
+        success_time,
+      </if>
       <if test="succeed != null" >
         succeed,
       </if>
       <if test="failedReason != null" >
         failed_reason,
+      </if>
+      <if test="appid != null" >
+        appid,
+      </if>
+      <if test="mchId != null" >
+        mch_id,
+      </if>
+      <if test="nonceStr != null" >
+        nonce_str,
+      </if>
+      <if test="sign != null" >
+        sign,
+      </if>
+      <if test="resultCode != null" >
+        result_code,
+      </if>
+      <if test="errCode != null" >
+        err_code,
+      </if>
+      <if test="errCodeDes != null" >
+        err_code_des,
+      </if>
+      <if test="body != null" >
+        body,
+      </if>
+      <if test="outTradeNo != null" >
+        out_trade_no,
+      </if>
+      <if test="spbillCreateIp != null" >
+        spbill_create_ip,
+      </if>
+      <if test="notifyUrl != null" >
+        notify_url,
+      </if>
+      <if test="tradeType != null" >
+        trade_type,
+      </if>
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="deviceInfo != null" >
+        device_info,
+      </if>
+      <if test="isSubscribe != null" >
+        is_subscribe,
+      </if>
+      <if test="tradeState != null" >
+        trade_state,
+      </if>
+      <if test="bankType != null" >
+        bank_type,
+      </if>
+      <if test="totalFee != null" >
+        total_fee,
+      </if>
+      <if test="settlementTotalFee != null" >
+        settlement_total_fee,
+      </if>
+      <if test="cashFee != null" >
+        cash_fee,
+      </if>
+      <if test="cashFeeType != null" >
+        cash_fee_type,
+      </if>
+      <if test="transactionId != null" >
+        transaction_id,
+      </if>
+      <if test="attach != null" >
+        attach,
+      </if>
+      <if test="timeEnd != null" >
+        time_end,
+      </if>
+      <if test="tradeStateDesc != null" >
+        trade_state_desc,
       </if>
       <if test="remark != null" >
         remark,
@@ -80,8 +205,14 @@
       <if test="userId != null" >
         #{userId},
       </if>
+      <if test="noteId != null" >
+        #{noteId},
+      </if>
       <if test="payAmount != null" >
         #{payAmount},
+      </if>
+      <if test="feeType != null" >
+        #{feeType},
       </if>
       <if test="paymentMode != null" >
         #{paymentMode},
@@ -89,11 +220,89 @@
       <if test="payTime != null" >
         #{payTime},
       </if>
+      <if test="successTime != null" >
+        #{successTime},
+      </if>
       <if test="succeed != null" >
         #{succeed},
       </if>
       <if test="failedReason != null" >
         #{failedReason},
+      </if>
+      <if test="appid != null" >
+        #{appid},
+      </if>
+      <if test="mchId != null" >
+        #{mchId},
+      </if>
+      <if test="nonceStr != null" >
+        #{nonceStr},
+      </if>
+      <if test="sign != null" >
+        #{sign},
+      </if>
+      <if test="resultCode != null" >
+        #{resultCode},
+      </if>
+      <if test="errCode != null" >
+        #{errCode},
+      </if>
+      <if test="errCodeDes != null" >
+        #{errCodeDes},
+      </if>
+      <if test="body != null" >
+        #{body},
+      </if>
+      <if test="outTradeNo != null" >
+        #{outTradeNo},
+      </if>
+      <if test="spbillCreateIp != null" >
+        #{spbillCreateIp},
+      </if>
+      <if test="notifyUrl != null" >
+        #{notifyUrl},
+      </if>
+      <if test="tradeType != null" >
+        #{tradeType},
+      </if>
+      <if test="openid != null" >
+        #{openid},
+      </if>
+      <if test="deviceInfo != null" >
+        #{deviceInfo},
+      </if>
+      <if test="isSubscribe != null" >
+        #{isSubscribe},
+      </if>
+      <if test="tradeState != null" >
+        #{tradeState},
+      </if>
+      <if test="bankType != null" >
+        #{bankType},
+      </if>
+      <if test="totalFee != null" >
+        #{totalFee},
+      </if>
+      <if test="settlementTotalFee != null" >
+        #{settlementTotalFee},
+      </if>
+      <if test="cashFee != null" >
+        #{cashFee},
+      </if>
+      <if test="cashFeeType != null" >
+        #{cashFeeType},
+      </if>
+      <if test="transactionId != null" >
+        #{transactionId},
+      </if>
+      <if test="attach != null" >
+        #{attach},
+      </if>
+      <if test="timeEnd != null" >
+        #{timeEnd},
+      </if>
+      <if test="tradeStateDesc != null" >
+        #{tradeStateDesc},
       </if>
       <if test="remark != null" >
         #{remark},
@@ -112,8 +321,14 @@
       <if test="userId != null" >
         user_id = #{userId},
       </if>
+      <if test="noteId != null" >
+        note_id = #{noteId},
+      </if>
       <if test="payAmount != null" >
         pay_amount = #{payAmount},
+      </if>
+      <if test="feeType != null" >
+        fee_type = #{feeType},
       </if>
       <if test="paymentMode != null" >
         payment_mode = #{paymentMode},
@@ -121,11 +336,89 @@
       <if test="payTime != null" >
         pay_time = #{payTime},
       </if>
+      <if test="successTime != null" >
+        success_time = #{successTime},
+      </if>
       <if test="succeed != null" >
         succeed = #{succeed},
       </if>
       <if test="failedReason != null" >
         failed_reason = #{failedReason},
+      </if>
+      <if test="appid != null" >
+        appid = #{appid},
+      </if>
+      <if test="mchId != null" >
+        mch_id = #{mchId},
+      </if>
+      <if test="nonceStr != null" >
+        nonce_str = #{nonceStr},
+      </if>
+      <if test="sign != null" >
+        sign = #{sign},
+      </if>
+      <if test="resultCode != null" >
+        result_code = #{resultCode},
+      </if>
+      <if test="errCode != null" >
+        err_code = #{errCode},
+      </if>
+      <if test="errCodeDes != null" >
+        err_code_des = #{errCodeDes},
+      </if>
+      <if test="body != null" >
+        body = #{body},
+      </if>
+      <if test="outTradeNo != null" >
+        out_trade_no = #{outTradeNo},
+      </if>
+      <if test="spbillCreateIp != null" >
+        spbill_create_ip = #{spbillCreateIp},
+      </if>
+      <if test="notifyUrl != null" >
+        notify_url = #{notifyUrl},
+      </if>
+      <if test="tradeType != null" >
+        trade_type = #{tradeType},
+      </if>
+      <if test="openid != null" >
+        openid = #{openid},
+      </if>
+      <if test="deviceInfo != null" >
+        device_info = #{deviceInfo},
+      </if>
+      <if test="isSubscribe != null" >
+        is_subscribe = #{isSubscribe},
+      </if>
+      <if test="tradeState != null" >
+        trade_state = #{tradeState},
+      </if>
+      <if test="bankType != null" >
+        bank_type = #{bankType},
+      </if>
+      <if test="totalFee != null" >
+        total_fee = #{totalFee},
+      </if>
+      <if test="settlementTotalFee != null" >
+        settlement_total_fee = #{settlementTotalFee},
+      </if>
+      <if test="cashFee != null" >
+        cash_fee = #{cashFee},
+      </if>
+      <if test="cashFeeType != null" >
+        cash_fee_type = #{cashFeeType},
+      </if>
+      <if test="transactionId != null" >
+        transaction_id = #{transactionId},
+      </if>
+      <if test="attach != null" >
+        attach = #{attach},
+      </if>
+      <if test="timeEnd != null" >
+        time_end = #{timeEnd},
+      </if>
+      <if test="tradeStateDesc != null" >
+        trade_state_desc = #{tradeStateDesc},
       </if>
       <if test="remark != null" >
         remark = #{remark},
@@ -138,11 +431,39 @@
     set activity_id = #{activityId},
       org_id = #{orgId},
       user_id = #{userId},
+      note_id = #{noteId},
       pay_amount = #{payAmount},
+      fee_type = #{feeType},
       payment_mode = #{paymentMode},
       pay_time = #{payTime},
+      success_time = #{successTime},
       succeed = #{succeed},
       failed_reason = #{failedReason},
+      appid = #{appid},
+      mch_id = #{mchId},
+      nonce_str = #{nonceStr},
+      sign = #{sign},
+      result_code = #{resultCode},
+      err_code = #{errCode},
+      err_code_des = #{errCodeDes},
+      body = #{body},
+      out_trade_no = #{outTradeNo},
+      spbill_create_ip = #{spbillCreateIp},
+      notify_url = #{notifyUrl},
+      trade_type = #{tradeType},
+      openid = #{openid},
+      device_info = #{deviceInfo},
+      is_subscribe = #{isSubscribe},
+      trade_state = #{tradeState},
+      bank_type = #{bankType},
+      total_fee = #{totalFee},
+      settlement_total_fee = #{settlementTotalFee},
+      cash_fee = #{cashFee},
+      cash_fee_type = #{cashFeeType},
+      transaction_id = #{transactionId},
+      attach = #{attach},
+      time_end = #{timeEnd},
+      trade_state_desc = #{tradeStateDesc},
       remark = #{remark}
     where id = #{id}
   </update>
@@ -157,8 +478,14 @@
       <if test="userId != null and userId != ''" >
         AND user_id = #{userId}
       </if>
+      <if test="noteId != null and noteId != ''" >
+        AND note_id = #{noteId}
+      </if>
       <if test="payAmount != null" >
         AND pay_amount = #{payAmount}
+      </if>
+      <if test="feeType != null and feeType != ''" >
+        AND fee_type = #{feeType}
       </if>
       <if test="paymentMode != null and paymentMode != ''" >
         AND payment_mode = #{paymentMode}
@@ -166,11 +493,89 @@
       <if test="payTime != null" >
         AND pay_time = #{payTime}
       </if>
+      <if test="successTime != null" >
+        AND success_time = #{successTime}
+      </if>
       <if test="succeed != null" >
         AND succeed = #{succeed}
       </if>
       <if test="failedReason != null and failedReason != ''" >
         AND failed_reason = #{failedReason}
+      </if>
+      <if test="appid != null and appid != ''" >
+        AND appid = #{appid}
+      </if>
+      <if test="mchId != null and mchId != ''" >
+        AND mch_id = #{mchId}
+      </if>
+      <if test="nonceStr != null and nonceStr != ''" >
+        AND nonce_str = #{nonceStr}
+      </if>
+      <if test="sign != null and sign != ''" >
+        AND sign = #{sign}
+      </if>
+      <if test="resultCode != null and resultCode != ''" >
+        AND result_code = #{resultCode}
+      </if>
+      <if test="errCode != null and errCode != ''" >
+        AND err_code = #{errCode}
+      </if>
+      <if test="errCodeDes != null and errCodeDes != ''" >
+        AND err_code_des = #{errCodeDes}
+      </if>
+      <if test="body != null and body != ''" >
+        AND body = #{body}
+      </if>
+      <if test="outTradeNo != null and outTradeNo != ''" >
+        AND out_trade_no = #{outTradeNo}
+      </if>
+      <if test="spbillCreateIp != null and spbillCreateIp != ''" >
+        AND spbill_create_ip = #{spbillCreateIp}
+      </if>
+      <if test="notifyUrl != null and notifyUrl != ''" >
+        AND notify_url = #{notifyUrl}
+      </if>
+      <if test="tradeType != null and tradeType != ''" >
+        AND trade_type = #{tradeType}
+      </if>
+      <if test="openid != null and openid != ''" >
+        AND openid = #{openid}
+      </if>
+      <if test="deviceInfo != null and deviceInfo != ''" >
+        AND device_info = #{deviceInfo}
+      </if>
+      <if test="isSubscribe != null and isSubscribe != ''" >
+        AND is_subscribe = #{isSubscribe}
+      </if>
+      <if test="tradeState != null and tradeState != ''" >
+        AND trade_state = #{tradeState}
+      </if>
+      <if test="bankType != null and bankType != ''" >
+        AND bank_type = #{bankType}
+      </if>
+      <if test="totalFee != null" >
+        AND total_fee = #{totalFee}
+      </if>
+      <if test="settlementTotalFee != null" >
+        AND settlement_total_fee = #{settlementTotalFee}
+      </if>
+      <if test="cashFee != null" >
+        AND cash_fee = #{cashFee}
+      </if>
+      <if test="cashFeeType != null and cashFeeType != ''" >
+        AND cash_fee_type = #{cashFeeType}
+      </if>
+      <if test="transactionId != null and transactionId != ''" >
+        AND transaction_id = #{transactionId}
+      </if>
+      <if test="attach != null and attach != ''" >
+        AND attach = #{attach}
+      </if>
+      <if test="timeEnd != null and timeEnd != ''" >
+        AND time_end = #{timeEnd}
+      </if>
+      <if test="tradeStateDesc != null and tradeStateDesc != ''" >
+        AND trade_state_desc = #{tradeStateDesc}
       </if>
       <if test="remark != null and remark != ''" >
         AND remark = #{remark}
@@ -201,8 +606,14 @@
       <if test="po.userId != null" >
         user_id = #{po.userId},
       </if>
+      <if test="po.noteId != null" >
+        note_id = #{po.noteId},
+      </if>
       <if test="po.payAmount != null" >
         pay_amount = #{po.payAmount},
+      </if>
+      <if test="po.feeType != null" >
+        fee_type = #{po.feeType},
       </if>
       <if test="po.paymentMode != null" >
         payment_mode = #{po.paymentMode},
@@ -210,11 +621,89 @@
       <if test="po.payTime != null" >
         pay_time = #{po.payTime},
       </if>
+      <if test="po.successTime != null" >
+        success_time = #{po.successTime},
+      </if>
       <if test="po.succeed != null" >
         succeed = #{po.succeed},
       </if>
       <if test="po.failedReason != null" >
         failed_reason = #{po.failedReason},
+      </if>
+      <if test="po.appid != null" >
+        appid = #{po.appid},
+      </if>
+      <if test="po.mchId != null" >
+        mch_id = #{po.mchId},
+      </if>
+      <if test="po.nonceStr != null" >
+        nonce_str = #{po.nonceStr},
+      </if>
+      <if test="po.sign != null" >
+        sign = #{po.sign},
+      </if>
+      <if test="po.resultCode != null" >
+        result_code = #{po.resultCode},
+      </if>
+      <if test="po.errCode != null" >
+        err_code = #{po.errCode},
+      </if>
+      <if test="po.errCodeDes != null" >
+        err_code_des = #{po.errCodeDes},
+      </if>
+      <if test="po.body != null" >
+        body = #{po.body},
+      </if>
+      <if test="po.outTradeNo != null" >
+        out_trade_no = #{po.outTradeNo},
+      </if>
+      <if test="po.spbillCreateIp != null" >
+        spbill_create_ip = #{po.spbillCreateIp},
+      </if>
+      <if test="po.notifyUrl != null" >
+        notify_url = #{po.notifyUrl},
+      </if>
+      <if test="po.tradeType != null" >
+        trade_type = #{po.tradeType},
+      </if>
+      <if test="po.openid != null" >
+        openid = #{po.openid},
+      </if>
+      <if test="po.deviceInfo != null" >
+        device_info = #{po.deviceInfo},
+      </if>
+      <if test="po.isSubscribe != null" >
+        is_subscribe = #{po.isSubscribe},
+      </if>
+      <if test="po.tradeState != null" >
+        trade_state = #{po.tradeState},
+      </if>
+      <if test="po.bankType != null" >
+        bank_type = #{po.bankType},
+      </if>
+      <if test="po.totalFee != null" >
+        total_fee = #{po.totalFee},
+      </if>
+      <if test="po.settlementTotalFee != null" >
+        settlement_total_fee = #{po.settlementTotalFee},
+      </if>
+      <if test="po.cashFee != null" >
+        cash_fee = #{po.cashFee},
+      </if>
+      <if test="po.cashFeeType != null" >
+        cash_fee_type = #{po.cashFeeType},
+      </if>
+      <if test="po.transactionId != null" >
+        transaction_id = #{po.transactionId},
+      </if>
+      <if test="po.attach != null" >
+        attach = #{po.attach},
+      </if>
+      <if test="po.timeEnd != null" >
+        time_end = #{po.timeEnd},
+      </if>
+      <if test="po.tradeStateDesc != null" >
+        trade_state_desc = #{po.tradeStateDesc},
       </if>
       <if test="po.remark != null" >
         remark = #{po.remark},
@@ -230,39 +719,63 @@
 
   <!-- ***************************************************************************** -->
   <!-- 以上自动生成，以下自定义 -->
-
-  <select id="findList" parameterType="com.sida.dcloud.activity.po.CustomerPaymentTrack" resultMap="CustomerPaymentTrackResultMap">
+  <resultMap id="CustomerPaymentTrackVoResultMap" type="com.sida.dcloud.activity.vo.CustomerPaymentTrackVo" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="pay_amount" property="payAmount" jdbcType="DOUBLE" />
+    <result column="payment_mode" property="paymentMode" jdbcType="VARCHAR" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="success_time" property="successTime" jdbcType="TIMESTAMP" />
+    <result column="succeed" property="succeed" jdbcType="BIT" />
+    <result column="body" property="body" jdbcType="VARCHAR" />
+    <result column="out_trade_no" property="outTradeNo" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="findList" parameterType="com.sida.dcloud.activity.po.CustomerPaymentTrack" resultMap="CustomerPaymentTrackVoResultMap">
     select
-    <include refid="CustomerPaymentTrack_Column_List" />
-    from customer_payment_track
+    track.id,
+    track.pay_amount,
+    track.payment_mode,
+    track.pay_time,
+    track.success_time,
+    track.succeed,
+    track.body,
+    track.out_trade_no,
+    u.account as user_name
+    from customer_payment_track track left join sys_user_activity u on u.id = track.user_id
     <where>
       1=1
       <if test="po.id != null and po.id != ''" >
-        and id = #{po.id}
+        and track.id = #{po.id}
       </if>
       <if test="po.payTimeStart != null and po.payTimeStart != ''" >
-        and pay_time &gt; #{po.payTimeStart}
+        and track.pay_time &gt; #{po.payTimeStart}
       </if>
       <if test="po.payTimeEnd != null and po.payTimeEnd != ''" >
-        and pay_time &lt; #{po.payTimeEnd}
+        and track.pay_time &lt; #{po.payTimeEnd}
+      </if>
+      <if test="po.successTimeStart != null and po.successTimeStart != ''" >
+        and track.success_time &gt; #{po.successTimeStart}
+      </if>
+      <if test="po.successTimeEnd != null and po.successTimeEnd != ''" >
+        and track.success_time &lt; #{po.successTimeEnd}
       </if>
       <if test="po.payAmountDown != null and po.payAmountDown != ''" >
-        and pay_amount &gt; #{po.payAmountDown}
+        and track.pay_amount &gt; #{po.payAmountDown}
       </if>
       <if test="po.payAmountUp != null and po.payAmountUp != ''" >
-        and pay_amount &lt; #{po.payAmountUp}
+        and track.pay_amount &lt; #{po.payAmountUp}
       </if>
       <if test="po.remark != null and po.remark != ''" >
-        and instr(remark, #{po.remark})&gt;0
+        and track.instr(track.remark, #{po.remark})&gt;0
       </if>
       <if test="po.failedReason != null and po.failedReason != ''" >
-        and instr(failed_reason, #{po.failedReason})&gt;0
+        and instr(track.failed_reason, #{po.failedReason})&gt;0
       </if>
       <if test="po.paymentMode != null and po.paymentMode != ''" >
-        and payment_mode = #{po.paymentMode}
+        and track.payment_mode = #{po.paymentMode}
       </if>
       <if test="po.succeed != null and po.succeed != ''" >
-        and succeed = #{po.succeed}
+        and track.succeed = #{po.succeed}
       </if>
     </where>
     <if test="po.orderField != null and po.orderField != ''">
@@ -291,5 +804,32 @@
       user_id = #{userId}
     </where>
     order by pay_time desc
+  </select>
+
+  <select id="findOneByOrderNo" parameterType="String" resultMap="CustomerPaymentTrackResultMap">
+    select
+    <include refid="CustomerPaymentTrack_Column_List" />
+    from customer_payment_track
+    <where>
+      order_no = #{orderNo}
+    </where>
+  </select>
+
+  <select id="findOneByNoteId" parameterType="String" resultMap="CustomerPaymentTrackResultMap">
+    select
+    <include refid="CustomerPaymentTrack_Column_List" />
+    from customer_payment_track
+    <where>
+      note_id = #{noteId}
+    </where>
+  </select>
+
+  <select id="findOneByTransactionId" parameterType="String" resultMap="CustomerPaymentTrackResultMap">
+    select
+    <include refid="CustomerPaymentTrack_Column_List" />
+    from customer_payment_track
+    <where>
+      transaction_id = #{transactionId}
+    </where>
   </select>
 </mapper>

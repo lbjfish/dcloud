@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.sida.dcloud.activity.dao.CustomerPaymentTrackMapper;
 import com.sida.dcloud.activity.po.CustomerPaymentTrack;
 import com.sida.dcloud.activity.service.CustomerPaymentTrackService;
+import com.sida.dcloud.activity.vo.CustomerPaymentTrackVo;
 import com.sida.dcloud.activity.vo.HonoredGuestVo;
 import com.sida.xiruo.xframework.dao.IMybatisDao;
 import com.sida.xiruo.xframework.service.BaseServiceImpl;
@@ -17,7 +18,7 @@ import java.util.List;
 
 @Service
 public class CustomerPaymentTrackServiceImpl extends BaseServiceImpl<CustomerPaymentTrack> implements CustomerPaymentTrackService {
-    private static final Logger logger = LoggerFactory.getLogger(CustomerPaymentTrackServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CustomerPaymentTrackServiceImpl.class);
 
     @Autowired
     private CustomerPaymentTrackMapper customerPaymentTrackMapper;
@@ -28,9 +29,9 @@ public class CustomerPaymentTrackServiceImpl extends BaseServiceImpl<CustomerPay
     }
 
     @Override
-    public Page<CustomerPaymentTrack> findPageList(CustomerPaymentTrack po) {
+    public Page<CustomerPaymentTrackVo> findPageList(CustomerPaymentTrack po) {
         PageHelper.startPage(po.getP(),po.getS());
-        List<CustomerPaymentTrack> list = customerPaymentTrackMapper.findList(po);
+        List<CustomerPaymentTrackVo> list = customerPaymentTrackMapper.findList(po);
         return (Page) list;
     }
 
@@ -42,5 +43,25 @@ public class CustomerPaymentTrackServiceImpl extends BaseServiceImpl<CustomerPay
     @Override
     public List<CustomerPaymentTrack> findListByUserId(String userId) {
         return customerPaymentTrackMapper.findListByUserId(userId);
+    }
+
+    @Override
+    public CustomerPaymentTrack findOneByOrderNo(String orderNo) {
+        return customerPaymentTrackMapper.findOneByOrderNo(orderNo);
+    }
+
+    @Override
+    public CustomerPaymentTrack findOneByNoteId(String noteId) {
+        return customerPaymentTrackMapper.findOneByNoteId(noteId);
+    }
+
+    @Override
+    public CustomerPaymentTrack findOneByTransactionId(String transactionId) {
+        return customerPaymentTrackMapper.findOneByTransactionId(transactionId);
+    }
+
+    @Override
+    public CustomerPaymentTrack findOneByTrackId(String trackId) {
+        return customerPaymentTrackMapper.selectByPrimaryKey(trackId);
     }
 }

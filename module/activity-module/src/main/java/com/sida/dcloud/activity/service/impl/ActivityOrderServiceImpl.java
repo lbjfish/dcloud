@@ -62,6 +62,16 @@ public class ActivityOrderServiceImpl extends BaseServiceImpl<ActivityOrder> imp
         return (Page) voList;
     }
 
+    @Override
+    public ActivityOrder findOneByOrderNo(String orderNo) {
+        return activityOrderMapper.findOneByOrderNo(orderNo);
+    }
+
+    @Override
+    public ActivityOrder findOneByNoteId(String noteId) {
+        return activityOrderMapper.findOneByNoteId(noteId);
+    }
+
     /**
      * 活动状态更新需加锁
      * @param activityId
@@ -79,6 +89,34 @@ public class ActivityOrderServiceImpl extends BaseServiceImpl<ActivityOrder> imp
             LOG.debug("Get lock success : " + LOCK_KEY_CHECK_ACTIVITY_ORDER_STATUS);
             try {
                 result = activityOrderMapper.updateActivityOrderStatus(activityId, activityOrderStatus);
+            } catch(Exception e) {
+                LOG.error(getClass().getName() + ".updateActivityOrderStatus method occured exception", e);
+            } finally {
+                boolean releaseResult = distributedLock.releaseLock(LOCK_KEY_CHECK_ACTIVITY_ORDER_STATUS);
+                LOG.debug("Release lock : " + LOCK_KEY_CHECK_ACTIVITY_ORDER_STATUS + (releaseResult ? " success" : " failed"));
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * 活动状态更新需加锁
+     * @param noteId
+     * @param activityOrderStatus
+     * @return
+     */
+    @Override
+    public int updateActivityOrderStatusByNoteId(String noteId, String activityOrderStatus, String date) {
+        boolean lock = distributedLock.lock(LOCK_KEY_CHECK_ACTIVITY_ORDER_STATUS, RedisLock.KEEP_MILLS, RedisLock.RETRY_TIMES, RedisLock.SLEEP_MILLS);
+        int result = -1;
+        if(!lock) {
+            LOG.debug("Get lock failed : " + LOCK_KEY_CHECK_ACTIVITY_ORDER_STATUS);
+            throw new ActivityException("获取锁失败，请稍后重试。。。");
+        } else {
+            LOG.debug("Get lock success : " + LOCK_KEY_CHECK_ACTIVITY_ORDER_STATUS);
+            try {
+                result = activityOrderMapper.updateActivityOrderStatusByNoteId(noteId, activityOrderStatus, date);
             } catch(Exception e) {
                 LOG.error(getClass().getName() + ".updateActivityOrderStatus method occured exception", e);
             } finally {
@@ -128,7 +166,7 @@ public class ActivityOrderServiceImpl extends BaseServiceImpl<ActivityOrder> imp
         //订单状态
         po.setActivityOrderStatus(ActivityConstants.ORDER_STATUS.NOT_PAY.getCode());
         //订单名称 = 活动名称_订单编号
-        po.setOrderName(String.format("%s_%s", po.getOrderName(), po.getOrderName()));
+        po.setOrderName(String.format("%s_%s", po.getOrderName(), po.getOrderNo()));
         //订单创建时间
         po.setCreateTime(new Date());
     }

@@ -194,8 +194,8 @@ huawei:
   short_message:
     app:
       butong:
-        app_key: l551NiL9dyb7zGSBglZLhk331N1Y
-        app_secret: 1JYh8nyXrhzHZUKPZ5BIv2W2p2lB
+        app_key: /nBqEDpFs6NQY0dFmXQntBZQb2q0ItgaSGjkpNlQCfA=
+        app_secret: L6gMKVLXDzHThxaetK2VR18VdbyW5Jx6u2I8f1Bbj6c=
         app_in_url: https://api.rtc.huaweicloud.com:10443/sms/batchSendSms/v1
         app_out_url: empty
     sign: csms18090645
@@ -203,6 +203,16 @@ huawei:
       reg_login: 121519ce992c43a1beb4c3df785f6d70
       modify_password: 7bc40be716434fbeb36ed439891da336
       change_mobile: 3e7fba01eac7426cbdba222f7b2bc181
+
+weixin:
+  app:
+    id: wxec488e381b105038 #不同tech
+    secret: rEclxaJZbzCQaYz5sdRTpQp26poioRyV8SSNl7Wa8d8NzPQokObvCA==
+  pay:
+    mch_id: 1516520231
+    key: Dl2DZcPKE+yQZzX5OjUfepPi8LloUrbyLT+KTh+EucINzPQokObvCA==
+    secret: r3dSr39G9pHdhljocCnMnA==
+    xcxCallback: http://dcloud.butongtech.com:${service.security.edge.port}/apis/activity/payWithWeixin/xcxCallback
 
 #qiniu:
 #  bucket: lili
