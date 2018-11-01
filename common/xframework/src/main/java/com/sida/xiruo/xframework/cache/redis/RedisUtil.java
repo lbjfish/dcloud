@@ -441,7 +441,7 @@ public class RedisUtil {
     }
 
     public Object getRegionDatasByKey(String key) {
-        return Optional.ofNullable((Map < String, Object >)getAllFromMap(RedisKey.SYS_REGION_CACHE))
+        return Optional.ofNullable(getEntriesFromMap(RedisKey.SYS_REGION_CACHE))
                 .orElse(new HashMap<>()).get(key);
     }
 }
