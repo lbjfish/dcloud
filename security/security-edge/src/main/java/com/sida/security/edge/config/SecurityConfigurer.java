@@ -67,6 +67,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 //            "/apis/system/init/updateSysRegionPinyin",
             "/apis/system/sysRegion/singlelevel",
             "/apis/system/sysRegion/threelevel",
+            "/apis/system/sysRegion/clearRegionDatasInRedis",
             "/apis/system/sysRegion/tree",
             "/apis/system/sysUserCustomer/**",
             "/apis/system/compensate/notify",
