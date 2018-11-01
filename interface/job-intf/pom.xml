@@ -21,7 +21,7 @@
         <dependency>
             <groupId>com.sida</groupId>
             <artifactId>po-job</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${sida.po.version}</version>
         </dependency>
         <dependency>
             <groupId>com.sida</groupId>
@@ -31,7 +31,7 @@
         <dependency>
             <groupId>com.sida</groupId>
             <artifactId>po-authorization</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${sida.po.version}</version>
         </dependency>
     </dependencies>
 </project>

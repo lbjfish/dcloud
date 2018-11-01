@@ -1,23 +1,9 @@
 package com.sida.dcloud.auth.authentication;
 
-import com.alibaba.fastjson.JSONObject;
 import com.sida.dcloud.auth.service.SysUserService;
 import com.sida.dcloud.auth.vo.UserDetailsVo;
 import com.sida.dcloud.auth.vo.UserInfo;
 import com.google.common.collect.Lists;
-import com.sida.xiruo.common.components.encrypt.Base64;
-import com.sida.xiruo.common.util.JSONObjectTransfer;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;

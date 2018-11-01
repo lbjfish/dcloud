@@ -21,7 +21,12 @@
         <dependency>
             <groupId>com.sida</groupId>
             <artifactId>po-activity</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${sida.po.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sida</groupId>
+            <artifactId>po-authorization</artifactId>
+            <version>${sida.po.version}</version>
         </dependency>
         <!--<dependency>-->
             <!--<groupId>com.sida</groupId>-->
@@ -32,11 +37,6 @@
             <groupId>com.sida</groupId>
             <artifactId>xframework</artifactId>
             <version>${sida.xframework.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sida</groupId>
-            <artifactId>po-authorization</artifactId>
-            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>
