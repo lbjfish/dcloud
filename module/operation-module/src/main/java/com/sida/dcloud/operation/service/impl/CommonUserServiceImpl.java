@@ -10,6 +10,7 @@ import com.sida.xiruo.util.jedis.RedisKey;
 import com.sida.xiruo.xframework.cache.redis.RedisUtil;
 import com.sida.xiruo.xframework.dao.IMybatisDao;
 import com.sida.xiruo.xframework.service.BaseServiceImpl;
+import com.sida.xiruo.xframework.util.BlankUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,9 @@ public class CommonUserServiceImpl extends BaseServiceImpl<CommonUser> implement
         Map<String, Object> map = (Map<String, Object>)redisUtil.getRegionDatasByKey(RedisKey.SYS_REGION_CACHE_WITH_ALL_BY_FLAT);
         Map<String, String> resultMap = commonUserMapper.selectByPrimaryKeyToAuth(id);
         if(map != null) {
-            resultMap.put("regionName", ((SysRegionLayerDto)map.get(resultMap.get("regionId"))).getName());
+            if(BlankUtil.isNotEmpty(resultMap.get("region_id"))) {
+                resultMap.put("region_name", ((SysRegionLayerDto) map.get(resultMap.get("region_id"))).getName());
+            }
         }
         return resultMap;
     }
