@@ -4,6 +4,7 @@ import com.sida.dcloud.auth.common.SecConstant;
 import com.sida.dcloud.auth.po.SysRegion;
 import com.sida.dcloud.auth.vo.RegionTreeDTO;
 import com.sida.dcloud.system.common.CollectorConstants;
+import com.sida.dcloud.system.common.SystemCacheUtil;
 import com.sida.dcloud.system.dao.SysRegionMapper;
 import com.sida.dcloud.system.dto.SysRegionLayerDto;
 import com.sida.dcloud.system.service.FileService;
@@ -12,6 +13,8 @@ import com.sida.xiruo.common.util.ErrorCodeEnums;
 import com.sida.xiruo.common.util.PinYinUtil;
 import com.sida.xiruo.common.util.SystemUtil;
 import com.sida.xiruo.common.util.Xiruo;
+import com.sida.xiruo.util.jedis.RedisKey;
+import com.sida.xiruo.xframework.cache.redis.RedisUtil;
 import com.sida.xiruo.xframework.dao.IMybatisDao;
 import com.sida.xiruo.xframework.exception.ServiceException;
 import com.sida.xiruo.xframework.service.BaseServiceImpl;
@@ -46,6 +49,8 @@ public class SysRegionServiceImpl extends BaseServiceImpl<SysRegion> implements 
     private SysRegionMapper sysRegionMapper;
     @Autowired
     private FileService fileService;
+    @Autowired
+    private SystemCacheUtil systemCacheUtil;
 
     @Override
     public IMybatisDao<SysRegion> getBaseDao() {
@@ -71,7 +76,7 @@ public class SysRegionServiceImpl extends BaseServiceImpl<SysRegion> implements 
 
     @Override
     public List<SysRegionLayerDto> findThreeLevelTree(){
-        return BuildTree.buildTree(sysRegionMapper.findThreeLevelTree());
+        return (List<SysRegionLayerDto>)systemCacheUtil.getRegionDataByKey(RedisKey.SYS_REGION_CACHE_WITH_THREE_LEVEL_BY_LAYER);
     }
 
     @Override
@@ -451,7 +456,14 @@ public class SysRegionServiceImpl extends BaseServiceImpl<SysRegion> implements 
 
     @Override
     public List<SysRegionLayerDto> findSysRegionSingleLayerDtoByLevel(String level) {
-        return sysRegionMapper.findSysRegionSingleLayerDtoByLevel(level);
+        if("CITY".equalsIgnoreCase(level)) {
+            return (List<SysRegionLayerDto>)systemCacheUtil.getRegionDataByKey(RedisKey.SYS_REGION_CACHE_WITH_CITY);
+        } else if("PROVINCE".equalsIgnoreCase(level)) {
+            return (List<SysRegionLayerDto>)systemCacheUtil.getRegionDataByKey(RedisKey.SYS_REGION_CACHE_WITH_PROVINCE);
+        } else if("COUNTRY".equalsIgnoreCase(level)) {
+            return (List<SysRegionLayerDto>)systemCacheUtil.getRegionDataByKey(RedisKey.SYS_REGION_CACHE_WITH_COUNTRY);
+        }
+       throw new ServiceException("参数有误");
     }
 
     @Transactional(propagation = Propagation.REQUIRED)

@@ -15,6 +15,9 @@ import com.sida.dcloud.activity.vo.ActivityInfoAndGoodsVo;
 import com.sida.dcloud.activity.vo.ActivityInfoVo;
 import com.sida.dcloud.activity.vo.HonoredGuestVo;
 import com.sida.xiruo.common.util.Xiruo;
+import com.sida.xiruo.po.common.IdNamePair;
+import com.sida.xiruo.util.jedis.RedisKey;
+import com.sida.xiruo.xframework.cache.redis.RedisUtil;
 import com.sida.xiruo.xframework.dao.IMybatisDao;
 import com.sida.xiruo.xframework.lock.DistributedLock;
 import com.sida.xiruo.xframework.lock.redis.RedisLock;
@@ -27,6 +30,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class ActivityInfoServiceImpl extends BaseServiceImpl<ActivityInfo> implements ActivityInfoService {
@@ -43,6 +48,8 @@ public class ActivityInfoServiceImpl extends BaseServiceImpl<ActivityInfo> imple
     private ActivityGoodsService activityGoodsService;
     @Autowired
     private ActivityGoodsGroupService activityGoodsGroupService;
+    @Autowired
+    private RedisUtil redisUtil;
 
     @Override
     public IMybatisDao<ActivityInfo> getBaseDao() {
@@ -53,7 +60,11 @@ public class ActivityInfoServiceImpl extends BaseServiceImpl<ActivityInfo> imple
     public Page<ActivityInfoVo> findPageList(ActivityInfo po) {
 //        LOG.info("每页 {} 条", po.getS());
         PageHelper.startPage(po.getP(),po.getS());
-        List<ActivityInfoVo> voList = activityInfoMapper.findVoList(po);
+        Map<String, Object> map = (Map<String, Object>)redisUtil.getRegionDatasByKey(RedisKey.SYS_REGION_CACHE_WITH_ALL_BY_FLAT);
+        List<ActivityInfoVo> voList = activityInfoMapper.findVoList(po).stream().map(vo -> {
+            vo.setRegionName(((IdNamePair)map.get(vo.getRegionId())).getName());
+            return vo;
+        }).collect(Collectors.toList());
         return (Page) voList;
     }
 

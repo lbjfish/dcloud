@@ -1,19 +1,20 @@
 package com.sida.dcloud.system.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sida.xiruo.po.common.IdNamePair;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SysRegionLayerDto implements Serializable {
+public class SysRegionLayerDto implements IdNamePair, Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("通用字段：主键id")
     private String id;
 
-    @ApiModelProperty("i路径d")
+    @ApiModelProperty("路径d")
     private String path;
 
     @ApiModelProperty("地区编码")

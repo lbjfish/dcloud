@@ -12,10 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -441,5 +438,10 @@ public class RedisUtil {
         redisTemplate.setHashKeySerializer(stringRedisSerializer);
         redisTemplate.setHashValueSerializer(jsonRedisSerializer);
         this.redisTemplate = redisTemplate;
+    }
+
+    public Object getRegionDatasByKey(String key) {
+        return Optional.ofNullable((Map < String, Object >)getAllFromMap(RedisKey.SYS_REGION_CACHE))
+                .orElse(new HashMap<>()).get(key);
     }
 }

@@ -2,6 +2,7 @@ package com.sida.dcloud.system.controller;
 
 import com.sida.dcloud.auth.common.SecConstant;
 import com.sida.dcloud.auth.po.SysRegion;
+import com.sida.dcloud.system.common.SystemCacheUtil;
 import com.sida.dcloud.system.service.SysRegionService;
 import com.sida.xiruo.common.components.StringUtils;
 import com.sida.xiruo.xframework.controller.BaseController;
@@ -115,5 +116,15 @@ public class SysRegionController extends BaseController {
     @ApiOperation(value = "根据编码查询名称")
     public String getNameByCode(String code) {
         return sysRegionService.getNameByCode(code);
+    }
+
+    @Autowired
+    private SystemCacheUtil systemCacheUtil;
+
+    @RequestMapping(value = "/clearRegionDatasInRedis", method = RequestMethod.GET)
+    @ApiOperation(value = "从redis清空地区数据")
+    public Object clearRegionDatasInRedis() {
+        systemCacheUtil.clearRegionDatasInRedis();
+        return toResult();
     }
 }

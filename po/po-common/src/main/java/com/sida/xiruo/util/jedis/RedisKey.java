@@ -51,4 +51,10 @@ public class RedisKey {
     public static final String  REMOTE_LOGIN = "remote_login";//远程教育-登录
     public static final long  REMOTE_LOGIN_VALIDITY = 30*60*1000;//有效时间（毫秒数）30分钟
 
+    public static final String SYS_REGION_CACHE = "SYS_REGION_CACHE";
+    public static final String SYS_REGION_CACHE_WITH_CITY = "SYS_REGION_CACHE_WITH_CITY";
+    public static final String SYS_REGION_CACHE_WITH_PROVINCE = "SYS_REGION_CACHE_WITH_PROVINCE";
+    public static final String SYS_REGION_CACHE_WITH_COUNTRY = "SYS_REGION_CACHE_WITH_COUNTRY";
+    public static final String SYS_REGION_CACHE_WITH_THREE_LEVEL_BY_LAYER = "SYS_REGION_CACHE_WITH_THREE_LEVEL_BY_LAYER";
+    public static final String SYS_REGION_CACHE_WITH_ALL_BY_FLAT = "SYS_REGION_CACHE_WITH_ALL_BY_FLAT";
 }

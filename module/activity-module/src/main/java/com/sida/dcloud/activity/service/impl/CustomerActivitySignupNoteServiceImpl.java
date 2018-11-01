@@ -282,6 +282,7 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
 
                 note.setNoteNo(activityCacheUtil.getActionNoByKey(ACTION_NO_KEY));
                 note.setThirdPartCode(activityCacheUtil.getThirdPartCode());
+                dto.getCustomerActivitySignupNote().setFaceUrl(dto.getFaceUrl());
                 //插入报名表
                 result = super.insertSelective(dto.getCustomerActivitySignupNote());
                 //插入订单

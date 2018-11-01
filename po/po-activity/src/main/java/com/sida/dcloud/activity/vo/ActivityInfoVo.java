@@ -36,6 +36,9 @@ public class ActivityInfoVo extends UserCentricDTO {
     @ApiModelProperty("地点id（关联system.sys_region表id）")
     private String regionId;
 
+    @ApiModelProperty("地点名称")
+    private String regionName;
+
     @ApiModelProperty("活动起始时间")
     private Date startTime;
 
@@ -74,6 +77,14 @@ public class ActivityInfoVo extends UserCentricDTO {
 
     public List<ActivityInfoChildVo> getChildren() {
         return children;
+    }
+
+    public String getRegionName() {
+        return regionName;
+    }
+
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
     }
 
     public void setChildren(List<ActivityInfoChildVo> children) {

@@ -5,6 +5,9 @@ import com.sida.dcloud.operation.dao.CommonUserMapper;
 import com.sida.dcloud.operation.dto.CommonUserOperation;
 import com.sida.dcloud.operation.po.CommonUser;
 import com.sida.dcloud.operation.service.CommonUserService;
+import com.sida.xiruo.po.common.IdNamePair;
+import com.sida.xiruo.util.jedis.RedisKey;
+import com.sida.xiruo.xframework.cache.redis.RedisUtil;
 import com.sida.xiruo.xframework.dao.IMybatisDao;
 import com.sida.xiruo.xframework.service.BaseServiceImpl;
 import org.slf4j.Logger;
@@ -19,6 +22,8 @@ public class CommonUserServiceImpl extends BaseServiceImpl<CommonUser> implement
     private static final Logger LOG = LoggerFactory.getLogger(CommonUserServiceImpl.class);
 
     @Autowired
+    private RedisUtil redisUtil;
+    @Autowired
     private CommonUserMapper commonUserMapper;
 
     @Override
@@ -28,7 +33,12 @@ public class CommonUserServiceImpl extends BaseServiceImpl<CommonUser> implement
 
     @Override
     public Map<String, String> selectByPrimaryKeyToAuth(String id) {
-        return commonUserMapper.selectByPrimaryKeyToAuth(id);
+        Map<String, Object> map = (Map<String, Object>)redisUtil.getRegionDatasByKey(RedisKey.SYS_REGION_CACHE_WITH_ALL_BY_FLAT);
+        Map<String, String> resultMap = commonUserMapper.selectByPrimaryKeyToAuth(id);
+        if(map != null) {
+            resultMap.put("regionName", ((IdNamePair)map.get(resultMap.get("regionId"))).getName());
+        }
+        return resultMap;
     }
 
     @Override
