@@ -74,5 +74,6 @@ public interface SysRegionService extends IBaseService<SysRegion> {
     String getNameByCode(String code);
 
     List<SysRegionLayerDto> findSysRegionSingleLayerDtoByLevel(String level);
+    List<SysRegionLayerDto> findSysRegionSingleLayerDtoByLevelFromDB(String level);
     int updateSysRegionPinyin();
 }

@@ -455,6 +455,11 @@ public class SysRegionServiceImpl extends BaseServiceImpl<SysRegion> implements 
     }
 
     @Override
+    public List<SysRegionLayerDto> findSysRegionSingleLayerDtoByLevelFromDB(String level) {
+        return sysRegionMapper.findSysRegionSingleLayerDtoByLevel(level);
+    }
+
+    @Override
     public List<SysRegionLayerDto> findSysRegionSingleLayerDtoByLevel(String level) {
         if("CITY".equalsIgnoreCase(level)) {
             return (List<SysRegionLayerDto>)systemCacheUtil.getRegionDataByKey(RedisKey.SYS_REGION_CACHE_WITH_CITY);

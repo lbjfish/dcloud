@@ -40,9 +40,9 @@ public class SystemCacheUtil implements CommandLineRunner {
         if(map == null) {
             map = new HashMap<>();
             System.out.println(">>>>>>>>>>>>>>>初始化sys_region，执行加载数据等操作<<<<<<<<<<<<<");
-            List<SysRegionLayerDto> countryList = sysRegionService.findSysRegionSingleLayerDtoByLevel("COUNTRY");
-            List<SysRegionLayerDto> provinceList = sysRegionService.findSysRegionSingleLayerDtoByLevel("PROVINCE");
-            List<SysRegionLayerDto> cityList = sysRegionService.findSysRegionSingleLayerDtoByLevel("CITY");
+            List<SysRegionLayerDto> countryList = sysRegionService.findSysRegionSingleLayerDtoByLevelFromDB("COUNTRY");
+            List<SysRegionLayerDto> provinceList = sysRegionService.findSysRegionSingleLayerDtoByLevelFromDB("PROVINCE");
+            List<SysRegionLayerDto> cityList = sysRegionService.findSysRegionSingleLayerDtoByLevelFromDB("CITY");
             List<SysRegionLayerDto> list = new ArrayList<>(countryList);
             list.addAll(provinceList);
             list.addAll(cityList);
