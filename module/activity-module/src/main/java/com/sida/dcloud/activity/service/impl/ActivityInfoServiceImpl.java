@@ -6,16 +6,13 @@ import com.sida.dcloud.activity.common.ActivityConstants;
 import com.sida.dcloud.activity.common.ActivityException;
 import com.sida.dcloud.activity.dao.ActivityInfoMapper;
 import com.sida.dcloud.activity.po.ActivityInfo;
-import com.sida.dcloud.activity.po.HonoredGuest;
 import com.sida.dcloud.activity.service.ActivityGoodsGroupService;
 import com.sida.dcloud.activity.service.ActivityGoodsService;
 import com.sida.dcloud.activity.service.ActivityInfoService;
 import com.sida.dcloud.activity.vo.ActivityGoodsGroupVo;
 import com.sida.dcloud.activity.vo.ActivityInfoAndGoodsVo;
 import com.sida.dcloud.activity.vo.ActivityInfoVo;
-import com.sida.dcloud.activity.vo.HonoredGuestVo;
-import com.sida.xiruo.common.util.Xiruo;
-import com.sida.xiruo.po.common.IdNamePair;
+import com.sida.dcloud.system.dto.SysRegionLayerDto;
 import com.sida.xiruo.util.jedis.RedisKey;
 import com.sida.xiruo.xframework.cache.redis.RedisUtil;
 import com.sida.xiruo.xframework.dao.IMybatisDao;
@@ -62,7 +59,7 @@ public class ActivityInfoServiceImpl extends BaseServiceImpl<ActivityInfo> imple
         PageHelper.startPage(po.getP(),po.getS());
         Map<String, Object> map = (Map<String, Object>)redisUtil.getRegionDatasByKey(RedisKey.SYS_REGION_CACHE_WITH_ALL_BY_FLAT);
         List<ActivityInfoVo> voList = activityInfoMapper.findVoList(po).stream().map(vo -> {
-            vo.setRegionName(((IdNamePair)map.get(vo.getRegionId())).getName());
+            vo.setRegionName(((SysRegionLayerDto)map.get(vo.getRegionId())).getName());
             return vo;
         }).collect(Collectors.toList());
         return (Page) voList;
