@@ -318,6 +318,7 @@ public class PayUtilWithXcx {
     @Transactional(propagation = Propagation.REQUIRED)
     public void notifyPayResult(String notifyXml) {
         try {
+            LOG.info("notify xml = {}", notifyXml);
             Document doc = DocumentHelper.parseText(notifyXml);
             Element root = doc.getRootElement();
             if(!"SUCCESS".equals(root.elementTextTrim("return_code"))) {
