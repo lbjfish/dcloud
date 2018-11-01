@@ -52,7 +52,7 @@ public class SystemCacheUtil implements CommandLineRunner {
             map.put(RedisKey.SYS_REGION_CACHE_WITH_THREE_LEVEL_BY_LAYER, layerList);
             Map<String, SysRegionLayerDto> flatMap = new HashMap<>();
             list.forEach(dto -> flatMap.put(dto.getId(), dto));
-            map.put(RedisKey.SYS_REGION_CACHE_WITH_ALL_BY_FLAT, layerList);
+            map.put(RedisKey.SYS_REGION_CACHE_WITH_ALL_BY_FLAT, flatMap);
             redisUtil.putInMap(RedisKey.SYS_REGION_CACHE, map);
             System.out.println(">>>>>>>>>>>>>>>初始化sys_region完成<<<<<<<<<<<<<");
         }
