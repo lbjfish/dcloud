@@ -415,7 +415,7 @@
     <result column="capital_pinyin" property="capitalPinyin" jdbcType="VARCHAR" />
   </resultMap>
   <select id="findSysRegionSingleLayerDtoByLevel" parameterType="java.util.List" resultMap="SysRegionLayerDtoResultMap" >
-    select id,path,code,name,level,post_code,pinyin,capital_pinyin from sys_region
+    select id,path,code,name,level,post_code,parent_id,pinyin,capital_pinyin from sys_region
     where delete_flag = 0 and disable = 0 and level = UPPER(#{level})
     order by capital_pinyin asc, pinyin asc
   </select>

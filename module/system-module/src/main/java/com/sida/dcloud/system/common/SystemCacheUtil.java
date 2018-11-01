@@ -36,9 +36,8 @@ public class SystemCacheUtil implements CommandLineRunner {
      */
     @RedisLock
     private Map<String, Object> initRegionDatasToRedis() {
-        Map<String, Object> map = redisUtil.getEntriesFromMap(RedisKey.SYS_REGION_CACHE);
-        if(map == null) {
-            map = new HashMap<>();
+        Map<String, Object> map = Optional.ofNullable(redisUtil.getEntriesFromMap(RedisKey.SYS_REGION_CACHE)).orElse(new HashMap<>());
+        if(map.size() == 0) {
             System.out.println(">>>>>>>>>>>>>>>初始化sys_region，执行加载数据等操作<<<<<<<<<<<<<");
             List<SysRegionLayerDto> countryList = sysRegionService.findSysRegionSingleLayerDtoByLevelFromDB("COUNTRY");
             List<SysRegionLayerDto> provinceList = sysRegionService.findSysRegionSingleLayerDtoByLevelFromDB("PROVINCE");
@@ -61,7 +60,14 @@ public class SystemCacheUtil implements CommandLineRunner {
     }
 
     public void clearRegionDatasInRedis() {
-        redisUtil.remove(RedisKey.SYS_REGION_CACHE);
+//        LOG.info("Before: {}", redisUtil.getEntriesFromMap(RedisKey.SYS_REGION_CACHE));
+        redisUtil.removeMultiFromMap(RedisKey.SYS_REGION_CACHE,
+                RedisKey.SYS_REGION_CACHE_WITH_CITY,
+                RedisKey.SYS_REGION_CACHE_WITH_PROVINCE,
+                RedisKey.SYS_REGION_CACHE_WITH_COUNTRY,
+                RedisKey.SYS_REGION_CACHE_WITH_ALL_BY_FLAT,
+                RedisKey.SYS_REGION_CACHE_WITH_THREE_LEVEL_BY_LAYER);
+//        LOG.info("After: {}", redisUtil.getEntriesFromMap(RedisKey.SYS_REGION_CACHE));
     }
 
     public Object getRegionDataByKey(String key) {
