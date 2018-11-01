@@ -58,10 +58,8 @@ public class ActivityInfoServiceImpl extends BaseServiceImpl<ActivityInfo> imple
 //        LOG.info("每页 {} 条", po.getS());
         PageHelper.startPage(po.getP(),po.getS());
         Map<String, Object> map = (Map<String, Object>)redisUtil.getRegionDatasByKey(RedisKey.SYS_REGION_CACHE_WITH_ALL_BY_FLAT);
-        List<ActivityInfoVo> voList = activityInfoMapper.findVoList(po).stream().map(vo -> {
-            vo.setRegionName(((SysRegionLayerDto)map.get(vo.getRegionId())).getName());
-            return vo;
-        }).collect(Collectors.toList());
+        List<ActivityInfoVo> voList = activityInfoMapper.findVoList(po);
+        voList.forEach(vo -> vo.setRegionName(((SysRegionLayerDto)map.get(vo.getRegionId())).getName()));
         return (Page) voList;
     }
 
