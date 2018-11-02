@@ -1,6 +1,7 @@
 package com.sida.dcloud.activity.service.impl;
 
 //import com.codingapi.tx.annotation.TxTransaction;
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sida.dcloud.activity.client.OperationClient;
@@ -28,8 +29,25 @@ import com.sida.xiruo.xframework.dao.IMybatisDao;
 import com.sida.xiruo.xframework.lock.DistributedLock;
 import com.sida.xiruo.xframework.lock.redis.RedisLock;
 import com.sida.xiruo.xframework.service.BaseServiceImpl;
+import com.sida.xiruo.xframework.util.BlankUtil;
 import net.sf.json.regexp.RegexpUtils;
 import org.activiti.engine.ActivitiException;
+import org.apache.catalina.manager.Constants;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpStatus;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +55,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.*;
 
@@ -46,6 +65,7 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
     private static final String LOCK_KEY_CHECK_MULTI = "LOCK_KEY_CHECK_MULTI_" + CustomerActivitySignupNoteServiceImpl.class.getName();
     public static final String ACTION_NO_KEY = "SIGNUP";
     public static final String THIRD_PART_CODE_KEY = "THIRD_PART_CODE";
+    public static final String THIRD_PART_CODE_URL = "http://saas.dataexpo.com.cn/SZIDF/register/IdfDataInfo.html";
     private static final Map<String, Field> NOTE_FIELD_MAP = new HashMap<>();
 
     static {
@@ -143,6 +163,21 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
         return customerActivitySignupNoteMapper.getCurrentThirdPartCode();
     }
 
+    @Override
+    public int resendThirdPartCode() {
+        int result = 0;
+        List<CustomerActivitySignupNote> poList =  customerActivitySignupNoteMapper.selectUnsentThirdPartCodePo();
+        poList.forEach(po -> {
+            try {
+                sendCodeToThirdPart(po);
+                Thread.sleep(500);
+            } catch(InterruptedException e) {
+                LOG.error("InterruptedException: ", e);
+            }
+        });
+        return result;
+    }
+
     /**
      * 新增和更新操作都需要进行重复检验，因此要进行锁互斥
      * @param po
@@ -165,7 +200,7 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
                 po.setNoteNo(activityCacheUtil.getActionNoByKey(ACTION_NO_KEY));
                 po.setThirdPartCode(activityCacheUtil.getThirdPartCode());
                 result = super.insert(po);
-                sendCodeToThirdPart(po.getThirdPartCode());
+                sendCodeToThirdPart(po);
             } catch(Exception e) {
                 LOG.error(getClass().getName() + ".insert method occured exception", e);
                 throw new ActivityException(e);
@@ -177,16 +212,6 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
 
         return result;
     }
-
-    /**
-     * Todo
-     * 发送识别码到第三方
-     * @param code
-     */
-    private void sendCodeToThirdPart(String code){
-
-    }
-
 
     /**
      * 新增和更新操作都需要进行重复检验，因此要进行锁互斥
@@ -301,7 +326,7 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
 //                    LoginManager.getUser().setFaceUrl(dto.getFaceUrl());
 //                });
                 //发送验证码到第三方
-                sendCodeToThirdPart(note.getThirdPartCode());
+                sendCodeToThirdPart(note);
             } catch(Exception e) {
                 LOG.error(getClass().getName() + ".updateByPrimaryKey method occured exception", e);
                 throw new ActivityException(e);
@@ -338,5 +363,114 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
         if(activityInfo.getEndTime().getTime() < lnow) {
             throw new ActivitiException("活动已结束");
         }
+    }
+
+    /***********************************************************************************************/
+
+    private int sendCodeToThirdPart(List<CustomerActivitySignupNote> poList){
+        CloseableHttpResponse response = null;
+        HttpEntity entity = null;
+        HttpPost post = null;
+        try {
+            HttpClient httpClient = HttpClients.createDefault();
+            post = new HttpPost(THIRD_PART_CODE_URL);
+            final JSONObject json = new JSONObject();
+            for(CustomerActivitySignupNote po : poList) {
+                json.clear();
+                json.put("euCode", po.getThirdPartCode());
+                json.put("uiName", po.getName());
+                json.put("uiPhone1", po.getMobile1No());
+                Optional.ofNullable(po.getRegionId()).ifPresent(regionId -> {
+                    Map<String, Object> map = (Map<String, Object>) activityCacheUtil.getRedisUtil().getRegionDatasByKey(RedisKey.SYS_REGION_CACHE_WITH_ALL_BY_FLAT);
+                    SysRegionLayerDto region = (SysRegionLayerDto) map.get(regionId);
+                    if ("COUNTRY".equalsIgnoreCase(region.getLevel())) {
+                        json.put("uiCountry", region.getName());
+                    } else if ("PROVINCE".equalsIgnoreCase(region.getLevel())) {
+                        json.put("uiProvince", region.getName());
+                    } else if ("CITY".equalsIgnoreCase(region.getLevel())) {
+                        json.put("uiCity", region.getName());
+                    }
+                });
+                json.put("uiCompany", po.getUnit());
+                LOG.info("userInfo={}", json.toJSONString());
+                // 构造消息体
+                List<NameValuePair> params = new ArrayList<>();
+                //建立一个NameValuePair数组，用于存储欲传送的参数
+                params.add(new BasicNameValuePair("userInfo", json.toJSONString()));
+                post.setEntity(new UrlEncodedFormEntity(params, Constants.CHARSET));
+                try {
+                    response = (CloseableHttpResponse) httpClient.execute(post);
+                    // 检验返回码
+                    int statusCode = response.getStatusLine().getStatusCode();
+                    if (statusCode != HttpStatus.SC_OK) {
+                        throw new ActivityException("请求出错: " + statusCode);
+                    } else {
+                        //获取结果实体
+                        entity = response.getEntity();
+                        if (entity != null) {
+                            //按指定编码转换结果实体为String类型
+                            String content = EntityUtils.toString(entity, Constants.CHARSET);
+                            LOG.info("content = {}", content);
+
+                            JSONObject jsonObject = JSONObject.parseObject(content);
+                            if (jsonObject.getBoolean("success")) {
+                                LOG.info("发送成功: {}", jsonObject.getString("Msg"));
+                                customerActivitySignupNoteMapper.updateSentStatus(po.getId(), true);
+                                return 0;
+                            } else {
+                                LOG.error("发送失败: {}", jsonObject.getString("Msg"));
+                            }
+                        }
+                    }
+                } catch(IOException e) {
+                    LOG.error("sendCodeToThirdPart one failed...", e);
+                } finally {
+                    releaseResponse(response, LOG);
+                    if(entity != null) {
+                        try {EntityUtils.consume(entity);} catch(Exception e) {LOG.error("EntityUtils.consume: ", e);}
+                    }
+                }
+            };
+        } catch (IOException e) {
+            LOG.error("sendCodeToThirdPart failed...", e);
+            throw new ActivityException(e);
+        } finally {
+            if(post != null){
+                post.releaseConnection();
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Todo
+     * 发送识别码到第三方
+     * @param po
+     */
+    private int sendCodeToThirdPart(CustomerActivitySignupNote po){
+        return sendCodeToThirdPart(new ArrayList<CustomerActivitySignupNote>() {{add(po);}});
+    }
+
+    public static void releaseResponse(CloseableHttpResponse response, Logger log) {
+        if(response != null) {
+            try {
+                //释放链接
+                try {response.close();} catch(Exception e) {
+                    log.error("response.close: ", e);}
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        CustomerActivitySignupNote po = new CustomerActivitySignupNote();
+        po.setThirdPartCode("1540345064");
+        po.setName("蒋主任");
+        po.setMobile1No("18124600388");
+        po.setUnit("不同科技");
+        CustomerActivitySignupNoteServiceImpl instance = new CustomerActivitySignupNoteServiceImpl();
+        instance.sendCodeToThirdPart(po);
     }
 }

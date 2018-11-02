@@ -16,6 +16,9 @@ public class CustomerActivitySignupNote extends BaseEntity implements Serializab
     @ApiModelProperty("第三方识别码")
     private String thirdPartCode;
 
+    @ApiModelProperty("识别码发送状态(0: 失败，1: 成功)")
+    private Boolean sentStatus;
+
     @ApiModelProperty("活动id（关联activity_info表id）")
     private String activityId;
 
@@ -158,6 +161,14 @@ public class CustomerActivitySignupNote extends BaseEntity implements Serializab
     private String field10;
 
     private static final long serialVersionUID = 1L;
+
+    public Boolean getSentStatus() {
+        return sentStatus;
+    }
+
+    public void setSentStatus(Boolean sentStatus) {
+        this.sentStatus = sentStatus;
+    }
 
     public String getFaceUrl() {
         return faceUrl;

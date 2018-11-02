@@ -19,6 +19,6 @@ public interface CustomerActivitySignupNoteService extends IBaseService<Customer
     Map<String, String> findSimpleOneToClient(String id);
     String getCurrentNoteNo();
     String getCurrentThirdPartCode();
-
+    int resendThirdPartCode();
     Map<String, String> insertSignupNoteAndOrder(ActivitySignupNoteDto dto);
 }

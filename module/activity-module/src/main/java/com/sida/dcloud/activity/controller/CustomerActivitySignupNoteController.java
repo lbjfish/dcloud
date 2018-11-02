@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import scala.annotation.meta.param;
 
 import java.util.Date;
 import java.util.List;
@@ -31,6 +32,13 @@ public class CustomerActivitySignupNoteController extends BaseController {
 
     @Autowired
     private CustomerActivitySignupNoteService customerActivitySignupNoteService;
+
+    @RequestMapping(value = "/resendThirdPartCode", method = RequestMethod.GET)
+    @ApiOperation(value = "重传所有第三方校验码")
+    public Object resendThirdPartCode() {
+        Object object = customerActivitySignupNoteService.resendThirdPartCode();
+        return toResult(object);
+    }
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ApiOperation(value = "条件查报名列表")
@@ -115,6 +123,7 @@ public class CustomerActivitySignupNoteController extends BaseController {
         param.getCustomerActivitySignupNote().setVersion(param.getSettingVersion());
         param.getCustomerActivitySignupNote().setDeleteFlag(false);
         param.getCustomerActivitySignupNote().setDisable(false);
+        param.getCustomerActivitySignupNote().setSentStatus(false);
         param.getCustomerActivitySignupNote().setSignupTime(new Date());
         param.getActivityOrder().setId(UUIDGenerate.getNextId());
         param.getActivityOrder().setActivityId(param.getActivityId());
@@ -134,6 +143,7 @@ public class CustomerActivitySignupNoteController extends BaseController {
         fillDefaultFields(param, event);
         if(EventConstants.EVENT_INSERT == event) {
             param.setSort(0);
+            param.setSentStatus(false);
             param.setSignupTime(param.getCreatedAt());
         }
     }

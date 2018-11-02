@@ -9,6 +9,7 @@ import com.sida.dcloud.activity.po.CustomerPaymentTrack;
 import com.sida.dcloud.activity.service.ActivityOrderService;
 import com.sida.dcloud.activity.service.CustomerActivitySignupNoteService;
 import com.sida.dcloud.activity.service.CustomerPaymentTrackService;
+import com.sida.dcloud.activity.service.impl.CustomerActivitySignupNoteServiceImpl;
 import com.sida.xiruo.common.components.RandomUtils;
 import com.sida.xiruo.common.util.Xiruo;
 import com.sida.xiruo.xframework.common.Contants;
@@ -301,15 +302,7 @@ public class PayUtilWithXcx {
             if(post != null){
                 post.releaseConnection();
             }
-            if(response != null) {
-                try {
-                    //释放链接
-                    try {response.close();} catch(Exception e) {LOG.error("response.close: ", e);}
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+            CustomerActivitySignupNoteServiceImpl.releaseResponse(response, LOG);
         }
         return 0;
     }
