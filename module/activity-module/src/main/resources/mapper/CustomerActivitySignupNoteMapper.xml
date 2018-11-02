@@ -973,6 +973,6 @@
   </select>
 
   <update id="updateSentStatus">
-    update customer_activity_signup_note set sent_status = #{sentStatus} where id = #{id}
+    update customer_activity_signup_note set sent_status = #{sentStatus} where instr(#{ids}, id) &gt; 0
   </update>
 </mapper>

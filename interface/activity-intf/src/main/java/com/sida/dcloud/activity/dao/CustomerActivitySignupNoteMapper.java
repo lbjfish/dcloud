@@ -19,5 +19,5 @@ public interface CustomerActivitySignupNoteMapper extends IMybatisDao<CustomerAc
     String getCurrentNoteNo();
     String getCurrentThirdPartCode();
     List<CustomerActivitySignupNote> selectUnsentThirdPartCodePo();
-    int updateSentStatus(@Param("id")String id, @Param("sentStatus")Boolean sentStatus);
+    int updateSentStatus(@Param("ids")String ids, @Param("sentStatus")Boolean sentStatus);
 }

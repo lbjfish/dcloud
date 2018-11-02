@@ -375,6 +375,7 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
             HttpClient httpClient = HttpClients.createDefault();
             post = new HttpPost(THIRD_PART_CODE_URL);
             final JSONObject json = new JSONObject();
+            StringBuilder builder = new StringBuilder(",");
             for(CustomerActivitySignupNote po : poList) {
                 json.clear();
                 json.put("euCode", po.getThirdPartCode());
@@ -415,7 +416,7 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
                             JSONObject jsonObject = JSONObject.parseObject(content);
                             if (jsonObject.getBoolean("success")) {
                                 LOG.info("发送成功: {}", jsonObject.getString("Msg"));
-                                customerActivitySignupNoteMapper.updateSentStatus(po.getId(), true);
+                                builder.append(po.getId()).append(",");
                                 return 0;
                             } else {
                                 LOG.error("发送失败: {}", jsonObject.getString("Msg"));
@@ -430,7 +431,8 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
                         try {EntityUtils.consume(entity);} catch(Exception e) {LOG.error("EntityUtils.consume: ", e);}
                     }
                 }
-            };
+            }
+            customerActivitySignupNoteMapper.updateSentStatus(builder.toString(), true);
         } catch (IOException e) {
             LOG.error("sendCodeToThirdPart failed...", e);
             throw new ActivityException(e);
