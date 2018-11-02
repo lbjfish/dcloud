@@ -70,6 +70,11 @@ feign:
       enabled: true  # 默认false，hystrix必须enabled=TRUE
     httpclient:
       enabled: true
+    client:
+      config:
+        ${provider.activity-module}:
+          connectTimeout: 50000
+          readTimeout: 50000
 #hystrix 熔断机制
 #hystrix:
 #  shareSecurityContext: true
@@ -93,7 +98,7 @@ hystrix:
         forceClosed: true
       execution:
         timeout:
-          enabled: true
+          enabled: false
         isolation:
           thread:
             timeoutInMilliseconds: 60000

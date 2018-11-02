@@ -37,6 +37,9 @@ public class CustomerActivitySignupNoteVo extends UserCentricDTO {
     @ApiModelProperty("地址id")
     private String regionId;
 
+    @ApiModelProperty("地址名称")
+    private String regionName;
+
     @ApiModelProperty("活动起始时间")
     private Date startTime;
 
@@ -69,6 +72,14 @@ public class CustomerActivitySignupNoteVo extends UserCentricDTO {
 
     @ApiModelProperty("订单状态，用于查询")
     private String orderStatus;
+
+    public String getRegionName() {
+        return regionName;
+    }
+
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
+    }
 
     public String getActivityId() {
         return activityId;

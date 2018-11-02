@@ -34,5 +34,14 @@ public class Test {
 
         JSONObject json = JSONObject.parseObject("{\"session_key\":\"sMTA2ZVVA4YFIoTt+DfxCg==\",\"openid\":\"o80eu4jFQ5tKIZEU2F809pxeuI7M\"}");
         System.out.println(json);
+        String ip = "113.104.165.122, 10.255.0.4";
+        if (ip != null) {
+            int index = ip.indexOf(",");
+            if(index >= 0) {
+                ip = ip.substring(0, index);
+                System.out.println(ip);
+            }
+
+        }
     }
 }

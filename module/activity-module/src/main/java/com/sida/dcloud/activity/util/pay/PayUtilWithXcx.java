@@ -261,8 +261,7 @@ public class PayUtilWithXcx {
                     Element root = doc.getRootElement();
                     if(!"SUCCESS".equals(root.elementTextTrim("return_code"))) {
                         track.setFailedReason(root.elementTextTrim("return_msg"));
-                    }
-                    if(!"SUCCESS".equals(root.elementTextTrim("result_code"))) {
+                    } else if(!"SUCCESS".equals(root.elementTextTrim("result_code"))) {
                         track.setResultCode(root.elementTextTrim("result_code"));
                         track.setFailedReason(root.elementTextTrim("err_code_des"));
                         track.setErrCode(root.elementTextTrim("err_code"));

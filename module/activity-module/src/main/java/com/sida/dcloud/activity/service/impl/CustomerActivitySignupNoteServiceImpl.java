@@ -17,9 +17,12 @@ import com.sida.dcloud.activity.service.ActivityOrderService;
 import com.sida.dcloud.activity.service.ActivitySignupNoteSettingService;
 import com.sida.dcloud.activity.service.CustomerActivitySignupNoteService;
 import com.sida.dcloud.activity.util.ActivityCacheUtil;
+import com.sida.dcloud.activity.vo.ActivityInfoVo;
 import com.sida.dcloud.activity.vo.CustomerActivitySignupNoteVo;
+import com.sida.dcloud.system.dto.SysRegionLayerDto;
 import com.sida.xiruo.common.components.StringUtils;
 import com.sida.xiruo.po.common.TableMeta;
+import com.sida.xiruo.util.jedis.RedisKey;
 import com.sida.xiruo.xframework.controller.LoginManager;
 import com.sida.xiruo.xframework.dao.IMybatisDao;
 import com.sida.xiruo.xframework.lock.DistributedLock;
@@ -85,6 +88,8 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
         PageHelper.startPage(vo.getP(),vo.getS());
 //        vo.setUserId(LoginManager.getCurrentUserId());
         List<CustomerActivitySignupNoteVo> voList = customerActivitySignupNoteMapper.findVoList(vo);
+        Map<String, Object> map = (Map<String, Object>)activityCacheUtil.getRedisUtil().getRegionDatasByKey(RedisKey.SYS_REGION_CACHE_WITH_ALL_BY_FLAT);
+        voList.forEach(o -> o.setRegionName(((SysRegionLayerDto)map.get(vo.getRegionId())).getName()));
         return (Page) voList;
     }
 
