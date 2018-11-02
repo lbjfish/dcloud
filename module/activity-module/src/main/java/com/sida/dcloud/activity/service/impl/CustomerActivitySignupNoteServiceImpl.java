@@ -89,7 +89,7 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
 //        vo.setUserId(LoginManager.getCurrentUserId());
         List<CustomerActivitySignupNoteVo> voList = customerActivitySignupNoteMapper.findVoList(vo);
         Map<String, Object> map = (Map<String, Object>)activityCacheUtil.getRedisUtil().getRegionDatasByKey(RedisKey.SYS_REGION_CACHE_WITH_ALL_BY_FLAT);
-        voList.forEach(o -> o.setRegionName(((SysRegionLayerDto)map.get(vo.getRegionId())).getName()));
+        voList.forEach(o -> o.setRegionName(((SysRegionLayerDto)map.get(o.getRegionId())).getName()));
         return (Page) voList;
     }
 
