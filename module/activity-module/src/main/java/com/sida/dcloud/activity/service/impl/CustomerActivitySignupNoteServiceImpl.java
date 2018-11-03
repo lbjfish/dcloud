@@ -377,59 +377,69 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
             final JSONObject json = new JSONObject();
             StringBuilder builder = new StringBuilder(",");
             for(CustomerActivitySignupNote po : poList) {
-                json.clear();
-                json.put("euCode", po.getThirdPartCode());
-                json.put("uiName", po.getName());
-                json.put("uiPhone1", po.getMobile1No());
-                Optional.ofNullable(po.getRegionId()).ifPresent(regionId -> {
-                    Map<String, Object> map = (Map<String, Object>) activityCacheUtil.getRedisUtil().getRegionDatasByKey(RedisKey.SYS_REGION_CACHE_WITH_ALL_BY_FLAT);
-                    SysRegionLayerDto region = (SysRegionLayerDto) map.get(regionId);
-                    if ("COUNTRY".equalsIgnoreCase(region.getLevel())) {
-                        json.put("uiCountry", region.getName());
-                    } else if ("PROVINCE".equalsIgnoreCase(region.getLevel())) {
-                        json.put("uiProvince", region.getName());
-                    } else if ("CITY".equalsIgnoreCase(region.getLevel())) {
-                        json.put("uiCity", region.getName());
-                    }
-                });
-                json.put("uiCompany", po.getUnit());
-                LOG.info("userInfo={}", json.toJSONString());
-                // 构造消息体
-                List<NameValuePair> params = new ArrayList<>();
-                //建立一个NameValuePair数组，用于存储欲传送的参数
-                params.add(new BasicNameValuePair("userInfo", json.toJSONString()));
-                post.setEntity(new UrlEncodedFormEntity(params, Constants.CHARSET));
-                try {
-                    response = (CloseableHttpResponse) httpClient.execute(post);
-                    // 检验返回码
-                    int statusCode = response.getStatusLine().getStatusCode();
-                    if (statusCode != HttpStatus.SC_OK) {
-                        throw new ActivityException("请求出错: " + statusCode);
-                    } else {
-                        //获取结果实体
-                        entity = response.getEntity();
-                        if (entity != null) {
-                            //按指定编码转换结果实体为String类型
-                            String content = EntityUtils.toString(entity, Constants.CHARSET);
-                            LOG.info("content = {}", content);
+                if(BlankUtil.isNotEmpty(po.getThirdPartCode())
+                    && BlankUtil.isNotEmpty(po.getName())
+                    && BlankUtil.isNotEmpty(po.getMobile1No())) {
+                    json.clear();
+                    json.put("euCode", po.getThirdPartCode());
+                    json.put("uiName", po.getName());
+                    json.put("uiPhone1", po.getMobile1No());
+                    Optional.ofNullable(po).map(CustomerActivitySignupNote::getRegionId).ifPresent(regionId -> {
+                        Map<String, Object> map = (Map<String, Object>) activityCacheUtil.getRedisUtil().getRegionDatasByKey(RedisKey.SYS_REGION_CACHE_WITH_ALL_BY_FLAT);
+                        SysRegionLayerDto region = (SysRegionLayerDto) map.get(regionId);
+                        if ("COUNTRY".equalsIgnoreCase(region.getLevel())) {
+                            json.put("uiCountry", region.getName());
+                        } else if ("PROVINCE".equalsIgnoreCase(region.getLevel())) {
+                            json.put("uiProvince", region.getName());
+                        } else if ("CITY".equalsIgnoreCase(region.getLevel())) {
+                            json.put("uiCity", region.getName());
+                        }
+                    });
+                    json.put("uiCompany", po.getUnit());
+                    LOG.info("userInfo={}", json.toJSONString());
+                    // 构造消息体
+                    List<NameValuePair> params = new ArrayList<>();
+                    //建立一个NameValuePair数组，用于存储欲传送的参数
+                    params.add(new BasicNameValuePair("userInfo", json.toJSONString()));
+                    post.setEntity(new UrlEncodedFormEntity(params, Constants.CHARSET));
+                    try {
+                        response = (CloseableHttpResponse) httpClient.execute(post);
+                        // 检验返回码
+                        int statusCode = response.getStatusLine().getStatusCode();
+                        if (statusCode != HttpStatus.SC_OK) {
+                            throw new ActivityException("请求出错: " + statusCode);
+                        } else {
+                            //获取结果实体
+                            entity = response.getEntity();
+                            if (entity != null) {
+                                //按指定编码转换结果实体为String类型
+                                String content = EntityUtils.toString(entity, Constants.CHARSET);
+                                LOG.info("content = {}", content);
 
-                            JSONObject jsonObject = JSONObject.parseObject(content);
-                            if (jsonObject.getBoolean("success")) {
-                                LOG.info("发送成功: {}", jsonObject.getString("Msg"));
-                                builder.append(po.getId()).append(",");
-                                return 0;
-                            } else {
-                                LOG.error("发送失败: {}", jsonObject.getString("Msg"));
+                                JSONObject jsonObject = JSONObject.parseObject(content);
+                                if (jsonObject.getBoolean("success")) {
+                                    LOG.info("发送成功: {}", jsonObject.getString("Msg"));
+                                    builder.append(po.getId()).append(",");
+                                    return 0;
+                                } else {
+                                    LOG.error("发送失败: {}", jsonObject.getString("Msg"));
+                                }
+                            }
+                        }
+                    } catch (IOException e) {
+                        LOG.error("sendCodeToThirdPart one failed...", e);
+                    } finally {
+                        releaseResponse(response, LOG);
+                        if (entity != null) {
+                            try {
+                                EntityUtils.consume(entity);
+                            } catch (Exception e) {
+                                LOG.error("EntityUtils.consume: ", e);
                             }
                         }
                     }
-                } catch(IOException e) {
-                    LOG.error("sendCodeToThirdPart one failed...", e);
-                } finally {
-                    releaseResponse(response, LOG);
-                    if(entity != null) {
-                        try {EntityUtils.consume(entity);} catch(Exception e) {LOG.error("EntityUtils.consume: ", e);}
-                    }
+                } else {
+                    LOG.warn("校验码、用户名和手机号码都不能为空，报名表id = {}", po.getId());
                 }
             }
             customerActivitySignupNoteMapper.updateSentStatus(builder.toString(), true);
