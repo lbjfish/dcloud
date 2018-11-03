@@ -384,16 +384,17 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
                     json.put("euCode", po.getThirdPartCode());
                     json.put("uiName", po.getName());
                     json.put("uiPhone1", po.getMobile1No());
-                    Optional.ofNullable(po).map(CustomerActivitySignupNote::getRegionId).ifPresent(regionId -> {
+                    Optional.ofNullable(po.getRegionId()).ifPresent(regionId -> {
                         Map<String, Object> map = (Map<String, Object>) activityCacheUtil.getRedisUtil().getRegionDatasByKey(RedisKey.SYS_REGION_CACHE_WITH_ALL_BY_FLAT);
-                        SysRegionLayerDto region = (SysRegionLayerDto) map.get(regionId);
-                        if ("COUNTRY".equalsIgnoreCase(region.getLevel())) {
-                            json.put("uiCountry", region.getName());
-                        } else if ("PROVINCE".equalsIgnoreCase(region.getLevel())) {
-                            json.put("uiProvince", region.getName());
-                        } else if ("CITY".equalsIgnoreCase(region.getLevel())) {
-                            json.put("uiCity", region.getName());
-                        }
+                        Optional.ofNullable(map.get(regionId)).map(obj -> (SysRegionLayerDto)obj).ifPresent(region -> {
+                            if ("COUNTRY".equalsIgnoreCase(region.getLevel())) {
+                                json.put("uiCountry", region.getName());
+                            } else if ("PROVINCE".equalsIgnoreCase(region.getLevel())) {
+                                json.put("uiProvince", region.getName());
+                            } else if ("CITY".equalsIgnoreCase(region.getLevel())) {
+                                json.put("uiCity", region.getName());
+                            }
+                        });
                     });
                     json.put("uiCompany", po.getUnit());
                     LOG.info("userInfo={}", json.toJSONString());
