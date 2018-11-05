@@ -30,6 +30,8 @@ public class ActivityScheduleController extends BaseController {
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ApiOperation(value = "条件查活动安排列表")
     public Object list(@RequestBody @ApiParam("JSON参数") ActivitySchedule param) {
+        //todo 临时增加每页50条
+        param.setS(50);
         Optional.ofNullable(param.getOrderField()).orElseGet(() -> {
             param.setOrderField("start_time");
             param.setOrderString("desc");
