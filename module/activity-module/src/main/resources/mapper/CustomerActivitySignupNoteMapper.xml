@@ -912,11 +912,11 @@
       <if test="vo.orderStatus != null and vo.orderStatus != ''" >
         <choose>
           <!-- 待支付 -->
-          <when test="vo.orderStatus == 1">and o.pay_time is null and goods_amount &gt; 0 and now() &lt;= activity.end_time</when>
+          <when test="vo.orderStatus == 1">and o.pay_time is null and goods_amount &gt; 0 and now() &lt;= activity.end_time and TIMESTAMPDIFF(MINUTE, o.create_time , now()) &lt; #{vo.payExpired}</when>
           <!-- 待参加 -->
           <when test="vo.orderStatus == 2">and (o.pay_time is not null or goods_amount = 0) and now() &lt;= activity.end_time</when>
           <!-- 已失效 -->
-          <when test="vo.orderStatus == 3"></when>
+          <when test="vo.orderStatus == 3">and o.pay_time is null and goods_amount &gt; 0 and TIMESTAMPDIFF(MINUTE, o.create_time , now()) &gt;= #{vo.payExpired}</when>
           <!-- 已参加 -->
           <when test="vo.orderStatus == 4"></when>
           <!-- 待评价 -->
@@ -962,13 +962,15 @@
     select max(a.third_part_code) from ((select max(third_part_code) third_part_code from customer_activity_signup_note order by third_part_code desc) union all select 0 from dual) a
   </select>
 
-  <select id="selectUnsentThirdPartCodePo" resultType="String">
+  <select id="selectUnsentThirdPartCodePo" resultMap="CustomerActivitySignupNoteResultMap">
     select
-    <include refid="CustomerActivitySignupNote_Column_List" />
-    from customer_activity_signup_note
+    note.id, note.third_part_code,note.name,note.mobile1_no,note.region_id,note.unit
+    from customer_activity_signup_note note
+    left join activity_order o on o.note_id = note.id
+    left join activity_info activity on activity.id = note.activity_id
     <where>
       <!-- 未发送成功 && (已支付 || 免费) && 未过期 -->
-      sent_status = false and (o.pay_time is not null or goods_amount = 0) and now() &lt;= activity.end_time
+      note.sent_status = false and (o.pay_time is not null or o.goods_amount = 0) and now() &lt;= activity.end_time
     </where>
   </select>
 

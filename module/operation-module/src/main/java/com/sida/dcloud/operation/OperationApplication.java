@@ -45,6 +45,7 @@ public class OperationApplication {
                 Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
                         .map(auth -> auth.getDetails()).ifPresent(details -> {
                     String token = ((OAuth2AuthenticationDetails) details).getTokenValue();
+                    System.out.println(token + "  *****************");
                     requestTemplate.header("Authorization", "bearer " + token);
                 });
             }

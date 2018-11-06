@@ -66,19 +66,28 @@ server:
   port: ${module.activity.port}
   contextPath: /
 feign:
-    hystrix:
-      enabled: false  # 默认false，hystrix必须enabled=TRUE
-    httpclient:
-      enabled: true
+  hystrix:
+    enabled: true  # 默认false，hystrix必须enabled=TRUE
+  httpclient:
+    enabled: true
+  client:
+    config:
+      ${provider.job-service}:
+        connectTimeout: 50000
+        readTimeout: 50000
 
 hystrix:
+  shareSecurityContext: true
   metrics:
     enabled: true
   command:
     default:
+      circuitBreaker:
+        sleepWindowInMilliseconds: 10000
+        forceClosed: true
       execution:
         timeout:
-          enabled: true
+          enabled: false
         isolation:
           thread:
             timeoutInMilliseconds: 60000
@@ -129,11 +138,15 @@ logging:
     com:
       codingapi: warn
 #Ribbon的负载均衡策略
-ribbon.NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
-ribbon.MaxAutoRetriesNextServer: 0
+#ribbon.NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+#ribbon.MaxAutoRetriesNextServer: 0
 ribbon:
+  NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+  MaxAutoRetriesNextServer: 0
   eureka:
     enabled: true
+  ReadTimeout: 50000
+  ConnectTimeout: 50000
 
 management:
   health:

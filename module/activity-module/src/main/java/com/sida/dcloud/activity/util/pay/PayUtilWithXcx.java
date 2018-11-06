@@ -80,6 +80,8 @@ public class PayUtilWithXcx {
     private CustomerPaymentTrackService customerPaymentTrackService;
     @Autowired
     private ActivityOrderService activityOrderService;
+    @Autowired
+    private CustomerActivitySignupNoteService customerActivitySignupNoteService;
 
     @PostConstruct
     private void init() {
@@ -261,12 +263,15 @@ public class PayUtilWithXcx {
                     Document doc = DocumentHelper.parseText(content);
                     Element root = doc.getRootElement();
                     if(!"SUCCESS".equals(root.elementTextTrim("return_code"))) {
+                        track.setErrCode("-1");
                         track.setFailedReason(root.elementTextTrim("return_msg"));
                     } else if(!"SUCCESS".equals(root.elementTextTrim("result_code"))) {
                         track.setResultCode(root.elementTextTrim("result_code"));
                         track.setFailedReason(root.elementTextTrim("err_code_des"));
                         track.setErrCode(root.elementTextTrim("err_code"));
                         track.setErrCodeDes(root.elementTextTrim("err_code_des"));
+                    } else {
+                        track.setErrCode("0");
                     }
                     if("INSERT".equals(track.getCommand())) {
                         customerPaymentTrackService.insert(track);
@@ -324,7 +329,7 @@ public class PayUtilWithXcx {
             //更新日志的支付状态
             Date date = Xiruo.stringToDate(root.elementTextTrim("time_end"), "yyyyMMddHHmmss");
             Optional.ofNullable(customerPaymentTrackService.selectByPrimaryKey(trackId)).ifPresent(track -> {
-                if(BlankUtil.isNotEmpty(track.getSuccessTime())) {
+//                if(BlankUtil.isNotEmpty(track.getSuccessTime())) {
                     Optional.ofNullable(root.elementTextTrim("device_info")).ifPresent(track::setDeviceInfo);
                     Optional.ofNullable(root.elementTextTrim("result_code")).ifPresent(track::setResultCode);
                     Optional.ofNullable(root.elementTextTrim("is_subscribe")).ifPresent(track::setIsSubscribe);
@@ -341,6 +346,7 @@ public class PayUtilWithXcx {
                     Optional.ofNullable(root.elementTextTrim("mch_id")).ifPresent(track::setMchId);
                     Optional.ofNullable(root.elementTextTrim("nonce_str")).ifPresent(track::setNonceStr);
                     Optional.ofNullable(root.elementTextTrim("sign")).ifPresent(track::setSign);
+                    track.setErrCode("0");
                     track.setSucceed(true);
                     track.setSuccessTime(date);
                     track.setFailedReason("ok");
@@ -352,8 +358,13 @@ public class PayUtilWithXcx {
                         track.setFailedReason(track.getErrCodeDes());
                     });
                     customerPaymentTrackService.updateByPrimaryKey(track);
-                    activityOrderService.updateActivityOrderStatusByNoteId(track.getNoteId(), ActivityConstants.ORDER_STATUS.NOT_JOIN.getCode(), root.elementTextTrim("time_end"));
-                }
+                    if(track.getSucceed()) {
+                        //更新订单状态: 待支付 -> 待参加
+                        activityOrderService.updateActivityOrderStatusByNoteId(track.getNoteId(), ActivityConstants.ORDER_STATUS.NOT_JOIN.getCode(), root.elementTextTrim("time_end"));
+                        //停止支付超时任务
+                        customerActivitySignupNoteService.dropOrderExpiredJob(track.getNoteId());
+                    }
+//                }
             });
         } catch (Exception e) {
             e.printStackTrace();
@@ -447,8 +458,17 @@ public class PayUtilWithXcx {
                             Optional.ofNullable(root.elementTextTrim("sign")).ifPresent(track::setSign);
                             Optional.ofNullable(root.elementTextTrim("trade_state")).ifPresent(track::setTradeState);
                             Optional.ofNullable(root.elementTextTrim("trade_state_desc")).ifPresent(track::setTradeStateDesc);
-
+                            if("SUCCESS".equalsIgnoreCase(track.getTradeState())) {
+                                track.setSucceed(true);
+                                track.setSuccessTime(date);
+                            }
                             customerPaymentTrackService.updateByPrimaryKey(track);
+                            if(track.getSucceed()) {
+                                //更新订单状态: 待支付 -> 待参加
+                                activityOrderService.updateActivityOrderStatusByNoteId(track.getNoteId(), ActivityConstants.ORDER_STATUS.NOT_JOIN.getCode(), root.elementTextTrim("time_end"));
+                                //停止支付超时任务
+                                customerActivitySignupNoteService.dropOrderExpiredJob(track.getNoteId());
+                            }
                         }
                     }
                 } catch (Exception e) {

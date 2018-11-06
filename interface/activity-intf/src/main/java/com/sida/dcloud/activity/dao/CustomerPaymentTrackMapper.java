@@ -21,4 +21,5 @@ public interface CustomerPaymentTrackMapper extends IMybatisDao<CustomerPaymentT
     CustomerPaymentTrack findOneByNoteId(@Param("noteId")String noteId);
     CustomerPaymentTrack findOneByTransactionId(@Param("transactionId")String transactionId);
     CustomerPaymentTrack selectByPrimaryKey(@Param("id")String id);
+    List<String> selectIdsByUnknownStatus();
 }

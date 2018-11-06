@@ -21,4 +21,5 @@ public interface ActivityOrderService extends IBaseService<ActivityOrder> {
     List<ActivityOrderGoods> findGoodsListByOrderId(String orderId);
     List<ActivityOrderGoodsGroup> findGroupListByOrderId(String orderId);
     String getCurrentOrderNo();
+    int scanAndChangeOrderStatus();
 }

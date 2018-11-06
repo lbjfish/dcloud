@@ -22,5 +22,6 @@ provider:
   system-module: @system-module@
   activity-module: @activity-module@
   operation-module: @operation-module@
+  job-service: @job-service@
 
 environment: @profile.name@

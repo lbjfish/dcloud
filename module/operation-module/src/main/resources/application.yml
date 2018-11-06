@@ -75,6 +75,9 @@ feign:
         ${provider.activity-module}:
           connectTimeout: 50000
           readTimeout: 50000
+        ${provider.job-service}:
+          connectTimeout: 50000
+          readTimeout: 50000
 #hystrix 熔断机制
 #hystrix:
 #  shareSecurityContext: true

@@ -13,6 +13,6 @@
         <module>config</module>
         <module>schedule</module>
         <module>event</module>
-        <module>elastic-job</module>
+        <module>job</module>
     </modules>
 </project>

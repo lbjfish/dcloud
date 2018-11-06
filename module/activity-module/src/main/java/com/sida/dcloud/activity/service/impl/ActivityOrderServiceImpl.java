@@ -49,6 +49,8 @@ public class ActivityOrderServiceImpl extends BaseServiceImpl<ActivityOrder> imp
     private ActivityOrderGoodsService activityOrderGoodsService;
     @Autowired
     private ActivityOrderGoodsGroupService activityOrderGoodsGroupService;
+    @Autowired
+    private CustomerPaymentTrackService customerPaymentTrackService;
 
     @Override
     public IMybatisDao<ActivityOrder> getBaseDao() {
@@ -143,7 +145,17 @@ public class ActivityOrderServiceImpl extends BaseServiceImpl<ActivityOrder> imp
         return activityOrderMapper.getCurrentOrderNo();
     }
 
-//    @TxTransaction
+    @Override
+    public int scanAndChangeOrderStatus() {
+        //从腾讯支付获取支付信息并更新支付状态
+        customerPaymentTrackService.scanAndChangePayStatusWithXcx();
+        //全局支付过期时间（分钟）
+        Integer payExpired =
+                Integer.parseInt(Optional.ofNullable(activityCacheUtil.getRedisUtil().getGlobalVariableValueByCode("pay_expired")).orElse("60"));
+        return activityOrderMapper.scanAndChangeOrderStatus(payExpired);
+    }
+
+    //    @TxTransaction
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public int insert(ActivityOrder po) {

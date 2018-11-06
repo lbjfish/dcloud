@@ -1,6 +1,6 @@
 package com.sida.dcloud.operation.service.impl;
 
-//import com.codingapi.tx.annotation.TxTransaction;
+import com.codingapi.tx.annotation.TxTransaction;
 import com.sida.dcloud.operation.client.ActivityClient;
 import com.sida.dcloud.operation.client.ContentClient;
 import com.sida.dcloud.operation.client.SystemClient;
@@ -122,7 +122,7 @@ public class SysUserOperationServiceImpl extends BaseServiceImpl<SysUserOperatio
      * @param dto
      * @return
      */
-//    @TxTransaction(isStart=true)
+    @TxTransaction(isStart=true)
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public int bindThirdPartAccount(CommonUserOperation dto) {
@@ -161,7 +161,7 @@ public class SysUserOperationServiceImpl extends BaseServiceImpl<SysUserOperatio
      * @param dto
      * @return
      */
-//    @TxTransaction(isStart=true)
+    @TxTransaction(isStart=true)
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public int unbindThirdPartAccount(CommonUserOperation dto) {
@@ -196,7 +196,7 @@ public class SysUserOperationServiceImpl extends BaseServiceImpl<SysUserOperatio
      * @param dto
      * @return
      */
-//    @TxTransaction(isStart=true)
+    @TxTransaction(isStart=true)
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public int bindMobile(CommonUserOperation dto) {
@@ -220,7 +220,7 @@ public class SysUserOperationServiceImpl extends BaseServiceImpl<SysUserOperatio
      * @param dto
      * @return
      */
-//    @TxTransaction
+    @TxTransaction
     @Transactional(propagation = Propagation.REQUIRED)
     int insertUserWithMobile(CommonUserOperation dto) {
         boolean lock = distributedLock.lock(LOCK_KEY_CHECK_MULTI, RedisLock.KEEP_MILLS, RedisLock.RETRY_TIMES, RedisLock.SLEEP_MILLS);
@@ -259,7 +259,7 @@ public class SysUserOperationServiceImpl extends BaseServiceImpl<SysUserOperatio
      * @param dto
      * @return
      */
-//    @TxTransaction(isStart=true)
+    @TxTransaction(isStart=true)
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public int bindNewMobile(CommonUserOperation dto) {
@@ -283,7 +283,7 @@ public class SysUserOperationServiceImpl extends BaseServiceImpl<SysUserOperatio
      * @param dto
      * @return
      */
-//    @TxTransaction
+    @TxTransaction
     @Transactional(propagation = Propagation.REQUIRED)
     int updateUserWithMobile(CommonUserOperation dto) {
         boolean lock = distributedLock.lock(LOCK_KEY_CHECK_MULTI, RedisLock.KEEP_MILLS, RedisLock.RETRY_TIMES, RedisLock.SLEEP_MILLS);
@@ -319,7 +319,7 @@ public class SysUserOperationServiceImpl extends BaseServiceImpl<SysUserOperatio
      * @param dto
      * @return
      */
-//    @TxTransaction(isStart=true)
+    @TxTransaction(isStart=true)
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public int updateUserInfo(CommonUserOperation dto) {
@@ -341,7 +341,7 @@ public class SysUserOperationServiceImpl extends BaseServiceImpl<SysUserOperatio
      * @param dto
      * @return
      */
-//    @TxTransaction(isStart=true)
+    @TxTransaction(isStart=true)
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public int updateUserPassword(CommonUserOperation dto) {
@@ -366,7 +366,7 @@ public class SysUserOperationServiceImpl extends BaseServiceImpl<SysUserOperatio
      * 测试分布式事务
      * @return
      */
-//    @TxTransaction(isStart=true)
+    @TxTransaction(isStart=true)
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public int testDistributeTransaction(String id, String remark) {

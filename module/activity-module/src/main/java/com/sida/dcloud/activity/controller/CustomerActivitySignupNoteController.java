@@ -33,13 +33,6 @@ public class CustomerActivitySignupNoteController extends BaseController {
     @Autowired
     private CustomerActivitySignupNoteService customerActivitySignupNoteService;
 
-    @RequestMapping(value = "/resendThirdPartCode", method = RequestMethod.GET)
-    @ApiOperation(value = "重传所有第三方校验码")
-    public Object resendThirdPartCode() {
-        Object object = customerActivitySignupNoteService.resendThirdPartCode();
-        return toResult(object);
-    }
-
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ApiOperation(value = "条件查报名列表")
     public Object list(@RequestBody @ApiParam("JSON参数") CustomerActivitySignupNoteVo param) {

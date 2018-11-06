@@ -832,4 +832,13 @@
       transaction_id = #{transactionId}
     </where>
   </select>
+
+  <select id="selectIdsByUnknownStatus" resultType="java.Util.List">
+    select
+    <include refid="CustomerPaymentTrack_Column_List" />
+    from customer_payment_track
+    <where>
+      succeed = false or err_code is null
+    </where>
+  </select>
 </mapper>

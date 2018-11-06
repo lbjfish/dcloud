@@ -23,4 +23,5 @@ public interface ActivityOrderMapper extends IMybatisDao<ActivityOrder> {
     String getCurrentOrderNo();
     ActivityOrder findOneByOrderNo(@Param("orderNo")String orderNo);
     ActivityOrder findOneByNoteId(@Param("noteId")String noteId);
+    int scanAndChangeOrderStatus(@Param("payExpired")Integer payExpired);
 }

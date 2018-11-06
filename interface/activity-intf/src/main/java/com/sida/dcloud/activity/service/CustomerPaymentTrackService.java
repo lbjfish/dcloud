@@ -17,4 +17,5 @@ public interface CustomerPaymentTrackService extends IBaseService<CustomerPaymen
     CustomerPaymentTrack findOneByNoteId(String noteId);
     CustomerPaymentTrack findOneByTransactionId(String transactionId);
     CustomerPaymentTrack findOneByTrackId(String trackId);
+    int scanAndChangePayStatusWithXcx();
 }

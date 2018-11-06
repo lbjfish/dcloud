@@ -4,6 +4,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.sida.xiruo.common.components.RandomUtils;
 import com.sida.xiruo.xframework.util.DESUtils;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Optional;
+
 public class Test {
     public static void main(String[] args) {
         System.out.println(DESUtils.getEncryptString("root"));
@@ -43,5 +49,11 @@ public class Test {
             }
 
         }
+
+        LocalDateTime datetime = LocalDateTime.now();
+        //全局支付过期时间（分钟）
+        Integer payExpired = 60;
+        datetime.plusMinutes(payExpired);
+        System.out.println(DateTimeFormatter.ofPattern("ss mm HH dd MM ? yyyy").format(datetime.plusMinutes(payExpired)));
     }
 }

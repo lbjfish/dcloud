@@ -23,22 +23,25 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
     <result column="turnover_time" property="turnoverTime" jdbcType="TIMESTAMP" />
+    <result column="valuate_time" property="valuateTime" jdbcType="TIMESTAMP" />
+    <result column="close_time" property="closeTime" jdbcType="TIMESTAMP" />
+    <result column="refund_time" property="refundTime" jdbcType="TIMESTAMP" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="ActivityOrder_Column_List" >
     id, org_id, delete_flag, red_string1, red_string2, red_string3, red_string4, red_string5, 
     red_string6, order_no, activity_id, order_user, note_id, order_name, activity_order_status, 
-    goods_amount, minus_amount, payment_mode, create_time, pay_time, turnover_time, remark
+    goods_amount, minus_amount, payment_mode, create_time, pay_time, turnover_time, valuate_time, close_time, refund_time, remark
   </sql>
   <insert id="insert" parameterType="com.sida.dcloud.activity.po.ActivityOrder" >
     insert into activity_order (id, org_id, delete_flag, red_string1, red_string2, red_string3, 
       red_string4, red_string5, red_string6, order_no, activity_id, order_user, 
       note_id, order_name, activity_order_status, goods_amount, minus_amount, 
-      payment_mode, create_time, pay_time, turnover_time, remark)
+      payment_mode, create_time, pay_time, turnover_time, valuate_time, close_time, refund_time, remark)
     values (#{id}, #{orgId}, #{deleteFlag}, #{redString1}, #{redString2}, #{redString3}, 
       #{redString4}, #{redString5}, #{redString6}, #{orderNo}, #{activityId}, #{orderUser}, 
       #{noteId}, #{orderName}, #{activityOrderStatus}, #{goodsAmount}, #{minusAmount}, 
-      #{paymentMode}, #{createTime}, #{payTime}, #{turnoverTime}, #{remark})
+      #{paymentMode}, #{createTime}, #{payTime}, #{turnoverTime}, #{valuateTime}, #{closeTime}, #{refundTime}, #{remark})
   </insert>
   <insert id="insertSelective" parameterType="com.sida.dcloud.activity.po.ActivityOrder" >
     insert into activity_order
@@ -105,6 +108,15 @@
       </if>
       <if test="turnoverTime != null" >
         turnover_time,
+      </if>
+      <if test="valuateTime != null" >
+        valuate_time,
+      </if>
+      <if test="closeTime != null" >
+        close_time,
+      </if>
+      <if test="refundTime != null" >
+        refund_time,
       </if>
       <if test="remark != null" >
         remark,
@@ -173,6 +185,15 @@
       </if>
       <if test="turnoverTime != null" >
         #{turnoverTime},
+      </if>
+      <if test="valuateTime != null" >
+        #{valuateTime},
+      </if>
+      <if test="closeTime != null" >
+        #{closeTime},
+      </if>
+      <if test="refundTime != null" >
+        #{refundTime},
       </if>
       <if test="remark != null" >
         #{remark},
@@ -243,6 +264,15 @@
       </if>
       <if test="turnoverTime != null" >
         AND turnover_time = #{turnoverTime}
+      </if>
+      <if test="valuateTime != null" >
+        AND valuate_time = #{valuateTime}
+      </if>
+      <if test="closeTime != null" >
+        AND close_time = #{closeTime}
+      </if>
+      <if test="refundTime != null" >
+        AND refund_time = #{refundTime}
       </if>
       <if test="remark != null and remark != ''" >
         AND remark = #{remark}
@@ -326,6 +356,15 @@
       </if>
       <if test="po.turnoverTime != null" >
         turnover_time = #{po.turnoverTime},
+      </if>
+      <if test="po.valuateTime != null" >
+        valuate_time = #{po.valuateTime},
+      </if>
+      <if test="po.closeTime != null" >
+        close_time = #{po.closeTime},
+      </if>
+      <if test="po.refundTime != null" >
+        refund_time = #{po.refundTime},
       </if>
       <if test="po.remark != null" >
         remark = #{po.remark},
@@ -431,4 +470,31 @@
     <include refid="ActivityOrder_Column_List" />
     from activity_order where note_id = #{noteId}
   </select>
+
+  <update id="scanAndChangeOrderStatus">
+    <!-- 待付款 -> 待参加 -->
+    <!-- 未删除 && 待付款 && ((不免费 && 已支付) || 免费) -->
+    update activity_order set activity_order_status = '3' where delete_flag = false and activity_order_status = '1' and ((goods_amount &gt; 0 and pay_time is not null) || goods_amount = 0);
+    <!-- 待付款 -> 已失效 -->
+    <!-- 未删除 && 待付款 && 不免费 && 未支付 && 超过支付期限 -->
+    update activity_order set activity_order_status = '3' where delete_flag = false and activity_order_status = '1' and goods_amount &gt; 0 and pay_time is null and TIMESTAMPDIFF(MINUTE, create_time , now()) &gt;= #{payExpired};
+    <!-- 待参加 -> 已参加 -->
+    <!-- 需要与第三方对接获取参加情况 -->
+    <!-- update activity_order set activity_order_status = '4' where delete_flag = false and activity_order_status = '2'; -->
+    <!-- 已参加 -> 待评价 -->
+    <!-- 未删除 && 已参加 && 活动结束 -->
+    update activity_order set activity_order_status = '5' where delete_flag = false and activity_order_status = '4' and now() &gt; (select end_time from activity_info where id = activity_order.activity_id);
+    <!-- 待评价 -> 已完成 -->
+    <!-- 未删除 && 待评价 && 评价时间不为空 -->
+    update activity_order set activity_order_status = '6' where delete_flag = false and activity_order_status = '5' and valuate_time is not null;
+    <!-- * -> 已关闭 -->
+    <!-- 未删除 && 关闭时间不为空 -->
+    update activity_order set activity_order_status = '7' where delete_flag = false and close_time is not null;
+    <!-- * -> 已退款 -->
+    <!-- 未删除 && 退款时间不为空 -->
+    update activity_order set activity_order_status = '8' where delete_flag = false and refund_time is not null;
+    <!-- 待参加 -> 已过期 -->
+    <!-- 未删除 && 待参加 && 活动结束 -->
+    update activity_order set activity_order_status = '9' where delete_flag = false and activity_order_status = '2' and now() &gt; (select end_time from activity_info where id = activity_order.activity_id);
+  </update>
 </mapper>

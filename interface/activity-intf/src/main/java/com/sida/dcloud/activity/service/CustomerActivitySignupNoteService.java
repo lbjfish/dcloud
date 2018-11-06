@@ -3,6 +3,7 @@ package com.sida.dcloud.activity.service;
 import com.github.pagehelper.Page;
 import com.sida.dcloud.activity.dto.ActivitySignupNoteDto;
 import com.sida.dcloud.activity.dto.ActivitySignupNoteSettingDto;
+import com.sida.dcloud.activity.po.ActivityOrder;
 import com.sida.dcloud.activity.po.ActivitySignupNoteSetting;
 import com.sida.dcloud.activity.po.CustomerActivitySignupNote;
 import com.sida.dcloud.activity.vo.CustomerActivitySignupNoteVo;
@@ -21,4 +22,7 @@ public interface CustomerActivitySignupNoteService extends IBaseService<Customer
     String getCurrentThirdPartCode();
     int resendThirdPartCode();
     Map<String, String> insertSignupNoteAndOrder(ActivitySignupNoteDto dto);
+
+    void createOrderExpiredJob(ActivityOrder order);
+    void dropOrderExpiredJob(String jobName);
 }

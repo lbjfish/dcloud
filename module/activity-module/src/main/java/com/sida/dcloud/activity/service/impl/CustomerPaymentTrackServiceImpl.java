@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.sida.dcloud.activity.dao.CustomerPaymentTrackMapper;
 import com.sida.dcloud.activity.po.CustomerPaymentTrack;
 import com.sida.dcloud.activity.service.CustomerPaymentTrackService;
+import com.sida.dcloud.activity.util.pay.PayUtilWithXcx;
 import com.sida.dcloud.activity.vo.CustomerPaymentTrackVo;
 import com.sida.dcloud.activity.vo.HonoredGuestVo;
 import com.sida.xiruo.xframework.dao.IMybatisDao;
@@ -14,7 +15,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class CustomerPaymentTrackServiceImpl extends BaseServiceImpl<CustomerPaymentTrack> implements CustomerPaymentTrackService {
@@ -22,6 +25,8 @@ public class CustomerPaymentTrackServiceImpl extends BaseServiceImpl<CustomerPay
 
     @Autowired
     private CustomerPaymentTrackMapper customerPaymentTrackMapper;
+    @Autowired
+    private PayUtilWithXcx payUtilWithXcx;
 
     @Override
     public IMybatisDao<CustomerPaymentTrack> getBaseDao() {
@@ -63,5 +68,21 @@ public class CustomerPaymentTrackServiceImpl extends BaseServiceImpl<CustomerPay
     @Override
     public CustomerPaymentTrack findOneByTrackId(String trackId) {
         return customerPaymentTrackMapper.selectByPrimaryKey(trackId);
+    }
+
+    @Override
+    public int scanAndChangePayStatusWithXcx() {
+        // 查询未得到反馈&&未查询状态的日志
+        List<String> idList = customerPaymentTrackMapper.selectIdsByUnknownStatus();
+        idList.forEach(id -> {
+            payUtilWithXcx.orderQuery(id);
+            try {
+                //200毫秒
+                TimeUnit.MILLISECONDS.sleep(200);
+            } catch(InterruptedException e) {
+                LOG.error("休眠时发生异常: ", e);
+            }
+        });
+        return 0;
     }
 }

@@ -84,7 +84,7 @@
         <akka.version>2.5.14</akka.version>
         <avro.version>1.8.2</avro.version>
         <lcn.last.version>4.1.0</lcn.last.version>
-        <elastic.job.lite.springboot.starter.version>2.1.5</elastic.job.lite.springboot.starter.version>
+        <elastic.job.lite.version>2.1.5</elastic.job.lite.version>
     </properties>
 
     <dependencies>
@@ -217,6 +217,9 @@
                 <tm-manager-url>http://@discovery1.address@:8899/tx/manager/</tm-manager-url>
                 <tm-compensate-notify-url>http://@discovery1.address@:10020/apis/system/compensate/notify</tm-compensate-notify-url>
                 <!-- tx-lcn -->
+                <!-- elastic job lite console -->
+                <elastic-job-lite-console-url>http://@middleware.ip@:8090</elastic-job-lite-console-url>
+                <!-- elastic job lite console -->
 
                 <log.console.level>INFO</log.console.level>
                 <log.file.level>ERROR</log.file.level>
@@ -232,6 +235,7 @@
                 <!--<workflow-service>workflow-service-jlf</workflow-service>-->
                 <schedule-service>schedule-service-jlf</schedule-service>
                 <event-service>event-service-jlf</event-service>
+                <job-service>job-service-jlf</job-service>
 
                 <system-module>system-module-jlf</system-module>
                 <training-module>training-module-jlf</training-module>
@@ -288,6 +292,9 @@
                 <tm-manager-url>http://@discovery1.address@:8899/tx/manager/</tm-manager-url>
                 <tm-compensate-notify-url>http://@discovery1.address@:10020/apis/system/compensate/notify</tm-compensate-notify-url>
                 <!-- tx-lcn -->
+                <!-- elastic job lite console -->
+                <elastic-job-lite-console-url>http://@middleware.ip@:8090</elastic-job-lite-console-url>
+                <!-- elastic job lite console -->
 
                 <log.console.level>INFO</log.console.level>
                 <log.file.level>ERROR</log.file.level>
@@ -303,6 +310,7 @@
                 <!--<workflow-service>workflow-service</workflow-service>-->
                 <schedule-service>schedule-service</schedule-service>
                 <event-service>event-service</event-service>
+                <job-service>job-service</job-service>
 
                 <system-module>system-module</system-module>
                 <training-module>training-module</training-module>
@@ -359,6 +367,9 @@
                 <tm-manager-url>http://@discovery1.address@:8899/tx/manager/</tm-manager-url>
                 <tm-compensate-notify-url>http://@discovery1.address@:10020/apis/system/compensate/notify</tm-compensate-notify-url>
                 <!-- tx-lcn -->
+                <!-- elastic job lite console -->
+                <elastic-job-lite-console-url>http://@middleware.ip@:8090</elastic-job-lite-console-url>
+                <!-- elastic job lite console -->
 
                 <log.console.level>INFO</log.console.level>
                 <log.file.level>ERROR</log.file.level>
@@ -374,6 +385,7 @@
                 <!--<workflow-service>workflow-service</workflow-service>-->
                 <schedule-service>schedule-service</schedule-service>
                 <event-service>event-service</event-service>
+                <job-service>job-service</job-service>
 
                 <system-module>system-module</system-module>
                 <training-module>training-module</training-module>

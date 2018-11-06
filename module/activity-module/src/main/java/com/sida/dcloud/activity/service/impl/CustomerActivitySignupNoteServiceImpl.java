@@ -4,7 +4,9 @@ package com.sida.dcloud.activity.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.sida.dcloud.activity.client.JobClient;
 import com.sida.dcloud.activity.client.OperationClient;
+import com.sida.dcloud.activity.common.ActivityConstants;
 import com.sida.dcloud.activity.common.ActivityException;
 import com.sida.dcloud.activity.dao.CustomerActivitySignupNoteMapper;
 import com.sida.dcloud.activity.dto.ActivitySignupNoteDto;
@@ -20,6 +22,7 @@ import com.sida.dcloud.activity.service.CustomerActivitySignupNoteService;
 import com.sida.dcloud.activity.util.ActivityCacheUtil;
 import com.sida.dcloud.activity.vo.ActivityInfoVo;
 import com.sida.dcloud.activity.vo.CustomerActivitySignupNoteVo;
+import com.sida.dcloud.job.po.JobEntity;
 import com.sida.dcloud.system.dto.SysRegionLayerDto;
 import com.sida.xiruo.common.components.StringUtils;
 import com.sida.xiruo.po.common.TableMeta;
@@ -30,6 +33,7 @@ import com.sida.xiruo.xframework.lock.DistributedLock;
 import com.sida.xiruo.xframework.lock.redis.RedisLock;
 import com.sida.xiruo.xframework.service.BaseServiceImpl;
 import com.sida.xiruo.xframework.util.BlankUtil;
+import com.sida.xiruo.xframework.util.UUIDGenerate;
 import net.sf.json.regexp.RegexpUtils;
 import org.activiti.engine.ActivitiException;
 import org.apache.catalina.manager.Constants;
@@ -57,6 +61,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -66,6 +74,7 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
     public static final String ACTION_NO_KEY = "SIGNUP";
     public static final String THIRD_PART_CODE_KEY = "THIRD_PART_CODE";
     public static final String THIRD_PART_CODE_URL = "http://saas.dataexpo.com.cn/SZIDF/register/IdfDataInfo.html";
+    public static final String JOB_NAME_ORDER_STATUS_TEMPLATE = "OrderStatusJob - %s";
     private static final Map<String, Field> NOTE_FIELD_MAP = new HashMap<>();
 
     static {
@@ -79,6 +88,8 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
     private ActivityCacheUtil activityCacheUtil;
     @Autowired
     private OperationClient operationClient;
+    @Autowired
+    private JobClient jobClient;
 
     @Autowired
     private CustomerActivitySignupNoteMapper customerActivitySignupNoteMapper;
@@ -107,6 +118,9 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
     public Page<CustomerActivitySignupNoteVo> findPageList(CustomerActivitySignupNoteVo vo) {
         PageHelper.startPage(vo.getP(),vo.getS());
 //        vo.setUserId(LoginManager.getCurrentUserId());
+        //获取全局付款过期时间
+        vo.setPayExpired(
+                Integer.parseInt(Optional.ofNullable(activityCacheUtil.getRedisUtil().getGlobalVariableValueByCode("pay_expired")).orElse("60")));
         List<CustomerActivitySignupNoteVo> voList = customerActivitySignupNoteMapper.findVoList(vo);
         Map<String, Object> map = (Map<String, Object>)activityCacheUtil.getRedisUtil().getRegionDatasByKey(RedisKey.SYS_REGION_CACHE_WITH_ALL_BY_FLAT);
         voList.forEach(o -> o.setRegionName(((SysRegionLayerDto)map.get(o.getRegionId())).getName()));
@@ -165,12 +179,14 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
 
     @Override
     public int resendThirdPartCode() {
+        LOG.info("扫描重传校验码至第三方");
         int result = 0;
         List<CustomerActivitySignupNote> poList =  customerActivitySignupNoteMapper.selectUnsentThirdPartCodePo();
         poList.forEach(po -> {
             try {
+                LOG.info("重传, id={}, mobile={}, name={}, code={}", po.getId(), po.getMobile1No(), po.getName(), po.getThirdPartCode());
                 sendCodeToThirdPart(po);
-                Thread.sleep(500);
+                Thread.sleep(200);
             } catch(InterruptedException e) {
                 LOG.error("InterruptedException: ", e);
             }
@@ -325,6 +341,8 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
 //                    operationClient.updateFaceUrl(map);
 //                    LoginManager.getUser().setFaceUrl(dto.getFaceUrl());
 //                });
+                //创建订单支付超时任务
+                createOrderExpiredJob(activityOrder);
                 //发送验证码到第三方
                 sendCodeToThirdPart(note);
             } catch(Exception e) {
@@ -363,6 +381,32 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
         if(activityInfo.getEndTime().getTime() < lnow) {
             throw new ActivitiException("活动已结束");
         }
+    }
+
+    /*************************************************************************************************/
+    private static final String CRON_DATE_FORMAT = "ss mm HH dd MM ? yyyy";
+
+    @Override
+    public void createOrderExpiredJob(ActivityOrder order) {
+        JobEntity jobEntity = new JobEntity();
+        Map<String, String> paramMap = new HashMap<>();
+        paramMap.put("orderId", order.getId());
+        paramMap.put("orderStatus", ActivityConstants.ORDER_STATUS.INVALID.getCode());
+        jobEntity.setParamMap(paramMap);
+        jobEntity.setId(UUIDGenerate.getNextId());
+        jobEntity.setJobName(String.format(JOB_NAME_ORDER_STATUS_TEMPLATE, order.getNoteId()));
+        LocalDateTime datetime = LocalDateTime.ofInstant(order.getCreateTime().toInstant(), ZoneId.systemDefault());
+        //全局支付过期时间（分钟）
+        Integer payExpired =
+                Integer.parseInt(Optional.ofNullable(activityCacheUtil.getRedisUtil().getGlobalVariableValueByCode("pay_expired")).orElse("60"));
+        jobEntity.setJobCron(DateTimeFormatter.ofPattern(CRON_DATE_FORMAT).format(datetime.plusMinutes(payExpired)));
+        jobEntity.setShardingTotalCount(1);
+
+        jobClient.createJobWithOrderStatus(jobEntity);
+    }
+    @Override
+    public void dropOrderExpiredJob(String noteId) {
+        jobClient.dropJobWithOrderStatus(String.format(JOB_NAME_ORDER_STATUS_TEMPLATE, noteId));
     }
 
     /***********************************************************************************************/

@@ -47,6 +47,9 @@ zuul:
     training-module:
       serviceId: @training-module@
       path: /apis/training/**
+    job-module:
+      serviceId: @job-service@
+      path: /apis/job/**
     schedule-module:
       serviceId: @schedule-service@
       path: /apis/schedule/**
