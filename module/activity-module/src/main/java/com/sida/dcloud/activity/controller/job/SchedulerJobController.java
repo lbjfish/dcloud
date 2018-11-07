@@ -49,4 +49,10 @@ public class SchedulerJobController extends BaseController {
         Object object = activityOrderService.updateActivityOrderStatus(orderId, orderStatus);
         return toResult(object);
     }
+
+    @RequestMapping(value = "/schedulerJob/selectUnpayOrderList", method = RequestMethod.GET)
+    @ApiOperation(value = "获取未付款订单列表（未过期）")
+    public Object selectUnpayOrderList() {
+        return toResult(activityOrderService.selectUnpayOrderList());
+    }
 }

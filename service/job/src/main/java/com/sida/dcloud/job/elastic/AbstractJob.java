@@ -1,6 +1,5 @@
-package com.sida.dcloud.job.simple.consumer;
+package com.sida.dcloud.job.elastic;
 
-import com.dangdang.ddframe.job.api.ShardingContext;
 import com.sida.dcloud.job.common.JobException;
 import com.sida.dcloud.job.po.JobEntity;
 import com.sida.dcloud.job.util.JobUtil;
@@ -9,10 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.function.Consumer;
-
-public abstract class AbstractConsumer implements Consumer<ShardingContext> {
+public abstract class AbstractJob {
     protected final Logger LOG = LoggerFactory.getLogger(getClass());
+    public static final String CRON_DATE_FORMAT = "ss mm HH dd MM ? yyyy";
+
     @Autowired
     private JobUtil jobUtil;
 
@@ -27,14 +26,7 @@ public abstract class AbstractConsumer implements Consumer<ShardingContext> {
         return jobUtil.createJob(jobEntity, this);
     }
 
-    public String releaseJob(String jobName) {
-        LOG.info("releaseJob = {}", jobName);
-        return jobUtil.dropJob(jobName);
-    }
-
-
-    @Override
-    public Consumer<ShardingContext> andThen(Consumer<? super ShardingContext> after) {
-        return null;
+    public String releaseJob(String jobId) {
+        return jobUtil.dropJob(jobId);
     }
 }

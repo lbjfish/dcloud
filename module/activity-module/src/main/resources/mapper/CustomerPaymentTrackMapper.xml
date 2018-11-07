@@ -833,7 +833,7 @@
     </where>
   </select>
 
-  <select id="selectIdsByUnknownStatus" resultType="java.Util.List">
+  <select id="selectIdsByUnknownStatus" resultType="java.util.List">
     select
     <include refid="CustomerPaymentTrack_Column_List" />
     from customer_payment_track

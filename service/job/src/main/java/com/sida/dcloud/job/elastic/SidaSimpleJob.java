@@ -1,4 +1,4 @@
-package com.sida.dcloud.job.simple;
+package com.sida.dcloud.job.elastic;
 
 import com.dangdang.ddframe.job.api.ShardingContext;
 import com.dangdang.ddframe.job.api.simple.SimpleJob;

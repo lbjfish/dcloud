@@ -1,8 +1,10 @@
 package com.sida.dcloud.job.util;
 
+import com.alibaba.fastjson.JSONObject;
 import com.dangdang.ddframe.job.api.ElasticJob;
-import com.dangdang.ddframe.job.api.simple.SimpleJob;
 import com.dangdang.ddframe.job.config.JobCoreConfiguration;
+import com.dangdang.ddframe.job.config.JobTypeConfiguration;
+import com.dangdang.ddframe.job.config.dataflow.DataflowJobConfiguration;
 import com.dangdang.ddframe.job.config.simple.SimpleJobConfiguration;
 import com.dangdang.ddframe.job.event.JobEventConfiguration;
 import com.dangdang.ddframe.job.lite.api.JobScheduler;
@@ -11,8 +13,10 @@ import com.dangdang.ddframe.job.lite.spring.api.SpringJobScheduler;
 import com.dangdang.ddframe.job.reg.zookeeper.ZookeeperRegistryCenter;
 import com.sida.dcloud.job.common.JobException;
 import com.sida.dcloud.job.config.ElasticJobListener;
+import com.sida.dcloud.job.elastic.ConFunJob;
+import com.sida.dcloud.job.elastic.SidaDataflowJob;
 import com.sida.dcloud.job.po.JobEntity;
-import com.sida.dcloud.job.simple.SidaSimpleJob;
+import com.sida.dcloud.job.elastic.SidaSimpleJob;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -47,21 +51,39 @@ public final class JobUtil {
         JobUtil.jobUtil = this;
     }
 
-    public String createJob(JobEntity jobEntity, Consumer consumer) {
+    public String createJob(JobEntity jobEntity, Object obj) {
         Optional.ofNullable(jobEntity).orElseThrow(() -> new JobException("任务实体不能空"));
-        Optional.ofNullable(consumer).orElseThrow(() -> new JobException("consumer不能空"));
+        Optional.ofNullable(obj).orElseThrow(() -> new JobException("obj不能空"));
         Optional.ofNullable(jobEntity.getId()).orElseThrow(() -> new JobException("id不能空"));
         Optional.ofNullable(jobEntity.getJobCron()).orElseThrow(() -> new JobException("cron不能空"));
         Optional.ofNullable(jobEntity.getShardingTotalCount()).orElseThrow(() -> new JobException("shardingTotalCount不能空"));
-        String jobName = Optional.ofNullable(jobEntity.getJobName()).orElse(SidaSimpleJob.class.getCanonicalName());
-        JobCoreConfiguration jobCoreConfiguration =
-                JobCoreConfiguration.newBuilder(jobName, jobEntity.getJobCron(), jobEntity.getShardingTotalCount()).jobParameter(jobEntity.getId()).shardingItemParameters(jobEntity.getShardingItemParameters()).build();
-        SimpleJobConfiguration simpleJobConfiguration = new SimpleJobConfiguration(jobCoreConfiguration, SidaSimpleJob.class.getCanonicalName());
-        LiteJobConfiguration jobConfig = LiteJobConfiguration.newBuilder(simpleJobConfiguration).build();
-        JobScheduler jobScheduler = new SpringJobScheduler(new SidaSimpleJob(consumer), registryCenter, jobConfig, jobEventConfiguration, elasticJobListener);
+        ElasticJob job;
+        String jobName;
+        JobTypeConfiguration jobTypeConfiguration;
+        JSONObject json = new JSONObject();
+        Optional.ofNullable(jobEntity.getParamMap()).ifPresent(json::putAll);
+        json.put("jobId", jobEntity.getId());
+        if(obj instanceof Consumer) {
+            job = new SidaSimpleJob((Consumer)obj);
+            jobName = Optional.ofNullable(jobEntity.getJobName()).orElse(SidaSimpleJob.class.getCanonicalName());
+            JobCoreConfiguration jobCoreConfiguration =
+                    JobCoreConfiguration.newBuilder(jobName, jobEntity.getJobCron(), jobEntity.getShardingTotalCount()).jobParameter(json.toJSONString()).shardingItemParameters(jobEntity.getShardingItemParameters()).build();
+            jobTypeConfiguration = new SimpleJobConfiguration(jobCoreConfiguration, jobName);
+        } else if (obj instanceof ConFunJob) {
+            job = new SidaDataflowJob((ConFunJob) obj);
+            jobName = Optional.ofNullable(jobEntity.getJobName()).orElse(SidaDataflowJob.class.getCanonicalName());
+            JobCoreConfiguration jobCoreConfiguration =
+                    JobCoreConfiguration.newBuilder(jobName, jobEntity.getJobCron(), jobEntity.getShardingTotalCount()).jobParameter(json.toJSONString()).shardingItemParameters(jobEntity.getShardingItemParameters()).build();
+            jobTypeConfiguration = new DataflowJobConfiguration(jobCoreConfiguration, jobName, false);
+        } else {
+            throw new JobException("传入的obj类型不被支持");
+        }
+
+        LiteJobConfiguration jobConfig = LiteJobConfiguration.newBuilder(jobTypeConfiguration).build();
+        JobScheduler jobScheduler = new SpringJobScheduler(job, registryCenter, jobConfig, jobEventConfiguration, elasticJobListener);
         jobScheduler.init();
-        schedulerMap.put(jobName, jobScheduler);
-        return jobName;
+        schedulerMap.put(jobEntity.getId(), jobScheduler);
+        return jobEntity.getId();
     }
 
 //    private SimpleJob createSimpleJob(String className) {
@@ -76,10 +98,13 @@ public final class JobUtil {
 //        }
 //    }
 
-    public String dropJob(String jobName) {
-        LOG.info("Drop job scheduler, jobName = {}", jobName);
-        Optional.ofNullable(schedulerMap.get(jobName)).ifPresent(jobScheduler -> jobScheduler.getSchedulerFacade().shutdownInstance());
-        schedulerMap.remove(jobName);
-        return jobName;
+    public String dropJob(String jobId) {
+        LOG.info("Drop job scheduler, jobId = {}", jobId);
+        Optional.ofNullable(schedulerMap.remove(jobId)).ifPresent(jobScheduler -> jobScheduler.getSchedulerFacade().shutdownInstance());
+        return jobId;
+    }
+
+    public boolean exists(String jobId) {
+        return Optional.ofNullable(schedulerMap.get(jobId)).isPresent();
     }
 }

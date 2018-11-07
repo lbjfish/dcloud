@@ -67,7 +67,7 @@ server:
   contextPath: /
 feign:
     hystrix:
-      enabled: true  # 默认false，hystrix必须enabled=TRUE
+      enabled: false  # 默认false，hystrix必须enabled=TRUE
     httpclient:
       enabled: true
     client:
@@ -93,7 +93,7 @@ feign:
 hystrix:
   shareSecurityContext: true
   metrics:
-    enabled: true
+    enabled: false
   command:
     default:
       circuitBreaker:

@@ -1,4 +1,4 @@
-package com.sida.dcloud.job.simple.consumer;
+package com.sida.dcloud.job.elastic.consumer;
 
 import com.dangdang.ddframe.job.api.ShardingContext;
 import com.sida.dcloud.job.client.ActivityClient;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public class ScanAndChangeOrderStatusConsumer extends AbstractConsumer {
+public class ScanAndChangeOrderStatusConsumer extends AbstractJobConsumer {
     @Autowired
     private ActivityClient activityClient;
 

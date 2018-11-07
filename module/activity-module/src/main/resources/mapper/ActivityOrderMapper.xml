@@ -497,4 +497,10 @@
     <!-- 未删除 && 待参加 && 活动结束 -->
     update activity_order set activity_order_status = '9' where delete_flag = false and activity_order_status = '2' and now() &gt; (select end_time from activity_info where id = activity_order.activity_id);
   </update>
+
+  <select id="selectUnpayOrderList" resultType="java.util.Map">
+    <!-- 未删除 && 待付款 && 不免费 && 未支付 && 未超过支付期限 -->
+    select id,DATE_FORMAT(create_time,'%Y-%m-%d %H:%i:%s') create_time,note_id from activity_order
+    where delete_flag = false and activity_order_status = '1' and goods_amount &gt; 0 and pay_time is null and TIMESTAMPDIFF(MINUTE, create_time , now()) &lt; #{payExpired};
+  </select>
 </mapper>

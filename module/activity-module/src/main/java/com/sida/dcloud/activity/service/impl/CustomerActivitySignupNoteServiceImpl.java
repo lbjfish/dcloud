@@ -393,7 +393,7 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
         paramMap.put("orderId", order.getId());
         paramMap.put("orderStatus", ActivityConstants.ORDER_STATUS.INVALID.getCode());
         jobEntity.setParamMap(paramMap);
-        jobEntity.setId(UUIDGenerate.getNextId());
+        jobEntity.setId(order.getNoteId());
         jobEntity.setJobName(String.format(JOB_NAME_ORDER_STATUS_TEMPLATE, order.getNoteId()));
         LocalDateTime datetime = LocalDateTime.ofInstant(order.getCreateTime().toInstant(), ZoneId.systemDefault());
         //全局支付过期时间（分钟）

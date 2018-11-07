@@ -11,6 +11,7 @@ import com.sida.xiruo.xframework.service.IBaseService;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public interface ActivityOrderService extends IBaseService<ActivityOrder> {
     Page<ActivityOrderVo> findPageList(ActivityOrder po);
@@ -22,4 +23,5 @@ public interface ActivityOrderService extends IBaseService<ActivityOrder> {
     List<ActivityOrderGoodsGroup> findGroupListByOrderId(String orderId);
     String getCurrentOrderNo();
     int scanAndChangeOrderStatus();
+    List<Map<String, String>> selectUnpayOrderList();
 }

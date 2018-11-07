@@ -1,13 +1,11 @@
-package com.sida.dcloud.job.simple;
+package com.sida.dcloud.job.elastic;
 
 import com.dangdang.ddframe.job.api.ShardingContext;
 import com.dangdang.ddframe.job.api.simple.SimpleJob;
-import com.dangdang.elasticjob.lite.annotation.ElasticSimpleJob;
 import com.sida.xiruo.xframework.cache.redis.RedisUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 //@ElasticSimpleJob(cron="* 0/1 * * * ?",jobName="test123",shardingTotalCount=1,jobParameter="测试参数",shardingItemParameters="0=A,1=B")
 //@Component

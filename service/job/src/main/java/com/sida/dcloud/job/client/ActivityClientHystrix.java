@@ -16,6 +16,12 @@ public class ActivityClientHystrix implements ActivityClient {
     }
 
     @Override
+    public Object selectUnpayOrderList() {
+        LOG.warn("进入断路器-selectUnpayOrderList。。。");
+        throw new JobException("selectUnpayOrderList 失败.");
+    }
+
+    @Override
     public Object scanAndChangeOrderStatus() {
         LOG.warn("进入断路器-scanAndChangeOrderStatus。。。");
         throw new JobException("scanAndChangeOrderStatus 失败.");

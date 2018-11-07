@@ -155,6 +155,14 @@ public class ActivityOrderServiceImpl extends BaseServiceImpl<ActivityOrder> imp
         return activityOrderMapper.scanAndChangeOrderStatus(payExpired);
     }
 
+    @Override
+    public List<Map<String, String>> selectUnpayOrderList() {
+        //全局支付过期时间（分钟）
+        Integer payExpired =
+                Integer.parseInt(Optional.ofNullable(activityCacheUtil.getRedisUtil().getGlobalVariableValueByCode("pay_expired")).orElse("60"));
+        return activityOrderMapper.selectUnpayOrderList(payExpired);
+    }
+
     //    @TxTransaction
     @Transactional(propagation = Propagation.REQUIRED)
     @Override

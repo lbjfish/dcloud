@@ -13,6 +13,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public interface ActivityOrderMapper extends IMybatisDao<ActivityOrder> {
     List<ActivityOrderVo> findVoList(@Param("po") ActivityOrder po);
@@ -24,4 +25,5 @@ public interface ActivityOrderMapper extends IMybatisDao<ActivityOrder> {
     ActivityOrder findOneByOrderNo(@Param("orderNo")String orderNo);
     ActivityOrder findOneByNoteId(@Param("noteId")String noteId);
     int scanAndChangeOrderStatus(@Param("payExpired")Integer payExpired);
+    List<Map<String, String>> selectUnpayOrderList(@Param("payExpired")Integer payExpired);
 }

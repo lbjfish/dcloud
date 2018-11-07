@@ -51,7 +51,7 @@ public class Bootstrap implements CommandLineRunner, ApplicationContextAware {
      * 初始化计划任务
      */
     private void initSchedulerJob() {
-        JobEntity jobEntity = new JobEntity();
-        List<JobEntity> jobList = (List<JobEntity>)jobClient.query(jobEntity);
+//        JobEntity jobEntity = new JobEntity();
+//        List<JobEntity> jobList = (List<JobEntity>)jobClient.query(jobEntity);
     }
 }
