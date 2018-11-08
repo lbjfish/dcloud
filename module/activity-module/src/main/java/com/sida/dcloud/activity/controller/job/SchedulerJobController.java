@@ -4,7 +4,6 @@ import com.sida.dcloud.activity.controller.CustomerActivitySignupNoteController;
 import com.sida.dcloud.activity.service.ActivityOrderService;
 import com.sida.dcloud.activity.service.CustomerActivitySignupNoteService;
 import com.sida.dcloud.activity.service.CustomerPaymentTrackService;
-import com.sida.dcloud.activity.util.pay.PayUtilWithXcx;
 import com.sida.xiruo.xframework.controller.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,6 +26,8 @@ public class SchedulerJobController extends BaseController {
     private CustomerActivitySignupNoteService customerActivitySignupNoteService;
     @Autowired
     private ActivityOrderService activityOrderService;
+    @Autowired
+    private CustomerPaymentTrackService customerPaymentTrackService;
 
     @RequestMapping(value = "/resendThirdPartCode", method = RequestMethod.GET)
     @ApiOperation(value = "重传所有第三方校验码")
@@ -50,9 +51,16 @@ public class SchedulerJobController extends BaseController {
         return toResult(object);
     }
 
-    @RequestMapping(value = "/schedulerJob/selectUnpayOrderList", method = RequestMethod.GET)
+    @RequestMapping(value = "/selectUnpayOrderList", method = RequestMethod.GET)
     @ApiOperation(value = "获取未付款订单列表（未过期）")
     public Object selectUnpayOrderList() {
         return toResult(activityOrderService.selectUnpayOrderList());
+    }
+
+
+    @RequestMapping(value = "/xcxScanUnconfirmOrder", method = RequestMethod.GET)
+    @ApiOperation(value = "扫描不明确支付状态的订单并从腾讯获取支付情况")
+    public Object xcxScanUnconfirmOrder() {
+        return toResult(customerPaymentTrackService.scanAndChangePayStatusWithXcx());
     }
 }

@@ -12,6 +12,7 @@ import com.sida.xiruo.xframework.dao.IMybatisDao;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CustomerPaymentTrackMapper extends IMybatisDao<CustomerPaymentTrack> {
     List<CustomerPaymentTrackVo> findList(@Param("po") CustomerPaymentTrack po);

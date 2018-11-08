@@ -37,6 +37,7 @@ public class ExpiredOrderJob extends AbstractJobConFun {
         maps.stream().filter(map -> !jobUtil.exists(map.get("note_id"))).forEach(map -> {
             JobEntity jobEntity = new JobEntity();
             jobEntity.setId(map.get("note_id"));
+            jobEntity.setJobName("ExpiredOrderJob");
             LocalDateTime datetime = LocalDateTime.ofInstant(Xiruo.stringToDate(map.get("create_time")).toInstant(), ZoneId.systemDefault());
             //全局支付过期时间（分钟）
             Integer payExpired =
@@ -47,10 +48,15 @@ public class ExpiredOrderJob extends AbstractJobConFun {
             updateOrderStatusConsumer.initJob(jobEntity);
             LOG.info("启动定时任务 - 支付过期 - {}", jobEntity.getJobCron());
         });
+//        releaseJob(shardingContext);
     }
 
     @Override
     public List<Map<String, String>> apply(ShardingContext shardingContext) {
-        return (List<Map<String, String>>)activityClient.selectUnpayOrderList();
+        List<Map<String, String>> list = (List<Map<String, String>>)activityClient.selectUnpayOrderList();
+        if(list.isEmpty()) {
+//            releaseJob(shardingContext);
+        }
+        return list;
     }
 }

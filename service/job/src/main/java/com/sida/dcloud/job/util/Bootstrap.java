@@ -38,32 +38,33 @@ public class Bootstrap implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception {
         //扫描订单改变订单状态
-//        createChangeOrderStatusJob();
+        createChangeOrderStatusJob();
         //发送验证码到第三方
-//        createThirdPartCodeJob();
+        createThirdPartCodeJob();
         //延迟5秒，避免多任务同时启动造成瞬时高并发/高吞吐
-//        delayWithSecond(5);
+        delayWithSecond(5);
         //获取未支付未超时订单创建超时任务
-//        createExpiredOrderJob();
+        createExpiredOrderJob();
 
     }
 
     private void createExpiredOrderJob() {
         //延迟3分钟执行
         JobEntity jobEntity = new JobEntity();
-        jobEntity.setId(UUIDGenerate.getNextId());
-        jobEntity.setJobName("SimpleJob - ExpiredOrder");
+        jobEntity.setId(ExpiredOrderJob.class.getCanonicalName());
+        jobEntity.setJobName("ExpiredOrderJob");
         jobEntity.setShardingTotalCount(1);
         LocalDateTime datetime = LocalDateTime.now();
-        jobEntity.setJobCron(DateTimeFormatter.ofPattern(AbstractJob.CRON_DATE_FORMAT).format(datetime.plusMinutes(3)));
+        jobEntity.setJobCron(DateTimeFormatter.ofPattern(AbstractJob.CRON_DATE_FORMAT).format(datetime.plusMinutes(2)));
         expiredOrderJob.initJob(jobEntity);
     }
 
     private void createThirdPartCodeJob() {
         //实时性要求不高，每30分钟执行一次
         JobEntity jobEntity = new JobEntity();
-        jobEntity.setId(UUIDGenerate.getNextId());
-        jobEntity.setJobName("SimpleJob - ThirdPartCode");
+        jobEntity.setId(ThirdPartCodeConsumer.class.getCanonicalName());
+        jobEntity.setJobName("ThirdPartCodeJob");
+        jobEntity.setLoop(true);
         jobEntity.setShardingTotalCount(1);
         jobEntity.setJobCron("* 0/30 * * * ?");
         thirdPartCodeConsumer.initJob(jobEntity);
@@ -72,11 +73,11 @@ public class Bootstrap implements CommandLineRunner {
     private void createChangeOrderStatusJob() {
         //延迟2分钟执行
         JobEntity jobEntity = new JobEntity();
-        jobEntity.setId(UUIDGenerate.getNextId());
-        jobEntity.setJobName("SimpleJob - ChangeOrderStatus");
+        jobEntity.setId(ScanAndChangeOrderStatusConsumer.class.getCanonicalName());
+        jobEntity.setJobName("ChangeOrderStatusJob");
         jobEntity.setShardingTotalCount(1);
         LocalDateTime datetime = LocalDateTime.now();
-        jobEntity.setJobCron(DateTimeFormatter.ofPattern(AbstractJob.CRON_DATE_FORMAT).format(datetime.plusMinutes(2)));
+        jobEntity.setJobCron(DateTimeFormatter.ofPattern(AbstractJob.CRON_DATE_FORMAT).format(datetime.plusMinutes(1)));
         scanAndChangeOrderStatusConsumer.initJob(jobEntity);
     }
 

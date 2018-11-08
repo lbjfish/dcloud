@@ -2,6 +2,7 @@ package com.sida.dcloud.job.config;
 
 import com.dangdang.ddframe.job.event.JobEventConfiguration;
 import com.dangdang.ddframe.job.event.rdb.JobEventRdbConfiguration;
+import com.dangdang.ddframe.job.lite.api.listener.ElasticJobListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -34,6 +35,7 @@ public class ElasticJobConfig {
 
     @Bean
     public ElasticJobListener elasticJobListener() {
-        return new ElasticJobListener(100, 100);
+        return new ElasticJobEachListener();
     }
+
 }

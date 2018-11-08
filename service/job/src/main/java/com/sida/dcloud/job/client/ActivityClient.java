@@ -28,4 +28,8 @@ public interface ActivityClient {
     @ApiOperation(value = "更新订单状态")
     Object updateOrderStatus(@RequestParam("orderId") @ApiParam("订单id")String orderId,
                              @RequestParam("orderStatus") @ApiParam("订单状态")String orderStatus);
+
+    @RequestMapping(value = "/schedulerJob/xcxScanUnconfirmOrder", method = RequestMethod.GET)
+    @ApiOperation(value = "扫描不明确支付状态的订单并从腾讯获取支付情况")
+    Object xcxScanUnconfirmOrder();
 }

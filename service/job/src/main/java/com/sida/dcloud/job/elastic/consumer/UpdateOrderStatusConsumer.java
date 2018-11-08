@@ -20,6 +20,7 @@ public class UpdateOrderStatusConsumer extends AbstractJobConsumer {
     public void accept(ShardingContext shardingContext) {
         JSONObject json = (JSONObject)JSONObject.parse(shardingContext.getJobParameter());
         activityClient.updateOrderStatus(json.getString("orderId"), json.getString("orderStatus"));
+//        releaseJob(json.getString("jobId"));
     }
 
     @Override
