@@ -45,8 +45,8 @@ public final class JobUtil {
 
     @Resource
     private ZookeeperRegistryCenter registryCenter;
-    @Resource
-    private JobEventConfiguration jobEventConfiguration;
+//    @Resource
+//    private JobEventConfiguration jobEventConfiguration;
     @Resource
     private ElasticJobListener elasticJobListener;
     @Autowired
@@ -69,7 +69,7 @@ public final class JobUtil {
         JSONObject json = new JSONObject();
         Optional.ofNullable(jobEntity.getParamMap()).ifPresent(json::putAll);
         json.put("jobId", jobEntity.getId());
-        json.put("loop", jobEntity.isLoop());
+        json.put("isloop", jobEntity.getIsloop());
 //        jobName = Optional.ofNullable(jobEntity.getJobName()).orElse(JOB_NAME_DEFAULT);
         jobName = String.format(JOB_NAME_TEMPLATE, JOB_NAME_DEFAULT, jobEntity.getId());
         if(obj instanceof Consumer) {
@@ -89,7 +89,8 @@ public final class JobUtil {
         }
 
         LiteJobConfiguration jobConfig = LiteJobConfiguration.newBuilder(jobTypeConfiguration).build();
-        JobScheduler jobScheduler = new SpringJobScheduler(job, registryCenter, jobConfig, jobEventConfiguration, elasticJobListener);
+//        JobScheduler jobScheduler = new SpringJobScheduler(job, registryCenter, jobConfig, jobEventConfiguration, elasticJobListener);
+        JobScheduler jobScheduler = new SpringJobScheduler(job, registryCenter, jobConfig, elasticJobListener);
         LOG.info("{} - Cron字符串: {}", jobEntity.getJobName(), jobEntity.getJobCron());
         jobScheduler.init();
 //        schedulerMap.put(jobEntity.getId(), jobScheduler);

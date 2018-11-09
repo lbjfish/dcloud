@@ -23,7 +23,7 @@ public class ActivityClientHystrix implements ActivityClient {
     public Object selectUnpayOrderList() {
         LOG.warn("进入断路器-selectUnpayOrderList。。。");
 //        throw new JobException("selectUnpayOrderList 失败.");
-        return Collections.emptyList();
+        return null;
     }
 
     @Override

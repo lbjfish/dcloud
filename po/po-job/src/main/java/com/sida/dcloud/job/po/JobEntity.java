@@ -18,14 +18,14 @@ public class JobEntity implements Serializable {
     private Date lastExecuteTime;
     private String remark;
     private String shardingItemParameters;
-    private boolean loop;
+    private boolean isloop;
 
-    public boolean isLoop() {
-        return loop;
+    public boolean getIsloop() {
+        return isloop;
     }
 
-    public void setLoop(boolean loop) {
-        this.loop = loop;
+    public void setIsloop(boolean isloop) {
+        this.isloop = isloop;
     }
 
     private Map<String, String> paramMap;

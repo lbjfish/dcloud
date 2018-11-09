@@ -54,7 +54,10 @@ public class ExpiredOrderJob extends AbstractJobConFun {
     @Override
     public List<Map<String, String>> apply(ShardingContext shardingContext) {
         List<Map<String, String>> list = (List<Map<String, String>>)activityClient.selectUnpayOrderList();
-        if(list.isEmpty()) {
+        if(list == null) {
+            LOG.warn("任务未执行成功: {}", shardingContext.getJobName());
+
+        } else if(list.isEmpty()) {
 //            releaseJob(shardingContext);
         }
         return list;

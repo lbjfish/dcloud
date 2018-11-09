@@ -13,6 +13,6 @@ public class ThirdPartCodeConsumer extends AbstractJobConsumer {
 
     @Override
     public void accept(ShardingContext shardingContext) {
-        activityClient.resendThirdPartCode();
+        checkExecution(activityClient.resendThirdPartCode(), shardingContext);
     }
 }

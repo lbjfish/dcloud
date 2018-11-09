@@ -13,7 +13,7 @@ public class ScanAndChangeOrderStatusConsumer extends AbstractJobConsumer {
 
     @Override
     public void accept(ShardingContext shardingContext) {
-        activityClient.scanAndChangeOrderStatus();
+        checkExecution(activityClient.scanAndChangeOrderStatus(), shardingContext);
 //        releaseJob(shardingContext);
     }
 }

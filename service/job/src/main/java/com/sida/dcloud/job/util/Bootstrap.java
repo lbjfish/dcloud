@@ -49,7 +49,7 @@ public class Bootstrap implements CommandLineRunner {
     }
 
     private void createExpiredOrderJob() {
-        //延迟3分钟执行
+        //延迟2分钟执行
         JobEntity jobEntity = new JobEntity();
         jobEntity.setId(ExpiredOrderJob.class.getCanonicalName());
         jobEntity.setJobName("ExpiredOrderJob");
@@ -64,14 +64,14 @@ public class Bootstrap implements CommandLineRunner {
         JobEntity jobEntity = new JobEntity();
         jobEntity.setId(ThirdPartCodeConsumer.class.getCanonicalName());
         jobEntity.setJobName("ThirdPartCodeJob");
-        jobEntity.setLoop(true);
+        jobEntity.setIsloop(true);
         jobEntity.setShardingTotalCount(1);
         jobEntity.setJobCron("* 0/30 * * * ?");
         thirdPartCodeConsumer.initJob(jobEntity);
     }
 
     private void createChangeOrderStatusJob() {
-        //延迟2分钟执行
+        //延迟1分钟执行
         JobEntity jobEntity = new JobEntity();
         jobEntity.setId(ScanAndChangeOrderStatusConsumer.class.getCanonicalName());
         jobEntity.setJobName("ChangeOrderStatusJob");
