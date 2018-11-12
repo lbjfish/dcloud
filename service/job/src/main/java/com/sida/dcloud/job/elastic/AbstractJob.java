@@ -14,8 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class AbstractJob {
-    protected final Logger LOG = LoggerFactory.getLogger(getClass());
-    public static final String CRON_DATE_FORMAT = "ss mm/1 HH/1 dd/1 MM/1 ? yyyy/1";
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractJob.class);
+    public static final String CRON_DATE_FORMAT = "ss mm HH dd MM ? yyyy";
 
     @Autowired
     private JobUtil jobUtil;
@@ -43,7 +43,10 @@ public abstract class AbstractJob {
     public String initJob(JobEntity jobEntity) {
         try {
             //删除同名旧任务
-            releaseJob(jobEntity.getId());
+            jobUtil.dropDefaultJob(jobEntity.getId());
+            if(jobEntity.isTrigger()) {
+                jobUtil.dropTriggerJob(jobEntity.getId());
+            }
             jobEntity.setShardingItemParameters("0=A,1=B,2=C");
             LOG.info("initJob = {}", BeanUtils.describe(jobEntity));
         } catch(Exception e) {
@@ -51,14 +54,6 @@ public abstract class AbstractJob {
             throw new JobException(e);
         }
         return jobUtil.createJob(jobEntity, this);
-    }
-
-    public String releaseJob(String jobId) {
-        return jobUtil.dropJob(jobId);
-    }
-
-    public String releaseJob(ShardingContext shardingContext) {
-        return releaseJob(toJson(shardingContext).getString("jobId"));
     }
 
     protected static JSONObject toJson(ShardingContext shardingContext) {

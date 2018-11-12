@@ -972,24 +972,24 @@
   <update id="updateActivityStatus" >
     update activity_info
     <set>activity_status = #{activityStatus}</set>
-    <where>activity_id = #{activityId}</where>
+    <where>id = #{activityId}</where>
   </update>
 
   <update id="increaseCommentCount" >
     update activity_info
     <set>comment_count = comment_count + #{count}</set>
-    <where>activity_id = #{activityId}</where>
+    <where>id = #{activityId}</where>
   </update>
 
   <update id="increaseFavoriteCount" >
     update activity_info
     <set>favorite_count = favorite_count + #{count}</set>
-    <where>activity_id = #{activityId}</where>
+    <where>d = #{activityId}</where>
   </update>
 
   <update id="increaseSignCount" >
     update activity_info
     <set>sign_count = sign_count + #{count}</set>
-    <where>activity_id = #{activityId}</where>
+    <where>id = #{activityId}</where>
   </update>
 </mapper>

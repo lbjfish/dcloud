@@ -3,6 +3,7 @@ package com.sida.dcloud.job.controller;
 import com.sida.dcloud.job.po.JobEntity;
 import com.sida.dcloud.job.elastic.consumer.ThirdPartCodeConsumer;
 import com.sida.dcloud.job.elastic.consumer.UpdateOrderStatusConsumer;
+import com.sida.dcloud.job.util.JobUtil;
 import com.sida.xiruo.xframework.cache.redis.RedisUtil;
 import com.sida.xiruo.xframework.controller.BaseController;
 import io.swagger.annotations.Api;
@@ -29,6 +30,8 @@ public class JobController extends BaseController {
     private ThirdPartCodeConsumer thirdPartCodeConsumer;
     @Autowired
     private UpdateOrderStatusConsumer updateOrderStatusConsumer;
+    @Autowired
+    private JobUtil jobUtil;
 
     @RequestMapping(value = "/createJob", method = RequestMethod.POST)
     @ApiOperation(value = "增加新任务")
@@ -42,7 +45,7 @@ public class JobController extends BaseController {
     public Object dropJob(@RequestParam(name = "jobId", required = true) @ApiParam("任务id")String jobId) {
         LOG.info("停止任务");
 
-        return toResult(thirdPartCodeConsumer.releaseJob(jobId));
+        return toResult(jobUtil.dropDefaultJob(jobId));
     }
 
     @RequestMapping(value = "/query", method = RequestMethod.POST)
@@ -57,7 +60,7 @@ public class JobController extends BaseController {
     @ApiOperation(value = "创建订单状态任务")
     public Object createJobWithOrderStatus(@RequestBody @ApiParam("任务json")JobEntity jobEntity) {
         LOG.info("创建订单状态任务");
-
+        jobEntity.setTrigger(true);
         return toResult(updateOrderStatusConsumer.initJob(jobEntity));
     }
 
@@ -66,6 +69,6 @@ public class JobController extends BaseController {
     Object dropJobWithOrderStatus(@RequestParam("jobId") @ApiParam("任务id")String jobId) {
         LOG.info("删除订单状态任务");
 
-        return toResult(updateOrderStatusConsumer.releaseJob(jobId));
+        return toResult(jobUtil.dropDefaultJob(jobId));
     }
 }

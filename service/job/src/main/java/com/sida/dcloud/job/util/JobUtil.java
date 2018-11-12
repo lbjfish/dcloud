@@ -13,12 +13,11 @@ import com.dangdang.ddframe.job.lite.config.LiteJobConfiguration;
 import com.dangdang.ddframe.job.lite.spring.api.SpringJobScheduler;
 import com.dangdang.ddframe.job.reg.zookeeper.ZookeeperRegistryCenter;
 import com.sida.dcloud.job.common.JobException;
-import com.sida.dcloud.job.elastic.ConFunJob;
-import com.sida.dcloud.job.elastic.SidaDataflowJob;
+import com.sida.dcloud.job.elastic.*;
 import com.sida.dcloud.job.po.JobEntity;
-import com.sida.dcloud.job.elastic.SidaSimpleJob;
 import com.sida.xiruo.common.util.Xiruo;
 import org.apache.curator.framework.CuratorFramework;
+import org.apache.zookeeper.KeeperException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +33,7 @@ public final class JobUtil {
     private final static Logger LOG = LoggerFactory.getLogger(JobUtil.class);
     private static final String JOB_NAME_TEMPLATE = "%s:%s";
     private static final String JOB_NAME_DEFAULT = "JOB";
+    private static final String JOB_NAME_TRIGGER = "TRIGGER";
 
     private static JobUtil jobUtil;
 
@@ -70,11 +70,20 @@ public final class JobUtil {
         Optional.ofNullable(jobEntity.getParamMap()).ifPresent(json::putAll);
         json.put("jobId", jobEntity.getId());
         json.put("isloop", jobEntity.getIsloop());
+        json.put("trigger", jobEntity.isTrigger());
+        json.put("shardingTotalCount", jobEntity.getShardingTotalCount());
 //        jobName = Optional.ofNullable(jobEntity.getJobName()).orElse(JOB_NAME_DEFAULT);
         jobName = String.format(JOB_NAME_TEMPLATE, JOB_NAME_DEFAULT, jobEntity.getId());
         if(obj instanceof Consumer) {
-            job = new SidaSimpleJob((Consumer)obj);
-            String desc = String.format(JOB_NAME_TEMPLATE, Optional.ofNullable(jobEntity.getJobName()).orElse(SidaSimpleJob.class.getCanonicalName()), Xiruo.getNow());
+            String desc;
+            if(jobEntity.isTrigger()) {
+                job = new SidaTriggerJob((AbstractJob)obj);
+                jobName = String.format(JOB_NAME_TEMPLATE, JOB_NAME_TRIGGER, jobEntity.getId());
+                desc = String.format(JOB_NAME_TEMPLATE, Optional.ofNullable(jobEntity.getJobName()).orElse(SidaTriggerJob.class.getCanonicalName()), Xiruo.getNow());
+            } else {
+                job = new SidaSimpleJob((Consumer) obj);
+                desc = String.format(JOB_NAME_TEMPLATE, Optional.ofNullable(jobEntity.getJobName()).orElse(SidaSimpleJob.class.getCanonicalName()), Xiruo.getNow());
+            }
             JobCoreConfiguration jobCoreConfiguration =
                     JobCoreConfiguration.newBuilder(jobName, jobEntity.getJobCron(), jobEntity.getShardingTotalCount()).description(desc).jobParameter(json.toJSONString()).shardingItemParameters(jobEntity.getShardingItemParameters()).build();
             jobTypeConfiguration = new SimpleJobConfiguration(jobCoreConfiguration, jobName);
@@ -109,18 +118,26 @@ public final class JobUtil {
 //        }
 //    }
 
-    public String dropJob(String jobId) {
+    public String dropDefaultJob(String jobId) {
         return  dropJob(jobId, JOB_NAME_DEFAULT);
+    }
+
+    public String dropTriggerJob(String jobId) {
+        return dropJob(jobId, JOB_NAME_TRIGGER);
     }
 
     public String dropJob(String jobId, String jobName) {
         jobName = String.format(JOB_NAME_TEMPLATE, jobName, jobId);
-        LOG.info("Drop job scheduler, jobId = {}", jobName);
+//        LOG.info("Drop job scheduler, jobName = {}", jobName);
 //        Optional.ofNullable(schedulerMap.remove(jobId)).ifPresent(jobScheduler -> jobScheduler.getSchedulerFacade().shutdownInstance());
         CuratorFramework client = zookeeperRegistryCenter.getClient();
         try {
-            if(exists(jobId)) {
-                client.delete().deletingChildrenIfNeeded().forPath("/" + jobName);
+            if(exists(jobName)) {
+                try {
+                    client.delete().deletingChildrenIfNeeded().forPath("/" + jobName);
+                } catch(KeeperException.NoNodeException e) {
+                    LOG.warn("任务不存在，未删除: {}", client.getChildren().forPath("/" + jobName));
+                }
                 LOG.info("删除任务: {}", jobName);
             } else {
                 LOG.warn("任务不存在: {}", jobName);
@@ -132,15 +149,15 @@ public final class JobUtil {
         return jobName;
     }
 
-    public boolean exists(String jobId) {
-        return exists(jobId, JOB_NAME_DEFAULT);
+    public boolean exists(String jobId, String jobName) {
+        return exists(String.format(JOB_NAME_TEMPLATE, jobName, jobId));
     }
 
-    public boolean exists(String jobId, String jobName) {
+    private boolean exists(String jobName) {
 //        return Optional.ofNullable(schedulerMap.get(jobId)).isPresent();
-        jobName = String.format(JOB_NAME_TEMPLATE, jobName, jobId);
         CuratorFramework client = zookeeperRegistryCenter.getClient();
         try {
+//            LOG.warn("******{}", client.checkExists().forPath("/" + jobName));
             return client.checkExists().forPath("/" + jobName) != null;
         } catch(Exception e) {
             LOG.error("查询任务失败: ", e);

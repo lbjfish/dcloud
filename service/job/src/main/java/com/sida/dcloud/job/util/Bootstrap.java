@@ -40,11 +40,11 @@ public class Bootstrap implements CommandLineRunner {
         //扫描订单改变订单状态
         createChangeOrderStatusJob();
         //发送验证码到第三方
-        createThirdPartCodeJob();
+//        createThirdPartCodeJob();
         //延迟5秒，避免多任务同时启动造成瞬时高并发/高吞吐
-        delayWithSecond(5);
+//        delayWithSecond(5);
         //获取未支付未超时订单创建超时任务
-        createExpiredOrderJob();
+//        createExpiredOrderJob();
 
     }
 
@@ -54,6 +54,7 @@ public class Bootstrap implements CommandLineRunner {
         jobEntity.setId(ExpiredOrderJob.class.getCanonicalName());
         jobEntity.setJobName("ExpiredOrderJob");
         jobEntity.setShardingTotalCount(1);
+        jobEntity.setTrigger(true);
         LocalDateTime datetime = LocalDateTime.now();
         jobEntity.setJobCron(DateTimeFormatter.ofPattern(AbstractJob.CRON_DATE_FORMAT).format(datetime.plusMinutes(2)));
         expiredOrderJob.initJob(jobEntity);
@@ -66,7 +67,8 @@ public class Bootstrap implements CommandLineRunner {
         jobEntity.setJobName("ThirdPartCodeJob");
         jobEntity.setIsloop(true);
         jobEntity.setShardingTotalCount(1);
-        jobEntity.setJobCron("* 0/30 * * * ?");
+        LocalDateTime datetime = LocalDateTime.now();
+        jobEntity.setJobCron(String.format("%s %s/30 * * * ?", datetime.getSecond(), (datetime.getMinute() % 30)));
         thirdPartCodeConsumer.initJob(jobEntity);
     }
 
@@ -76,7 +78,9 @@ public class Bootstrap implements CommandLineRunner {
         jobEntity.setId(ScanAndChangeOrderStatusConsumer.class.getCanonicalName());
         jobEntity.setJobName("ChangeOrderStatusJob");
         jobEntity.setShardingTotalCount(1);
+        jobEntity.setTrigger(true);
         LocalDateTime datetime = LocalDateTime.now();
+//        jobEntity.setJobCron(DateTimeFormatter.ofPattern(AbstractJob.CRON_DATE_FORMAT).format(datetime));
         jobEntity.setJobCron(DateTimeFormatter.ofPattern(AbstractJob.CRON_DATE_FORMAT).format(datetime.plusMinutes(1)));
         scanAndChangeOrderStatusConsumer.initJob(jobEntity);
     }

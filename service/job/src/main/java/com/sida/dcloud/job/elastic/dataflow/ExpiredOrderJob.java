@@ -2,12 +2,15 @@ package com.sida.dcloud.job.elastic.dataflow;
 
 import com.dangdang.ddframe.job.api.ShardingContext;
 import com.sida.dcloud.job.client.ActivityClient;
+import com.sida.dcloud.job.elastic.AbstractJob;
 import com.sida.dcloud.job.elastic.ConFunJob;
 import com.sida.dcloud.job.elastic.consumer.UpdateOrderStatusConsumer;
 import com.sida.dcloud.job.po.JobEntity;
 import com.sida.dcloud.job.util.JobUtil;
 import com.sida.xiruo.common.util.Xiruo;
 import com.sida.xiruo.xframework.cache.redis.RedisUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +24,7 @@ import java.util.Optional;
 
 @Component
 public class ExpiredOrderJob extends AbstractJobConFun {
+    private static final Logger LOG = LoggerFactory.getLogger(ExpiredOrderJob.class);
     private static final String CRON_DATE_FORMAT = "ss mm HH dd MM ? yyyy";
 
     @Autowired
@@ -34,10 +38,11 @@ public class ExpiredOrderJob extends AbstractJobConFun {
 
     @Override
     public void accept(ShardingContext shardingContext, List<Map<String, String>> maps) {
-        maps.stream().filter(map -> !jobUtil.exists(map.get("note_id"))).forEach(map -> {
+        String jobName = "ExpiredOrderJob";
+        maps.stream().filter(map -> !jobUtil.exists(map.get("note_id"), jobName)).forEach(map -> {
             JobEntity jobEntity = new JobEntity();
             jobEntity.setId(map.get("note_id"));
-            jobEntity.setJobName("ExpiredOrderJob");
+            jobEntity.setJobName(jobName);
             LocalDateTime datetime = LocalDateTime.ofInstant(Xiruo.stringToDate(map.get("create_time")).toInstant(), ZoneId.systemDefault());
             //全局支付过期时间（分钟）
             Integer payExpired =

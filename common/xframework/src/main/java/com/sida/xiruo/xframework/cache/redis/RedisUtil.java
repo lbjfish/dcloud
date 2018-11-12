@@ -375,6 +375,15 @@ public class RedisUtil {
         return operations.entries(redisKey);
     }
 
+    /**
+     * 判断是否存在
+     * @param redisKey
+     * @return
+     */public Boolean hasKey(final String redisKey, Object mapKey) {
+        HashOperations<Serializable, Object, Object> operations = redisTemplate.opsForHash();
+        return operations.hasKey(redisKey, mapKey);
+    }
+
 
     /**
      * 删除Map中的一个键值对
@@ -383,7 +392,9 @@ public class RedisUtil {
      */
     public void removeOneFromMap(final String redisKey, Object mapKey) {
         HashOperations<Serializable, Object, Object> operations = redisTemplate.opsForHash();
-        operations.delete(redisKey, mapKey);
+        if(hasKey(redisKey, mapKey)) {
+            operations.delete(redisKey, mapKey);
+        }
     }
 
     /**

@@ -1,8 +1,11 @@
 package com.sida.xiruo.po.common;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
 
 public class UserCentricDTO extends PageParam {
+    @ApiModelProperty("id")
+    private String id;
     @JsonIgnore
     private String createdUser;
     @JsonIgnore
@@ -31,6 +34,14 @@ public class UserCentricDTO extends PageParam {
     private String updatedUserEmail;
     @JsonIgnore
     private String updatedUserMobile;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getCreatedUser() {
         return createdUser;

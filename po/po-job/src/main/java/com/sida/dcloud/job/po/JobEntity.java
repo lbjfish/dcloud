@@ -19,6 +19,15 @@ public class JobEntity implements Serializable {
     private String remark;
     private String shardingItemParameters;
     private boolean isloop;
+    private boolean trigger;
+
+    public boolean isTrigger() {
+        return trigger;
+    }
+
+    public void setTrigger(boolean trigger) {
+        this.trigger = trigger;
+    }
 
     public boolean getIsloop() {
         return isloop;

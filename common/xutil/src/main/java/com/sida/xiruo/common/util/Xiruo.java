@@ -3,6 +3,7 @@ package com.sida.xiruo.common.util;
 import org.omg.CORBA.TIMEOUT;
 
 import java.lang.reflect.*;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
@@ -309,21 +310,25 @@ public class Xiruo {
 		}
 		return arrayToString(collection.toArray());
 	}
-	
+
 	public static String arrayToStringNoQuote(Collection collection) {
+		return arrayToStringNoQuote(collection.toArray(), ",");
+	}
+	
+	public static String arrayToStringNoQuote(Collection collection, String split) {
 		if(collection == null) {
 			return "";
 		}
-		return arrayToStringNoQuote(collection.toArray());
+		return arrayToStringNoQuote(collection.toArray(), split);
 	}
 
-	public static String arrayToStringNoQuote(Object[] objArr) {
+	public static String arrayToStringNoQuote(Object[] objArr, String split) {
 		if (objArr == null)
 			return "";
 		StringBuffer buffer = new StringBuffer("");
 		for (int i = 0; i < objArr.length; i++) {
 			if(i > 0) {
-				buffer.append(",");
+				buffer.append(split);
 			}
 			buffer.append(objArr[i]);
 		}
@@ -357,7 +362,7 @@ public class Xiruo {
 	}
 
 	public static String getNow() {
-		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date());
 	}
 
 	public static String getDay() {
@@ -645,6 +650,15 @@ public class Xiruo {
 
 		temp = seconds % 3600 % 60;
 		sb.append(temp < 10 ? "0" : "").append(temp).append("秒");
+
+		return sb.toString();
+	}
+
+	public static String milsecondToDesc(long milseconds) {
+		long temp = 0;
+		StringBuffer sb = new StringBuffer(secondToDesc(milseconds/1000));
+		temp = milseconds % 3600000 % 60000;
+		sb.append(new DecimalFormat("000").format(temp)).append("毫秒");
 
 		return sb.toString();
 	}

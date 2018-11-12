@@ -59,15 +59,22 @@ public class SystemCacheUtil implements CommandLineRunner {
         return map;
     }
 
+//    public void clearRegionDatasInRedis() {
+////        LOG.info("Before: {}", redisUtil.getEntriesFromMap(RedisKey.SYS_REGION_CACHE));
+//        redisUtil.removeMultiFromMap(RedisKey.SYS_REGION_CACHE,
+//                RedisKey.SYS_REGION_CACHE_WITH_CITY,
+//                RedisKey.SYS_REGION_CACHE_WITH_PROVINCE,
+//                RedisKey.SYS_REGION_CACHE_WITH_COUNTRY,
+//                RedisKey.SYS_REGION_CACHE_WITH_ALL_BY_FLAT,
+//                RedisKey.SYS_REGION_CACHE_WITH_THREE_LEVEL_BY_LAYER);
+////        LOG.info("After: {}", redisUtil.getEntriesFromMap(RedisKey.SYS_REGION_CACHE));
+//    }
+
     public void clearRegionDatasInRedis() {
-//        LOG.info("Before: {}", redisUtil.getEntriesFromMap(RedisKey.SYS_REGION_CACHE));
-        redisUtil.removeMultiFromMap(RedisKey.SYS_REGION_CACHE,
-                RedisKey.SYS_REGION_CACHE_WITH_CITY,
-                RedisKey.SYS_REGION_CACHE_WITH_PROVINCE,
-                RedisKey.SYS_REGION_CACHE_WITH_COUNTRY,
-                RedisKey.SYS_REGION_CACHE_WITH_ALL_BY_FLAT,
-                RedisKey.SYS_REGION_CACHE_WITH_THREE_LEVEL_BY_LAYER);
-//        LOG.info("After: {}", redisUtil.getEntriesFromMap(RedisKey.SYS_REGION_CACHE));
+        Map<String, Object> map = Optional.ofNullable(redisUtil.getEntriesFromMap(RedisKey.SYS_REGION_CACHE)).orElse(new HashMap<>());
+        if(map.size() != 0) {
+            redisUtil.removeMultiFromMap(RedisKey.SYS_REGION_CACHE, map.keySet().toArray());
+        }
     }
 
     public Object getRegionDataByKey(String key) {
