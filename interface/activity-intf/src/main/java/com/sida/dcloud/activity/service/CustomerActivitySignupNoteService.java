@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface CustomerActivitySignupNoteService extends IBaseService<CustomerActivitySignupNote> {
+public interface CustomerActivitySignupNoteService  extends IBaseService<CustomerActivitySignupNote> {
     List<TableMeta> findTableMeta();
     Page<CustomerActivitySignupNoteVo> findPageList(CustomerActivitySignupNote po);
     ActivitySignupNoteDto findOneToClient(String id);
