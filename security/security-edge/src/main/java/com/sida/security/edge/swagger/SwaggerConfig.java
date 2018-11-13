@@ -46,7 +46,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         ApiInfoBuilder apiInfoBuilder = new ApiInfoBuilder();
         apiInfoBuilder.title(  "网关模块API");
-        apiInfoBuilder.version("V1.0").contact(new Contact("Xiruo.Jiang", "", ""));
+        apiInfoBuilder.version("V1.0").contact(new Contact("Xiruo.Jiang", "http://www.szida.com", "jianglingfeng@butongtech.com"));
         return apiInfoBuilder.build();
     }
 }

@@ -51,6 +51,15 @@ public class ActivityOrder extends BaseEntity implements Serializable {
     @ApiModelProperty("成交时间")
     private Date turnoverTime;
 
+    @ApiModelProperty("评价时间")
+    private Date valuateTime;
+
+    @ApiModelProperty("关闭时间")
+    private Date closeTime;
+
+    @ApiModelProperty("退款时间")
+    private Date refundTime;
+
     @ApiModelProperty("备注")
     private String remark;
 
@@ -59,6 +68,30 @@ public class ActivityOrder extends BaseEntity implements Serializable {
     private List<IdAndCountDto> goodsList;
     @ApiModelProperty("订单商品组合列表")
     private List<IdAndCountDto> groupList;
+
+    public Date getCloseTime() {
+        return closeTime;
+    }
+
+    public void setCloseTime(Date closeTime) {
+        this.closeTime = closeTime;
+    }
+
+    public Date getRefundTime() {
+        return refundTime;
+    }
+
+    public void setRefundTime(Date refundTime) {
+        this.refundTime = refundTime;
+    }
+
+    public Date getValuateTime() {
+        return valuateTime;
+    }
+
+    public void setValuateTime(Date valuateTime) {
+        this.valuateTime = valuateTime;
+    }
 
     public List<IdAndCountDto> getGoodsList() {
         return goodsList;

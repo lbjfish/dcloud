@@ -268,7 +268,7 @@
     <foreach collection="list" item="po" open="" close="" separator="union all" >
       select #{po.orderId}, #{po.groupId}, #{po.payPrice}, #{po.payCount}, #{po.sort}, #{po.remark}
       from dual
-      where not exists (select * from activity_order_goods_group where order_id = #{po.orderId} and goos_id = #{po.groupId})
+      where not exists (select * from activity_order_goods_group where order_id = #{po.orderId} and group_id = #{po.groupId})
     </foreach>
   </insert>
 

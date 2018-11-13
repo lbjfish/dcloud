@@ -30,7 +30,7 @@ public class AuthcodeController extends BaseController{
 
     @RequestMapping(value = "getRemoteAuthCode", method = RequestMethod.GET)
     @ResponseBody
-    @ApiOperation("远程教育平台获取短信验证码")
+    @ApiOperation("获取短信验证码")
     public Object getRemoteAuthCode(@RequestParam(value="mobile") @ApiParam("手机号码") String mobile,
                               @RequestParam(value="reqType") @ApiParam("业务类型：1-注册，2-登录") String reqType,
                               @RequestParam(value="key") @ApiParam("图形验证码key") String key,

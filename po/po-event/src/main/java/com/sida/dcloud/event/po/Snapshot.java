@@ -1,17 +1,17 @@
 package com.sida.dcloud.event.po;
 
 import com.alibaba.fastjson.JSONObject;
+import com.sida.xiruo.xframework.util.UUIDGenerate;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 //@Document(collection = "essnapshots")
 public class Snapshot implements Serializable {
     public static Snapshot makeEsSnapshot(com.alibaba.fastjson.JSONArray array) {
         Snapshot snapshot = new Snapshot();
-        snapshot.snapshotId = UUID.randomUUID().toString();
+        snapshot.snapshotId = UUIDGenerate.getNextId();
         snapshot.entityCount = array.size();
         snapshot.snapshotTime = System.currentTimeMillis();
         array.stream().forEach(obj -> {

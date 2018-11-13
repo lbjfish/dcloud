@@ -12,9 +12,10 @@
         <module>schedule-intf</module>
         <module>authorization-intf</module>
         <module>system-intf</module>
-        <module>training-intf</module>
+        <!--<module>training-intf</module>-->
         <module>activity-intf</module>
         <module>content-intf</module>
         <module>operation-intf</module>
+        <module>job-intf</module>
     </modules>
 </project>

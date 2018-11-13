@@ -1,0 +1,27 @@
+spring:
+  profiles:
+    active: default
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: @config-service@
+      name: @svn.name@
+      profile: @profile.name@
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: @default-zone@
+
+
+swagger:
+  enable: @swagger.enable@
+
+provider:
+  system-module: @system-module@
+  activity-module: @activity-module@
+  content-module: @content-module@
+  operation-module: @operation-module@
+
+environment: @profile.name@

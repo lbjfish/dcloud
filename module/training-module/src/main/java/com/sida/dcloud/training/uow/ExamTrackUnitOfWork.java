@@ -51,7 +51,7 @@ public class ExamTrackUnitOfWork extends MybatisUnitOfWork<ExamTrackModel> {
             AtomicInteger atomicInt = new AtomicInteger(0);
             List<ExamAnswerTrack> list = new ArrayList<>(map.values());
             list.forEach(answerTrack -> {
-                answerTrack.setId(UUID.create().toString());
+                answerTrack.setId(UUIDGenerate.getNextId());
                 answerTrack.setExamId(po.getId());
                 answerTrack.setSequence(atomicInt.incrementAndGet());
             });

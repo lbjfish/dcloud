@@ -8,15 +8,14 @@ import com.sida.xiruo.po.common.BaseDTO;
 import com.sida.xiruo.po.common.BaseEntity;
 import com.sida.xiruo.xframework.common.Contants;
 import com.sida.xiruo.xframework.exception.ControllerException;
+import com.sida.xiruo.xframework.exception.ServiceException;
 import com.sida.xiruo.xframework.util.BlankUtil;
-import com.sida.xiruo.xframework.util.UUID;
+import com.sida.xiruo.xframework.util.UUIDGenerate;
 import com.sida.xiruo.xframework.vo.JsonResult;
 import com.github.pagehelper.Page;
 import org.apache.commons.beanutils.PropertyUtilsBean;
 import org.apache.commons.lang.StringUtils;
-import org.apache.poi.ss.formula.functions.T;
 import org.slf4j.LoggerFactory;
-import org.slf4j.event.EventConstants;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.jwt.JwtHelper;
 import org.springframework.security.oauth2.common.util.JsonParser;
@@ -389,7 +388,7 @@ public class BaseController {
         po.setUpdatedUser(user.getId());
         po.setLastUpdated(new Date());
         if(event == Contants.EVENT_INSERT) {
-            po.setId(UUID.create().toString());
+            po.setId(UUIDGenerate.getNextUUID());
             po.setCreatedAt(po.getLastUpdated());
             po.setCreatedUser(user.getId());
             po.setDisable(false);
@@ -402,6 +401,9 @@ public class BaseController {
     protected <T extends BaseEntity> void checkIdEmpty(T po, int event) {
         if(Contants.EVENT_UPDATE == event) {
             Optional.ofNullable(po.getId()).orElseThrow(() -> new RuntimeException("更新操作时主键不能空"));
+            if(!LoginManager.getCurrentUserId().equals(po.getId())) {
+                throw new ServiceException(String.format("不能修改其他人的资料，登录用户[%s]，修改用户[%s]", LoginManager.getCurrentUserId(), po.getId()));
+            }
         }
     }
 }

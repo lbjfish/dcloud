@@ -3,6 +3,9 @@ package com.sida.dcloud.activity.vo;
 import com.sida.xiruo.po.common.UserCentricDTO;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.util.Date;
+import java.util.List;
+
 public class ActivityGoodsGroupVo extends UserCentricDTO {
     private static final long serialVersionUID = 1L;
 
@@ -14,6 +17,9 @@ public class ActivityGoodsGroupVo extends UserCentricDTO {
 
     @ApiModelProperty("组名称")
     private String name;
+
+    @ApiModelProperty("原价")
+    private Double originalPrice;
 
     @ApiModelProperty("销售价")
     private Double payPrice;
@@ -29,6 +35,47 @@ public class ActivityGoodsGroupVo extends UserCentricDTO {
 
     @ApiModelProperty("余量")
     private Integer remaining;
+
+    @ApiModelProperty("开始时间")
+    private Date startTime;
+
+    @ApiModelProperty("结束时间")
+    private Date endTime;
+
+    @ApiModelProperty("活动商品")
+    private List<ActivityGoodsVo> activityGoodsVoList;
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
+    public Double getOriginalPrice() {
+        return originalPrice;
+    }
+
+    public void setOriginalPrice(Double originalPrice) {
+        this.originalPrice = originalPrice;
+    }
+
+    public List<ActivityGoodsVo> getActivityGoodsVoList() {
+        return activityGoodsVoList;
+    }
+
+    public void setActivityGoodsVoList(List<ActivityGoodsVo> activityGoodsVoList) {
+        this.activityGoodsVoList = activityGoodsVoList;
+    }
 
     public Double getPayPrice() {
         return payPrice;

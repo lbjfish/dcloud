@@ -2,6 +2,7 @@ package com.sida.security.edge;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.SpringCloudApplication;
+import org.springframework.cloud.context.scope.refresh.RefreshScope;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +18,8 @@ import org.springframework.web.filter.CorsFilter;
 @EnableZuulProxy
 @EnableFeignClients
 @SpringCloudApplication
-@ComponentScan(basePackages = {"com.sida.xiruo.xframework.cache.redis","com.sida.security.edge"})
+@ComponentScan(basePackages = {
+        "com.sida.xiruo.xframework.cache.redis","com.sida.security.edge"})
 public class SecurityEdgeApplication {
     public static void main(String[] args) {
         new SpringApplicationBuilder(SecurityEdgeApplication.class).web(true).run(args);

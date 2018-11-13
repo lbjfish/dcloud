@@ -55,6 +55,7 @@ security:
 
 logging:
   level.org.springframework.security: DEBUG
+  level.com.codingapi: debug
 
 server:
   port: ${service.security.auth.port}
@@ -63,6 +64,10 @@ server:
   session:
     cookie:
       name: @auth-service@
+  servlet:
+    session:
+      cookie:
+        name: @auth-service@
 
 feign:
   hystrix:
@@ -76,7 +81,25 @@ hystrix:
           thread:
             timeoutInMilliseconds: 60000
 
+tm:
+  manager:
+    url: @tm-manager-url@
+
+#Ribbon的负载均衡策略
+ribbon.NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+ribbon.MaxAutoRetriesNextServer: 0
+
 management:
   health:
     redis:
       enabled: false
+
+info:
+  app:
+    name: @auth-service@
+    auchor: Xiruo.Jiang
+    version: 1.0
+  build:
+    artifactId: @auth-service@
+    version: 1.0-SNAPSHOT
+    date: 2018-9-18

@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.operation.dao.TagGroupMapper" >
+  <resultMap id="TagGroupResultMap" type="com.sida.dcloud.operation.po.TagGroup" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="disable" property="disable" jdbcType="BIT" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
+    <result column="red_string1" property="redString1" jdbcType="VARCHAR" />
+    <result column="red_string2" property="redString2" jdbcType="VARCHAR" />
+    <result column="red_string3" property="redString3" jdbcType="VARCHAR" />
+    <result column="red_string4" property="redString4" jdbcType="VARCHAR" />
+    <result column="red_string5" property="redString5" jdbcType="VARCHAR" />
+    <result column="red_string6" property="redString6" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="eng_name" property="engName" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="limited" property="limited" jdbcType="INTEGER" />
+    <result column="allow_empty" property="allowEmpty" jdbcType="BIT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="TagGroup_Column_List" >
+    id, disable, delete_flag, red_string1, red_string2, red_string3, red_string4, red_string5, 
+    red_string6, name, code, eng_name, sort, limited, allow_empty, remark
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.operation.po.TagGroup" >
+    insert into tag_group (id, disable, delete_flag, red_string1, red_string2, red_string3, 
+      red_string4, red_string5, red_string6, name, code, eng_name, sort, 
+      limited, allow_empty, remark)
+    values (#{id}, #{disable}, #{deleteFlag}, #{redString1}, #{redString2}, #{redString3}, 
+      #{redString4}, #{redString5}, #{redString6}, #{name}, #{code}, #{engName}, #{sort}, 
+      #{limited}, #{allowEmpty}, #{remark})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.operation.po.TagGroup" >
+    insert into tag_group
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="disable != null" >
+        disable,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="redString1 != null" >
+        red_string1,
+      </if>
+      <if test="redString2 != null" >
+        red_string2,
+      </if>
+      <if test="redString3 != null" >
+        red_string3,
+      </if>
+      <if test="redString4 != null" >
+        red_string4,
+      </if>
+      <if test="redString5 != null" >
+        red_string5,
+      </if>
+      <if test="redString6 != null" >
+        red_string6,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="engName != null" >
+        eng_name,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="limited != null" >
+        limited,
+      </if>
+      <if test="allowEmpty != null" >
+        allow_empty,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="disable != null" >
+        #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag},
+      </if>
+      <if test="redString1 != null" >
+        #{redString1},
+      </if>
+      <if test="redString2 != null" >
+        #{redString2},
+      </if>
+      <if test="redString3 != null" >
+        #{redString3},
+      </if>
+      <if test="redString4 != null" >
+        #{redString4},
+      </if>
+      <if test="redString5 != null" >
+        #{redString5},
+      </if>
+      <if test="redString6 != null" >
+        #{redString6},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="code != null" >
+        #{code},
+      </if>
+      <if test="engName != null" >
+        #{engName},
+      </if>
+      <if test="sort != null" >
+        #{sort},
+      </if>
+      <if test="limited != null" >
+        #{limited},
+      </if>
+      <if test="allowEmpty != null" >
+        #{allowEmpty},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Where_Condition" >
+    <where >
+      delete_flag = false and disable = false
+      <if test="id != null and id != ''" >
+        and id = #{id}
+      </if>
+      <if test="disable != null" >
+        AND disable = #{disable}
+      </if>
+      <if test="deleteFlag != null" >
+        AND delete_flag = #{deleteFlag}
+      </if>
+      <if test="redString1 != null and redString1 != ''" >
+        AND red_string1 = #{redString1}
+      </if>
+      <if test="redString2 != null and redString2 != ''" >
+        AND red_string2 = #{redString2}
+      </if>
+      <if test="redString3 != null and redString3 != ''" >
+        AND red_string3 = #{redString3}
+      </if>
+      <if test="redString4 != null and redString4 != ''" >
+        AND red_string4 = #{redString4}
+      </if>
+      <if test="redString5 != null and redString5 != ''" >
+        AND red_string5 = #{redString5}
+      </if>
+      <if test="redString6 != null and redString6 != ''" >
+        AND red_string6 = #{redString6}
+      </if>
+      <if test="name != null and name != ''" >
+        AND name = #{name}
+      </if>
+      <if test="code != null and code != ''" >
+        AND code = #{code}
+      </if>
+      <if test="engName != null and engName != ''" >
+        AND eng_name = #{engName}
+      </if>
+      <if test="sort != null" >
+        AND sort = #{sort}
+      </if>
+      <if test="limited != null" >
+        AND limited = #{limited}
+      </if>
+      <if test="allowEmpty != null" >
+        AND allow_empty = #{allowEmpty}
+      </if>
+      <if test="remark != null and remark != ''" >
+        AND remark = #{remark}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.operation.po.TagGroup" resultMap="TagGroupResultMap" >
+    select 
+    <include refid="TagGroup_Column_List" />
+    from tag_group
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update tag_group
+    <set >
+      <if test="po.id != null" >
+        id = #{po.id},
+      </if>
+      <if test="po.disable != null" >
+        disable = #{po.disable},
+      </if>
+      <if test="po.deleteFlag != null" >
+        delete_flag = #{po.deleteFlag},
+      </if>
+      <if test="po.redString1 != null" >
+        red_string1 = #{po.redString1},
+      </if>
+      <if test="po.redString2 != null" >
+        red_string2 = #{po.redString2},
+      </if>
+      <if test="po.redString3 != null" >
+        red_string3 = #{po.redString3},
+      </if>
+      <if test="po.redString4 != null" >
+        red_string4 = #{po.redString4},
+      </if>
+      <if test="po.redString5 != null" >
+        red_string5 = #{po.redString5},
+      </if>
+      <if test="po.redString6 != null" >
+        red_string6 = #{po.redString6},
+      </if>
+      <if test="po.name != null" >
+        name = #{po.name},
+      </if>
+      <if test="po.code != null" >
+        code = #{po.code},
+      </if>
+      <if test="po.engName != null" >
+        eng_name = #{po.engName},
+      </if>
+      <if test="po.sort != null" >
+        sort = #{po.sort},
+      </if>
+      <if test="po.limited != null" >
+        limited = #{po.limited},
+      </if>
+      <if test="po.allowEmpty != null" >
+        allow_empty = #{po.allowEmpty},
+      </if>
+      <if test="po.remark != null" >
+        remark = #{po.remark},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <!-- ***************************************************************************** -->
+  <!-- 以上自动生成，以下自定义 -->
+  <resultMap id="TagGroupVoResultMap" type="com.sida.dcloud.operation.vo.TagGroupVo" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="eng_name" property="engName" jdbcType="VARCHAR" />
+    <result column="limited" property="limited" jdbcType="INTEGER" />
+    <result column="allow_empty" property="allowEmpty" jdbcType="BIT" />
+  </resultMap>
+  <select id="findVoList" parameterType="com.sida.dcloud.operation.po.TagGroup" resultMap="TagGroupVoResultMap">
+    select id,name,code,eng_name,limited,allow_empty from tag_group
+    <where>
+      delete_flag = false and disable = false
+      <if test="po.name != null" >
+        and instr(name, #{po.name}) &gt; 0
+      </if>
+      <if test="po.code != null" >
+        and instr(code, #{po.code}) &gt; 0
+      </if>
+      <if test="po.engName != null" >
+        and instr(eng_name, #{po.engName}) &gt; 0
+      </if>
+    </where>
+    <if test="po.orderField != null and po.orderField != ''" >
+      ORDER BY ${po.orderField}
+      <if test="po.orderString != null and po.orderString != ''" >
+        ${po.orderString}
+      </if>
+    </if>
+  </select>
+</mapper>

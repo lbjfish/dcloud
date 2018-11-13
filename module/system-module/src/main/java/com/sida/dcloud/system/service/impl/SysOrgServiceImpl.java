@@ -233,9 +233,9 @@ public class SysOrgServiceImpl extends BaseServiceImpl<SysOrg> implements SysOrg
     public String findAreaPathByUserId(String userId) {
         //1.获取用户所在组织path
         String areaPath = "";
-        String areaId;
+        String areaId = "";
         if(BlankUtil.isEmpty(userId)){
-            areaId = LoginManager.getUser().getAreaId();
+//            areaId = LoginManager.getUser().getAreaId();
         }else {
             UserInfo userInfo = sysUserService.getUserInfo(userId, false);
             areaId = userInfo.getAreaId();
@@ -390,7 +390,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<SysOrg> implements SysOrg
         List<Map<String,Object>> orgMapList = Lists.newArrayList();
         //判断员工是否具备片区id
         SysUserVo userVo = LoginManager.getUser();
-        String areaId = userVo.getAreaId();
+        String areaId = "";//userVo.getAreaId();
         String orgId = userVo.getOrgId();
         if ((BlankUtil.isEmpty(param) || BlankUtil.isEmpty(param.getFilterFlag()) || param.getFilterFlag()) && BlankUtil.isNotEmpty(areaId)){
             Map<String,Object> areaMap = new HashMap<>();

@@ -1298,4 +1298,57 @@
   <select id="selectUserCount" resultType="int">
     select count(*) from sys_user where delete_flag = false
   </select>
+
+  <insert id="insertDto" parameterType="java.util.Map">
+    insert into sys_user (id, wechat, qq, name, account, birthday, description, mobile, password, delete_flag, disable, status, created_at, last_updated, created_user, updated_user)
+    select #{map.id},#{map.wechat}, #{map.qq},
+    #{map.name}, #{map.mobile}, str_to_date(#{map.birthday}, '%Y%m%d'), #{map.remark}, #{map.mobile}, #{map.password}, false, false, false, now(), now(), #{map.createdUser}, #{map.updatedUser}
+    from dual
+    where not exists (select id from sys_user where id = #{map.id})
+  </insert>
+
+  <update id="updateMobile" parameterType="java.util.Map">
+    update sys_user set mobile = #{map.mobile}, account = #{map.mobile}
+    where id = #{map.id}
+  </update>
+
+  <update id="updateUserInfo" parameterType="java.util.Map">
+    update sys_user set name = #{map.name}, birthday = #{map.birthday}, description = #{map.description},
+    sex = #{map.sex}
+    <where>
+      1=1
+      <if test="map.id != null">and id = #{map.id}</if>
+      <if test="map.mobile != null">and mobile = #{map.mobile}</if>
+    </where>
+  </update>
+
+  <update id="updateUserPassword" parameterType="java.util.Map">
+    update sys_user set password = #{map.password}
+    <where>
+      1=1
+      <if test="map.id != null">and id = #{map.id}</if>
+      <if test="map.mobile != null">and mobile = #{map.mobile}</if>
+    </where>
+  </update>
+
+  <update id="unbindThirdPartAccount">
+    update sys_user set
+    <choose>
+      <when test="loginFrom = '1'">wechat=''</when>
+      <when test="loginFrom = '3'">qq=''</when>
+    </choose>
+    where mobile = #{mobile}
+  </update>
+
+  <update id="bindThirdPartAccount" parameterType="java.util.Map">
+    update sys_user set
+    wechat = #{map.wechat}, qq = #{map.qq}
+    where mobile = #{map.mobile}
+  </update>
+
+  <update id="testDistributeTransaction">
+    update sys_user set
+    description = #{remark}
+    where id = #{id}
+  </update>
 </mapper>

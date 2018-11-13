@@ -1,6 +1,7 @@
 common:
+  env: dev
   host: server-app1
-  ip: 172.16.0.12
+  ip: localhost
   middlewareip: 172.16.0.11
   database:
     ip: 172.16.0.10
@@ -82,9 +83,14 @@ common:
   system:
     datasource:
       driverClassName: com.mysql.jdbc.Driver
-      url: jdbc:mysql://${common.database.ip}:${common.database.port}/system?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false
-      username: ${common.database.username}
-      password: ${common.database.password}
+      master:
+        url: jdbc:mysql://${common.database.ip}:${common.database.port}/system?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false
+        username: ${common.database.username}
+        password: ${common.database.password}
+      business:
+        url: jdbc:mysql://${common.database.ip}:${common.database.port}/system_r?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false
+        username: ${common.database.username}
+        password: ${common.database.password}
     teachpositioncode: jly,jjy,zljly,jxzc
   schedule:
     datasource:
@@ -138,6 +144,18 @@ common:
           url: jdbc:mysql://${common.database.ip}:${common.database.port}/operation_r?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false&allowMultiQueries=true
           username: ${common.database.username}
           password: ${common.database.password}
+  job:
+    token: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjpbXSwiY29kZSI6MjAwLCJkYXRhIjoiIiwidXNlcl9uYW1lIjoiYWRtaW4iLCJtb2JpbGUiOiJhZG1pbiIsInJvbGVMaXN0IjpbeyJyb2xlSWQiOiIxMDAiLCJyb2xlQ29kZSI6IkFETUlOIiwicm9sZU5hbWUiOiLlubPlj7DnrqHnkIblkZgifV0sIm1lc3NhZ2UiOiIiLCJhdXRob3JpdGllcyI6WyLlubPlj7DnrqHnkIblkZgiXSwiY2xpZW50X2lkIjoiYWNtZSIsInRvdGFsIjowLCJ1c2VyX2lkIjoiMTAwIiwic2NvcGUiOlsib3BlbmlkIl0sInVzZXJBY2NvdW50IjoiYWRtaW4iLCJuYW1lIjoi566h55CG5ZGYIiwiaGVhZGVyIjoiaHR0cDovL3B1Yi5xaW5pdS5idXRvbmd0ZWNoLmNvbS9kZWZ1bHRfcGhvdG9AM3gucG5nIiwiaWQiOiIxMDAiLCJqdGkiOiJlYmIyMzdjZS1hNjI2LTQzM2YtOWU5MC1hM2U1NjNmMzQ2YmMiLCJzdGF0dXMiOnRydWV9.TEB-b-VfT7-zEDwT9vYWTg0sgogcKy6TmXPVgiyRKY8CksA2GDB0CsW070cdgQxNCvBX3fFDs2No_TyFLyzmNlskHiVeIC79LewgAR7e24EwfEuqIfXNz5n-BlUk4KRaIUzYe8VksyJOPX3ywo4l0wqFi7j5X7HRTuHwUCz1qYh5_AgSrul2vqjhr0yuG5J4UNKsWp9suCwsAgCoHrdMs3NH0bKFOAQBuabEwKgj3F2b67j2HFEia4ayy45jylfwXnEdh5zog3ptU8HQFOpFNLYkyp_HRkxFrIW48CQALUKAO7WtvVacCTQcPklYuWL1EepFDZem1t2NKQN6HX8vPg
+    datasource:
+      driverClassName: com.mysql.jdbc.Driver
+      master:
+        url: jdbc:mysql://${common.database.ip}:${common.database.port}/job?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false&allowMultiQueries=true
+        username: ${common.database.username}
+        password: ${common.database.password}
+      business:
+        url: jdbc:mysql://${common.database.ip}:${common.database.port}/job_r?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=false&allowMultiQueries=true
+        username: ${common.database.username}
+        password: ${common.database.password}
 
   quartz:
       datasource:
@@ -159,6 +177,8 @@ service:
     port: 10080
   drools:
     port: 10066
+  job:
+    port: 10012
 
 module:
   system:
@@ -170,15 +190,57 @@ module:
   operation:
     port: 10023
 
+elasticjob:
+  zookeeper:
+    server-lists: ${common.zookeeper.addresses}
+    namespace: dev
 
 qiniu:
-  bucket: lili
-  ak: wTZfpMov09_Pvgpzt01kVbTGoFKMcMf2CUmYs5n2
-  sk: CzQMFHoGeNOVuF_0sG96oFzrQtVdRx25-aQrudp1
-  domain: http://7xnvu2.com1.z0.glb.clouddn.com/
-  bucketPublic: lili-public
-  domainOfBucket: http://o7d94lzvx.bkt.clouddn.com/
+  bucket: butong
+  ak: aHDek6zQjLqjrpKw8JZXnr-07x4CK5rQZDRb1eno
+  sk: XfSpuC4WerQhivxDbDGBeEHn0j4LKKx226VX35Ba
+  domain: http://qiniu.butongtech.com
+  bucketPublic: butong-public
+  domainOfBucket: http://pub.qiniu.butongtech.com
+  defaultHeader: http://pub.qiniu.butongtech.com/defult_photo@3x.png
   defaultImg: FnjqWFunVDKhLb3fDO0OeDCFzuWB
+
+huawei:
+  short_message:
+    app:
+      butong:
+        app_key: /nBqEDpFs6NQY0dFmXQntBZQb2q0ItgaSGjkpNlQCfA=
+        app_secret: L6gMKVLXDzHThxaetK2VR18VdbyW5Jx6u2I8f1Bbj6c=
+        app_in_url: https://api.rtc.huaweicloud.com:10443/sms/batchSendSms/v1
+        app_out_url: empty
+    sign: csms18090645
+    template:
+      reg_login: 121519ce992c43a1beb4c3df785f6d70
+      modify_password: 7bc40be716434fbeb36ed439891da336
+      change_mobile: 3e7fba01eac7426cbdba222f7b2bc181
+
+weixin:
+  app:
+    id: wxec488e381b105038 #不同tech
+    secret: rEclxaJZbzCQaYz5sdRTpQp26poioRyV8SSNl7Wa8d8NzPQokObvCA==
+  pay:
+    mch_id: 1516520231
+    key: Dl2DZcPKE+yQZzX5OjUfepPi8LloUrbyLT+KTh+EucINzPQokObvCA==
+    secret: r3dSr39G9pHdhljocCnMnA==
+    xcxCallback: http://dcloud.butongtech.com:${service.security.edge.port}/apis/activity/payWithWeixin/xcxCallback
+
+jpush:
+  appKey: 6924b97096d0dde827d4799b
+  masterSecret: 296acbca7ad5e2c5820acd49
+
+#qiniu:
+#  bucket: lili
+#  ak: wTZfpMov09_Pvgpzt01kVbTGoFKMcMf2CUmYs5n2
+#  sk: CzQMFHoGeNOVuF_0sG96oFzrQtVdRx25-aQrudp1
+#  domain: http://7xnvu2.com1.z0.glb.clouddn.com/
+#  bucketPublic: lili-public
+#  domainOfBucket: http://o7d94lzvx.bkt.clouddn.com/
+#  defaultImg: FnjqWFunVDKhLb3fDO0OeDCFzuWB
 
 yuntongxun:
   appId: 8a216da862467c3a0162670a9b970db8   # 《车厘子》应用ID

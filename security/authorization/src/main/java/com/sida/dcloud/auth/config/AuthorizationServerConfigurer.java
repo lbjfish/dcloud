@@ -1,15 +1,15 @@
 package com.sida.dcloud.auth.config;
 
-import com.sida.dcloud.auth.authentication.ClzJwtAccessTokenConverter;
+import com.sida.dcloud.auth.authentication.CustomJwtAccessTokenConverter;
 import com.sida.dcloud.auth.authentication.FaceIdTokenGranter;
 import com.sida.dcloud.auth.authentication.MsgAuthCodeTokenGranter;
 import com.sida.dcloud.auth.service.SysUserService;
 import com.sida.dcloud.auth.service.impl.ClientDetailsServiceImpl;
-import com.sida.dcloud.auth.service.impl.RedisAuthorizationCodeServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -34,8 +34,10 @@ import java.util.*;
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfigurer extends AuthorizationServerConfigurerAdapter {
-
     private static Logger logger = LoggerFactory.getLogger(AuthorizationServerConfigurer.class);
+    @Value("${qiniu.defaultHeader}")
+    private String defaultHeader;
+
     @Autowired
     @Qualifier("authenticationManagerBean")
     private AuthenticationManager authenticationManager;
@@ -57,17 +59,19 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
 
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        JwtAccessTokenConverter converter = new ClzJwtAccessTokenConverter(sysUserService);
-        KeyPair keyPair = new KeyStoreKeyFactory(new ClassPathResource("clzdev.jks"), "chelizi201723".toCharArray())
-                .getKeyPair("chelizidev");
+        JwtAccessTokenConverter converter = new CustomJwtAccessTokenConverter(sysUserService, defaultHeader);
+//        KeyPair keyPair = new KeyStoreKeyFactory(new ClassPathResource("clzdev.jks"), "chelizi201723".toCharArray())
+//                .getKeyPair("chelizidev");
+        KeyPair keyPair = new KeyStoreKeyFactory(new ClassPathResource("sida.jks"), "sidasida".toCharArray())
+                .getKeyPair("sida");
         converter.setKeyPair(keyPair);
         return converter;
     }
 
-    @Bean
-    public AuthorizationCodeServices redisAuthorizationCodeServices() {
-        return new RedisAuthorizationCodeServices(jedisCluster);
-    }
+//    @Bean
+//    public AuthorizationCodeServices redisAuthorizationCodeServices() {
+//        return new RedisAuthorizationCodeServices(jedisCluster);
+//    }
 
     private TokenGranter tokenGranter(AuthorizationServerEndpointsConfigurer endpoints){
         List<TokenGranter> granters = new ArrayList<TokenGranter>(Arrays.asList(endpoints.getTokenGranter()));
@@ -103,13 +107,13 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
         /*endpoints.pathMapping("/oauth/confirm_access", "/authorize");
         endpoints.pathMapping("/oauth/login", "/login");*/
         endpoints.authenticationManager(authenticationManager).accessTokenConverter(jwtAccessTokenConverter());
-        endpoints.authorizationCodeServices(redisAuthorizationCodeServices());
+//        endpoints.authorizationCodeServices(redisAuthorizationCodeServices());
         endpoints.tokenGranter(tokenGranter(endpoints));
     }
 
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-        oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
+        oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()").allowFormAuthenticationForClients();
     }
 }

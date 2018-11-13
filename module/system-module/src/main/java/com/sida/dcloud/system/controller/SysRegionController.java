@@ -2,6 +2,7 @@ package com.sida.dcloud.system.controller;
 
 import com.sida.dcloud.auth.common.SecConstant;
 import com.sida.dcloud.auth.po.SysRegion;
+import com.sida.dcloud.system.common.SystemCacheUtil;
 import com.sida.dcloud.system.service.SysRegionService;
 import com.sida.xiruo.common.components.StringUtils;
 import com.sida.xiruo.xframework.controller.BaseController;
@@ -33,10 +34,24 @@ public class SysRegionController extends BaseController {
         return toResult();
     }
 
-    @RequestMapping(value = "/tree", method = RequestMethod.POST)
+    @RequestMapping(value = "/tree", method = RequestMethod.GET)
     @ApiOperation(value = "获取地区树")
     public Object tree() {
         Object object = sysRegionService.findTree();
+        return toResult(object);
+    }
+
+    @RequestMapping(value = "/threelevel", method = RequestMethod.GET)
+    @ApiOperation(value = "获取地区树（国家省份城市）")
+    public Object threelevel() {
+        Object object = sysRegionService.findThreeLevelTree();
+        return toResult(object);
+    }
+
+    @RequestMapping(value = "/singlelevel", method = RequestMethod.GET)
+    @ApiOperation(value = "根据级别获取扁平化地区数据")
+    public Object singlelevel(@RequestParam("level") @ApiParam("层级（COUNTRY, PROVINCE, CITY, AREA）") String level) {
+        Object object = sysRegionService.findSysRegionSingleLayerDtoByLevel(level);
         return toResult(object);
     }
 
@@ -101,5 +116,15 @@ public class SysRegionController extends BaseController {
     @ApiOperation(value = "根据编码查询名称")
     public String getNameByCode(String code) {
         return sysRegionService.getNameByCode(code);
+    }
+
+    @Autowired
+    private SystemCacheUtil systemCacheUtil;
+
+    @RequestMapping(value = "/clearRegionDatasInRedis", method = RequestMethod.GET)
+    @ApiOperation(value = "从redis清空地区数据")
+    public Object clearRegionDatasInRedis() {
+        systemCacheUtil.clearRegionDatasInRedis();
+        return toResult();
     }
 }

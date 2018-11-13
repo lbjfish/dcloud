@@ -1,5 +1,6 @@
 package com.sida.dcloud.activity.service.impl;
 
+import com.codingapi.tx.annotation.TxTransaction;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sida.dcloud.activity.dao.SysUserActivityMapper;
@@ -21,6 +22,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SysUserActivityServiceImpl extends BaseServiceImpl<SysUserActivity> implements SysUserActivityService {
@@ -36,6 +38,7 @@ public class SysUserActivityServiceImpl extends BaseServiceImpl<SysUserActivity>
 
     @RedisLock
     @Transactional(propagation = Propagation.REQUIRED)
+    @TxTransaction
     @Override
     public int updateUserList(List<SysUser> userList) {
         userList.forEach(user -> updateUser(user));
@@ -53,5 +56,41 @@ public class SysUserActivityServiceImpl extends BaseServiceImpl<SysUserActivity>
         PageHelper.startPage(po.getP(),po.getS());
         List<SysUserActivityVo> voList = sysUserActivityMapper.selectVoList(po);
         return (Page) voList;
+    }
+    @Transactional(propagation = Propagation.REQUIRED)
+    @TxTransaction
+    @Override
+    public int insertDto(Map<String, String> map) {
+        return sysUserActivityMapper.insertDto(map);
+    }
+    @Transactional(propagation = Propagation.REQUIRED)
+    @TxTransaction
+    @Override
+    public int updateMobile(Map<String, String> map) {
+        return sysUserActivityMapper.updateMobile(map);
+    }
+    @Transactional(propagation = Propagation.REQUIRED)
+    @TxTransaction
+    @Override
+    public int updateUserInfo(Map<String, String> map) {
+        return sysUserActivityMapper.updateUserInfo(map);
+    }
+    @Transactional(propagation = Propagation.REQUIRED)
+    @TxTransaction
+    @Override
+    public int bindThirdPartAccount(Map<String, String> map) {
+        return sysUserActivityMapper.bindThirdPartAccount(map);
+    }
+    @Transactional(propagation = Propagation.REQUIRED)
+    @TxTransaction
+    @Override
+    public int unbindThirdPartAccount(String loginFrom, String mobile) {
+        return sysUserActivityMapper.unbindThirdPartAccount(loginFrom, mobile);
+    }
+    @Transactional(propagation = Propagation.REQUIRED)
+    @TxTransaction
+    @Override
+    public int testDistributeTransaction(String id, String remark) {
+        return sysUserActivityMapper.testDistributeTransaction(id, remark);
     }
 }

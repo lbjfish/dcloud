@@ -6,6 +6,7 @@ import com.sida.xiruo.common.util.Xiruo;
 import com.sida.xiruo.po.common.BaseEntity;
 import com.sida.xiruo.xframework.dao.IMybatisDao;
 import com.sida.xiruo.xframework.util.PoDefaultValueGenerator;
+import com.sida.xiruo.xframework.util.UUID;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;

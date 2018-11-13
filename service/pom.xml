@@ -13,5 +13,6 @@
         <module>config</module>
         <module>schedule</module>
         <module>event</module>
+        <module>job</module>
     </modules>
 </project>

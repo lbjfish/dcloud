@@ -4,15 +4,10 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sida.dcloud.activity.common.ActivityException;
 import com.sida.dcloud.activity.dao.ActivityGoodsMapper;
-import com.sida.dcloud.activity.dao.ActivityInfoMapper;
 import com.sida.dcloud.activity.po.ActivityGoods;
-import com.sida.dcloud.activity.po.ActivityInfo;
-import com.sida.dcloud.activity.po.HonoredGuest;
 import com.sida.dcloud.activity.service.ActivityGoodsRelGroupService;
 import com.sida.dcloud.activity.service.ActivityGoodsService;
-import com.sida.dcloud.activity.service.ActivityRelHonoredService;
 import com.sida.dcloud.activity.vo.ActivityGoodsVo;
-import com.sida.dcloud.activity.vo.HonoredGuestVo;
 import com.sida.xiruo.common.util.Xiruo;
 import com.sida.xiruo.xframework.dao.IMybatisDao;
 import com.sida.xiruo.xframework.lock.DistributedLock;
@@ -44,6 +39,11 @@ public class ActivityGoodsServiceImpl extends BaseServiceImpl<ActivityGoods> imp
     @Override
     public List<ActivityGoodsVo> findGoodsListByActivityId(String activityId) {
         return activityGoodsMapper.findGoodsListByActivityId(activityId);
+    }
+
+    @Override
+    public List<ActivityGoodsVo> findGoodsListByActivityIds(String activityIds) {
+        return activityGoodsMapper.findGoodsListByActivityIds(activityIds);
     }
 
     @Override
@@ -156,5 +156,15 @@ public class ActivityGoodsServiceImpl extends BaseServiceImpl<ActivityGoods> imp
         }
 
         return result;
+    }
+
+    @Override
+    public int upByPrimaryKeys(String ids) {
+        return activityGoodsMapper.upByPrimaryKeys(Xiruo.insertSingleQuoteToString(ids));
+    }
+
+    @Override
+    public int downByPrimaryKeys(String ids) {
+        return activityGoodsMapper.downByPrimaryKeys(Xiruo.insertSingleQuoteToString(ids));
     }
 }

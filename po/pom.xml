@@ -14,9 +14,10 @@
         <module>po-authorization</module>
         <module>po-system</module>
         <module>po-event</module>
-        <module>po-training</module>
+        <!--<module>po-training</module>-->
         <module>po-activity</module>
         <module>po-content</module>
         <module>po-operation</module>
+        <module>po-job</module>
     </modules>
 </project>

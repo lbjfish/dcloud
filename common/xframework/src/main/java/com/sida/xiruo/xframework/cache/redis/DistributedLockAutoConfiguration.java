@@ -11,7 +11,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 
 /**
- * @author fuwei.deng
+ * @author
  * @date 2017年6月14日 下午3:11:31
  * @version 1.0.0
  */

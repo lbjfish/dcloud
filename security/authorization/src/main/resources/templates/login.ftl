@@ -27,11 +27,11 @@
         <div class="title">欢迎登录</div>
         <div class="form-group">
             <label for="username" class="name">请输入用户名</label>
-            <input type="text" class="form-control" id="username"  name="username" placeholder="请输入用户名"/>
+            <input type="text" class="form-control" id="username"  name="username" value="admin" placeholder="请输入用户名"/>
         </div>
         <div class="form-group">
             <label for="password" class="name">请输入密码</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码"/>
+            <input type="password" class="form-control" id="password" name="password" value="123456" placeholder="请输入密码"/>
 
         </div>
         <div class="form-group">

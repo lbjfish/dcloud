@@ -1,15 +1,9 @@
 package com.sida.dcloud.activity.service.impl;
 
 import com.sida.dcloud.activity.common.ActivityException;
-import com.sida.dcloud.activity.dao.ActivityGoodsMapper;
 import com.sida.dcloud.activity.dao.ActivityGoodsRelGroupMapper;
-import com.sida.dcloud.activity.po.ActivityGoods;
 import com.sida.dcloud.activity.po.ActivityGoodsRelGroup;
-import com.sida.dcloud.activity.po.ActivityRelHonored;
-import com.sida.dcloud.activity.service.ActivityGoodsGroupService;
-import com.sida.dcloud.activity.service.ActivityGoodsRelGroupService;
-import com.sida.dcloud.activity.service.ActivityGoodsService;
-import com.sida.dcloud.activity.service.ActivityRelHonoredService;
+import com.sida.dcloud.activity.service.*;
 import com.sida.xiruo.xframework.dao.IMybatisDao;
 import com.sida.xiruo.xframework.lock.DistributedLock;
 import com.sida.xiruo.xframework.lock.redis.RedisLock;
@@ -35,6 +29,8 @@ public class ActivityGoodsRelGroupServiceImpl extends BaseServiceImpl<ActivityGo
     private ActivityGoodsService activityGoodsService;
     @Autowired
     private ActivityGoodsGroupService activityGoodsGroupService;
+    @Autowired
+    private ActivityOrderGoodsGroupService activityOrderGoodsGroupService;
 
     @Override
     public IMybatisDao<ActivityGoodsRelGroup> getBaseDao() {
@@ -65,6 +61,9 @@ public class ActivityGoodsRelGroupServiceImpl extends BaseServiceImpl<ActivityGo
                 LOG.debug("Get lock success : " + LOCK_KEY_CHECK_REMOVABLE);
                 try {
                     String groupId = list.get(0).getGroupId();
+                    if(!activityOrderGoodsGroupService.findListByIds(String.format("'%s'", groupId)).isEmpty()) {
+                        throw new ActivityException("活动商品分组已经形成订单，不允许调整");
+                    }
                     StringBuilder builder = new StringBuilder("'0'");
                     activityGoodsRelGroupMapper.deleteByGroupId(groupId);
                     result = activityGoodsRelGroupMapper.batchInsert(list);

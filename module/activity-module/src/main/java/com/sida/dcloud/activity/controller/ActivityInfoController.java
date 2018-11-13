@@ -29,7 +29,7 @@ public class ActivityInfoController extends BaseController {
     @ApiOperation(value = "条件查活动列表")
     public Object list(@RequestBody @ApiParam("JSON参数") ActivityInfo param) {
         Optional.ofNullable(param.getOrderField()).orElseGet(() -> {
-            param.setOrderField("sort");
+            param.setOrderField("start_time");
             param.setOrderString("asc");
             return "";
         });
@@ -48,6 +48,12 @@ public class ActivityInfoController extends BaseController {
     public Object findOne(@RequestParam("id") @ApiParam("id")String id) {
         ActivityInfo one = activityInfoService.selectByPrimaryKey(id);
         return toResult(one);
+    }
+
+    @RequestMapping(value = "/findOneWithGoods", method = RequestMethod.GET)
+    @ApiOperation(value = "根据活动主键id获取信息（包含商品和商品组）")
+    public Object findOneWithGoods(@RequestParam("id") @ApiParam("id")String id) {
+        return toResult(activityInfoService.findOneWithGoods(id));
     }
     /********************************************************************************/
 

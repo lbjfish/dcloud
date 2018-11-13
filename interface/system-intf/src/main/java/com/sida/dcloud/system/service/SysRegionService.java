@@ -2,6 +2,7 @@ package com.sida.dcloud.system.service;
 
 import com.sida.dcloud.auth.po.SysRegion;
 import com.sida.dcloud.auth.vo.RegionTreeDTO;
+import com.sida.dcloud.system.dto.SysRegionLayerDto;
 import com.sida.xiruo.xframework.service.IBaseService;
 import org.dom4j.Document;
 
@@ -15,6 +16,7 @@ public interface SysRegionService extends IBaseService<SysRegion> {
      * @return
      */
     List<RegionTreeDTO> findTree();
+    List<SysRegionLayerDto> findThreeLevelTree();
 
     /**
      * 获取地区列表
@@ -70,4 +72,8 @@ public interface SysRegionService extends IBaseService<SysRegion> {
      * @param code
      */
     String getNameByCode(String code);
+
+    List<SysRegionLayerDto> findSysRegionSingleLayerDtoByLevel(String level);
+    List<SysRegionLayerDto> findSysRegionSingleLayerDtoByLevelFromDB(String level);
+    int updateSysRegionPinyin();
 }

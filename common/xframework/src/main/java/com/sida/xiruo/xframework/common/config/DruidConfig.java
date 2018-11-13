@@ -90,6 +90,16 @@ public class DruidConfig {
 
     @Value("${spring.datasource.filters}")
     private String filters;
+//    @Value("${positon.teachpositioncode}")
+    private String teachPositionCode;
+
+    public String getTeachPositionCode() {
+        return teachPositionCode;
+    }
+
+    public void setTeachPositionCode(String teachPositionCode) {
+        this.teachPositionCode = teachPositionCode;
+    }
 
     @Bean
     public ServletRegistrationBean druidServlet() {

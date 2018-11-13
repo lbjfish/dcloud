@@ -1,5 +1,6 @@
 package com.sida.dcloud.activity.controller;
 
+import com.sida.dcloud.activity.client.OperationClient;
 import com.sida.xiruo.xframework.cache.redis.RedisUtil;
 import com.sida.xiruo.xframework.controller.BaseController;
 import com.sida.xiruo.xframework.lock.redis.RedisLock;
@@ -23,6 +24,8 @@ public class TestController extends BaseController {
 
     @Autowired
     private RedisUtil redisUtil;
+    @Autowired
+    private OperationClient operationClient;
 
     @PostMapping("load")
     @ApiOperation("加载初始数据")
@@ -49,5 +52,13 @@ public class TestController extends BaseController {
     public Object dlock() {
         LOG.info("This is distributed lock test...");
         return toResult();
+    }
+
+    @GetMapping("operation")
+    @ApiOperation("运营feign调用测试")
+    @RedisLock
+    public Object operation() {
+        LOG.info("This is operation feign invoking test...");
+        return toResult(operationClient.findCommonUserById("200"));
     }
 }

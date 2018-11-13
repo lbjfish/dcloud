@@ -14,6 +14,10 @@ import java.util.List;
 
 public interface CustomerActivitySignupNoteMapper extends IMybatisDao<CustomerActivitySignupNote> {
     List<TableMeta> findTableMeta(@Param("tableMeta") TableMeta tableMeta);
-    List<CustomerActivitySignupNoteVo> findVoList(@Param("po")CustomerActivitySignupNote po);
+    List<CustomerActivitySignupNoteVo> findVoList(@Param("vo")CustomerActivitySignupNoteVo vo);
     int checkMultiCountByUnique(@Param("po")CustomerActivitySignupNote po);
+    String getCurrentNoteNo();
+    String getCurrentThirdPartCode();
+    List<CustomerActivitySignupNote> selectUnsentThirdPartCodePo();
+    int updateSentStatus(@Param("ids")String ids, @Param("sentStatus")Boolean sentStatus);
 }

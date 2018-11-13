@@ -14,7 +14,6 @@ import com.sida.dcloud.training.event.actor.ExerciseActor;
 import com.sida.dcloud.training.po.Exercise;
 import com.sida.dcloud.training.service.ExerciseService;
 import com.sida.dcloud.xdomain.dispatcher.IEventDispatcher;
-import com.sida.xiruo.xframework.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +46,7 @@ public class ExerciseDispatcher extends BaseClientConfig implements IEventDispat
         if(exerciseService.checkMultiCountByUnique(po) > 0) {
             throw new TrainingException("名称和编码不能重复");
         }
-        Event event = Event.makeEvent(po, TrainingEventType.TRAINING_EVENT_EXERCISE_INSERT, UUID.create().toString(), 3);
+        Event event = Event.makeEvent(po, TrainingEventType.TRAINING_EVENT_EXERCISE_INSERT, UUIDGenerate.getNextId(), 3);
 
         ask(actorRef, new EventJob(event), new Timeout(EventConstants.DEFAULT_EVENT_TIMEOUT, TimeUnit.SECONDS))
                 .thenApply(reply -> {
@@ -74,7 +73,7 @@ public class ExerciseDispatcher extends BaseClientConfig implements IEventDispat
     public void remove(String stringIds) {
         Exercise po = new Exercise();
         po.setStringIds(stringIds);
-        Event event = Event.makeEvent(po, TrainingEventType.TRAINING_EVENT_EXERCISE_REMOVE,  UUID.create().toString(), 3);
+        Event event = Event.makeEvent(po, TrainingEventType.TRAINING_EVENT_EXERCISE_REMOVE,  UUIDGenerate.getNextId(), 3);
 
         ask(actorRef, new EventJob(event), new Timeout(EventConstants.DEFAULT_EVENT_TIMEOUT, TimeUnit.SECONDS))
                 .thenApply(reply -> {

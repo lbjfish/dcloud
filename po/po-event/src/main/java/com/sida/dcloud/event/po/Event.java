@@ -2,9 +2,9 @@ package com.sida.dcloud.event.po;
 
 import com.sida.xiruo.common.util.Xiruo;
 import com.sida.xiruo.po.common.BaseEntity;
+import com.sida.xiruo.xframework.util.UUIDGenerate;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 //@Document(collection = "eslogs")
 public class Event<T extends BaseEntity, E extends EventType> implements Serializable {
@@ -15,7 +15,7 @@ public class Event<T extends BaseEntity, E extends EventType> implements Seriali
 
     public static <T extends  BaseEntity, E extends EventType> Event makeEvent(T entity, E eventType, String transactionId, int transactionSize) {
         Event event = new Event();
-        event.eventId = UUID.randomUUID().toString();
+        event.eventId = UUIDGenerate.getNextId();
         event.entityType = entity.getClass().getName();
         event.eventType = eventType;
         event.eventTime = System.currentTimeMillis();

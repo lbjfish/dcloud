@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.operation.dao.SysUserOperationMapper" >
+  <resultMap id="SysUserOperationResultMap" type="com.sida.dcloud.operation.po.SysUserOperation" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="last_updated" property="lastUpdated" jdbcType="TIMESTAMP" />
+    <result column="updated_user" property="updatedUser" jdbcType="VARCHAR" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="alias" property="alias" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="valid_date" property="validDate" jdbcType="TIMESTAMP" />
+    <result column="locked" property="locked" jdbcType="BIT" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="BIT" />
+    <result column="nationality" property="nationality" jdbcType="VARCHAR" />
+    <result column="id_type" property="idType" jdbcType="VARCHAR" />
+    <result column="id_num" property="idNum" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="wechat" property="wechat" jdbcType="VARCHAR" />
+    <result column="approval_status" property="approvalStatus" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="SysUserOperation_Column_List" >
+    id, org_id, last_updated, updated_user, account, password, name, code, alias, email, 
+    valid_date, locked, mobile, description, status, nationality, id_type, id_num, sex, 
+    birthday, tel, qq, wechat, approval_status
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.operation.po.SysUserOperation" >
+    insert into sys_user_operation (id, org_id, last_updated, updated_user, account, password, 
+      name, code, alias, email, valid_date, locked, mobile, description, 
+      status, nationality, id_type, id_num, sex, birthday, tel, qq, 
+      wechat, approval_status)
+    values (#{id}, #{orgId}, #{lastUpdated}, #{updatedUser}, #{account}, #{password}, 
+      #{name}, #{code}, #{alias}, #{email}, #{validDate}, #{locked}, #{mobile}, #{description}, 
+      #{status}, #{nationality}, #{idType}, #{idNum}, #{sex}, #{birthday}, #{tel}, #{qq}, 
+      #{wechat}, #{approvalStatus})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.operation.po.SysUserOperation" >
+    insert into sys_user_operation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="lastUpdated != null" >
+        last_updated,
+      </if>
+      <if test="updatedUser != null" >
+        updated_user,
+      </if>
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="alias != null" >
+        alias,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="validDate != null" >
+        valid_date,
+      </if>
+      <if test="locked != null" >
+        locked,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="nationality != null" >
+        nationality,
+      </if>
+      <if test="idType != null" >
+        id_type,
+      </if>
+      <if test="idNum != null" >
+        id_num,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="wechat != null" >
+        wechat,
+      </if>
+      <if test="approvalStatus != null" >
+        approval_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="orgId != null" >
+        #{orgId},
+      </if>
+      <if test="lastUpdated != null" >
+        #{lastUpdated},
+      </if>
+      <if test="updatedUser != null" >
+        #{updatedUser},
+      </if>
+      <if test="account != null" >
+        #{account},
+      </if>
+      <if test="password != null" >
+        #{password},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="code != null" >
+        #{code},
+      </if>
+      <if test="alias != null" >
+        #{alias},
+      </if>
+      <if test="email != null" >
+        #{email},
+      </if>
+      <if test="validDate != null" >
+        #{validDate},
+      </if>
+      <if test="locked != null" >
+        #{locked},
+      </if>
+      <if test="mobile != null" >
+        #{mobile},
+      </if>
+      <if test="description != null" >
+        #{description},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="nationality != null" >
+        #{nationality},
+      </if>
+      <if test="idType != null" >
+        #{idType},
+      </if>
+      <if test="idNum != null" >
+        #{idNum},
+      </if>
+      <if test="sex != null" >
+        #{sex},
+      </if>
+      <if test="birthday != null" >
+        #{birthday},
+      </if>
+      <if test="tel != null" >
+        #{tel},
+      </if>
+      <if test="qq != null" >
+        #{qq},
+      </if>
+      <if test="wechat != null" >
+        #{wechat},
+      </if>
+      <if test="approvalStatus != null" >
+        #{approvalStatus},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="id != null and id != ''" >
+        id = #{id}
+      </if>
+      <if test="orgId != null and orgId != ''" >
+        AND org_id = #{orgId}
+      </if>
+      <if test="lastUpdated != null" >
+        AND last_updated = #{lastUpdated}
+      </if>
+      <if test="updatedUser != null and updatedUser != ''" >
+        AND updated_user = #{updatedUser}
+      </if>
+      <if test="account != null and account != ''" >
+        AND account = #{account}
+      </if>
+      <if test="password != null and password != ''" >
+        AND password = #{password}
+      </if>
+      <if test="name != null and name != ''" >
+        AND name = #{name}
+      </if>
+      <if test="code != null and code != ''" >
+        AND code = #{code}
+      </if>
+      <if test="alias != null and alias != ''" >
+        AND alias = #{alias}
+      </if>
+      <if test="email != null and email != ''" >
+        AND email = #{email}
+      </if>
+      <if test="validDate != null" >
+        AND valid_date = #{validDate}
+      </if>
+      <if test="locked != null" >
+        AND locked = #{locked}
+      </if>
+      <if test="mobile != null and mobile != ''" >
+        AND mobile = #{mobile}
+      </if>
+      <if test="description != null and description != ''" >
+        AND description = #{description}
+      </if>
+      <if test="status != null" >
+        AND status = #{status}
+      </if>
+      <if test="nationality != null and nationality != ''" >
+        AND nationality = #{nationality}
+      </if>
+      <if test="idType != null and idType != ''" >
+        AND id_type = #{idType}
+      </if>
+      <if test="idNum != null and idNum != ''" >
+        AND id_num = #{idNum}
+      </if>
+      <if test="sex != null and sex != ''" >
+        AND sex = #{sex}
+      </if>
+      <if test="birthday != null" >
+        AND birthday = #{birthday}
+      </if>
+      <if test="tel != null and tel != ''" >
+        AND tel = #{tel}
+      </if>
+      <if test="qq != null and qq != ''" >
+        AND qq = #{qq}
+      </if>
+      <if test="wechat != null and wechat != ''" >
+        AND wechat = #{wechat}
+      </if>
+      <if test="approvalStatus != null and approvalStatus != ''" >
+        AND approval_status = #{approvalStatus}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.operation.po.SysUserOperation" resultMap="SysUserOperationResultMap" >
+    select 
+    <include refid="SysUserOperation_Column_List" />
+    from sys_user_operation
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update sys_user_operation
+    <set >
+      <if test="po.id != null" >
+        id = #{po.id},
+      </if>
+      <if test="po.orgId != null" >
+        org_id = #{po.orgId},
+      </if>
+      <if test="po.lastUpdated != null" >
+        last_updated = #{po.lastUpdated},
+      </if>
+      <if test="po.updatedUser != null" >
+        updated_user = #{po.updatedUser},
+      </if>
+      <if test="po.account != null" >
+        account = #{po.account},
+      </if>
+      <if test="po.password != null" >
+        password = #{po.password},
+      </if>
+      <if test="po.name != null" >
+        name = #{po.name},
+      </if>
+      <if test="po.code != null" >
+        code = #{po.code},
+      </if>
+      <if test="po.alias != null" >
+        alias = #{po.alias},
+      </if>
+      <if test="po.email != null" >
+        email = #{po.email},
+      </if>
+      <if test="po.validDate != null" >
+        valid_date = #{po.validDate},
+      </if>
+      <if test="po.locked != null" >
+        locked = #{po.locked},
+      </if>
+      <if test="po.mobile != null" >
+        mobile = #{po.mobile},
+      </if>
+      <if test="po.description != null" >
+        description = #{po.description},
+      </if>
+      <if test="po.status != null" >
+        status = #{po.status},
+      </if>
+      <if test="po.nationality != null" >
+        nationality = #{po.nationality},
+      </if>
+      <if test="po.idType != null" >
+        id_type = #{po.idType},
+      </if>
+      <if test="po.idNum != null" >
+        id_num = #{po.idNum},
+      </if>
+      <if test="po.sex != null" >
+        sex = #{po.sex},
+      </if>
+      <if test="po.birthday != null" >
+        birthday = #{po.birthday},
+      </if>
+      <if test="po.tel != null" >
+        tel = #{po.tel},
+      </if>
+      <if test="po.qq != null" >
+        qq = #{po.qq},
+      </if>
+      <if test="po.wechat != null" >
+        wechat = #{po.wechat},
+      </if>
+      <if test="po.approvalStatus != null" >
+        approval_status = #{po.approvalStatus},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <!-- ***************************************************************************** -->
+  <!-- 以上自动生成，以下自定义 -->
+  <resultMap id="CommonUserOperationResultMap" type="com.sida.dcloud.operation.dto.CommonUserOperation" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="login_from" property="loginFrom" jdbcType="VARCHAR" />
+    <result column="wechat" property="wechat" jdbcType="VARCHAR" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="alipay_no" property="alipayNo" jdbcType="VARCHAR" />
+    <result column="sina_weibo" property="sinaWeibo" jdbcType="VARCHAR" />
+    <result column="facebook_no" property="facebookNo" jdbcType="VARCHAR" />
+    <result column="twitter_no" property="twitterNo" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="owner_url" property="ownerUrl" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="verifyBindStatus" parameterType="com.sida.dcloud.operation.dto.CommonUserOperation"  resultMap="CommonUserOperationResultMap" >
+    select u.id,u.wechat,u.qq,c.alipay_no,c.sina_weibo,c.facebook_no,c.twitter_no,
+    c.alias,c.owner_url,c.sex,c.birthday,c.remark,u.mobile
+    from sys_user_operation u join common_user c on u.id = c.id
+    where 1 = 1
+      <if test="dto.wechat != null">
+        and u.wechat = #{dto.wechat}
+      </if>
+      <if test="dto.alipayNo != null">
+        and c.alipay_no = #{dto.alipayNo}
+      </if>
+      <if test="dto.qq != null">
+        and u.qq = #{dto.qq}
+      </if>
+      <if test="dto.sinaWeibo != null">
+        and c.sina_weibo = #{dto.sinaWeibo}
+      </if>
+      <if test="dto.facebookNo != null">
+        and c.facebook_no = #{dto.facebookNo}
+      </if>
+      <if test="dto.twitterNo != null">
+        and c.twitter_no = #{dto.twitterNo}
+      </if>
+      <if test="dto.mobile != null">
+        and u.mobile = #{dto.mobile}
+      </if>
+  </select>
+
+  <select id="findThirdPartAccount" parameterType="com.sida.dcloud.operation.dto.CommonUserOperation"  resultMap="CommonUserOperationResultMap" >
+    select u.id,u.wechat,u.qq,c.alipay_no,c.sina_weibo,c.facebook_no,c.twitter_no,
+    c.alias,c.owner_url,c.sex,c.birthday,c.remark,u.mobile
+    from sys_user_operation u join common_user c on u.id = c.id
+    where 1 = 1
+    <if test="dto.mobile != null">
+      and u.mobile = #{dto.mobile}
+    </if>
+    <if test="dto.id != null">
+      and u.id = #{dto.id}
+    </if>
+  </select>
+
+  <update id="saveOrUpdateDto" parameterType="com.sida.dcloud.operation.dto.CommonUserOperation">
+    insert into sys_user_operation (id, wechat, qq, name, account, birthday, description, mobile, password, last_updated, updated_user)
+    select #{dto.id},#{dto.wechat}, #{dto.qq},
+    #{dto.name}, #{dto.mobile}, str_to_date(#{dto.birthday}, '%Y%m%d'), #{dto.remark}, #{dto.mobile}, #{dto.password}, now(), #{dto.updatedUser}
+    from dual
+    where not exists (select id from sys_user_operation where id = #{dto.id})
+  </update>
+
+  <update id="updateMobile" parameterType="com.sida.dcloud.operation.dto.CommonUserOperation">
+    update sys_user_operation set mobile = #{dto.mobile}, account = #{dto.mobile}
+    where id = #{dto.id}
+  </update>
+
+  <update id="updateUserInfo" parameterType="com.sida.dcloud.operation.dto.CommonUserOperation">
+    update sys_user_operation set name = #{dto.name}, birthday = #{dto.birthday}, description = #{dto.remark},
+    sex = #{dto.sex}
+    <where>
+      1=1
+      <if test="dto.id != null">and id = #{dto.id}</if>
+      <if test="dto.mobile != null">and mobile = #{dto.mobile}</if>
+    </where>
+  </update>
+
+  <update id="updateUserPassword" parameterType="com.sida.dcloud.operation.dto.CommonUserOperation">
+    update sys_user_operation set password = #{dto.password}
+    <where>
+      1=1
+      <if test="dto.id != null">and id = #{dto.id}</if>
+      <if test="dto.mobile != null">and mobile = #{dto.mobile}</if>
+    </where>
+  </update>
+
+  <update id="bindThirdPartAccount" parameterType="com.sida.dcloud.operation.dto.CommonUserOperation">
+    update sys_user_operation set
+    wechat = #{dto.wechat}, qq = #{dto.qq}
+    <where>
+      1=1
+      <if test="dto.id != null">and id = #{dto.id}</if>
+      <if test="dto.mobile != null">and mobile = #{dto.mobile}</if>
+    </where>
+  </update>
+
+  <update id="unbindThirdPartAccount">
+    update sys_user_operation set
+    <choose>
+      <when test="loginFrom = '1'">wechat=''</when>
+      <when test="loginFrom = '3'">qq=''</when>
+    </choose>
+    where mobile = #{mobile}
+  </update>
+
+  <select id="checkMultiCountByUnique" parameterType="com.sida.dcloud.operation.dto.CommonUserOperation" resultType="int">
+    select count(0) from sys_user_operation su left join common_user cu on su.id = cu.id
+    <where>
+      1 = 1
+      <if test="dto.id != null and dto.id != ''">
+        and su.id &lt;&gt; #{dto.id}
+      </if>
+      and (1 = 2
+      <if test="dto.mobile != null and dto.mobile != ''">
+        or su.mobile = #{dto.mobile}
+        or su.account = #{dto.mobile}
+      </if>
+      <if test="dto.wechat != null and dto.wechat != ''">
+        or su.wechat = #{dto.wechat}
+      </if>
+      <if test="dto.alipayNo != null and dto.alipayNo != ''">
+        or cu.alipay_no = #{dto.alipayNo}
+      </if>
+      <if test="dto.qq != null and dto.qq != ''">
+        or su.qq = #{dto.qq}
+      </if>
+      <if test="dto.sinaWeibo != null and dto.sinaWeibo !=''">
+        or cu.sina_weibo = #{dto.sinaWeibo}
+      </if>
+      <if test="dto.facebookNo != null and dto.facebookNo != ''">
+        or cu.facebook_no = #{dto.facebookNo}
+      </if>
+      <if test="dto.twitterNo != null and dto.twitterNo != ''">
+        or cu.twitter_no = #{dto.twitterNo}
+      </if>)
+    </where>
+  </select>
+
+  <update id="testDistributeTransaction">
+    update sys_user_operation set
+    description = #{remark}
+    where id = #{id}
+  </update>
+</mapper>

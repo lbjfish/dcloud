@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.operation.dao.DesignerUserMapper" >
+  <resultMap id="DesignerUserResultMap" type="com.sida.dcloud.operation.po.DesignerUser" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="red_string1" property="redString1" jdbcType="VARCHAR" />
+    <result column="red_string2" property="redString2" jdbcType="VARCHAR" />
+    <result column="red_string3" property="redString3" jdbcType="VARCHAR" />
+    <result column="red_string4" property="redString4" jdbcType="VARCHAR" />
+    <result column="red_string5" property="redString5" jdbcType="VARCHAR" />
+    <result column="red_string6" property="redString6" jdbcType="VARCHAR" />
+    <result column="audit_status" property="auditStatus" jdbcType="BIT" />
+    <result column="advanced_status" property="advancedStatus" jdbcType="BIT" />
+    <result column="power_index" property="powerIndex" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="motto" property="motto" jdbcType="VARCHAR" />
+    <result column="summary" property="summary" jdbcType="VARCHAR" />
+    <result column="honord_items" property="honordItems" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="DesignerUser_Column_List" >
+    id, red_string1, red_string2, red_string3, red_string4, red_string5, red_string6, 
+    audit_status, advanced_status, power_index, title, motto, summary, honord_items, 
+    sort, remark
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.operation.po.DesignerUser" >
+    insert into designer_user (id, red_string1, red_string2, red_string3, red_string4, red_string5, 
+      red_string6, audit_status, advanced_status, power_index, title, motto, 
+      summary, honord_items, sort, remark)
+    values (#{id}, #{redString1}, #{redString2}, #{redString3}, #{redString4}, #{redString5}, 
+      #{redString6}, #{auditStatus}, #{advancedStatus}, #{powerIndex}, #{title}, #{motto}, 
+      #{summary}, #{honordItems}, #{sort}, #{remark})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.operation.po.DesignerUser" >
+    insert into designer_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="redString1 != null" >
+        red_string1,
+      </if>
+      <if test="redString2 != null" >
+        red_string2,
+      </if>
+      <if test="redString3 != null" >
+        red_string3,
+      </if>
+      <if test="redString4 != null" >
+        red_string4,
+      </if>
+      <if test="redString5 != null" >
+        red_string5,
+      </if>
+      <if test="redString6 != null" >
+        red_string6,
+      </if>
+      <if test="auditStatus != null" >
+        audit_status,
+      </if>
+      <if test="advancedStatus != null" >
+        advanced_status,
+      </if>
+      <if test="powerIndex != null" >
+        power_index,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="motto != null" >
+        motto,
+      </if>
+      <if test="summary != null" >
+        summary,
+      </if>
+      <if test="honordItems != null" >
+        honord_items,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="redString1 != null" >
+        #{redString1},
+      </if>
+      <if test="redString2 != null" >
+        #{redString2},
+      </if>
+      <if test="redString3 != null" >
+        #{redString3},
+      </if>
+      <if test="redString4 != null" >
+        #{redString4},
+      </if>
+      <if test="redString5 != null" >
+        #{redString5},
+      </if>
+      <if test="redString6 != null" >
+        #{redString6},
+      </if>
+      <if test="auditStatus != null" >
+        #{auditStatus},
+      </if>
+      <if test="advancedStatus != null" >
+        #{advancedStatus},
+      </if>
+      <if test="powerIndex != null" >
+        #{powerIndex},
+      </if>
+      <if test="title != null" >
+        #{title},
+      </if>
+      <if test="motto != null" >
+        #{motto},
+      </if>
+      <if test="summary != null" >
+        #{summary},
+      </if>
+      <if test="honordItems != null" >
+        #{honordItems},
+      </if>
+      <if test="sort != null" >
+        #{sort},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="id != null and id != ''" >
+        id = #{id}
+      </if>
+      <if test="redString1 != null and redString1 != ''" >
+        AND red_string1 = #{redString1}
+      </if>
+      <if test="redString2 != null and redString2 != ''" >
+        AND red_string2 = #{redString2}
+      </if>
+      <if test="redString3 != null and redString3 != ''" >
+        AND red_string3 = #{redString3}
+      </if>
+      <if test="redString4 != null and redString4 != ''" >
+        AND red_string4 = #{redString4}
+      </if>
+      <if test="redString5 != null and redString5 != ''" >
+        AND red_string5 = #{redString5}
+      </if>
+      <if test="redString6 != null and redString6 != ''" >
+        AND red_string6 = #{redString6}
+      </if>
+      <if test="auditStatus != null" >
+        AND audit_status = #{auditStatus}
+      </if>
+      <if test="advancedStatus != null" >
+        AND advanced_status = #{advancedStatus}
+      </if>
+      <if test="powerIndex != null" >
+        AND power_index = #{powerIndex}
+      </if>
+      <if test="title != null and title != ''" >
+        AND title = #{title}
+      </if>
+      <if test="motto != null and motto != ''" >
+        AND motto = #{motto}
+      </if>
+      <if test="summary != null and summary != ''" >
+        AND summary = #{summary}
+      </if>
+      <if test="honordItems != null and honordItems != ''" >
+        AND honord_items = #{honordItems}
+      </if>
+      <if test="sort != null" >
+        AND sort = #{sort}
+      </if>
+      <if test="remark != null and remark != ''" >
+        AND remark = #{remark}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.operation.po.DesignerUser" resultMap="DesignerUserResultMap" >
+    select 
+    <include refid="DesignerUser_Column_List" />
+    from designer_user
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update designer_user
+    <set >
+      <if test="po.id != null" >
+        id = #{po.id},
+      </if>
+      <if test="po.redString1 != null" >
+        red_string1 = #{po.redString1},
+      </if>
+      <if test="po.redString2 != null" >
+        red_string2 = #{po.redString2},
+      </if>
+      <if test="po.redString3 != null" >
+        red_string3 = #{po.redString3},
+      </if>
+      <if test="po.redString4 != null" >
+        red_string4 = #{po.redString4},
+      </if>
+      <if test="po.redString5 != null" >
+        red_string5 = #{po.redString5},
+      </if>
+      <if test="po.redString6 != null" >
+        red_string6 = #{po.redString6},
+      </if>
+      <if test="po.auditStatus != null" >
+        audit_status = #{po.auditStatus},
+      </if>
+      <if test="po.advancedStatus != null" >
+        advanced_status = #{po.advancedStatus},
+      </if>
+      <if test="po.powerIndex != null" >
+        power_index = #{po.powerIndex},
+      </if>
+      <if test="po.title != null" >
+        title = #{po.title},
+      </if>
+      <if test="po.motto != null" >
+        motto = #{po.motto},
+      </if>
+      <if test="po.summary != null" >
+        summary = #{po.summary},
+      </if>
+      <if test="po.honordItems != null" >
+        honord_items = #{po.honordItems},
+      </if>
+      <if test="po.sort != null" >
+        sort = #{po.sort},
+      </if>
+      <if test="po.remark != null" >
+        remark = #{po.remark},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+</mapper>

@@ -8,19 +8,12 @@ spring:
           max-redirects: 6
           nodes: ${common.redis.addresses}
         password: ${common.redis.password}
-  cloud:
-    # load http://{host}:8888/{spring.cloud.config.name}-{spring.cloud.config.profile}.[preperties or yml]
-    # 如果properties格式无法启动则修改为yml格式
-    # 客户端--spring.cloud.config.profile=dev|prod|test传入就能确定使用哪个环境的配置文件，而无需修改
-    config:
-      enabled: true
-      server:
-        svn:
-          uri: @svn.uri@
-          username: @svn.username@
-          password: @svn.password@
-        default-label: @svn.default-label@
-#  rabbitmq:
+
+  #采用rabbitmq方式支持zipkin
+  rabbitmq:
+    addresses: @config.bus.refresh.addresses@
+  # 集群
+#    addresses: ${common.rabbitmq.addresses}
 #    host: 192.168.198.128
 #    port: 5672
 
@@ -52,3 +45,16 @@ eureka:
 management:
   security:
     enabled: false
+  health:
+    rabbit:
+      enabled: false
+
+info:
+  app:
+    name: @config-service@
+    auchor: Xiruo.Jiang
+    version: 1.0
+  build:
+    artifactId: @config-service@
+    version: 1.0-SNAPSHOT
+    date: 2018-9-18

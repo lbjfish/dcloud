@@ -12,6 +12,8 @@
     <result column="red_string5" property="redString5" jdbcType="VARCHAR" />
     <result column="red_string6" property="redString6" jdbcType="VARCHAR" />
     <result column="note_no" property="noteNo" jdbcType="VARCHAR" />
+    <result column="third_part_code" property="thirdPartCode" jdbcType="VARCHAR" />
+    <result column="sent_status" property="sentStatus" jdbcType="BIT" />
     <result column="activity_id" property="activityId" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
@@ -43,10 +45,11 @@
     <result column="interested_domains" property="interestedDomains" jdbcType="VARCHAR" />
     <result column="attend_intent" property="attendIntent" jdbcType="VARCHAR" />
     <result column="gain_channel" property="gainChannel" jdbcType="VARCHAR" />
-    <result column="it_type" property="itType" jdbcType="VARCHAR" />
+    <result column="id_type" property="idType" jdbcType="VARCHAR" />
     <result column="id_no" property="idNo" jdbcType="VARCHAR" />
     <result column="signup_time" property="signupTime" jdbcType="TIMESTAMP" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="face_url" property="faceUrl" jdbcType="VARCHAR" />
     <result column="version" property="version" jdbcType="VARCHAR" />
     <result column="field1" property="field1" jdbcType="VARCHAR" />
     <result column="field2" property="field2" jdbcType="VARCHAR" />
@@ -61,33 +64,33 @@
   </resultMap>
   <sql id="CustomerActivitySignupNote_Column_List" >
     id, org_id, delete_flag, red_string1, red_string2, red_string3, red_string4, red_string5, 
-    red_string6, note_no, activity_id, user_id, name, sex, department, position, unit, 
-    address, post_code, mobile1_country_no, mobile1_no, mobile2_country_no, mobile2_no, 
-    phone1_country_no, phone_zone_no, phone1_no, phone2_country_no, phone2_zone_no, phone2_no, 
-    fax_country_no, fax_zone_no, fax_no, email, homepage, qq_no, wx_no, region_id, corp_domains, 
-    interested_domains, attend_intent, gain_channel, it_type, id_no, signup_time, remark, 
-    version, field1, field2, field3, field4, field5, field6, field7, field8, field9, 
-    field10
+    red_string6, note_no, third_part_code, sent_status, activity_id, user_id, name, sex, department,
+    position, unit, address, post_code, mobile1_country_no, mobile1_no, mobile2_country_no, 
+    mobile2_no, phone1_country_no, phone_zone_no, phone1_no, phone2_country_no, phone2_zone_no, 
+    phone2_no, fax_country_no, fax_zone_no, fax_no, email, homepage, qq_no, wx_no, region_id, 
+    corp_domains, interested_domains, attend_intent, gain_channel, id_type, id_no, signup_time, 
+    remark, face_url, version, field1, field2, field3, field4, field5, field6, field7, field8,
+    field9, field10
   </sql>
   <insert id="insert" parameterType="com.sida.dcloud.activity.po.CustomerActivitySignupNote" >
     insert into customer_activity_signup_note (id, org_id, delete_flag, red_string1, red_string2, red_string3, 
-      red_string4, red_string5, red_string6, note_no, activity_id, user_id, 
-      name, sex, department, position, unit, address, post_code, 
+      red_string4, red_string5, red_string6, note_no, third_part_code, sent_status, activity_id,
+      user_id, name, sex, department, position, unit, address, post_code, 
       mobile1_country_no, mobile1_no, mobile2_country_no, mobile2_no, phone1_country_no, 
       phone_zone_no, phone1_no, phone2_country_no, phone2_zone_no, phone2_no, 
       fax_country_no, fax_zone_no, fax_no, email, homepage, qq_no, wx_no, 
       region_id, corp_domains, interested_domains, attend_intent, gain_channel, 
-      it_type, id_no, signup_time, remark, version, field1, field2, 
+      id_type, id_no, signup_time, remark, face_url, version, field1, field2,
       field3, field4, field5, field6, field7, field8, field9, field10
       )
     values (#{id}, #{orgId}, #{deleteFlag}, #{redString1}, #{redString2}, #{redString3}, 
-      #{redString4}, #{redString5}, #{redString6}, #{noteNo}, #{activityId}, #{userId}, 
-      #{name}, #{sex}, #{department}, #{position}, #{unit}, #{address}, #{postCode}, 
+      #{redString4}, #{redString5}, #{redString6}, #{noteNo}, #{thirdPartCode}, #{sentStatus}, #{activityId},
+      #{userId}, #{name}, #{sex}, #{department}, #{position}, #{unit}, #{address}, #{postCode}, 
       #{mobile1CountryNo}, #{mobile1No}, #{mobile2CountryNo}, #{mobile2No}, #{phone1CountryNo}, 
       #{phoneZoneNo}, #{phone1No}, #{phone2CountryNo}, #{phone2ZoneNo}, #{phone2No}, 
       #{faxCountryNo}, #{faxZoneNo}, #{faxNo}, #{email}, #{homepage}, #{qqNo}, #{wxNo}, 
       #{regionId}, #{corpDomains}, #{interestedDomains}, #{attendIntent}, #{gainChannel}, 
-      #{itType}, #{idNo}, #{signupTime}, #{remark}, #{version}, #{field1}, #{field2}, 
+      #{idType}, #{idNo}, #{signupTime}, #{remark}, #{faceUrl}, #{version}, #{field1}, #{field2},
       #{field3}, #{field4}, #{field5}, #{field6}, #{field7}, #{field8}, #{field9}, #{field10}
       )
   </insert>
@@ -123,6 +126,12 @@
       </if>
       <if test="noteNo != null" >
         note_no,
+      </if>
+      <if test="thirdPartCode != null" >
+        third_part_code,
+      </if>
+      <if test="sentStatus != null" >
+        sent_status,
       </if>
       <if test="activityId != null" >
         activity_id,
@@ -217,8 +226,8 @@
       <if test="gainChannel != null" >
         gain_channel,
       </if>
-      <if test="itType != null" >
-        it_type,
+      <if test="idType != null" >
+        id_type,
       </if>
       <if test="idNo != null" >
         id_no,
@@ -228,6 +237,9 @@
       </if>
       <if test="remark != null" >
         remark,
+      </if>
+      <if test="faceUrl != null" >
+        face_url,
       </if>
       <if test="version != null" >
         version,
@@ -293,6 +305,12 @@
       </if>
       <if test="noteNo != null" >
         #{noteNo},
+      </if>
+      <if test="thirdPartCode != null" >
+        #{thirdPartCode},
+      </if>
+      <if test="sentStatus != null" >
+        #{sentStatus},
       </if>
       <if test="activityId != null" >
         #{activityId},
@@ -387,8 +405,8 @@
       <if test="gainChannel != null" >
         #{gainChannel},
       </if>
-      <if test="itType != null" >
-        #{itType},
+      <if test="idType != null" >
+        #{idType},
       </if>
       <if test="idNo != null" >
         #{idNo},
@@ -398,6 +416,9 @@
       </if>
       <if test="remark != null" >
         #{remark},
+      </if>
+      <if test="faceUrl != null" >
+        #{faceUrl},
       </if>
       <if test="version != null" >
         #{version},
@@ -465,6 +486,12 @@
       </if>
       <if test="noteNo != null and noteNo != ''" >
         AND note_no = #{noteNo}
+      </if>
+      <if test="thirdPartCode != null and thirdPartCode != ''" >
+        AND third_part_code = #{thirdPartCode}
+      </if>
+      <if test="sentStatus != null and sentStatus != ''" >
+        AND sent_status = #{sentStatus}
       </if>
       <if test="activityId != null and activityId != ''" >
         AND activity_id = #{activityId}
@@ -559,8 +586,8 @@
       <if test="gainChannel != null and gainChannel != ''" >
         AND gain_channel = #{gainChannel}
       </if>
-      <if test="itType != null and itType != ''" >
-        AND it_type = #{itType}
+      <if test="idType != null and idType != ''" >
+        AND id_type = #{idType}
       </if>
       <if test="idNo != null and idNo != ''" >
         AND id_no = #{idNo}
@@ -570,6 +597,9 @@
       </if>
       <if test="remark != null and remark != ''" >
         AND remark = #{remark}
+      </if>
+      <if test="faceUrl != null and faceUrl != ''" >
+        AND face_url = #{faceUrl}
       </if>
       <if test="version != null and version != ''" >
         AND version = #{version}
@@ -650,6 +680,12 @@
       </if>
       <if test="po.noteNo != null" >
         note_no = #{po.noteNo},
+      </if>
+      <if test="po.thirdPartCode != null" >
+        third_part_code = #{po.thirdPartCode},
+      </if>
+      <if test="po.sentStatus != null" >
+        sent_status = #{po.sentStatus},
       </if>
       <if test="po.activityId != null" >
         activity_id = #{po.activityId},
@@ -744,8 +780,8 @@
       <if test="po.gainChannel != null" >
         gain_channel = #{po.gainChannel},
       </if>
-      <if test="po.itType != null" >
-        it_type = #{po.itType},
+      <if test="po.idType != null" >
+        id_type = #{po.idType},
       </if>
       <if test="po.idNo != null" >
         id_no = #{po.idNo},
@@ -755,6 +791,9 @@
       </if>
       <if test="po.remark != null" >
         remark = #{po.remark},
+      </if>
+      <if test="po.faceUrl != null" >
+        face_url = #{po.faceUrl},
       </if>
       <if test="po.version != null" >
         version = #{po.version},
@@ -808,17 +847,29 @@
     <result column="column_comment" property="columnComment" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="CustomerActivitySignupNoteVoResultMap" type="com.sida.dcloud.activity.vo.CustomerActivitySignupNoteVo" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
     <result column="note_no" property="noteNo" jdbcType="VARCHAR" />
-    <result column="activity_name" property="activityName" jdbcType="VARCHAR" />
-    <result column="user_account" property="userAccount" jdbcType="VARCHAR" />
-    <result column="user_name" property="userName" jdbcType="VARCHAR" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="sex" property="sex" jdbcType="VARCHAR" />
-    <result column="department" property="department" jdbcType="VARCHAR" />
-    <result column="position" property="position" jdbcType="VARCHAR" />
-    <result column="unit" property="unit" jdbcType="VARCHAR" />
-    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="activity_id" property="activityId" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="banner_url" property="bannerUrl" jdbcType="VARCHAR" />
+    <result column="region_id" property="regionId" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="sign_start_time" property="signStartTime" jdbcType="TIMESTAMP" />
+    <result column="sign_end_time" property="signEndTime" jdbcType="TIMESTAMP" />
+    <result column="signup_time" property="signupTime" jdbcType="TIMESTAMP" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="turnover_time" property="turnoverTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="goods_amount" property="goodsAmount" jdbcType="VARCHAR" />
   </resultMap>
+
+  <select id="selectByPrimaryKey" resultMap="CustomerActivitySignupNoteResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="CustomerActivitySignupNote_Column_List" />
+    from customer_activity_signup_note
+    where id = #{id} and delete_flag = 0
+  </select>
 
   <select id="findTableMeta" parameterType="com.sida.xiruo.po.common.TableMeta" resultMap="TableMetaResultMap" >
     select column_name,data_type,column_comment
@@ -826,38 +877,67 @@
     where lower(table_name) = #{tableMeta.tableName} and lower(table_schema) = #{tableMeta.tableSchema} order by ordinal_position
   </select>
 
-  <select id="findVoList" parameterType="com.sida.dcloud.activity.po.CustomerActivitySignupNote" resultMap="CustomerActivitySignupNoteVoResultMap">
+  <select id="findVoList" parameterType="com.sida.dcloud.activity.vo.CustomerActivitySignupNoteVo" resultMap="CustomerActivitySignupNoteVoResultMap">
     select
-    id,name,code,created_user,created_at,sort
+    note.id,
+    note.note_no,
+    note.activity_id,
+    concat(activity.title,'_',note.third_part_code) title,
+    activity.banner_url,
+    activity.region_id,
+    activity.start_time,
+    activity.end_time,
+    activity.sign_start_time,
+    activity.sign_end_time,
+    o.pay_time,
+    o.turnover_time,
+    o.create_time,
+    note.signup_time,
+    o.goods_amount
     from customer_activity_signup_note note
-    left join sys_user_activity user on note.user_id=user
-    left join activity_info info on note.activity_id=info.id
+    left join activity_order o on o.note_id = note.id
+    left join sys_user_activity u on note.user_id = u.id
+    left join activity_info activity on note.activity_id = activity.id
     <where>
       note.delete_flag = 0
-      <if test="po.id != null and po.id != ''" >
-        and id = #{po.id}
+      <if test="vo.id != null and vo.id != ''" >
+        and note.id = #{vo.id}
       </if>
-      <if test="po.name != null and po.name != ''" >
-        and instr(name, #{po.name})&gt;0
+      <if test="vo.title != null and vo.title != ''" >
+        and instr(activity.title, #{vo.title})&gt;0
       </if>
-      <if test="po.department != null and po.department != ''" >
-        and instr(department, #{po.department})&gt;0
+      <if test="vo.userId != null and vo.userId != ''" >
+        and note.user_id = #{vo.userId}
       </if>
-      <if test="po.position != null and po.position != ''" >
-        and instr(position, #{po.position})&gt;0
-      </if>
-      <if test="po.unit != null and po.unit != ''" >
-        and instr(unit, #{po.unit})&gt;0
-      </if>
-      <if test="po.adress != null and po.adress != ''" >
-        and instr(adress, #{po.adress})&gt;0
+      <if test="vo.orderStatus != null and vo.orderStatus != ''" >
+        <choose>
+          <!-- 待支付 -->
+          <when test="vo.orderStatus == 1">and o.pay_time is null and goods_amount &gt; 0 and now() &lt;= activity.end_time and TIMESTAMPDIFF(MINUTE, o.create_time , now()) &lt; #{vo.payExpired}</when>
+          <!-- 待参加 -->
+          <when test="vo.orderStatus == 2">and (o.pay_time is not null or goods_amount = 0) and now() &lt;= activity.end_time</when>
+          <!-- 已失效 -->
+          <when test="vo.orderStatus == 3">and o.pay_time is null and goods_amount &gt; 0 and TIMESTAMPDIFF(MINUTE, o.create_time , now()) &gt;= #{vo.payExpired}</when>
+          <!-- 已参加 -->
+          <when test="vo.orderStatus == 4"></when>
+          <!-- 待评价 -->
+          <when test="vo.orderStatus == 5"></when>
+          <!-- 已结束 -->
+          <when test="vo.orderStatus == 6"></when>
+          <!-- 已完成 -->
+          <when test="vo.orderStatus == 7">and (o.pay_time is not null or goods_amount = 0) and now() &gt; activity.end_time</when>
+          <!-- 已退款 -->
+          <when test="vo.orderStatus == 8"></when>
+          <!-- 已过期 -->
+          <when test="vo.orderStatus == 9"></when>
+          <otherwise>#{vo.orderStatus}</otherwise>
+        </choose>
       </if>
     </where>
-    <if test="po.orderField != null and po.orderField != ''">
-      ORDER BY ${po.orderField}
-      <if test="po.orderString != null and po.orderString != ''">
-        ${po.orderString}
-      </if>
+    <if test="vo.orderField != null and vo.orderField != ''">
+      ORDER BY ${vo.orderField}
+      <if test="vo.orderString != null and vo.orderString != ''">
+        ${vo.orderString}
+      </if>,signup_time desc
     </if>
   </select>
 
@@ -873,4 +953,28 @@
       </if>
     </where>
   </select>
+
+  <select id="getCurrentNoteNo" resultType="String">
+    select max(a.note_no) from ((select max(note_no) note_no from customer_activity_signup_note order by note_no desc) union all select 0 from dual) a
+  </select>
+
+  <select id="getCurrentThirdPartCode" resultType="String">
+    select max(a.third_part_code) from ((select max(third_part_code) third_part_code from customer_activity_signup_note order by third_part_code desc) union all select 0 from dual) a
+  </select>
+
+  <select id="selectUnsentThirdPartCodePo" resultMap="CustomerActivitySignupNoteResultMap">
+    select
+    note.id, note.third_part_code,note.name,note.mobile1_no,note.region_id,note.unit
+    from customer_activity_signup_note note
+    left join activity_order o on o.note_id = note.id
+    left join activity_info activity on activity.id = note.activity_id
+    <where>
+      <!-- 未发送成功 && (已支付 || 免费) && 未过期 -->
+      note.sent_status = false and (o.pay_time is not null or o.goods_amount = 0) and now() &lt;= activity.end_time
+    </where>
+  </select>
+
+  <update id="updateSentStatus">
+    update customer_activity_signup_note set sent_status = #{sentStatus} where instr(#{ids}, id) &gt; 0
+  </update>
 </mapper>

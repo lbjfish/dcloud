@@ -16,5 +16,18 @@
         <module>po</module>
         <module>interface</module>
         <module>module</module>
+        <!--<module>x-thirdpart</module>-->
     </modules>
+    <distributionManagement>
+        <repository>
+            <id>nexus</id>
+            <name>Nexus Release Repository</name>
+            <url>http://172.16.0.11:8081/nexus/content/repositories/public/</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>http://172.16.0.11:8081/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>

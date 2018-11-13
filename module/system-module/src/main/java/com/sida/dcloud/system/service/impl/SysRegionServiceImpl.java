@@ -4,12 +4,17 @@ import com.sida.dcloud.auth.common.SecConstant;
 import com.sida.dcloud.auth.po.SysRegion;
 import com.sida.dcloud.auth.vo.RegionTreeDTO;
 import com.sida.dcloud.system.common.CollectorConstants;
+import com.sida.dcloud.system.common.SystemCacheUtil;
 import com.sida.dcloud.system.dao.SysRegionMapper;
+import com.sida.dcloud.system.dto.SysRegionLayerDto;
 import com.sida.dcloud.system.service.FileService;
 import com.sida.dcloud.system.service.SysRegionService;
 import com.sida.xiruo.common.util.ErrorCodeEnums;
+import com.sida.xiruo.common.util.PinYinUtil;
 import com.sida.xiruo.common.util.SystemUtil;
 import com.sida.xiruo.common.util.Xiruo;
+import com.sida.xiruo.util.jedis.RedisKey;
+import com.sida.xiruo.xframework.cache.redis.RedisUtil;
 import com.sida.xiruo.xframework.dao.IMybatisDao;
 import com.sida.xiruo.xframework.exception.ServiceException;
 import com.sida.xiruo.xframework.service.BaseServiceImpl;
@@ -28,6 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
@@ -43,6 +49,8 @@ public class SysRegionServiceImpl extends BaseServiceImpl<SysRegion> implements 
     private SysRegionMapper sysRegionMapper;
     @Autowired
     private FileService fileService;
+    @Autowired
+    private SystemCacheUtil systemCacheUtil;
 
     @Override
     public IMybatisDao<SysRegion> getBaseDao() {
@@ -64,6 +72,11 @@ public class SysRegionServiceImpl extends BaseServiceImpl<SysRegion> implements 
             dtoList.add(dto);
         }
         return BuildTree.buildTree(dtoList);
+    }
+
+    @Override
+    public List<SysRegionLayerDto> findThreeLevelTree(){
+        return (List<SysRegionLayerDto>)systemCacheUtil.getRegionDataByKey(RedisKey.SYS_REGION_CACHE_WITH_THREE_LEVEL_BY_LAYER);
     }
 
     @Override
@@ -274,7 +287,7 @@ public class SysRegionServiceImpl extends BaseServiceImpl<SysRegion> implements 
 
         //手动设置“中国”的数据
         SysRegion china = new SysRegion();
-        china.setId(UUID.randomUUID().toString());
+        china.setId(UUIDGenerate.getNextId());
         china.setCreatedAt(new Date());
         china.setLastUpdated(new Date());
         china.setDisable(false);
@@ -439,5 +452,35 @@ public class SysRegionServiceImpl extends BaseServiceImpl<SysRegion> implements 
             return regions.get(0).getName();
         }
         return null;
+    }
+
+    @Override
+    public List<SysRegionLayerDto> findSysRegionSingleLayerDtoByLevelFromDB(String level) {
+        return sysRegionMapper.findSysRegionSingleLayerDtoByLevel(level);
+    }
+
+    @Override
+    public List<SysRegionLayerDto> findSysRegionSingleLayerDtoByLevel(String level) {
+        if("CITY".equalsIgnoreCase(level)) {
+            return (List<SysRegionLayerDto>)systemCacheUtil.getRegionDataByKey(RedisKey.SYS_REGION_CACHE_WITH_CITY);
+        } else if("PROVINCE".equalsIgnoreCase(level)) {
+            return (List<SysRegionLayerDto>)systemCacheUtil.getRegionDataByKey(RedisKey.SYS_REGION_CACHE_WITH_PROVINCE);
+        } else if("COUNTRY".equalsIgnoreCase(level)) {
+            return (List<SysRegionLayerDto>)systemCacheUtil.getRegionDataByKey(RedisKey.SYS_REGION_CACHE_WITH_COUNTRY);
+        }
+       throw new ServiceException("参数有误");
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public int updateSysRegionPinyin() {
+        sysRegionMapper.selectByCondition(new SysRegion()).forEach(region -> {
+            SysRegionLayerDto dto = new SysRegionLayerDto();
+            dto.setId(region.getId());
+            dto.setPinyin(PinYinUtil.getPingYin(region.getName()));
+            dto.setCapitalPinyin(PinYinUtil.getFirstSpell(region.getName()));
+            sysRegionMapper.updateSysRegionPinyin(dto);
+        });
+        return 0;
     }
 }

@@ -21,9 +21,7 @@
     <result column="alias" property="alias" jdbcType="VARCHAR" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="second_title" property="secondTitle" jdbcType="VARCHAR" />
-    <result column="content" property="content" jdbcType="VARCHAR" />
     <result column="custom_title" property="customTitle" jdbcType="VARCHAR" />
-    <result column="custom_content" property="customContent" jdbcType="VARCHAR" />
     <result column="hosts" property="hosts" jdbcType="VARCHAR" />
     <result column="organizers" property="organizers" jdbcType="VARCHAR" />
     <result column="co_organizers" property="coOrganizers" jdbcType="VARCHAR" />
@@ -58,38 +56,88 @@
     <result column="refund_remark" property="refundRemark" jdbcType="VARCHAR" />
     <result column="allow_refund" property="allowRefund" jdbcType="BIT" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="summary" property="summary" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="custom_content" property="customContent" jdbcType="LONGVARCHAR" />
+    <association property="children" column="id" select="selectChildren"/>
+  </resultMap>
+  <resultMap id="ActivityInfoChildResultMap" type="com.sida.dcloud.activity.po.ActivityInfoChild" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="alias" property="alias" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="second_title" property="secondTitle" jdbcType="VARCHAR" />
+    <result column="custom_title" property="customTitle" jdbcType="VARCHAR" />
+    <result column="hosts" property="hosts" jdbcType="VARCHAR" />
+    <result column="organizers" property="organizers" jdbcType="VARCHAR" />
+    <result column="co_organizers" property="coOrganizers" jdbcType="VARCHAR" />
+    <result column="link_man" property="linkMan" jdbcType="VARCHAR" />
+    <result column="link_phone" property="linkPhone" jdbcType="VARCHAR" />
+    <result column="multi_activity" property="multiActivity" jdbcType="BIT" />
+    <result column="multi_section" property="multiSection" jdbcType="BIT" />
+    <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+    <result column="region_id" property="regionId" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="DOUBLE" />
+    <result column="latitude" property="latitude" jdbcType="DOUBLE" />
+    <result column="banner_url" property="bannerUrl" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="sign_start_time" property="signStartTime" jdbcType="TIMESTAMP" />
+    <result column="sign_end_time" property="signEndTime" jdbcType="TIMESTAMP" />
+    <result column="approval_time" property="approvalTime" jdbcType="TIMESTAMP" />
+    <result column="responsible_org" property="responsibleOrg" jdbcType="VARCHAR" />
+    <result column="expenses" property="expenses" jdbcType="DOUBLE" />
+    <result column="favorite_count" property="favoriteCount" jdbcType="INTEGER" />
+    <result column="sign_count" property="signCount" jdbcType="INTEGER" />
+    <result column="comment_count" property="commentCount" jdbcType="INTEGER" />
+    <result column="alone_entrance" property="aloneEntrance" jdbcType="BIT" />
+    <result column="entrance_url" property="entranceUrl" jdbcType="VARCHAR" />
+    <result column="activity_status" property="activityStatus" jdbcType="VARCHAR" />
+    <result column="face_detection" property="faceDetection" jdbcType="BIT" />
+    <result column="buy_limit" property="buyLimit" jdbcType="INTEGER" />
+    <result column="ticket_remark" property="ticketRemark" jdbcType="VARCHAR" />
+    <result column="pay_expired" property="payExpired" jdbcType="INTEGER" />
+    <result column="pay_remark" property="payRemark" jdbcType="VARCHAR" />
+    <result column="refund_remark" property="refundRemark" jdbcType="VARCHAR" />
+    <result column="allow_refund" property="allowRefund" jdbcType="BIT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="summary" property="summary" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="custom_content" property="customContent" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="ActivityInfo_Column_List" >
     id, org_id, created_user, created_at, updated_user, last_updated, disable, delete_flag, 
     red_string1, red_string2, red_string3, red_string4, red_string5, red_string6, name, 
-    code, alias, title, second_title, content, custom_title, custom_content, hosts, organizers, 
-    co_organizers, link_man, link_phone, multi_activity, multi_section, parent_id, region_id, 
-    address, longitude, latitude, banner_url, start_time, end_time, sign_start_time, 
-    sign_end_time, approval_time, responsible_org, expenses, favorite_count, sign_count, 
-    comment_count, alone_entrance, entrance_url, activity_status, face_detection, buy_limit, 
-    ticket_remark, pay_expired, pay_remark, refund_remark, allow_refund, remark
+    code, alias, title, second_title, custom_title, hosts, organizers, co_organizers, 
+    link_man, link_phone, multi_activity, multi_section, parent_id, region_id, address, 
+    longitude, latitude, banner_url, start_time, end_time, sign_start_time, sign_end_time, 
+    approval_time, responsible_org, expenses, favorite_count, sign_count, comment_count, 
+    alone_entrance, entrance_url, activity_status, face_detection, buy_limit, ticket_remark, 
+    pay_expired, pay_remark, refund_remark, allow_refund, remark, summary, content, custom_content
   </sql>
   <insert id="insert" parameterType="com.sida.dcloud.activity.po.ActivityInfo" >
     insert into activity_info (id, org_id, created_user, created_at, updated_user, last_updated, 
       disable, delete_flag, red_string1, red_string2, red_string3, red_string4, 
       red_string5, red_string6, name, code, alias, title, second_title, 
-      content, custom_title, custom_content, hosts, organizers, co_organizers, 
-      link_man, link_phone, multi_activity, multi_section, parent_id, region_id, 
-      address, longitude, latitude, banner_url, start_time, end_time, 
-      sign_start_time, sign_end_time, approval_time, responsible_org, expenses, 
-      favorite_count, sign_count, comment_count, alone_entrance, entrance_url, 
-      activity_status, face_detection, buy_limit, ticket_remark, pay_expired, 
-      pay_remark, refund_remark, allow_refund, remark)
+      custom_title, hosts, organizers, co_organizers, link_man, link_phone, 
+      multi_activity, multi_section, parent_id, region_id, address, longitude, 
+      latitude, banner_url, start_time, end_time, sign_start_time, sign_end_time, 
+      approval_time, responsible_org, expenses, favorite_count, sign_count, 
+      comment_count, alone_entrance, entrance_url, activity_status, face_detection, 
+      buy_limit, ticket_remark, pay_expired, pay_remark, refund_remark, allow_refund, 
+      remark, summary, content, custom_content)
     values (#{id}, #{orgId}, #{createdUser}, #{createdAt}, #{updatedUser}, #{lastUpdated}, 
       #{disable}, #{deleteFlag}, #{redString1}, #{redString2}, #{redString3}, #{redString4}, 
       #{redString5}, #{redString6}, #{name}, #{code}, #{alias}, #{title}, #{secondTitle}, 
-      #{content}, #{customTitle}, #{customContent}, #{hosts}, #{organizers}, #{coOrganizers}, 
-      #{linkMan}, #{linkPhone}, #{multiActivity}, #{multiSection}, #{parentId}, #{regionId}, 
-      #{address}, #{longitude}, #{latitude}, #{bannerUrl}, #{startTime}, #{endTime}, 
-      #{signStartTime}, #{signEndTime}, #{approvalTime}, #{responsibleOrg}, #{expenses}, 
-      #{favoriteCount}, #{signCount}, #{commentCount}, #{aloneEntrance}, #{entranceUrl}, 
-      #{activityStatus}, #{faceDetection}, #{buyLimit}, #{ticketRemark}, #{payExpired}, 
-      #{payRemark}, #{refundRemark}, #{allowRefund}, #{remark})
+      #{customTitle}, #{hosts}, #{organizers}, #{coOrganizers}, #{linkMan}, #{linkPhone}, 
+      #{multiActivity}, #{multiSection}, #{parentId}, #{regionId}, #{address}, #{longitude}, 
+      #{latitude}, #{bannerUrl}, #{startTime}, #{endTime}, #{signStartTime}, #{signEndTime}, 
+      #{approvalTime}, #{responsibleOrg}, #{expenses}, #{favoriteCount}, #{signCount}, 
+      #{commentCount}, #{aloneEntrance}, #{entranceUrl}, #{activityStatus}, #{faceDetection}, 
+      #{buyLimit}, #{ticketRemark}, #{payExpired}, #{payRemark}, #{refundRemark}, #{allowRefund}, 
+      #{remark}, #{summary}, #{content}, #{customContent})
   </insert>
   <insert id="insertSelective" parameterType="com.sida.dcloud.activity.po.ActivityInfo" >
     insert into activity_info
@@ -151,14 +199,8 @@
       <if test="secondTitle != null" >
         second_title,
       </if>
-      <if test="content != null" >
-        content,
-      </if>
       <if test="customTitle != null" >
         custom_title,
-      </if>
-      <if test="customContent != null" >
-        custom_content,
       </if>
       <if test="hosts != null" >
         hosts,
@@ -262,6 +304,15 @@
       <if test="remark != null" >
         remark,
       </if>
+      <if test="summary != null" >
+        summary,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="customContent != null" >
+        custom_content,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -321,14 +372,8 @@
       <if test="secondTitle != null" >
         #{secondTitle},
       </if>
-      <if test="content != null" >
-        #{content},
-      </if>
       <if test="customTitle != null" >
         #{customTitle},
-      </if>
-      <if test="customContent != null" >
-        #{customContent},
       </if>
       <if test="hosts != null" >
         #{hosts},
@@ -432,6 +477,15 @@
       <if test="remark != null" >
         #{remark},
       </if>
+      <if test="summary != null" >
+        #{summary},
+      </if>
+      <if test="content != null" >
+        #{content},
+      </if>
+      <if test="customContent != null" >
+        #{customContent},
+      </if>
     </trim>
   </insert>
   <sql id="Where_Condition" >
@@ -493,14 +547,8 @@
       <if test="secondTitle != null and secondTitle != ''" >
         AND second_title = #{secondTitle}
       </if>
-      <if test="content != null and content != ''" >
-        AND content = #{content}
-      </if>
       <if test="customTitle != null and customTitle != ''" >
         AND custom_title = #{customTitle}
-      </if>
-      <if test="customContent != null and customContent != ''" >
-        AND custom_content = #{customContent}
       </if>
       <if test="hosts != null and hosts != ''" >
         AND hosts = #{hosts}
@@ -604,6 +652,9 @@
       <if test="remark != null and remark != ''" >
         AND remark = #{remark}
       </if>
+      <if test="summary != null and summary != ''" >
+        AND summary = #{summary}
+      </if>
     </where>
   </sql>
   <select id="selectByCondition" parameterType="com.sida.dcloud.activity.po.ActivityInfo" resultMap="ActivityInfoResultMap" >
@@ -678,14 +729,8 @@
       <if test="po.secondTitle != null" >
         second_title = #{po.secondTitle},
       </if>
-      <if test="po.content != null" >
-        content = #{po.content},
-      </if>
       <if test="po.customTitle != null" >
         custom_title = #{po.customTitle},
-      </if>
-      <if test="po.customContent != null" >
-        custom_content = #{po.customContent},
       </if>
       <if test="po.hosts != null" >
         hosts = #{po.hosts},
@@ -789,6 +834,15 @@
       <if test="po.remark != null" >
         remark = #{po.remark},
       </if>
+      <if test="po.summary != null" >
+        summary = #{po.summary},
+      </if>
+      <if test="po.content != null" >
+        content = #{po.content},
+      </if>
+      <if test="po.customContent != null" >
+        custom_content = #{po.customContent},
+      </if>
     </set>
     where 1=2
     <if test="ids != null and ids.size > 0" >
@@ -803,22 +857,62 @@
 
   <resultMap id="ActivityInfoVoResultMap" type="com.sida.dcloud.activity.vo.ActivityInfoVo" >
     <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="hosts" property="hosts" jdbcType="VARCHAR" />
+    <result column="summary" property="summary" jdbcType="VARCHAR" />
     <result column="multi_activity" property="multiActivity" jdbcType="BIT" />
     <result column="multi_section" property="multiSection" jdbcType="BIT" />
     <result column="region_id" property="regionId" jdbcType="VARCHAR" />
     <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
     <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="sign_start_time" property="signStartTime" jdbcType="TIMESTAMP" />
+    <result column="sign_end_time" property="signEndTime" jdbcType="TIMESTAMP" />
     <result column="responsible_org" property="responsibleOrg" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="banner_url" property="bannerUrl" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="DOUBLE" />
+    <result column="latitude" property="latitude" jdbcType="DOUBLE" />
     <result column="expenses" property="expenses" jdbcType="DOUBLE" />
     <result column="activity_status" property="activityStatus" jdbcType="VARCHAR" />
+    <association property="children" column="id" select="selectChildrenVo"/>
   </resultMap>
+  <resultMap id="ActivityInfoChildVoResultMap" type="com.sida.dcloud.activity.vo.ActivityInfoChildVo" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="banner_url" property="bannerUrl" jdbcType="VARCHAR" />
+    <result column="summary" property="summary" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="selectChildren" resultMap="ActivityInfoChildResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="ActivityInfo_Column_List" />
+    from activity_info
+    <where>
+      <![CDATA[delete_flag = 0 and parent_id <> 0 and parent_id is not null and parent_id = #{id}]]>
+    </where>
+  </select>
+  <select id="selectChildrenVo" resultMap="ActivityInfoChildVoResultMap" parameterType="java.lang.String" >
+    select
+    id, banner_url, title, summary
+    from activity_info
+    <where>
+      <![CDATA[delete_flag = 0 and parent_id <> 0 and parent_id is not null and parent_id = #{id}]]>
+    </where>
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="ActivityInfoResultMap" parameterType="java.lang.String" >
     select
     <include refid="ActivityInfo_Column_List" />
     from activity_info
     where id = #{id} and delete_flag = 0
+  </select>
+  <select id="selectSelfAndChildrenByPrimaryKey" resultMap="ActivityInfoResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="ActivityInfo_Column_List" />
+    from activity_info
+    where (id = #{id} or parent_id = #{id}) and delete_flag = 0
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     update activity_info set delete_flag = 1 where id = #{id}
@@ -829,17 +923,18 @@
 
   <select id="findVoList" parameterType="com.sida.dcloud.activity.po.ActivityInfo" resultMap="ActivityInfoVoResultMap">
     select
-    id, name, hosts, multo_activity, multi_section, region_id, start_time, end_time, responsible_org, expenses, activity_status
+    id, name, hosts, multi_activity, multi_section, region_id, start_time, end_time, responsible_org, expenses, activity_status,
+    sign_start_time, sign_end_time, address, longitude, latitude, banner_url, parent_id, title, summary
     from activity_info
     <where>
-      delete_flag = 0
+      delete_flag = 0 and (parent_id = 0 or parent_id is null)
       <if test="po.id != null and po.id != ''" >
         and id = #{po.id}
       </if>
       <if test="po.name != null and po.name != ''" >
         and instr(name, #{po.name})&gt;0
       </if>
-       <if test="po.remark != null and po.remark != ''" >
+      <if test="po.remark != null and po.remark != ''" >
         and instr(remark, #{po.remark})&gt;0
       </if>
     </where>
@@ -877,24 +972,24 @@
   <update id="updateActivityStatus" >
     update activity_info
     <set>activity_status = #{activityStatus}</set>
-    <where>activity_id = #{activityId}</where>
+    <where>id = #{activityId}</where>
   </update>
 
   <update id="increaseCommentCount" >
     update activity_info
     <set>comment_count = comment_count + #{count}</set>
-    <where>activity_id = #{activityId}</where>
+    <where>id = #{activityId}</where>
   </update>
 
   <update id="increaseFavoriteCount" >
     update activity_info
     <set>favorite_count = favorite_count + #{count}</set>
-    <where>activity_id = #{activityId}</where>
+    <where>d = #{activityId}</where>
   </update>
 
   <update id="increaseSignCount" >
     update activity_info
     <set>sign_count = sign_count + #{count}</set>
-    <where>activity_id = #{activityId}</where>
+    <where>id = #{activityId}</where>
   </update>
 </mapper>

@@ -1,6 +1,6 @@
 /**
  * create by jianglingfeng
- * @date 2018-09
+ * @date 2018-10
  */
 package com.sida.dcloud.activity.po;
 
@@ -12,6 +12,12 @@ import java.util.Date;
 public class CustomerActivitySignupNote extends BaseEntity implements Serializable {
     @ApiModelProperty("报名表编号（由规则产生）")
     private String noteNo;
+
+    @ApiModelProperty("第三方识别码")
+    private String thirdPartCode;
+
+    @ApiModelProperty("识别码发送状态(0: 失败，1: 成功)")
+    private Boolean sentStatus;
 
     @ApiModelProperty("活动id（关联activity_info表id）")
     private String activityId;
@@ -107,7 +113,7 @@ public class CustomerActivitySignupNote extends BaseEntity implements Serializab
     private String gainChannel;
 
     @ApiModelProperty("证件类型（字典id_type）")
-    private String itType;
+    private String idType;
 
     @ApiModelProperty("证件号码")
     private String idNo;
@@ -117,6 +123,9 @@ public class CustomerActivitySignupNote extends BaseEntity implements Serializab
 
     @ApiModelProperty("备注")
     private String remark;
+
+    @ApiModelProperty("报名头像")
+    private String faceUrl;
 
     @ApiModelProperty("版本（YYYYMMDD）")
     private String version;
@@ -153,12 +162,36 @@ public class CustomerActivitySignupNote extends BaseEntity implements Serializab
 
     private static final long serialVersionUID = 1L;
 
+    public Boolean getSentStatus() {
+        return sentStatus;
+    }
+
+    public void setSentStatus(Boolean sentStatus) {
+        this.sentStatus = sentStatus;
+    }
+
+    public String getFaceUrl() {
+        return faceUrl;
+    }
+
+    public void setFaceUrl(String faceUrl) {
+        this.faceUrl = faceUrl;
+    }
+
     public String getNoteNo() {
         return noteNo;
     }
 
     public void setNoteNo(String noteNo) {
         this.noteNo = noteNo == null ? null : noteNo.trim();
+    }
+
+    public String getThirdPartCode() {
+        return thirdPartCode;
+    }
+
+    public void setThirdPartCode(String thirdPartCode) {
+        this.thirdPartCode = thirdPartCode == null ? null : thirdPartCode.trim();
     }
 
     public String getActivityId() {
@@ -409,12 +442,12 @@ public class CustomerActivitySignupNote extends BaseEntity implements Serializab
         this.gainChannel = gainChannel == null ? null : gainChannel.trim();
     }
 
-    public String getItType() {
-        return itType;
+    public String getIdType() {
+        return idType;
     }
 
-    public void setItType(String itType) {
-        this.itType = itType == null ? null : itType.trim();
+    public void setIdType(String idType) {
+        this.idType = idType == null ? null : idType.trim();
     }
 
     public String getIdNo() {

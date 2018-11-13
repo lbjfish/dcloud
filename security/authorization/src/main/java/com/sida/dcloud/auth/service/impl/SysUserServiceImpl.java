@@ -229,19 +229,21 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
             switch (reqType) {
                 case AuthCodeConstants.REQTYPE_REMOTE_REGISTER_1:
                     //redis验证
-                    validCode = redisUtil.getOneByMapKey(RedisKey.SHORT_MSG_AUTH_CODE, RedisKey.REMOTE_REGISTER + mobile);
+                    validCode = redisUtil.getOneByMapKey(RedisKey.SHORT_MSG_AUTH_CODE, mobile);
                     if (BlankUtil.isNotEmpty(validCode) && code.equals(validCode.toString())) {
                         // 失效验证码
-                        redisUtil.removeOneFromMap(RedisKey.SHORT_MSG_AUTH_CODE, RedisKey.REMOTE_REGISTER + mobile);
+                        redisUtil.removeOneFromMap(RedisKey.SHORT_MSG_AUTH_CODE, mobile);
                         return true;
                     }
                     break;
                 case AuthCodeConstants.REQTYPE_REMOTE_LOGIN_2:
                     //redis验证
-                    validCode = redisUtil.getOneByMapKey(RedisKey.SHORT_MSG_AUTH_CODE, RedisKey.REMOTE_LOGIN + mobile);
+                    validCode = redisUtil.getOneByMapKey(RedisKey.SHORT_MSG_AUTH_CODE, mobile);
+//                    System.out.println(mobile);
+//                    System.out.println(redisUtil.getOneByMapKey(RedisKey.SHORT_MSG_AUTH_CODE,mobile));
                     if (BlankUtil.isNotEmpty(validCode) && code.equals(validCode.toString())) {
                         // 失效验证码
-                        redisUtil.removeOneFromMap(RedisKey.SHORT_MSG_AUTH_CODE, RedisKey.REMOTE_LOGIN + mobile);
+                        redisUtil.removeOneFromMap(RedisKey.SHORT_MSG_AUTH_CODE, mobile);
                         return true;
                     }
                     break;

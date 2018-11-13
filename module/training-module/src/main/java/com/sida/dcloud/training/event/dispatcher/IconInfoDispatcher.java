@@ -44,7 +44,7 @@ public class IconInfoDispatcher extends BaseClientConfig implements IEventDispat
         if(iconInfoService.checkMultiCountByUnique(po) > 0) {
             throw new TrainingException("名称和编码不能重复");
         }
-        Event event = Event.makeEvent(po, TrainingEventType.TRAINING_EVENT_ICON_INFO_INSERT, UUID.create().toString(), 2);
+        Event event = Event.makeEvent(po, TrainingEventType.TRAINING_EVENT_ICON_INFO_INSERT, UUIDGenerate.getNextId(), 2);
 
         ask(actorRef, new EventJob(event), new Timeout(EventConstants.DEFAULT_EVENT_TIMEOUT, TimeUnit.SECONDS))
                 .thenApply(reply -> {
@@ -69,7 +69,7 @@ public class IconInfoDispatcher extends BaseClientConfig implements IEventDispat
     public void remove(String stringIds) {
         IconInfo po = new IconInfo();
         po.setStringIds(stringIds);
-        Event event = Event.makeEvent(po, TrainingEventType.TRAINING_EVENT_ICON_INFO_REMOVE,  UUID.create().toString(), 2);
+        Event event = Event.makeEvent(po, TrainingEventType.TRAINING_EVENT_ICON_INFO_REMOVE,  UUIDGenerate.getNextId(), 2);
 
         ask(actorRef, new EventJob(event), new Timeout(EventConstants.DEFAULT_EVENT_TIMEOUT, TimeUnit.SECONDS))
                 .thenApply(reply -> {

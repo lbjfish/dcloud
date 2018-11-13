@@ -42,6 +42,10 @@ public class BuildTree {
                     if( null != parent) {
                         @SuppressWarnings("unchecked")
                         List<T> children = (List<T>) parent.getClass().getMethod("getChildren").invoke(parent);
+//                        if(children == null) {
+//                            children = new ArrayList<>();
+//                            parent.getClass().getMethod("setChildren").invoke(parent, children);
+//                        }
                         children.add(node);
                     }
                 }

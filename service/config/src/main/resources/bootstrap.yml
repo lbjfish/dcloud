@@ -1,2 +1,21 @@
 spring:
   profiles: default
+  cloud:
+    # load http://{host}:8888/{spring.cloud.config.name}-{spring.cloud.config.profile}.[preperties or yml]
+    # /{application}/{profile}[/{label}]
+    # /sida/dev
+    # /sida/dev/config
+    # /{application}-{profile}.yml
+    # /{label}/{application}-{profile}.yml
+    # /{application}-{profile}.properties
+    # /{label}/{application}-{profile}.properties
+    # 如果properties格式无法启动则修改为yml格式
+    # 客户端--spring.cloud.config.profile=dev|prod|test传入就能确定使用哪个环境的配置文件，而无需修改
+    config:
+      enabled: true
+      server:
+        svn:
+          uri: @svn.uri@
+          username: @svn.username@
+          password: @svn.password@
+        default-label: @svn.default-label@

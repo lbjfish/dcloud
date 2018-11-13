@@ -4,6 +4,8 @@ import com.sida.dcloud.activity.common.ActivityException;
 import com.sida.dcloud.activity.po.ActivitySchedule;
 import com.sida.dcloud.activity.service.ActivityScheduleService;
 import com.sida.dcloud.activity.service.ActivityScheduleService;
+import com.sida.dcloud.activity.vo.ActivityScheduleVo;
+import com.sida.dcloud.activity.vo.HonoredGuestVo;
 import com.sida.dcloud.service.event.config.EventConstants;
 import com.sida.xiruo.xframework.controller.BaseController;
 import io.swagger.annotations.Api;
@@ -14,8 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("activitySchedule")
@@ -29,13 +30,21 @@ public class ActivityScheduleController extends BaseController {
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ApiOperation(value = "条件查活动安排列表")
     public Object list(@RequestBody @ApiParam("JSON参数") ActivitySchedule param) {
+        //todo 临时增加每页50条
+        param.setS(50);
         Optional.ofNullable(param.getOrderField()).orElseGet(() -> {
             param.setOrderField("start_time");
             param.setOrderString("desc");
             return "";
         });
         Object object = activityScheduleService.findPageList(param);
-        return toResult(object);
+        List<ActivityScheduleVo> voList = (List<ActivityScheduleVo>)object;
+        Set<HonoredGuestVo> honoredGuestVoSet = new HashSet<>();
+        voList.forEach(vo -> honoredGuestVoSet.addAll(vo.getHonoredGuestVoList()));
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("schedules", voList);
+        resultMap.put("guests", honoredGuestVoSet);
+        return toResult(resultMap);
     }
 
     @RequestMapping(value = "/findOne", method = RequestMethod.GET)

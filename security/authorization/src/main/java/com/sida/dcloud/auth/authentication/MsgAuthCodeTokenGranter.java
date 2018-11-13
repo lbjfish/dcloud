@@ -27,7 +27,7 @@ public class MsgAuthCodeTokenGranter extends AbstractTokenGranter {
     }
 
     public Authentication createAuthenticationTokenFromInput(Map<String, String> parameters) {
-        String principal = parameters.get("phone");
+        String principal = parameters.get("mobileType") + ":" +parameters.get("mobile");
         String msgAuthCode = parameters.get(GRANT_TYPE);
         return new MsgAuthCodeAuthenticationToken(principal, msgAuthCode);
     }
@@ -35,7 +35,7 @@ public class MsgAuthCodeTokenGranter extends AbstractTokenGranter {
     @Override
     protected OAuth2Authentication getOAuth2Authentication(ClientDetails client, TokenRequest tokenRequest) {
         Map<String, String> parameters = new LinkedHashMap<String, String>(tokenRequest.getRequestParameters());
-        String principal = parameters.get("phone");
+        String principal = parameters.get("mobileType") + ":" +parameters.get("mobile");
 
         Authentication userAuth = createAuthenticationTokenFromInput(parameters);
         ((AbstractAuthenticationToken) userAuth).setDetails(parameters);

@@ -1,10 +1,9 @@
 /**
  * create by jianglingfeng
- * @date 2018-09
+ * @date 2018-10
  */
 package com.sida.dcloud.activity.po;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sida.xiruo.po.common.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
@@ -12,7 +11,8 @@ import java.util.Date;
 import java.util.List;
 
 public class ActivityInfo extends BaseEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
+    @ApiModelProperty("通用字段：禁用标识（0.可用  1.禁用）")
+    private Boolean disable;
 
     @ApiModelProperty("活动名称")
     private String name;
@@ -29,14 +29,8 @@ public class ActivityInfo extends BaseEntity implements Serializable {
     @ApiModelProperty("活动副标题")
     private String secondTitle;
 
-    @ApiModelProperty("活动描述")
-    private String content;
-
     @ApiModelProperty("自定义标题")
     private String customTitle;
-
-    @ApiModelProperty("自定义内容")
-    private String customContent;
 
     @ApiModelProperty("主办单位")
     private String hosts;
@@ -140,16 +134,50 @@ public class ActivityInfo extends BaseEntity implements Serializable {
     @ApiModelProperty("备注")
     private String remark;
 
-    @JsonIgnore
-    @ApiModelProperty("商品集合")
-    private List<ActivityGoods> activityGoodsList;
+    @ApiModelProperty("活动简介")
+    private String summary;
 
-    public List<ActivityGoods> getActivityGoodsList() {
-        return activityGoodsList;
+    @ApiModelProperty("活动描述")
+    private String content;
+
+    @ApiModelProperty("自定义活动描述")
+    private String customContent;
+
+    @ApiModelProperty("子活动")
+    private List<ActivityInfoChild> children;
+
+    public List<ActivityInfoChild> getChildren() {
+        return children;
     }
 
-    public void setActivityGoodsList(List<ActivityGoods> activityGoodsList) {
-        this.activityGoodsList = activityGoodsList;
+    public void setChildren(List<ActivityInfoChild> children) {
+        this.children = children;
+    }
+
+    private static final long serialVersionUID = 1L;
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getCustomContent() {
+        return customContent;
+    }
+
+    public void setCustomContent(String customContent) {
+        this.customContent = customContent;
+    }
+
+    public Boolean getDisable() {
+        return disable;
+    }
+
+    public void setDisable(Boolean disable) {
+        this.disable = disable;
     }
 
     public String getName() {
@@ -192,28 +220,12 @@ public class ActivityInfo extends BaseEntity implements Serializable {
         this.secondTitle = secondTitle == null ? null : secondTitle.trim();
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
-    }
-
     public String getCustomTitle() {
         return customTitle;
     }
 
     public void setCustomTitle(String customTitle) {
         this.customTitle = customTitle == null ? null : customTitle.trim();
-    }
-
-    public String getCustomContent() {
-        return customContent;
-    }
-
-    public void setCustomContent(String customContent) {
-        this.customContent = customContent == null ? null : customContent.trim();
     }
 
     public String getHosts() {
@@ -486,5 +498,13 @@ public class ActivityInfo extends BaseEntity implements Serializable {
 
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary == null ? null : summary.trim();
     }
 }

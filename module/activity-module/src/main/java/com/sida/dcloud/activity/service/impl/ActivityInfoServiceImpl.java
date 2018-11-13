@@ -6,20 +6,29 @@ import com.sida.dcloud.activity.common.ActivityConstants;
 import com.sida.dcloud.activity.common.ActivityException;
 import com.sida.dcloud.activity.dao.ActivityInfoMapper;
 import com.sida.dcloud.activity.po.ActivityInfo;
-import com.sida.dcloud.activity.po.HonoredGuest;
+import com.sida.dcloud.activity.service.ActivityGoodsGroupService;
+import com.sida.dcloud.activity.service.ActivityGoodsService;
 import com.sida.dcloud.activity.service.ActivityInfoService;
+import com.sida.dcloud.activity.vo.ActivityGoodsGroupVo;
+import com.sida.dcloud.activity.vo.ActivityInfoAndGoodsVo;
 import com.sida.dcloud.activity.vo.ActivityInfoVo;
-import com.sida.dcloud.activity.vo.HonoredGuestVo;
+import com.sida.dcloud.system.dto.SysRegionLayerDto;
+import com.sida.xiruo.util.jedis.RedisKey;
+import com.sida.xiruo.xframework.cache.redis.RedisUtil;
 import com.sida.xiruo.xframework.dao.IMybatisDao;
 import com.sida.xiruo.xframework.lock.DistributedLock;
 import com.sida.xiruo.xframework.lock.redis.RedisLock;
 import com.sida.xiruo.xframework.service.BaseServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class ActivityInfoServiceImpl extends BaseServiceImpl<ActivityInfo> implements ActivityInfoService {
@@ -32,6 +41,12 @@ public class ActivityInfoServiceImpl extends BaseServiceImpl<ActivityInfo> imple
     private ActivityInfoMapper activityInfoMapper;
     @Autowired
     private DistributedLock distributedLock;
+    @Autowired
+    private ActivityGoodsService activityGoodsService;
+    @Autowired
+    private ActivityGoodsGroupService activityGoodsGroupService;
+    @Autowired
+    private RedisUtil redisUtil;
 
     @Override
     public IMybatisDao<ActivityInfo> getBaseDao() {
@@ -40,8 +55,11 @@ public class ActivityInfoServiceImpl extends BaseServiceImpl<ActivityInfo> imple
 
     @Override
     public Page<ActivityInfoVo> findPageList(ActivityInfo po) {
+//        LOG.info("每页 {} 条", po.getS());
         PageHelper.startPage(po.getP(),po.getS());
+        Map<String, Object> map = (Map<String, Object>)redisUtil.getRegionDatasByKey(RedisKey.SYS_REGION_CACHE_WITH_ALL_BY_FLAT);
         List<ActivityInfoVo> voList = activityInfoMapper.findVoList(po);
+        voList.forEach(vo -> vo.setRegionName(((SysRegionLayerDto)map.get(vo.getRegionId())).getName()));
         return (Page) voList;
     }
 
@@ -58,6 +76,35 @@ public class ActivityInfoServiceImpl extends BaseServiceImpl<ActivityInfo> imple
     @Override
     public void increaseFavoriteCount(String activityId, int count) {
         activityInfoMapper.increaseFavoriteCount(activityId, count);
+    }
+
+    @Override
+    public ActivityInfoAndGoodsVo findOneWithGoods(String activityId) {
+        ActivityInfoAndGoodsVo activityInfoAndGoodsVo = new ActivityInfoAndGoodsVo();
+        ActivityInfo one = activityInfoMapper.selectByPrimaryKey(activityId);
+        BeanUtils.copyProperties(one, activityInfoAndGoodsVo);
+        StringBuilder builder = new StringBuilder(activityId);
+        one.getChildren().stream().map(child -> child.getId()).forEach(id -> builder.append(",").append(id));
+        String activityIds = builder.toString();//Xiruo.insertSingleQuoteToString(builder.toString());
+        List<ActivityGoodsGroupVo> gList = activityGoodsGroupService.findGroupListByActivityIds(activityIds);
+        gList.forEach(group -> {
+            long[] arr = group.getActivityGoodsVoList().stream()
+                    .map(goods -> new long[] {goods.getStartTime().getTime(), goods.getEndTime().getTime()})
+                    .reduce((sarr, earr) -> {
+                        if(sarr[0] > earr[0]) {
+                            sarr[0] = earr[0];
+                        }
+                        if(sarr[1] < earr[1]) {
+                            sarr[1] = earr[1];
+                        }
+                        return sarr;
+                    }).get();
+            group.setStartTime(new Date(arr[0]));
+            group.setEndTime(new Date(arr[1]));
+        });
+        activityInfoAndGoodsVo.setActivityGoodsGroupVoList(gList);
+        activityInfoAndGoodsVo.setActivityGoodsVoList(activityGoodsService.findGoodsListByActivityIds(activityIds));
+        return activityInfoAndGoodsVo;
     }
 
     /**

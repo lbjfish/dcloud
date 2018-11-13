@@ -74,6 +74,17 @@ feign:
     httpclient:
       enabled: true
 
+hystrix:
+  metrics:
+    enabled: true
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
@@ -88,12 +99,12 @@ security:
       jwt:
         keyValue: |
           -----BEGIN PUBLIC KEY-----
-          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhWURlgZFHBfRCNtAPrDX2qlNMpYCAd8oJTAxw3ohVsI3YYD7QzcD7dSyZYBv+IJnlULS8+sA9KeuXljyVUFP6uvcKOgqhKrOqDZUmqZGyXuUbFI747hfHEHhmEgvmppvc5SeId3ztGzbZGWcm4E3a7nCS9AS2ey/xUZKyuL1bg1/pYKFex3teNTJnyeuNU3s0U6TMltUuIwjh+StUmMkLiao6tGEq8TNHJpnR74CVTaoABw2SRn3wmDM3me8y8YW0lukehmnma8qDvEUNsOV5H+aUBTWQo5A8QXwgNTOi31HbK3bMhxWWkR8TG0EK50SPsGI47Upx9NBdD4NPyYf0QIDAQAB
+          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqBM+s8fK9psrzkdRjEAHSMGW+jRBn0hcSe9UPgiNEUTIUZtRp0Mf7sSxYOh5neKrGyWr9tuBAhwiM1HOlEUumVY8ddsl9YhF3ZUXfl9RfTF9ibY6WvXZo9Lpw+ZuQJ3fwH9TRl5sdSP3U6FyLmljaQBh++m4fahzNrHJJXvCZdrHV5AdkqQmZnBl/QpzAE1dD9C8dXsnhSYv9djoxXk+DvbNvdYaYYghf+EzJCZO5OkSYUZbW0KhWsqXfjMt8kYC1CsRh8shqRhZ4BpJFY8sXpGQdWuU9ZRnQaOQRrh5lmuMQ61ZR0YsKfO8lof27Opsj45S0vdXt0hzBBW4VXa05wIDAQAB
           -----END PUBLIC KEY-----
 #        key-uri:
       id: openid
       service-id: ${PREFIX:}content
-  ignored: sysAccessLog/**,authcodes/getRemoteAuthCode,sysUser/remoteRegister
+  ignored: sysUserCustomer/**
 
 
 eureka:
@@ -111,6 +122,17 @@ eureka:
     lease-renewal-interval-in-seconds: @lease-renewal-interval-in-seconds@
     status-page-url-path: /info
     health-check-url-path: /health
+
+tm:
+  manager:
+    url: @tm-manager-url@
+logging:
+  level:
+    com:
+      codingapi: warn
+#Ribbon的负载均衡策略
+ribbon.NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+ribbon.MaxAutoRetriesNextServer: 0
 
 management:
   health:

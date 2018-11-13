@@ -1,0 +1,161 @@
+spring:
+  application:
+    name: @job-service@
+  rabbitmq:
+    # 集群
+    addresses: ${common.rabbitmq.addresses}
+  redis:
+    pool:
+      max-active: ${common.redis.pool.maxActive:8}
+      max-wait: ${common.redis.pool.maxWaitMillis:-1}
+      max-idle: ${common.redis.pool.maxIdle:8}
+      min-idle: ${common.redis.pool.minIdle:0}
+    cluster:
+      max-redirects: 6
+      nodes: ${common.redis.addresses}
+    database: ${common.redis.healthcheck.database:0}
+    host: ${common.redis.healthcheck.host}
+    port: ${common.redis.healthcheck.port}
+    timeout: ${common.redis.healthcheck.timeout:5000}
+
+  datasource:
+    driver-class-name: ${common.job.datasource.driverClassName}
+    initialize: true
+    continue-on-error: true
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    filters: stat,slf4j
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+    logabandoned: true
+    master:
+      url: ${common.job.datasource.master.url}
+      username: ${common.job.datasource.master.username}
+      password: ${common.job.datasource.master.password}
+    business:
+#      url: ${common.job.datasource.business.url}
+#      username: ${common.job.datasource.business.username}
+#      password: ${common.job.datasource.business.password}
+      url: ${common.job.datasource.master.url}
+      username: ${common.job.datasource.master.username}
+      password: ${common.job.datasource.master.password}
+  aop:
+    auto: true
+    proxy-target-class: true
+
+
+server:
+  port: ${service.job.port}
+  contextPath: /
+  session:
+    cookie:
+      name: @job-service@
+feign:
+  hystrix:
+    enabled: true  # 默认false，hystrix必须enabled=TRUE
+  httpclient:
+    enabled: true
+  client:
+    config:
+      ${provider.activity-module}:
+        connectTimeout: 50000
+        readTimeout: 50000
+
+hystrix:
+  shareSecurityContext: true
+  metrics:
+    enabled: true
+  command:
+    default:
+      circuitBreaker:
+        sleepWindowInMilliseconds: 10000
+        forceClosed: true
+      execution:
+        timeout:
+          enabled: false
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  typeAliasesPackage: com.sida.dcloud.*.po
+  config-location: classpath:mapper/config/mybatis-configuration.xml
+
+security:
+  basic:
+    enabled: false
+  oauth2:
+    resource:
+      jwt:
+        keyValue: |
+          -----BEGIN PUBLIC KEY-----
+          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqBM+s8fK9psrzkdRjEAHSMGW+jRBn0hcSe9UPgiNEUTIUZtRp0Mf7sSxYOh5neKrGyWr9tuBAhwiM1HOlEUumVY8ddsl9YhF3ZUXfl9RfTF9ibY6WvXZo9Lpw+ZuQJ3fwH9TRl5sdSP3U6FyLmljaQBh++m4fahzNrHJJXvCZdrHV5AdkqQmZnBl/QpzAE1dD9C8dXsnhSYv9djoxXk+DvbNvdYaYYghf+EzJCZO5OkSYUZbW0KhWsqXfjMt8kYC1CsRh8shqRhZ4BpJFY8sXpGQdWuU9ZRnQaOQRrh5lmuMQ61ZR0YsKfO8lof27Opsj45S0vdXt0hzBBW4VXa05wIDAQAB
+          -----END PUBLIC KEY-----
+#        key-uri:
+      id: openid
+      service-id: ${PREFIX:}job
+  ignored: job/**
+
+
+eureka:
+  client:
+    healthcheck:
+      enabled: true # 开启健康检查（需要spring-boot-starter-actuator依赖）
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ipAddress}:${module.content.port}
+    status-page-url: http://${spring.cloud.client.ipAddress}:${service.security.edge.port}/apis/job/swagger-ui.html
+    ip-address: ${spring.cloud.client.ipAddress}
+    lease-expiration-duration-in-seconds: @lease-expiration-duration-in-seconds@
+    lease-renewal-interval-in-seconds: @lease-renewal-interval-in-seconds@
+    status-page-url-path: /info
+    health-check-url-path: /health
+
+elaticjob:
+  zookeeper:
+    server-lists: ${elasticjob.zookeeper.server-lists}
+    namespace: ${elasticjob.zookeeper.namespace}
+
+logging:
+  level:
+    com:
+      codingapi: warn
+#Ribbon的负载均衡策略
+#ribbon.NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+#ribbon.MaxAutoRetriesNextServer: 0
+ribbon:
+  NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+  MaxAutoRetriesNextServer: 0
+  eureka:
+    enabled: true
+  ReadTimeout: 50000
+  ConnectTimeout: 50000
+
+management:
+  health:
+    redis:
+      enabled: false
+    mongo:
+      enabled: false
+info:
+  app:
+    name: job-service
+    auchor: Xiruo.Jiang
+    version: 1.0
+  build:
+    artifactId: job-service
+    version: 1.0-SNAPSHOT
+    date: 2018-9-18

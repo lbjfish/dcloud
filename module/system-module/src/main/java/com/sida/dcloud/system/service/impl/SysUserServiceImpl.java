@@ -1,5 +1,6 @@
 package com.sida.dcloud.system.service.impl;
 
+import com.codingapi.tx.annotation.TxTransaction;
 import com.sida.dcloud.auth.common.SecConstant;
 import com.sida.dcloud.auth.common.SysEnums;
 import com.sida.dcloud.auth.po.*;
@@ -27,11 +28,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysUserService {
@@ -1291,5 +1294,56 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
     @Override
     public int selectUserCount() {
         return sysUserMapper.selectUserCount();
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @TxTransaction
+    @Override
+    public int saveOrUpdateDto(Map<String, String> map) {
+        AtomicInteger ai = new AtomicInteger(sysUserMapper.insertDto(map));
+        if(ai.get() == 0) {
+            Optional.ofNullable(sysUserMapper.selectByPrimaryKey(map.get("id"))).ifPresent(user -> {
+                BeanUtils.copyProperties(map, user);
+                ai.set(sysUserMapper.updateByPrimaryKey(user));
+            });
+        }
+        return ai.get();
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @TxTransaction
+    @Override
+    public int updateMobile(Map<String, String> map) {
+        return sysUserMapper.updateMobile(map);
+    }
+    @Transactional(propagation = Propagation.REQUIRED)
+    @TxTransaction
+    @Override
+    public int updateUserInfo(Map<String, String> map) {
+        return sysUserMapper.updateUserInfo(map);
+    }
+    @Transactional(propagation = Propagation.REQUIRED)
+    @TxTransaction
+    @Override
+    public int updateUserPassword(Map<String, String> map) {
+        return sysUserMapper.updateUserPassword(map);
+    }
+    @Transactional(propagation = Propagation.REQUIRED)
+    @TxTransaction
+    @Override
+    public int bindThirdPartAccount(Map<String, String> map) {
+        return sysUserMapper.bindThirdPartAccount(map);
+    }
+    @Transactional(propagation = Propagation.REQUIRED)
+    @TxTransaction
+    @Override
+    public int unbindThirdPartAccount(String loginFrom, String mobile) {
+        return sysUserMapper.unbindThirdPartAccount(loginFrom, mobile);
+    }
+    @Transactional(propagation = Propagation.REQUIRED)
+    @TxTransaction
+    @Override
+    public int testDistributeTransaction(String id, String remark) {
+        return sysUserMapper.testDistributeTransaction(id, remark);
     }
 }

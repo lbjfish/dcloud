@@ -1,5 +1,7 @@
 package com.sida.dcloud.system.common;
 
+import com.sida.xiruo.util.constant.CommonConstants;
+
 public class SysConstants {
 
     /**
@@ -10,11 +12,11 @@ public class SysConstants {
     /**
      * 系统环境标识
      */
-    public static final String ENV_DEV="dev";
-    public static final String ENV_LOCAL="local";
-    public static final String ENV_PRO="pro";
-    public static final String ENV_TEST="test";
-    public static final String ENV_UAT="uat";
+    public static final String ENV_DEV = CommonConstants.ENV_DEV;
+    public static final String ENV_LOCAL = CommonConstants.ENV_LOCAL;
+    public static final String ENV_PROD = CommonConstants.ENV_PROD;
+    public static final String ENV_TEST = CommonConstants.ENV_TEST;
+    public static final String ENV_UAT = CommonConstants.ENV_UAT;
 
     /**
      * 请求类型：用户注册

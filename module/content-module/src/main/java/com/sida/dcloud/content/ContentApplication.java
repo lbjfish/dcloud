@@ -21,11 +21,11 @@ import org.springframework.security.oauth2.provider.authentication.OAuth2Authent
 @SpringCloudApplication
 @EnableFeignClients
 @EnableResourceServer
-@MapperScan(basePackages = {"com.sida.dcloud.activity.dao"})
+@MapperScan(basePackages = {"com.sida.dcloud.content.dao"})
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 @ComponentScan(basePackages = {"com.sida.xiruo.xframework.cache.redis",
         "com.sida.xiruo.xframework.lock",
-        "com.sida.xiruo.xframework.common.config",
+        "com.sida.xiruo.xframework.common",
 //        "com.sida.dcloud.service.event.ext",
 //        "com.sida.dcloud.service.event.config",
         "com.sida.dcloud.content"})

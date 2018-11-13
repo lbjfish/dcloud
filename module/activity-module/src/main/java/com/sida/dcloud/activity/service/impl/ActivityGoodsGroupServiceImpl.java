@@ -140,6 +140,11 @@ public class ActivityGoodsGroupServiceImpl extends BaseServiceImpl<ActivityGoods
     }
 
     @Override
+    public List<ActivityGoodsGroupVo> findGroupListByActivityIds(String activityIds) {
+        return activityGoodsGroupMapper.findGroupListByActivityIds(activityIds);
+    }
+
+    @Override
     public List<ActivityGoodsGroupVo> findGroupListByGoodsId(String goodsId) {
         return activityGoodsGroupMapper.findGroupListByGoodsId(goodsId);
     }
@@ -152,5 +157,15 @@ public class ActivityGoodsGroupServiceImpl extends BaseServiceImpl<ActivityGoods
     @Override
     public int updateGroupPayPrice(String groupId, Double payPrice) {
         return activityGoodsGroupMapper.updateGroupPayPrice(groupId, payPrice);
+    }
+
+    @Override
+    public int upByPrimaryKeys(String ids) {
+        return activityGoodsGroupMapper.upByPrimaryKeys(Xiruo.insertSingleQuoteToString(ids));
+    }
+
+    @Override
+    public int downByPrimaryKeys(String ids) {
+        return activityGoodsGroupMapper.downByPrimaryKeys(Xiruo.insertSingleQuoteToString(ids));
     }
 }

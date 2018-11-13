@@ -25,7 +25,7 @@ public class MsgAuthCodeAuthenticationProvider implements AuthenticationProvider
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         System.out.println("MsgAuthCodeAuthenticationProvider authenticate");
-        //手机号
+        //手机类型:手机号
         String principal = authentication.getName();
         //用户输入的验证码
         String msgAuthCode = authentication.getCredentials().toString();
@@ -36,8 +36,9 @@ public class MsgAuthCodeAuthenticationProvider implements AuthenticationProvider
         if (!valid) {
             throw new ServiceException("短信验证码不正确!");
         }
-
-        UserDetails userDetails = sysUserService.selectUserByPhone(principal);
+        int index = principal.indexOf(":");
+        String mobile = principal.substring(index + 1);
+        UserDetails userDetails = sysUserService.selectUserByPhone(mobile);
         if (null != userDetails) {
             //检查账户的状态
             accountStatusUserDetailsChecker.check(userDetails);

@@ -196,10 +196,12 @@
 
   <resultMap id="ActivitySignupNoteSettingDtoResultMap" type="com.sida.dcloud.activity.dto.ActivitySignupNoteSettingDto" >
     <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="display_name" property="displayName" jdbcType="VARCHAR" />
     <result column="allow_empty" property="allowEmpty" jdbcType="BIT" />
     <result column="size_limit" property="sizeLimit" jdbcType="INTEGER" />
     <result column="v_regexp" property="vRegexp" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="VARCHAR" />
   </resultMap>
 
   <insert id="batchInsert" parameterType="java.util.List" >
@@ -220,7 +222,7 @@
   </select>
 
   <select id="selectByVersionToClient" resultMap="ActivitySignupNoteSettingDtoResultMap" parameterType="java.lang.String" >
-    select code, display_name, allow_empty, size_limit, v_regexp
+    select code, name, display_name, allow_empty, size_limit, v_regexp, version
     from activity_signup_note_setting
     where version = #{version} and delete_flag = 0 and hide_status = false
     order by allow_empty asc, sort asc

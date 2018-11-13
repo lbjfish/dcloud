@@ -20,19 +20,13 @@ import java.io.Writer;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import javax.imageio.ImageIO;
 
 import com.sida.xiruo.common.components.encrypt.MD5;
-import org.apache.log4j.Logger;
 import org.dom4j.Document;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
@@ -782,7 +776,7 @@ public abstract class SystemUtil {
 	 * 
 	 * @author jianglingfeng
 	 * @date 2008-7-22
-	 * @param sourceFileName
+	 * @param
 	 * @return
 	 * @see
 	 */
@@ -845,17 +839,5 @@ public abstract class SystemUtil {
 		}
 		
 		return builder.toString();
-	}
-	
-	public static String generateString(int length) {
-		 UUID uuid = UUID.randomUUID();
-         String guid = uuid.toString().replace("-", "").toUpperCase();
-         Random random = new Random(System. currentTimeMillis());
-         int k = random.nextInt();
-         int start = Math.abs(k % 8);
-         guid = MD5.getHashString(guid.getBytes());
-         guid = Base64.encode(guid);
-         guid = guid.substring(start, start + length);
-         return guid;
 	}
 }

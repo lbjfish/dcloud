@@ -51,4 +51,56 @@ public interface ActivityConstants {
         //
 
     }
+
+    enum ORDER_STATUS {
+        NOT_PAY("待付款", 1),
+        NOT_JOIN("待参加", 2),
+        INVALID("已失效", 3),
+        JOINED("已参加", 4),
+        NOT_COMMENT("待评价", 5),
+        COMPLETED("已完成", 6),
+        CLOSED("已关闭", 7),
+        REFUNDED("已退款", 8),
+        EXPIRED("已过期", 9);
+        // 成员变量
+        private String name;
+        private String code;
+
+        // 构造方法
+        ORDER_STATUS(String name, String code) {
+            this.name = name;
+            this.code = code;
+        }
+
+        ORDER_STATUS(String name, int icode) {
+            this(name, icode + "");
+        }
+
+        // 普通方法
+        public static String getName(String code) {
+            for (ORDER_STATUS c : ORDER_STATUS.values()) {
+                if (c.getCode().equals(code)) {
+                    return c.name;
+                }
+            }
+            return null;
+        }
+
+        // get set 方法
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getCode() {
+            return code;
+        }
+
+        public void setCode(String code) {
+            this.code = code;
+        }
+    }
 }

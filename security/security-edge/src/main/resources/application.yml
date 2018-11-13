@@ -18,6 +18,10 @@ server:
   contextPath: /
   tomcat:
     basedir: ${user.home}/deployer/tomcat
+  servlet:
+    session:
+      cookie:
+        name: @security-edge-service@
   session:
     cookie:
       name: @security-edge-service@
@@ -43,6 +47,9 @@ zuul:
     training-module:
       serviceId: @training-module@
       path: /apis/training/**
+    job-module:
+      serviceId: @job-service@
+      path: /apis/job/**
     schedule-module:
       serviceId: @schedule-service@
       path: /apis/schedule/**
@@ -56,6 +63,8 @@ zuul:
       serviceId: @operation-module@
       path: /apis/operation/**
 hystrix:
+  metrics:
+    enabled: true
   command:
     default:
       execution:
@@ -64,6 +73,9 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 60000
+            ribbon:
+              ReadTimeout: 60000
+              ConnectTimeout: 60000
 ribbon:
   ReadTimeout: 50000
   ConnectTimeout: 50000
@@ -88,13 +100,16 @@ security:
       jwt:
         keyValue: |
           -----BEGIN PUBLIC KEY-----
-          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhWURlgZFHBfRCNtAPrDX2qlNMpYCAd8oJTAxw3ohVsI3YYD7QzcD7dSyZYBv+IJnlULS8+sA9KeuXljyVUFP6uvcKOgqhKrOqDZUmqZGyXuUbFI747hfHEHhmEgvmppvc5SeId3ztGzbZGWcm4E3a7nCS9AS2ey/xUZKyuL1bg1/pYKFex3teNTJnyeuNU3s0U6TMltUuIwjh+StUmMkLiao6tGEq8TNHJpnR74CVTaoABw2SRn3wmDM3me8y8YW0lukehmnma8qDvEUNsOV5H+aUBTWQo5A8QXwgNTOi31HbK3bMhxWWkR8TG0EK50SPsGI47Upx9NBdD4NPyYf0QIDAQAB
+          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqBM+s8fK9psrzkdRjEAHSMGW+jRBn0hcSe9UPgiNEUTIUZtRp0Mf7sSxYOh5neKrGyWr9tuBAhwiM1HOlEUumVY8ddsl9YhF3ZUXfl9RfTF9ibY6WvXZo9Lpw+ZuQJ3fwH9TRl5sdSP3U6FyLmljaQBh++m4fahzNrHJJXvCZdrHV5AdkqQmZnBl/QpzAE1dD9C8dXsnhSYv9djoxXk+DvbNvdYaYYghf+EzJCZO5OkSYUZbW0KhWsqXfjMt8kYC1CsRh8shqRhZ4BpJFY8sXpGQdWuU9ZRnQaOQRrh5lmuMQ61ZR0YsKfO8lof27Opsj45S0vdXt0hzBBW4VXa05wIDAQAB
           -----END PUBLIC KEY-----
       id: openid
       serviceId: ${PREFIX:}resource
   ignored:
       /health, /system/sysAccessLog/**,/system/authcodes/getRemoteAuthCode,/system/sysUser/remoteRegister
-
+#    -----BEGIN PUBLIC KEY-----
+#    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhkKvh10MNmHMtYUH8C6v3kTQfF8P0zDPPCPVfH63mJ+1ujFuU1N0PvlmpyQI1kG+/+/kq68bacCY++viqlqnnl7ul8UX6N6yNG90JOoKnwUx4uTeS6K34Z5Li5EqDrH+9NeIa+3oJ0q56SOeG/iEccbOHCepYrW2coCWLn9ZJYBPqhd58iClWWXIpLnenQvG4a7hXilUEDPWc3/FLlgLU0cDMtewLh6lJX+MdRr1ZYEiJ0lysfAv9tC6E86rjHbZJTejhG3G40GRDaxQDmI63wbIohQ5ZvKqYAsiqXoB6/pK44c+E2RblrtEJpnGZMpg5OCud6+8/yrtY3g1AEOdswIDAQAB
+#    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhWURlgZFHBfRCNtAPrDX2qlNMpYCAd8oJTAxw3ohVsI3YYD7QzcD7dSyZYBv+IJnlULS8+sA9KeuXljyVUFP6uvcKOgqhKrOqDZUmqZGyXuUbFI747hfHEHhmEgvmppvc5SeId3ztGzbZGWcm4E3a7nCS9AS2ey/xUZKyuL1bg1/pYKFex3teNTJnyeuNU3s0U6TMltUuIwjh+StUmMkLiao6tGEq8TNHJpnR74CVTaoABw2SRn3wmDM3me8y8YW0lukehmnma8qDvEUNsOV5H+aUBTWQo5A8QXwgNTOi31HbK3bMhxWWkR8TG0EK50SPsGI47Upx9NBdD4NPyYf0QIDAQAB
+#    -----END PUBLIC KEY-----
 logging:
   level.org.springframework.security: DEBUG
 
@@ -107,3 +122,13 @@ management:
   health:
     redis:
       enabled: false
+
+info:
+  app:
+    name: edge-service
+    auchor: Xiruo.Jiang
+    version: 1.0
+  build:
+    artifactId: edge-service
+    version: 1.0-SNAPSHOT
+    date: 2018-9-18

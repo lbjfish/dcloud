@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.connection.RedisClusterConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -71,8 +72,9 @@ public class JedisClusterConfig {
 
 	@Bean
 	public JedisCluster createJedisCluster() {
+		JedisCluster jedisCluster;
 		if(isAuth) {
-			return new JedisCluster(nodes,
+			jedisCluster = new JedisCluster(nodes,
 					connectionTimeout,
 					soTimeout,
 					maxRedirections,
@@ -82,13 +84,14 @@ public class JedisClusterConfig {
 //			nodes.stream().forEach((HostAndPort pair) -> {
 //				LOG.warn(String.format("%s=%d\r\n", pair.getHost(), pair.getPort()));
 //			});
-			return new JedisCluster(nodes,
+			jedisCluster = new JedisCluster(nodes,
 					connectionTimeout,
 					soTimeout,
 					maxRedirections,
 //					password,
 					poolConfig);
 		}
+		return jedisCluster;
 	}
 
 	@Bean
@@ -99,6 +102,7 @@ public class JedisClusterConfig {
 		return redisClusterConfiguration;
 	}
 
+	@Primary
 	@Bean
 	public JedisConnectionFactory createJedisConnectionFactory() {
 		JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory(createRedisClusterConfiguration(), poolConfig);

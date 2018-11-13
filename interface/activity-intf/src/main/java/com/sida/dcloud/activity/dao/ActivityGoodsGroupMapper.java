@@ -16,7 +16,10 @@ public interface ActivityGoodsGroupMapper extends IMybatisDao<ActivityGoodsGroup
     int checkMultiCountByUnique(@Param("po") ActivityGoodsGroup po);
     int checkRemovableByRel(@Param("ids") String ids);
     List<ActivityGoodsGroupVo> findGroupListByActivityId(@Param("activityId") String activityId);
+    List<ActivityGoodsGroupVo> findGroupListByActivityIds(@Param("activityIds") String activityIds);
     List<ActivityGoodsGroupVo> findGroupListByGoodsId(@Param("goosId") String goodsId);
     List<ActivityGoodsGroup> findListByIds(@Param("ids") String ids);
     int updateGroupPayPrice(@Param("groupId") String groupId, @Param("payPrice") Double payPrice);
+    int upByPrimaryKeys(@Param("ids") String ids);
+    int downByPrimaryKeys(@Param("ids") String ids);
 }

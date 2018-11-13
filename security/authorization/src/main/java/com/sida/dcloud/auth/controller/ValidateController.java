@@ -35,7 +35,7 @@ public class ValidateController {
     public void  getCodeImage(HttpServletRequest request, HttpServletResponse response) throws IOException {
         /*生成图片，和图片对应的code，key*/
         ImageCode imageCode= ImageCodeGenerator.generate();
-        String key = UUIDGenerate.getNextUUID();
+        String key = UUIDGenerate.getNextId();
         redisUtil.set(key, imageCode.getCode(), 120L);
 
 //        ServletOutputStream outputStream = response.getOutputStream();

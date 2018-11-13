@@ -14,6 +14,12 @@ import java.util.regex.Pattern;
  * Created by huangbaidong on 2016/5/26.
  */
 public class PinYinUtil {
+    public static void main(String[] args) {
+        System.out.println(getPingYin("泸州市"));
+        System.out.println(getFirstSpell("泸州市"));
+        System.out.println(getFullSpell("泸州市"));
+        System.out.println(isChineseChar("泸州市"));
+    }
     /**
      * 将字符串中的中文转化为拼音,其他字符不变
      *
@@ -59,8 +65,10 @@ public class PinYinUtil {
             if (arr[i] > 128 && arr[i]!=183) {
                 try {
                     String[] temp = PinyinHelper.toHanyuPinyinStringArray(arr[i], defaultFormat);
-                    if (temp != null) {
+                    if (temp != null && temp.length > 0) {
                         pybf.append(temp[0].charAt(0));
+                    } else {
+                        pybf.append(arr[i]);
                     }
                 } catch (BadHanyuPinyinOutputFormatCombination e) {
                     e.printStackTrace();

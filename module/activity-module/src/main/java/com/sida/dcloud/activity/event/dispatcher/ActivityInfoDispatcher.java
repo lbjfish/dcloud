@@ -11,18 +11,17 @@ import com.sida.dcloud.event.po.activity.ActivityEventType;
 import com.sida.dcloud.service.event.config.BaseClientConfig;
 import com.sida.dcloud.service.event.config.EventConstants;
 import com.sida.dcloud.xdomain.dispatcher.IEventDispatcher;
-import com.sida.xiruo.xframework.util.UUID;
+import com.sida.xiruo.xframework.util.UUIDGenerate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.concurrent.TimeUnit;
 
 import static akka.pattern.PatternsCS.ask;
 
-@Component
+//@Component
 public class ActivityInfoDispatcher extends BaseClientConfig implements IEventDispatcher<ActivityInfo> {
     private final static Logger LOG = LoggerFactory.getLogger(ActivityInfoDispatcher.class);
 
@@ -40,7 +39,7 @@ public class ActivityInfoDispatcher extends BaseClientConfig implements IEventDi
 //        if(ActivityInfoService.checkMultiCountByUnique(po) > 0) {
 //            throw new ActivityException("名称和编码不能重复");
 //        }
-        Event event = Event.makeEvent(po, ActivityEventType.ACTIVITY_EVENT_ACTIVITY_INFO_INSERT, UUID.create().toString(), 2);
+        Event event = Event.makeEvent(po, ActivityEventType.ACTIVITY_EVENT_ACTIVITY_INFO_INSERT, UUIDGenerate.getNextId(), 2);
 
         ask(actorRef, new EventJob(event), new Timeout(EventConstants.DEFAULT_EVENT_TIMEOUT, TimeUnit.SECONDS))
                 .thenApply(reply -> {
@@ -65,7 +64,7 @@ public class ActivityInfoDispatcher extends BaseClientConfig implements IEventDi
     public void remove(String stringIds) {
         ActivityInfo po = new ActivityInfo();
         po.setStringIds(stringIds);
-        Event event = Event.makeEvent(po, ActivityEventType.ACTIVITY_EVENT_ACTIVITY_INFO_REMOVE,  UUID.create().toString(), 2);
+        Event event = Event.makeEvent(po, ActivityEventType.ACTIVITY_EVENT_ACTIVITY_INFO_REMOVE,  UUIDGenerate.getNextId(), 2);
 
         ask(actorRef, new EventJob(event), new Timeout(EventConstants.DEFAULT_EVENT_TIMEOUT, TimeUnit.SECONDS))
                 .thenApply(reply -> {

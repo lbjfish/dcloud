@@ -36,6 +36,9 @@ public class HonoredGuest extends BaseEntity implements Serializable {
     @ApiModelProperty("排序值（越小越靠前）")
     private Integer sort;
 
+    @ApiModelProperty("用户头像（七牛云图片地址）")
+    private String headerUrl;
+
     @ApiModelProperty("介绍")
     private String introduce;
 
@@ -43,6 +46,14 @@ public class HonoredGuest extends BaseEntity implements Serializable {
     private String remark;
 
     private static final long serialVersionUID = 1L;
+
+    public String getHeaderUrl() {
+        return headerUrl;
+    }
+
+    public void setHeaderUrl(String headerUrl) {
+        this.headerUrl = headerUrl;
+    }
 
     public Boolean getDisable() {
         return disable;

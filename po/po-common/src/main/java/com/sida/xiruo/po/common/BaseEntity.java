@@ -27,7 +27,7 @@ public abstract class BaseEntity implements Serializable {
     private java.lang.Integer p = 0;
 
     @ApiModelProperty("每页条数")
-    private java.lang.Integer s = 10;
+    private java.lang.Integer s = 20;
 
     @JsonIgnore
     @ApiModelProperty(hidden = true)

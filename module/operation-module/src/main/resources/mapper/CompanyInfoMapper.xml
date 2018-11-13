@@ -1,0 +1,809 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.operation.dao.CompanyInfoMapper" >
+  <resultMap id="CompanyInfoResultMap" type="com.sida.dcloud.operation.po.CompanyInfo" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="created_user" property="createdUser" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="updated_user" property="updatedUser" jdbcType="VARCHAR" />
+    <result column="last_updated" property="lastUpdated" jdbcType="TIMESTAMP" />
+    <result column="disable" property="disable" jdbcType="BIT" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
+    <result column="red_string1" property="redString1" jdbcType="VARCHAR" />
+    <result column="red_string2" property="redString2" jdbcType="VARCHAR" />
+    <result column="red_string3" property="redString3" jdbcType="VARCHAR" />
+    <result column="red_string4" property="redString4" jdbcType="VARCHAR" />
+    <result column="red_string5" property="redString5" jdbcType="VARCHAR" />
+    <result column="red_string6" property="redString6" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="short_name" property="shortName" jdbcType="VARCHAR" />
+    <result column="eng_name" property="engName" jdbcType="VARCHAR" />
+    <result column="eng_short_name" property="engShortName" jdbcType="VARCHAR" />
+    <result column="region_id" property="regionId" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="legal_representative" property="legalRepresentative" jdbcType="VARCHAR" />
+    <result column="link_man" property="linkMan" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="homepage" property="homepage" jdbcType="VARCHAR" />
+    <result column="found_date" property="foundDate" jdbcType="TIMESTAMP" />
+    <result column="person_total" property="personTotal" jdbcType="VARCHAR" />
+    <result column="logo_url" property="logoUrl" jdbcType="VARCHAR" />
+    <result column="company_cat" property="companyCat" jdbcType="VARCHAR" />
+    <result column="read_count" property="readCount" jdbcType="INTEGER" />
+    <result column="lauded_count" property="laudedCount" jdbcType="INTEGER" />
+    <result column="commented_count" property="commentedCount" jdbcType="INTEGER" />
+    <result column="cared_count" property="caredCount" jdbcType="INTEGER" />
+    <result column="title_count" property="titleCount" jdbcType="INTEGER" />
+    <result column="comment_count" property="commentCount" jdbcType="INTEGER" />
+    <result column="laud_count" property="laudCount" jdbcType="INTEGER" />
+    <result column="care_count" property="careCount" jdbcType="INTEGER" />
+    <result column="active_status" property="activeStatus" jdbcType="BIT" />
+    <result column="online_minutes" property="onlineMinutes" jdbcType="INTEGER" />
+    <result column="facebook_no" property="facebookNo" jdbcType="VARCHAR" />
+    <result column="twitter_no" property="twitterNo" jdbcType="VARCHAR" />
+    <result column="sina_weibo" property="sinaWeibo" jdbcType="VARCHAR" />
+    <result column="vplus" property="vplus" jdbcType="INTEGER" />
+    <result column="major_scope" property="majorScope" jdbcType="VARCHAR" />
+    <result column="honord_items" property="honordItems" jdbcType="VARCHAR" />
+    <result column="brief" property="brief" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="CompanyInfo_Column_List" >
+    id, created_user, created_at, updated_user, last_updated, disable, delete_flag, red_string1, 
+    red_string2, red_string3, red_string4, red_string5, red_string6, sort, name, code, 
+    short_name, eng_name, eng_short_name, region_id, address, legal_representative, link_man, 
+    phone, mobile, email, homepage, found_date, person_total, logo_url, company_cat, 
+    read_count, lauded_count, commented_count, cared_count, title_count, comment_count, 
+    laud_count, care_count, active_status, online_minutes, facebook_no, twitter_no, sina_weibo, 
+    vplus, major_scope, honord_items, brief, remark
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.operation.po.CompanyInfo" >
+    insert into company_info (id, created_user, created_at, updated_user, last_updated, disable, 
+      delete_flag, red_string1, red_string2, red_string3, red_string4, red_string5, 
+      red_string6, sort, name, code, short_name, eng_name, eng_short_name, 
+      region_id, address, legal_representative, link_man, phone, mobile, 
+      email, homepage, found_date, person_total, logo_url, company_cat, 
+      read_count, lauded_count, commented_count, cared_count, title_count, 
+      comment_count, laud_count, care_count, active_status, online_minutes, 
+      facebook_no, twitter_no, sina_weibo, vplus, major_scope, honord_items, 
+      brief, remark)
+    values (#{id}, #{createdUser}, #{createdAt}, #{updatedUser}, #{lastUpdated}, #{disable}, 
+      #{deleteFlag}, #{redString1}, #{redString2}, #{redString3}, #{redString4}, #{redString5}, 
+      #{redString6}, #{sort}, #{name}, #{code}, #{shortName}, #{engName}, #{engShortName}, 
+      #{regionId}, #{address}, #{legalRepresentative}, #{linkMan}, #{phone}, #{mobile}, 
+      #{email}, #{homepage}, #{foundDate}, #{personTotal}, #{logoUrl}, #{companyCat}, 
+      #{readCount}, #{laudedCount}, #{commentedCount}, #{caredCount}, #{titleCount}, 
+      #{commentCount}, #{laudCount}, #{careCount}, #{activeStatus}, #{onlineMinutes}, 
+      #{facebookNo}, #{twitterNo}, #{sinaWeibo}, #{vplus}, #{majorScope}, #{honordItems}, 
+      #{brief}, #{remark})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.operation.po.CompanyInfo" >
+    insert into company_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdUser != null" >
+        created_user,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="updatedUser != null" >
+        updated_user,
+      </if>
+      <if test="lastUpdated != null" >
+        last_updated,
+      </if>
+      <if test="disable != null" >
+        disable,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="redString1 != null" >
+        red_string1,
+      </if>
+      <if test="redString2 != null" >
+        red_string2,
+      </if>
+      <if test="redString3 != null" >
+        red_string3,
+      </if>
+      <if test="redString4 != null" >
+        red_string4,
+      </if>
+      <if test="redString5 != null" >
+        red_string5,
+      </if>
+      <if test="redString6 != null" >
+        red_string6,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="shortName != null" >
+        short_name,
+      </if>
+      <if test="engName != null" >
+        eng_name,
+      </if>
+      <if test="engShortName != null" >
+        eng_short_name,
+      </if>
+      <if test="regionId != null" >
+        region_id,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="legalRepresentative != null" >
+        legal_representative,
+      </if>
+      <if test="linkMan != null" >
+        link_man,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="homepage != null" >
+        homepage,
+      </if>
+      <if test="foundDate != null" >
+        found_date,
+      </if>
+      <if test="personTotal != null" >
+        person_total,
+      </if>
+      <if test="logoUrl != null" >
+        logo_url,
+      </if>
+      <if test="companyCat != null" >
+        company_cat,
+      </if>
+      <if test="readCount != null" >
+        read_count,
+      </if>
+      <if test="laudedCount != null" >
+        lauded_count,
+      </if>
+      <if test="commentedCount != null" >
+        commented_count,
+      </if>
+      <if test="caredCount != null" >
+        cared_count,
+      </if>
+      <if test="titleCount != null" >
+        title_count,
+      </if>
+      <if test="commentCount != null" >
+        comment_count,
+      </if>
+      <if test="laudCount != null" >
+        laud_count,
+      </if>
+      <if test="careCount != null" >
+        care_count,
+      </if>
+      <if test="activeStatus != null" >
+        active_status,
+      </if>
+      <if test="onlineMinutes != null" >
+        online_minutes,
+      </if>
+      <if test="facebookNo != null" >
+        facebook_no,
+      </if>
+      <if test="twitterNo != null" >
+        twitter_no,
+      </if>
+      <if test="sinaWeibo != null" >
+        sina_weibo,
+      </if>
+      <if test="vplus != null" >
+        vplus,
+      </if>
+      <if test="majorScope != null" >
+        major_scope,
+      </if>
+      <if test="honordItems != null" >
+        honord_items,
+      </if>
+      <if test="brief != null" >
+        brief,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="createdUser != null" >
+        #{createdUser},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedUser != null" >
+        #{updatedUser},
+      </if>
+      <if test="lastUpdated != null" >
+        #{lastUpdated},
+      </if>
+      <if test="disable != null" >
+        #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag},
+      </if>
+      <if test="redString1 != null" >
+        #{redString1},
+      </if>
+      <if test="redString2 != null" >
+        #{redString2},
+      </if>
+      <if test="redString3 != null" >
+        #{redString3},
+      </if>
+      <if test="redString4 != null" >
+        #{redString4},
+      </if>
+      <if test="redString5 != null" >
+        #{redString5},
+      </if>
+      <if test="redString6 != null" >
+        #{redString6},
+      </if>
+      <if test="sort != null" >
+        #{sort},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="code != null" >
+        #{code},
+      </if>
+      <if test="shortName != null" >
+        #{shortName},
+      </if>
+      <if test="engName != null" >
+        #{engName},
+      </if>
+      <if test="engShortName != null" >
+        #{engShortName},
+      </if>
+      <if test="regionId != null" >
+        #{regionId},
+      </if>
+      <if test="address != null" >
+        #{address},
+      </if>
+      <if test="legalRepresentative != null" >
+        #{legalRepresentative},
+      </if>
+      <if test="linkMan != null" >
+        #{linkMan},
+      </if>
+      <if test="phone != null" >
+        #{phone},
+      </if>
+      <if test="mobile != null" >
+        #{mobile},
+      </if>
+      <if test="email != null" >
+        #{email},
+      </if>
+      <if test="homepage != null" >
+        #{homepage},
+      </if>
+      <if test="foundDate != null" >
+        #{foundDate},
+      </if>
+      <if test="personTotal != null" >
+        #{personTotal},
+      </if>
+      <if test="logoUrl != null" >
+        #{logoUrl},
+      </if>
+      <if test="companyCat != null" >
+        #{companyCat},
+      </if>
+      <if test="readCount != null" >
+        #{readCount},
+      </if>
+      <if test="laudedCount != null" >
+        #{laudedCount},
+      </if>
+      <if test="commentedCount != null" >
+        #{commentedCount},
+      </if>
+      <if test="caredCount != null" >
+        #{caredCount},
+      </if>
+      <if test="titleCount != null" >
+        #{titleCount},
+      </if>
+      <if test="commentCount != null" >
+        #{commentCount},
+      </if>
+      <if test="laudCount != null" >
+        #{laudCount},
+      </if>
+      <if test="careCount != null" >
+        #{careCount},
+      </if>
+      <if test="activeStatus != null" >
+        #{activeStatus},
+      </if>
+      <if test="onlineMinutes != null" >
+        #{onlineMinutes},
+      </if>
+      <if test="facebookNo != null" >
+        #{facebookNo},
+      </if>
+      <if test="twitterNo != null" >
+        #{twitterNo},
+      </if>
+      <if test="sinaWeibo != null" >
+        #{sinaWeibo},
+      </if>
+      <if test="vplus != null" >
+        #{vplus},
+      </if>
+      <if test="majorScope != null" >
+        #{majorScope},
+      </if>
+      <if test="honordItems != null" >
+        #{honordItems},
+      </if>
+      <if test="brief != null" >
+        #{brief},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="id != null and id != ''" >
+        id = #{id}
+      </if>
+      <if test="createdUser != null and createdUser != ''" >
+        AND created_user = #{createdUser}
+      </if>
+      <if test="createdAt != null" >
+        AND created_at = #{createdAt}
+      </if>
+      <if test="updatedUser != null and updatedUser != ''" >
+        AND updated_user = #{updatedUser}
+      </if>
+      <if test="lastUpdated != null" >
+        AND last_updated = #{lastUpdated}
+      </if>
+      <if test="disable != null" >
+        AND disable = #{disable}
+      </if>
+      <if test="deleteFlag != null" >
+        AND delete_flag = #{deleteFlag}
+      </if>
+      <if test="redString1 != null and redString1 != ''" >
+        AND red_string1 = #{redString1}
+      </if>
+      <if test="redString2 != null and redString2 != ''" >
+        AND red_string2 = #{redString2}
+      </if>
+      <if test="redString3 != null and redString3 != ''" >
+        AND red_string3 = #{redString3}
+      </if>
+      <if test="redString4 != null and redString4 != ''" >
+        AND red_string4 = #{redString4}
+      </if>
+      <if test="redString5 != null and redString5 != ''" >
+        AND red_string5 = #{redString5}
+      </if>
+      <if test="redString6 != null and redString6 != ''" >
+        AND red_string6 = #{redString6}
+      </if>
+      <if test="sort != null" >
+        AND sort = #{sort}
+      </if>
+      <if test="name != null and name != ''" >
+        AND name = #{name}
+      </if>
+      <if test="code != null and code != ''" >
+        AND code = #{code}
+      </if>
+      <if test="shortName != null and shortName != ''" >
+        AND short_name = #{shortName}
+      </if>
+      <if test="engName != null and engName != ''" >
+        AND eng_name = #{engName}
+      </if>
+      <if test="engShortName != null and engShortName != ''" >
+        AND eng_short_name = #{engShortName}
+      </if>
+      <if test="regionId != null and regionId != ''" >
+        AND region_id = #{regionId}
+      </if>
+      <if test="address != null and address != ''" >
+        AND address = #{address}
+      </if>
+      <if test="legalRepresentative != null and legalRepresentative != ''" >
+        AND legal_representative = #{legalRepresentative}
+      </if>
+      <if test="linkMan != null and linkMan != ''" >
+        AND link_man = #{linkMan}
+      </if>
+      <if test="phone != null and phone != ''" >
+        AND phone = #{phone}
+      </if>
+      <if test="mobile != null and mobile != ''" >
+        AND mobile = #{mobile}
+      </if>
+      <if test="email != null and email != ''" >
+        AND email = #{email}
+      </if>
+      <if test="homepage != null and homepage != ''" >
+        AND homepage = #{homepage}
+      </if>
+      <if test="foundDate != null" >
+        AND found_date = #{foundDate}
+      </if>
+      <if test="personTotal != null and personTotal != ''" >
+        AND person_total = #{personTotal}
+      </if>
+      <if test="logoUrl != null and logoUrl != ''" >
+        AND logo_url = #{logoUrl}
+      </if>
+      <if test="companyCat != null and companyCat != ''" >
+        AND company_cat = #{companyCat}
+      </if>
+      <if test="readCount != null" >
+        AND read_count = #{readCount}
+      </if>
+      <if test="laudedCount != null" >
+        AND lauded_count = #{laudedCount}
+      </if>
+      <if test="commentedCount != null" >
+        AND commented_count = #{commentedCount}
+      </if>
+      <if test="caredCount != null" >
+        AND cared_count = #{caredCount}
+      </if>
+      <if test="titleCount != null" >
+        AND title_count = #{titleCount}
+      </if>
+      <if test="commentCount != null" >
+        AND comment_count = #{commentCount}
+      </if>
+      <if test="laudCount != null" >
+        AND laud_count = #{laudCount}
+      </if>
+      <if test="careCount != null" >
+        AND care_count = #{careCount}
+      </if>
+      <if test="activeStatus != null" >
+        AND active_status = #{activeStatus}
+      </if>
+      <if test="onlineMinutes != null" >
+        AND online_minutes = #{onlineMinutes}
+      </if>
+      <if test="facebookNo != null and facebookNo != ''" >
+        AND facebook_no = #{facebookNo}
+      </if>
+      <if test="twitterNo != null and twitterNo != ''" >
+        AND twitter_no = #{twitterNo}
+      </if>
+      <if test="sinaWeibo != null and sinaWeibo != ''" >
+        AND sina_weibo = #{sinaWeibo}
+      </if>
+      <if test="vplus != null" >
+        AND vplus = #{vplus}
+      </if>
+      <if test="majorScope != null and majorScope != ''" >
+        AND major_scope = #{majorScope}
+      </if>
+      <if test="honordItems != null and honordItems != ''" >
+        AND honord_items = #{honordItems}
+      </if>
+      <if test="brief != null and brief != ''" >
+        AND brief = #{brief}
+      </if>
+      <if test="remark != null and remark != ''" >
+        AND remark = #{remark}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.operation.po.CompanyInfo" resultMap="CompanyInfoResultMap" >
+    select 
+    <include refid="CompanyInfo_Column_List" />
+    from company_info
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update company_info
+    <set >
+      <if test="po.id != null" >
+        id = #{po.id},
+      </if>
+      <if test="po.createdUser != null" >
+        created_user = #{po.createdUser},
+      </if>
+      <if test="po.createdAt != null" >
+        created_at = #{po.createdAt},
+      </if>
+      <if test="po.updatedUser != null" >
+        updated_user = #{po.updatedUser},
+      </if>
+      <if test="po.lastUpdated != null" >
+        last_updated = #{po.lastUpdated},
+      </if>
+      <if test="po.disable != null" >
+        disable = #{po.disable},
+      </if>
+      <if test="po.deleteFlag != null" >
+        delete_flag = #{po.deleteFlag},
+      </if>
+      <if test="po.redString1 != null" >
+        red_string1 = #{po.redString1},
+      </if>
+      <if test="po.redString2 != null" >
+        red_string2 = #{po.redString2},
+      </if>
+      <if test="po.redString3 != null" >
+        red_string3 = #{po.redString3},
+      </if>
+      <if test="po.redString4 != null" >
+        red_string4 = #{po.redString4},
+      </if>
+      <if test="po.redString5 != null" >
+        red_string5 = #{po.redString5},
+      </if>
+      <if test="po.redString6 != null" >
+        red_string6 = #{po.redString6},
+      </if>
+      <if test="po.sort != null" >
+        sort = #{po.sort},
+      </if>
+      <if test="po.name != null" >
+        name = #{po.name},
+      </if>
+      <if test="po.code != null" >
+        code = #{po.code},
+      </if>
+      <if test="po.shortName != null" >
+        short_name = #{po.shortName},
+      </if>
+      <if test="po.engName != null" >
+        eng_name = #{po.engName},
+      </if>
+      <if test="po.engShortName != null" >
+        eng_short_name = #{po.engShortName},
+      </if>
+      <if test="po.regionId != null" >
+        region_id = #{po.regionId},
+      </if>
+      <if test="po.address != null" >
+        address = #{po.address},
+      </if>
+      <if test="po.legalRepresentative != null" >
+        legal_representative = #{po.legalRepresentative},
+      </if>
+      <if test="po.linkMan != null" >
+        link_man = #{po.linkMan},
+      </if>
+      <if test="po.phone != null" >
+        phone = #{po.phone},
+      </if>
+      <if test="po.mobile != null" >
+        mobile = #{po.mobile},
+      </if>
+      <if test="po.email != null" >
+        email = #{po.email},
+      </if>
+      <if test="po.homepage != null" >
+        homepage = #{po.homepage},
+      </if>
+      <if test="po.foundDate != null" >
+        found_date = #{po.foundDate},
+      </if>
+      <if test="po.personTotal != null" >
+        person_total = #{po.personTotal},
+      </if>
+      <if test="po.logoUrl != null" >
+        logo_url = #{po.logoUrl},
+      </if>
+      <if test="po.companyCat != null" >
+        company_cat = #{po.companyCat},
+      </if>
+      <if test="po.readCount != null" >
+        read_count = #{po.readCount},
+      </if>
+      <if test="po.laudedCount != null" >
+        lauded_count = #{po.laudedCount},
+      </if>
+      <if test="po.commentedCount != null" >
+        commented_count = #{po.commentedCount},
+      </if>
+      <if test="po.caredCount != null" >
+        cared_count = #{po.caredCount},
+      </if>
+      <if test="po.titleCount != null" >
+        title_count = #{po.titleCount},
+      </if>
+      <if test="po.commentCount != null" >
+        comment_count = #{po.commentCount},
+      </if>
+      <if test="po.laudCount != null" >
+        laud_count = #{po.laudCount},
+      </if>
+      <if test="po.careCount != null" >
+        care_count = #{po.careCount},
+      </if>
+      <if test="po.activeStatus != null" >
+        active_status = #{po.activeStatus},
+      </if>
+      <if test="po.onlineMinutes != null" >
+        online_minutes = #{po.onlineMinutes},
+      </if>
+      <if test="po.facebookNo != null" >
+        facebook_no = #{po.facebookNo},
+      </if>
+      <if test="po.twitterNo != null" >
+        twitter_no = #{po.twitterNo},
+      </if>
+      <if test="po.sinaWeibo != null" >
+        sina_weibo = #{po.sinaWeibo},
+      </if>
+      <if test="po.vplus != null" >
+        vplus = #{po.vplus},
+      </if>
+      <if test="po.majorScope != null" >
+        major_scope = #{po.majorScope},
+      </if>
+      <if test="po.honordItems != null" >
+        honord_items = #{po.honordItems},
+      </if>
+      <if test="po.brief != null" >
+        brief = #{po.brief},
+      </if>
+      <if test="po.remark != null" >
+        remark = #{po.remark},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <!-- ***************************************************************************** -->
+  <!-- 以上自动生成，以下自定义 -->
+
+  <resultMap id="CompanyInfoVoResultMap" type="com.sida.dcloud.operation.vo.CompanyInfoVo" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="short_name" property="shortName" jdbcType="VARCHAR" />
+    <result column="eng_name" property="engName" jdbcType="VARCHAR" />
+    <result column="eng_short_name" property="engShortName" jdbcType="VARCHAR" />
+    <result column="region_id" property="regionId" jdbcType="VARCHAR" />
+    <result column="found_date" property="foundDate" jdbcType="DATE" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="personal_total" property="personTotal" jdbcType="VARCHAR" />
+    <result column="log_url" property="logoUrl" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="selectByPrimaryKey" resultMap="CompanyInfoResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="CompanyInfo_Column_List" />
+    from company_info
+    where id = #{id} and delete_flag = false
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    update company_info set delete_flag = 1 where id = #{id}
+  </delete>
+  <delete id="deleteByPrimaryKeys" parameterType="java.lang.String" >
+    update company_info set delete_flag = 1 where instr(#{ids}, id) &gt; 0
+  </delete>
+
+  <select id="findVoList" parameterType="com.sida.dcloud.operation.po.CompanyInfo" resultMap="CompanyInfoVoResultMap">
+    <include refid="CompanyInfo_Find_Vo" />
+  </select>
+  <select id="findVoMap" parameterType="com.sida.dcloud.operation.po.CompanyInfo" resultMap="CompanyInfoVoResultMap">
+    <include refid="CompanyInfo_Find_Vo" />
+  </select>
+  <sql id="CompanyInfo_Find_Vo" >
+    select
+    id, name, code, short_name, eng_name, eng_short_name, region_id, address, found_date, person_total, logo_url
+    from company_info
+    <where>
+      delete_flag = false
+      <if test="po.id != null and po.id != ''" >
+        and id = #{po.id}
+      </if>
+      <if test="po.name != null and po.name != ''" >
+        and instr(name, #{po.name})&gt;0
+      </if>
+      <if test="po.code != null and po.code != ''" >
+        and instr(code, #{po.code})&gt;0
+      </if>
+      <if test="po.engName != null and po.engName != ''" >
+        and instr(eng_name, #{po.engName})&gt;0
+      </if>
+      <if test="po.engShortName != null and po.engShortName != ''" >
+        and instr(eng_short_name, #{po.engShortName})&gt;0
+      </if>
+      <if test="po.address != null and po.address != ''" >
+        and instr(address, #{po.address})&gt;0
+      </if>
+
+    </where>
+    <choose>
+      <when test="po.orderField != null and po.orderField != ''">
+        ORDER BY ${po.orderField}
+        <if test="po.orderString != null and po.orderString != ''">
+          ${po.orderString}
+        </if>,eng_name asc
+      </when>
+      <otherwise>
+        ORDER BY eng_name asc
+      </otherwise>
+    </choose>
+  </sql>
+
+  <select id="checkMultiCountByUnique" parameterType="com.sida.dcloud.operation.po.CompanyInfo" resultType="int">
+    select count(0) from company_info
+    <where>
+      delete_flag = 0 and (1=2
+      <if test="po.name != null and po.name != ''">
+        or name=#{po.name}
+      </if>
+      <if test="po.engName != null and po.engName != ''">
+        or eng_name=#{po.engName}
+      </if>)
+      <if test="po.id != null and po.id != ''">
+        <![CDATA[
+        and id <> #{po.id}
+        ]]>
+      </if>
+    </where>
+  </select>
+
+  <select id="checkRemovableByRel" parameterType="java.lang.String" resultType="int">
+    select count(0) from company_rel_tag where instr(#{ids}, company_id) &gt; 0
+  </select>
+
+  <update id="increaseFieldCount" >
+    update company_info
+    <set>${fieldName} = ${fieldName} + #{count}</set>
+    <where>id = #{id}</where>
+  </update>
+</mapper>

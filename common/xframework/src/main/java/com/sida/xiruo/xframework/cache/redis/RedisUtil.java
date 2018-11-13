@@ -12,10 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -34,6 +31,10 @@ public class RedisUtil {
             return valueMap.get(code);
         }
         return null;
+    }
+
+    public Map<String, Object> getGlobalVariableMap() {
+        return getEntriesFromMap(RedisKey.GLOBAL_VARIABLE);
     }
 
     /**
@@ -121,7 +122,7 @@ public class RedisUtil {
         return null;
     }
 
-    /**
+    /**getDicGroupMap
      * 获取所有数据字典分组
      * @return
      */
@@ -303,6 +304,20 @@ public class RedisUtil {
     }
 
     /**
+     *
+     * @param redisKey
+     * @param mapKey
+     * @param mapValue
+     * @param expireSeconds
+     * @return
+     */
+    public boolean putInMap(final String redisKey, String mapKey, Object mapValue, long expireSeconds) {
+        boolean result = putInMap(redisKey, mapKey, mapValue);
+        redisTemplate.expire(redisKey, expireSeconds, TimeUnit.SECONDS);
+        return result;
+    }
+
+    /**
      * 将缓存保存在map集合中
      * @param redisKey
      * @param map
@@ -360,6 +375,15 @@ public class RedisUtil {
         return operations.entries(redisKey);
     }
 
+    /**
+     * 判断是否存在
+     * @param redisKey
+     * @return
+     */public Boolean hasKey(final String redisKey, Object mapKey) {
+        HashOperations<Serializable, Object, Object> operations = redisTemplate.opsForHash();
+        return operations.hasKey(redisKey, mapKey);
+    }
+
 
     /**
      * 删除Map中的一个键值对
@@ -368,7 +392,9 @@ public class RedisUtil {
      */
     public void removeOneFromMap(final String redisKey, Object mapKey) {
         HashOperations<Serializable, Object, Object> operations = redisTemplate.opsForHash();
-        operations.delete(redisKey, mapKey);
+        if(hasKey(redisKey, mapKey)) {
+            operations.delete(redisKey, mapKey);
+        }
     }
 
     /**
@@ -423,5 +449,10 @@ public class RedisUtil {
         redisTemplate.setHashKeySerializer(stringRedisSerializer);
         redisTemplate.setHashValueSerializer(jsonRedisSerializer);
         this.redisTemplate = redisTemplate;
+    }
+
+    public Object getRegionDatasByKey(String key) {
+        return Optional.ofNullable(getEntriesFromMap(RedisKey.SYS_REGION_CACHE))
+                .orElse(new HashMap<>()).get(key);
     }
 }

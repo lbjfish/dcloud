@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.operation.dao.TagLibMapper" >
+  <resultMap id="TagLibResultMap" type="com.sida.dcloud.operation.po.TagLib" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="disable" property="disable" jdbcType="BIT" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
+    <result column="red_string1" property="redString1" jdbcType="VARCHAR" />
+    <result column="red_string2" property="redString2" jdbcType="VARCHAR" />
+    <result column="red_string3" property="redString3" jdbcType="VARCHAR" />
+    <result column="red_string4" property="redString4" jdbcType="VARCHAR" />
+    <result column="red_string5" property="redString5" jdbcType="VARCHAR" />
+    <result column="red_string6" property="redString6" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="group_id" property="groupId" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="alias" property="alias" jdbcType="VARCHAR" />
+    <result column="eng_name" property="engName" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="TagLib_Column_List" >
+    id, disable, delete_flag, red_string1, red_string2, red_string3, red_string4, red_string5, 
+    red_string6, name, group_id, add_time, code, alias, eng_name, version, sort, remark
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.operation.po.TagLib" >
+    insert into tag_lib (id, disable, delete_flag, red_string1, red_string2, red_string3, 
+      red_string4, red_string5, red_string6, name, group_id, add_time, code, 
+      alias, eng_name, version, sort, remark)
+    values (#{id}, #{disable}, #{deleteFlag}, #{redString1}, #{redString2}, #{redString3}, 
+      #{redString4}, #{redString5}, #{redString6}, #{name}, #{groupId}, #{addTime}, #{code}, 
+      #{alias}, #{engName}, #{version}, #{sort}, #{remark})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.operation.po.TagLib" >
+    insert into tag_lib
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="disable != null" >
+        disable,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="redString1 != null" >
+        red_string1,
+      </if>
+      <if test="redString2 != null" >
+        red_string2,
+      </if>
+      <if test="redString3 != null" >
+        red_string3,
+      </if>
+      <if test="redString4 != null" >
+        red_string4,
+      </if>
+      <if test="redString5 != null" >
+        red_string5,
+      </if>
+      <if test="redString6 != null" >
+        red_string6,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="groupId != null" >
+        group_id,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="alias != null" >
+        alias,
+      </if>
+      <if test="engName != null" >
+        eng_name,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="disable != null" >
+        #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag},
+      </if>
+      <if test="redString1 != null" >
+        #{redString1},
+      </if>
+      <if test="redString2 != null" >
+        #{redString2},
+      </if>
+      <if test="redString3 != null" >
+        #{redString3},
+      </if>
+      <if test="redString4 != null" >
+        #{redString4},
+      </if>
+      <if test="redString5 != null" >
+        #{redString5},
+      </if>
+      <if test="redString6 != null" >
+        #{redString6},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="groupId != null" >
+        #{groupId},
+      </if>
+      <if test="addTime != null" >
+        #{addTime},
+      </if>
+      <if test="code != null" >
+        #{code},
+      </if>
+      <if test="alias != null" >
+        #{alias},
+      </if>
+      <if test="engName != null" >
+        #{engName},
+      </if>
+      <if test="version != null" >
+        #{version},
+      </if>
+      <if test="sort != null" >
+        #{sort},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="id != null and id != ''" >
+        id = #{id}
+      </if>
+      <if test="disable != null" >
+        AND disable = #{disable}
+      </if>
+      <if test="deleteFlag != null" >
+        AND delete_flag = #{deleteFlag}
+      </if>
+      <if test="redString1 != null and redString1 != ''" >
+        AND red_string1 = #{redString1}
+      </if>
+      <if test="redString2 != null and redString2 != ''" >
+        AND red_string2 = #{redString2}
+      </if>
+      <if test="redString3 != null and redString3 != ''" >
+        AND red_string3 = #{redString3}
+      </if>
+      <if test="redString4 != null and redString4 != ''" >
+        AND red_string4 = #{redString4}
+      </if>
+      <if test="redString5 != null and redString5 != ''" >
+        AND red_string5 = #{redString5}
+      </if>
+      <if test="redString6 != null and redString6 != ''" >
+        AND red_string6 = #{redString6}
+      </if>
+      <if test="name != null and name != ''" >
+        AND name = #{name}
+      </if>
+      <if test="groupId != null and groupId != ''" >
+        AND group_id = #{groupId}
+      </if>
+      <if test="addTime != null" >
+        AND add_time = #{addTime}
+      </if>
+      <if test="code != null and code != ''" >
+        AND code = #{code}
+      </if>
+      <if test="alias != null and alias != ''" >
+        AND alias = #{alias}
+      </if>
+      <if test="engName != null and engName != ''" >
+        AND eng_name = #{engName}
+      </if>
+      <if test="version != null and version != ''" >
+        AND version = #{version}
+      </if>
+      <if test="sort != null" >
+        AND sort = #{sort}
+      </if>
+      <if test="remark != null and remark != ''" >
+        AND remark = #{remark}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.operation.po.TagLib" resultMap="TagLibResultMap" >
+    select 
+    <include refid="TagLib_Column_List" />
+    from tag_lib
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update tag_lib
+    <set >
+      <if test="po.id != null" >
+        id = #{po.id},
+      </if>
+      <if test="po.disable != null" >
+        disable = #{po.disable},
+      </if>
+      <if test="po.deleteFlag != null" >
+        delete_flag = #{po.deleteFlag},
+      </if>
+      <if test="po.redString1 != null" >
+        red_string1 = #{po.redString1},
+      </if>
+      <if test="po.redString2 != null" >
+        red_string2 = #{po.redString2},
+      </if>
+      <if test="po.redString3 != null" >
+        red_string3 = #{po.redString3},
+      </if>
+      <if test="po.redString4 != null" >
+        red_string4 = #{po.redString4},
+      </if>
+      <if test="po.redString5 != null" >
+        red_string5 = #{po.redString5},
+      </if>
+      <if test="po.redString6 != null" >
+        red_string6 = #{po.redString6},
+      </if>
+      <if test="po.name != null" >
+        name = #{po.name},
+      </if>
+      <if test="po.groupId != null" >
+        group_id = #{po.groupId},
+      </if>
+      <if test="po.addTime != null" >
+        add_time = #{po.addTime},
+      </if>
+      <if test="po.code != null" >
+        code = #{po.code},
+      </if>
+      <if test="po.alias != null" >
+        alias = #{po.alias},
+      </if>
+      <if test="po.engName != null" >
+        eng_name = #{po.engName},
+      </if>
+      <if test="po.version != null" >
+        version = #{po.version},
+      </if>
+      <if test="po.sort != null" >
+        sort = #{po.sort},
+      </if>
+      <if test="po.remark != null" >
+        remark = #{po.remark},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <!-- ***************************************************************************** -->
+  <!-- 以上自动生成，以下自定义 -->
+  <resultMap id="TagLibVoResultMap" type="com.sida.dcloud.operation.vo.TagLibVo" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="alias" property="alias" jdbcType="VARCHAR" />
+    <result column="eng_name" property="engName" jdbcType="VARCHAR" />
+    <result column="group_id" property="groupId" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="CompanyRelTagResultMap" type="com.sida.dcloud.operation.po.CompanyRelTag" >
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="tag_id" property="tagId" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="findAllRelList" resultMap="CompanyRelTagResultMap">
+    select company_id,tag_id,tag_code from company_rel_tag
+  </select>
+  <select id="findRelMapGroupByCompany" resultType="java.util.Map">
+    select company_id,group_concat(tag_id) tag_ids,group_concat(tag_code) tag_codes,cast(count(0) as char) count from company_rel_tag group by company_id
+  </select>
+  <select id="findVoList" parameterType="com.sida.dcloud.operation.po.TagLib" resultMap="TagLibVoResultMap">
+    select id,name,group_id,code,alias,eng_name from tag_lib
+    <where>
+      delete_flag = false and disable = false
+      <if test="po.name != null" >
+        and instr(name, #{po.name}) &gt; 0
+      </if>
+      <if test="po.code != null" >
+        and instr(code, #{po.code}) &gt; 0
+      </if>
+      <if test="po.alias != null" >
+        and instr(alias, #{po.alias}) &gt; 0
+      </if>
+      <if test="po.engName != null" >
+        and instr(eng_name, #{po.engName}) &gt; 0
+      </if>
+      <if test="po.groupId != null" >
+        and group_id = #{po.groupId}
+      </if>
+      <if test="po.version != null" >
+        and version = #{po.version}
+      </if>
+    </where>
+    <if test="po.orderField != null and po.orderField != ''" >
+      ORDER BY ${po.orderField}
+      <if test="po.orderString != null and po.orderString != ''" >
+        ${po.orderString}
+      </if>
+    </if>
+  </select>
+</mapper>
