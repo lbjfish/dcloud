@@ -374,6 +374,10 @@
     </if>
   </select>
 
+  <select id="findCompanyIdsByNoteId" parameterType="java.lang.String" resultType="String">
+    select group_concat(company_id) from consultation_info where delete_flag = false and note_id = #{noteId}
+  </select>
+
   <insert id="batchInsert" parameterType="java.util.List" >
     insert into consultation_info (id, disable, delete_flag, note_id, company_id, user_id)
     <foreach collection="list" item="po" open="" close="" separator="union all" >

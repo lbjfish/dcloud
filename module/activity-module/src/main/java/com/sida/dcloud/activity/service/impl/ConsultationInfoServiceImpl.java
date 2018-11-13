@@ -41,6 +41,11 @@ public class ConsultationInfoServiceImpl extends BaseServiceImpl<ConsultationInf
         return (Page) voList;
     }
 
+    @Override
+    public String findCompanyIdsByNoteId(String noteId) {
+        return consultationInfoMapper.findCompanyIdsByNoteId(noteId);
+    }
+
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public int batchInsert(List<ConsultationInfo> list) {

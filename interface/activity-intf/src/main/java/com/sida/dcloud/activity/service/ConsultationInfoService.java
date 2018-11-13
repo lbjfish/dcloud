@@ -10,4 +10,5 @@ import java.util.List;
 public interface ConsultationInfoService extends IBaseService<ConsultationInfo> {
     Page<ConsultationInfoVo> findPageList(ConsultationInfo po);
     int batchInsert(List<ConsultationInfo> list);
+    public String findCompanyIdsByNoteId(String noteId);
 }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
-@FeignClient(name = "${provider.operation-module}")
+@FeignClient(name = "${provider.operation-module}", fallback = OperationClientHystrix.class)
 //@FeignClient(name = "${provider.operation-module}", fallback = CommonUserHystrix.class)
 public interface OperationClient {
     @RequestMapping(value = "/commonUser/findCommonUserById", method = RequestMethod.GET)
@@ -20,4 +20,12 @@ public interface OperationClient {
     @RequestMapping(value = "/commonUser/updateFaceUrl", method = RequestMethod.POST)
     @ApiOperation(value = "更新人脸图片地址")
     Object updateFaceUrl(@RequestBody @ApiParam("用户信息MAP") Map<String, String> map);
+
+    @RequestMapping(value = "/companyInfo/findOne", method = RequestMethod.GET)
+    @ApiOperation(value = "根据企业主键id获取信息")
+    Object findOne(@RequestParam("id") @ApiParam("id")String id);
+
+    @RequestMapping(value = "/findMany", method = RequestMethod.GET)
+    @ApiOperation(value = "根据企业主键ids获取信息")
+    public Object findMany(@RequestParam("ids") @ApiParam("ids")String ids);
 }

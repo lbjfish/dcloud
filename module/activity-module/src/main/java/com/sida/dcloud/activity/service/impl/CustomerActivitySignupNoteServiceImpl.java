@@ -19,6 +19,7 @@ import com.sida.dcloud.activity.vo.CustomerActivitySignupNoteVo;
 import com.sida.dcloud.job.po.JobEntity;
 import com.sida.dcloud.system.dto.SysRegionLayerDto;
 import com.sida.xiruo.common.components.StringUtils;
+import com.sida.xiruo.po.common.IdAndNameDto;
 import com.sida.xiruo.po.common.TableMeta;
 import com.sida.xiruo.util.jedis.RedisKey;
 import com.sida.xiruo.xframework.controller.LoginManager;
@@ -124,14 +125,14 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
     }
 
     @Override
-    public Map<String, String> findSimpleOneToClient(String id) {
+    public Map<String, Object> findSimpleOneToClient(String id) {
         CustomerActivitySignupNote note = customerActivitySignupNoteMapper.selectByPrimaryKey(id);
         Optional.ofNullable(note).orElseThrow(() -> new ActivitiException("报名表不存在，id=" + id));
         ActivityOrder order = new ActivityOrder();
         order.setNoteId(note.getId());
         List<ActivityOrder> orderList = activityOrderService.selectByCondition(order);
         if(!orderList.isEmpty()) order = orderList.get(0);
-        Map<String, String> resMap = new HashMap<>();
+        Map<String, Object> resMap = new HashMap<>();
         resMap.put("id", note.getId());
         resMap.put("signCode", note.getThirdPartCode());
         resMap.put("name", note.getName());
@@ -139,7 +140,11 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
         resMap.put("orderId", order.getId());
         resMap.put("userId", note.getUserId());
         resMap.put("activityId", note.getActivityId());
-
+        String companyIds = consultationInfoService.findCompanyIdsByNoteId(note.getId());
+        if(BlankUtil.isNotEmpty(companyIds)) {
+            Map<String, IdAndNameDto> map = (Map<String, IdAndNameDto>)operationClient.findMany(companyIds);
+            resMap.put("companyList", map.values());
+        }
         return resMap;
     }
 
@@ -300,8 +305,8 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
     @Override
 //    @TxTransaction(isStart = true)
     @Transactional(propagation = Propagation.REQUIRED)
-    public Map<String, String> insertSignupNoteAndOrder(ActivitySignupNoteDto dto) {
-        Map<String, String> resMap = new HashMap<>();
+    public Map<String, Object> insertSignupNoteAndOrder(ActivitySignupNoteDto dto) {
+        Map<String, Object> resMap = new HashMap<>();
         ActivityInfo activityInfo = activityInfoService.selectByPrimaryKey(dto.getActivityId());
         checkValidationForActivityInfo(activityInfo);
         CustomerActivitySignupNote note = dto.getCustomerActivitySignupNote();
@@ -368,6 +373,10 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
         resMap.put("orderId", dto.getActivityOrder().getId());
         resMap.put("userId", dto.getUserId());
         resMap.put("activityId", dto.getActivityId());
+        if(BlankUtil.isNotEmpty(dto.getCompanyIds())) {
+            Map<String, IdAndNameDto> map = (Map<String, IdAndNameDto>)operationClient.findMany(dto.getCompanyIds());
+            resMap.put("companyList", map.values());
+        }
 
         return resMap;
     }

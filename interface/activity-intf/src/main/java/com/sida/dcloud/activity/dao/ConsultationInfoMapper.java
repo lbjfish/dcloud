@@ -13,5 +13,6 @@ import java.util.List;
 
 public interface ConsultationInfoMapper extends IMybatisDao<ConsultationInfo> {
     List<ConsultationInfoVo> findVoList(@Param("po") ConsultationInfo po);
-    int batchInsert(List<ConsultationInfo> list);
+    int batchInsert(@Param("list")List<ConsultationInfo> list);
+    String findCompanyIdsByNoteId(@Param("noteId")String noteId);
 }

@@ -7,7 +7,6 @@ import com.sida.xiruo.po.common.BaseEntity;
 import com.sida.xiruo.xframework.dao.IMybatisDao;
 import com.sida.xiruo.xframework.util.PoDefaultValueGenerator;
 import com.sida.xiruo.xframework.util.UUID;
-import org.springframework.cache.annotation.Cacheable;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -41,7 +40,6 @@ public abstract class BaseServiceImpl<T extends BaseEntity> implements IBaseServ
         return getBaseDao().insertSelective(po);
     }
 
-    @Cacheable(cacheNames="cat", keyGenerator = "cacheKeyGenerator")
     @Override
     public T selectByPrimaryKey(Object id) {
         return getBaseDao().selectByPrimaryKey(id);

@@ -15,7 +15,7 @@
         <artifactId>parent</artifactId>
         <groupId>com.sida</groupId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../../common/parent/pom.xml</relativePath>
+        <relativePath>../../../common/parent/pom.xml</relativePath>
     </parent>
 
     <properties>

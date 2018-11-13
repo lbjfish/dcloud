@@ -17,11 +17,11 @@ public interface CustomerActivitySignupNoteService extends IBaseService<Customer
     List<TableMeta> findTableMeta();
     Page<CustomerActivitySignupNoteVo> findPageList(CustomerActivitySignupNoteVo vo);
     List<ActivitySignupNoteSettingDto> findOneToClient(String id);
-    Map<String, String> findSimpleOneToClient(String id);
+    Map<String, Object> findSimpleOneToClient(String id);
     String getCurrentNoteNo();
     String getCurrentThirdPartCode();
     int resendThirdPartCode();
-    Map<String, String> insertSignupNoteAndOrder(ActivitySignupNoteDto dto);
+    Map<String, Object> insertSignupNoteAndOrder(ActivitySignupNoteDto dto);
 
     void createOrderExpiredJob(ActivityOrder order);
     void dropOrderExpiredJob(String jobName);

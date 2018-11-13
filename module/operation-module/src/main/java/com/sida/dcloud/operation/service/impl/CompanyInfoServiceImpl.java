@@ -8,6 +8,7 @@ import com.sida.dcloud.operation.po.CompanyInfo;
 import com.sida.dcloud.operation.service.CompanyInfoService;
 import com.sida.dcloud.operation.vo.CompanyInfoVo;
 import com.sida.dcloud.system.dto.SysRegionLayerDto;
+import com.sida.xiruo.po.common.IdAndNameDto;
 import com.sida.xiruo.util.jedis.RedisKey;
 import com.sida.xiruo.xframework.cache.redis.RedisUtil;
 import com.sida.xiruo.xframework.dao.IMybatisDao;
@@ -18,6 +19,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -52,6 +56,11 @@ public class CompanyInfoServiceImpl extends BaseServiceImpl<CompanyInfo> impleme
         List<CompanyInfoVo> voList = companyInfoMapper.findVoList(po);
         voList.forEach(vo -> vo.setRegionName(((SysRegionLayerDto)map.get(vo.getRegionId())).getName()));
         return (Page) voList;
+    }
+
+    @Override
+    public Map<String, IdAndNameDto> selectNamesByIds(String ids) {
+        return companyInfoMapper.selectNamesByIds(ids);
     }
 
     @Override
@@ -160,5 +169,23 @@ public class CompanyInfoServiceImpl extends BaseServiceImpl<CompanyInfo> impleme
         }
 
         return result;
+    }
+
+    @Override
+    @Cacheable(cacheNames = "CompanyInfo", key = "'id:' + #id")
+    public CompanyInfo selectByPrimaryKey(Object id) {
+        return super.selectByPrimaryKey(id);
+    }
+
+    @CacheEvict(cacheNames="CompanyInfo", key="'id:' + #id", condition="#id != ''")
+    @Override
+    public int deleteByPrimaryKey(Object id) {
+        return super.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    @CachePut(cacheNames="CompanyInfo", key="'id:' + #po.id", condition="#po.id != ''")
+    public int updateByPrimaryKeySelective(CompanyInfo po) {
+        return super.updateByPrimaryKeySelective(po);
     }
 }
