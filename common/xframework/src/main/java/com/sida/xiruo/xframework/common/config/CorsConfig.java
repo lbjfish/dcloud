@@ -21,7 +21,13 @@ public class CorsConfig {
         //放行哪些原始域(头部信息)
         config.addAllowedHeader("*");
         //暴露哪些头部信息（因为跨域访问默认不能获取全部头部信息）
-        config.addExposedHeader("*");
+        //'*' is not a valid exposed header value
+//        config.addExposedHeader("*");
+        config.addExposedHeader("x-auth-token");
+        config.addExposedHeader("x-total-count");
+        config.addExposedHeader("Content-Language");
+        config.addExposedHeader("Cache-Control");
+        config.addExposedHeader("Content-Type");
 
         //2.添加映射路径
         UrlBasedCorsConfigurationSource configSource = new UrlBasedCorsConfigurationSource();
