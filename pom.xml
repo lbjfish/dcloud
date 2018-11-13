@@ -17,6 +17,7 @@
         <module>interface</module>
         <module>module</module>
         <!--<module>x-thirdpart</module>-->
+        <module>x-thirdpart/tx-lcn-4.1.0</module>
     </modules>
     <distributionManagement>
         <repository>
