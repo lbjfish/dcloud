@@ -11,14 +11,8 @@ import com.sida.dcloud.activity.common.ActivityException;
 import com.sida.dcloud.activity.dao.CustomerActivitySignupNoteMapper;
 import com.sida.dcloud.activity.dto.ActivitySignupNoteDto;
 import com.sida.dcloud.activity.dto.ActivitySignupNoteSettingDto;
-import com.sida.dcloud.activity.po.ActivityInfo;
-import com.sida.dcloud.activity.po.ActivityOrder;
-import com.sida.dcloud.activity.po.ActivitySignupNoteSetting;
-import com.sida.dcloud.activity.po.CustomerActivitySignupNote;
-import com.sida.dcloud.activity.service.ActivityInfoService;
-import com.sida.dcloud.activity.service.ActivityOrderService;
-import com.sida.dcloud.activity.service.ActivitySignupNoteSettingService;
-import com.sida.dcloud.activity.service.CustomerActivitySignupNoteService;
+import com.sida.dcloud.activity.po.*;
+import com.sida.dcloud.activity.service.*;
 import com.sida.dcloud.activity.util.ActivityCacheUtil;
 import com.sida.dcloud.activity.vo.ActivityInfoVo;
 import com.sida.dcloud.activity.vo.CustomerActivitySignupNoteVo;
@@ -99,6 +93,8 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
     private ActivityInfoService activityInfoService;
     @Autowired
     private ActivitySignupNoteSettingService activitySignupNoteSettingService;
+    @Autowired
+    private ConsultationInfoService consultationInfoService;
 
     @Override
     public IMybatisDao<CustomerActivitySignupNote> getBaseDao() {
@@ -331,6 +327,17 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
                 dto.getCustomerActivitySignupNote().setFaceUrl(dto.getFaceUrl());
                 //插入报名表
                 result = super.insertSelective(dto.getCustomerActivitySignupNote());
+                if(BlankUtil.isNotEmpty(dto.getCompanyIds())) {
+                    List<ConsultationInfo> conList = new ArrayList<>();
+                    Arrays.stream(dto.getCompanyIds().split(",")).forEach(companyId -> {
+                        ConsultationInfo info = new ConsultationInfo();
+                        info.setId(UUIDGenerate.getNextId());
+                        info.setCompanyId(companyId);
+                        info.setUserId(dto.getUserId());
+                        info.setNoteId(note.getId());
+                    });
+                    consultationInfoService.batchInsert(conList);
+                }
                 //插入订单
                 activityOrderService.insert(dto.getActivityOrder());
                 //更新人脸识别图片

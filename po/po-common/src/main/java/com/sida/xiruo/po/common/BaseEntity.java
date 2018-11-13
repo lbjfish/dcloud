@@ -286,6 +286,16 @@ public abstract class BaseEntity implements Serializable {
     private String redString5;
     @ApiModelProperty("备用字段6")
     private String redString6;
+    @ApiModelProperty("是否脏")
+    private boolean dirty;
+
+    public boolean isDirty() {
+        return dirty;
+    }
+
+    public void setDirty(boolean dirty) {
+        this.dirty = dirty;
+    }
 
     public String getId() {return id;}
     public void setId(String id) {this.id = id;}

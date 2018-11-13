@@ -198,7 +198,10 @@ public class OperationRedisUtil implements CommandLineRunner {
 //                .stream()
 //                .map(obj -> ".*,(" + Xiruo.arrayToStringNoQuote((List)obj, "|") + "),.*")
 //                .collect(Collectors.toList());
-        List list = doExchange(seqTempList);
+        List list = seqTempList;
+        if(seqTempList.size() >= 2) {
+            list = doExchange(seqTempList);
+        }
         List<String> companyIdList = filterCompanyId(relList, list);
 
         int size = companyIdList.size();

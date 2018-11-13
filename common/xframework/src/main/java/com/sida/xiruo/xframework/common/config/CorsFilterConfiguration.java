@@ -63,8 +63,8 @@ import org.springframework.stereotype.Component;
  * @see <a href="http://www.w3.org/TR/cors/">CORS specification</a>
  * 解决ajax跨域问题
  */
-@Component
-@WebFilter("/*")
+//@Component
+//@WebFilter("/*")
 public class CorsFilterConfiguration implements Filter {
 
     private static final Log log = LogFactory.getLog(CorsFilterConfiguration.class);

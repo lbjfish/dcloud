@@ -15,6 +15,8 @@ public class ActivitySignupNoteDto implements Serializable {
     private String activityId;
     @ApiModelProperty("用户id")
     private String userId;
+    @ApiModelProperty("选择的企业ids")
+    private String companyIds;
     @ApiModelProperty("人脸采集（七牛云图片地址）")
     private String faceUrl;
     @ApiModelProperty("报名表设置版本")
@@ -26,6 +28,14 @@ public class ActivitySignupNoteDto implements Serializable {
 
     public String getSettingVersion() {
         return settingVersion;
+    }
+
+    public String getCompanyIds() {
+        return companyIds;
+    }
+
+    public void setCompanyIds(String companyIds) {
+        this.companyIds = companyIds;
     }
 
     public void setSettingVersion(String settingVersion) {

@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.activity.dao.ConsultationInfoMapper" >
+  <resultMap id="ConsultationInfoResultMap" type="com.sida.dcloud.activity.po.ConsultationInfo" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="disable" property="disable" jdbcType="BIT" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
+    <result column="red_string1" property="redString1" jdbcType="VARCHAR" />
+    <result column="red_string2" property="redString2" jdbcType="VARCHAR" />
+    <result column="red_string3" property="redString3" jdbcType="VARCHAR" />
+    <result column="red_string4" property="redString4" jdbcType="VARCHAR" />
+    <result column="red_string5" property="redString5" jdbcType="VARCHAR" />
+    <result column="red_string6" property="redString6" jdbcType="VARCHAR" />
+    <result column="note_id" property="noteId" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="con_time" property="conTime" jdbcType="TIMESTAMP" />
+    <result column="con_location" property="conLocation" jdbcType="VARCHAR" />
+    <result column="con_mode" property="conMode" jdbcType="VARCHAR" />
+    <result column="con_scheduler" property="conScheduler" jdbcType="VARCHAR" />
+    <result column="con_result" property="conResult" jdbcType="VARCHAR" />
+    <result column="con_effect" property="conEffect" jdbcType="INTEGER" />
+    <result column="succeed" property="succeed" jdbcType="BIT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="ConsultationInfo_Column_List" >
+    id, disable, delete_flag, red_string1, red_string2, red_string3, red_string4, red_string5, 
+    red_string6, note_id, company_id, user_id, con_time, con_location, con_mode, con_scheduler, 
+    con_result, con_effect, succeed, remark
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.activity.po.ConsultationInfo" >
+    insert into consultation_info (id, disable, delete_flag, red_string1, red_string2, red_string3, 
+      red_string4, red_string5, red_string6, note_id, company_id, user_id, 
+      con_time, con_location, con_mode, con_scheduler, con_result, con_effect, 
+      succeed, remark)
+    values (#{id}, #{disable}, #{deleteFlag}, #{redString1}, #{redString2}, #{redString3}, 
+      #{redString4}, #{redString5}, #{redString6}, #{noteId}, #{companyId}, #{userId}, 
+      #{conTime}, #{conLocation}, #{conMode}, #{conScheduler}, #{conResult}, #{conEffect}, 
+      #{succeed}, #{remark})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.activity.po.ConsultationInfo" >
+    insert into consultation_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="disable != null" >
+        disable,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="redString1 != null" >
+        red_string1,
+      </if>
+      <if test="redString2 != null" >
+        red_string2,
+      </if>
+      <if test="redString3 != null" >
+        red_string3,
+      </if>
+      <if test="redString4 != null" >
+        red_string4,
+      </if>
+      <if test="redString5 != null" >
+        red_string5,
+      </if>
+      <if test="redString6 != null" >
+        red_string6,
+      </if>
+      <if test="noteId != null" >
+        note_id,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="conTime != null" >
+        con_time,
+      </if>
+      <if test="conLocation != null" >
+        con_location,
+      </if>
+      <if test="conMode != null" >
+        con_mode,
+      </if>
+      <if test="conScheduler != null" >
+        con_scheduler,
+      </if>
+      <if test="conResult != null" >
+        con_result,
+      </if>
+      <if test="conEffect != null" >
+        con_effect,
+      </if>
+      <if test="succeed != null" >
+        succeed,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="disable != null" >
+        #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag},
+      </if>
+      <if test="redString1 != null" >
+        #{redString1},
+      </if>
+      <if test="redString2 != null" >
+        #{redString2},
+      </if>
+      <if test="redString3 != null" >
+        #{redString3},
+      </if>
+      <if test="redString4 != null" >
+        #{redString4},
+      </if>
+      <if test="redString5 != null" >
+        #{redString5},
+      </if>
+      <if test="redString6 != null" >
+        #{redString6},
+      </if>
+      <if test="noteId != null" >
+        #{noteId},
+      </if>
+      <if test="companyId != null" >
+        #{companyId},
+      </if>
+      <if test="userId != null" >
+        #{userId},
+      </if>
+      <if test="conTime != null" >
+        #{conTime},
+      </if>
+      <if test="conLocation != null" >
+        #{conLocation},
+      </if>
+      <if test="conMode != null" >
+        #{conMode},
+      </if>
+      <if test="conScheduler != null" >
+        #{conScheduler},
+      </if>
+      <if test="conResult != null" >
+        #{conResult},
+      </if>
+      <if test="conEffect != null" >
+        #{conEffect},
+      </if>
+      <if test="succeed != null" >
+        #{succeed},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="id != null and id != ''" >
+        id = #{id}
+      </if>
+      <if test="disable != null" >
+        AND disable = #{disable}
+      </if>
+      <if test="deleteFlag != null" >
+        AND delete_flag = #{deleteFlag}
+      </if>
+      <if test="redString1 != null and redString1 != ''" >
+        AND red_string1 = #{redString1}
+      </if>
+      <if test="redString2 != null and redString2 != ''" >
+        AND red_string2 = #{redString2}
+      </if>
+      <if test="redString3 != null and redString3 != ''" >
+        AND red_string3 = #{redString3}
+      </if>
+      <if test="redString4 != null and redString4 != ''" >
+        AND red_string4 = #{redString4}
+      </if>
+      <if test="redString5 != null and redString5 != ''" >
+        AND red_string5 = #{redString5}
+      </if>
+      <if test="redString6 != null and redString6 != ''" >
+        AND red_string6 = #{redString6}
+      </if>
+      <if test="noteId != null and noteId != ''" >
+        AND note_id = #{noteId}
+      </if>
+      <if test="companyId != null and companyId != ''" >
+        AND company_id = #{companyId}
+      </if>
+      <if test="userId != null and userId != ''" >
+        AND user_id = #{userId}
+      </if>
+      <if test="conTime != null" >
+        AND con_time = #{conTime}
+      </if>
+      <if test="conLocation != null and conLocation != ''" >
+        AND con_location = #{conLocation}
+      </if>
+      <if test="conMode != null and conMode != ''" >
+        AND con_mode = #{conMode}
+      </if>
+      <if test="conScheduler != null and conScheduler != ''" >
+        AND con_scheduler = #{conScheduler}
+      </if>
+      <if test="conResult != null and conResult != ''" >
+        AND con_result = #{conResult}
+      </if>
+      <if test="conEffect != null" >
+        AND con_effect = #{conEffect}
+      </if>
+      <if test="succeed != null" >
+        AND succeed = #{succeed}
+      </if>
+      <if test="remark != null and remark != ''" >
+        AND remark = #{remark}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.activity.po.ConsultationInfo" resultMap="ConsultationInfoResultMap" >
+    select 
+    <include refid="ConsultationInfo_Column_List" />
+    from consultation_info
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update consultation_info
+    <set >
+      <if test="po.id != null" >
+        id = #{po.id},
+      </if>
+      <if test="po.disable != null" >
+        disable = #{po.disable},
+      </if>
+      <if test="po.deleteFlag != null" >
+        delete_flag = #{po.deleteFlag},
+      </if>
+      <if test="po.redString1 != null" >
+        red_string1 = #{po.redString1},
+      </if>
+      <if test="po.redString2 != null" >
+        red_string2 = #{po.redString2},
+      </if>
+      <if test="po.redString3 != null" >
+        red_string3 = #{po.redString3},
+      </if>
+      <if test="po.redString4 != null" >
+        red_string4 = #{po.redString4},
+      </if>
+      <if test="po.redString5 != null" >
+        red_string5 = #{po.redString5},
+      </if>
+      <if test="po.redString6 != null" >
+        red_string6 = #{po.redString6},
+      </if>
+      <if test="po.noteId != null" >
+        note_id = #{po.noteId},
+      </if>
+      <if test="po.companyId != null" >
+        company_id = #{po.companyId},
+      </if>
+      <if test="po.userId != null" >
+        user_id = #{po.userId},
+      </if>
+      <if test="po.conTime != null" >
+        con_time = #{po.conTime},
+      </if>
+      <if test="po.conLocation != null" >
+        con_location = #{po.conLocation},
+      </if>
+      <if test="po.conMode != null" >
+        con_mode = #{po.conMode},
+      </if>
+      <if test="po.conScheduler != null" >
+        con_scheduler = #{po.conScheduler},
+      </if>
+      <if test="po.conResult != null" >
+        con_result = #{po.conResult},
+      </if>
+      <if test="po.conEffect != null" >
+        con_effect = #{po.conEffect},
+      </if>
+      <if test="po.succeed != null" >
+        succeed = #{po.succeed},
+      </if>
+      <if test="po.remark != null" >
+        remark = #{po.remark},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+  <!-- ***************************************************************************** -->
+  <!-- 以上自动生成，以下自定义 -->
+
+  <resultMap id="ConsultationInfoVoResultMap" type="com.sida.dcloud.activity.vo.ConsultationInfoVo" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="con_location" property="conLocation" jdbcType="VARCHAR" />
+    <result column="con_time" property="conTime" jdbcType="TIMESTAMP" />
+    <result column="con_mode" property="conMode" jdbcType="TIMESTAMP" />
+    <result column="con_scheduler" property="conScheduler" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <select id="selectByPrimaryKey" resultMap="ConsultationInfoResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="ConsultationInfo_Column_List" />
+    from consultation_info
+    where id = #{id} and delete_flag = 0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    update consultation_info set delete_flag = true where id = #{id}
+  </delete>
+  <delete id="deleteByPrimaryKeys" parameterType="java.lang.String" >
+    update consultation_info set delete_flag = true where id in (${ids})
+  </delete>
+
+  <select id="findVoList" parameterType="com.sida.dcloud.activity.po.ConsultationInfo" resultMap="ConsultationInfoVoResultMap">
+    select
+    id, company_name, con_location, con_time, con_mode, con_scheduler
+    from consultation_info
+    <where>
+      delete_flag = false
+      <if test="po.id != null and po.id != ''" >
+        and id = #{po.id}
+      </if>
+      <if test="po.noteId != null and po.noteId != ''" >
+        and note_id = #{po.noteId}
+      </if>
+      <if test="po.userId != null and po.userId != ''" >
+        and user_id = #{po.userId}
+      </if>
+      <if test="po.companyId != null and po.companyId != ''" >
+        and company_id = #{po.companyId}
+      </if>
+      <if test="po.conLocation != null and po.conLocation != ''" >
+        and instr(con_location, #{po.conLocation})&gt;0
+      </if>
+      <if test="po.conScheduler != null and po.conScheduler != ''" >
+        and instr(con_scheduler, #{po.conScheduler})&gt;0
+      </if>
+      <if test="po.conMode != null and po.conMode != ''" >
+        and con_mode = #{po.conMode}
+      </if>
+    </where>
+    <if test="po.orderField != null and po.orderField != ''">
+      ORDER BY ${po.orderField}
+      <if test="po.orderString != null and po.orderString != ''">
+        ${po.orderString}
+      </if>
+    </if>
+  </select>
+
+  <insert id="batchInsert" parameterType="java.util.List" >
+    insert into consultation_info (id, disable, delete_flag, note_id, company_id, user_id)
+    <foreach collection="list" item="po" open="" close="" separator="union all" >
+      select #{po.id}, false, false, #{po.noteId}, #{po.companyId}, #{po.userId}
+      from dual
+      where not exists (select * from consultation_info where delete_flag = false and note_id = #{po.noteId} and company_id = #{po.companyId}) and user_id = #{po.userId})
+    </foreach>
+  </insert>
+</mapper>

@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sida.dcloud.content.dao.InformationMapper" >
+  <resultMap id="InformationResultMap" type="com.sida.dcloud.content.po.Information" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="created_user" property="createdUser" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="updated_user" property="updatedUser" jdbcType="VARCHAR" />
+    <result column="last_updated" property="lastUpdated" jdbcType="TIMESTAMP" />
+    <result column="disable" property="disable" jdbcType="BIT" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="BIT" />
+    <result column="red_string1" property="redString1" jdbcType="VARCHAR" />
+    <result column="red_string2" property="redString2" jdbcType="VARCHAR" />
+    <result column="red_string3" property="redString3" jdbcType="VARCHAR" />
+    <result column="red_string4" property="redString4" jdbcType="VARCHAR" />
+    <result column="red_string5" property="redString5" jdbcType="VARCHAR" />
+    <result column="red_string6" property="redString6" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="info_type" property="infoType" jdbcType="VARCHAR" />
+    <result column="banner_url" property="bannerUrl" jdbcType="VARCHAR" />
+    <result column="first_url" property="firstUrl" jdbcType="VARCHAR" />
+    <result column="vedio_url" property="vedioUrl" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="trial_content" property="trialContent" jdbcType="VARCHAR" />
+    <result column="allow_copy" property="allowCopy" jdbcType="BIT" />
+    <result column="free" property="free" jdbcType="BIT" />
+    <result column="original_price" property="originalPrice" jdbcType="DOUBLE" />
+    <result column="sale_price" property="salePrice" jdbcType="DOUBLE" />
+    <result column="allow_award" property="allowAward" jdbcType="BIT" />
+    <result column="award_limit" property="awardLimit" jdbcType="DOUBLE" />
+    <result column="publish_status" property="publishStatus" jdbcType="VARCHAR" />
+    <result column="publish_future_time" property="publishFutureTime" jdbcType="TIMESTAMP" />
+    <result column="hidden" property="hidden" jdbcType="BIT" />
+    <result column="halt_sales" property="haltSales" jdbcType="BIT" />
+    <result column="auto_disapproval" property="autoDisapproval" jdbcType="BIT" />
+    <result column="manual_disapproval" property="manualDisapproval" jdbcType="BIT" />
+    <result column="view_count" property="viewCount" jdbcType="INTEGER" />
+    <result column="lauded_count" property="laudedCount" jdbcType="INTEGER" />
+    <result column="comment_count" property="commentCount" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Information_Column_List" >
+    id, org_id, created_user, created_at, updated_user, last_updated, disable, delete_flag, 
+    red_string1, red_string2, red_string3, red_string4, red_string5, red_string6, title, 
+    info_type, banner_url, first_url, vedio_url, content, trial_content, allow_copy, 
+    free, original_price, sale_price, allow_award, award_limit, publish_status, publish_future_time, 
+    hidden, halt_sales, auto_disapproval, manual_disapproval, view_count, lauded_count, 
+    comment_count, remark
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.content.po.Information" >
+    insert into information (id, org_id, created_user, created_at, updated_user, last_updated, 
+      disable, delete_flag, red_string1, red_string2, red_string3, red_string4, 
+      red_string5, red_string6, title, info_type, banner_url, first_url, 
+      vedio_url, content, trial_content, allow_copy, free, original_price, 
+      sale_price, allow_award, award_limit, publish_status, publish_future_time, 
+      hidden, halt_sales, auto_disapproval, manual_disapproval, view_count, 
+      lauded_count, comment_count, remark)
+    values (#{id}, #{orgId}, #{createdUser}, #{createdAt}, #{updatedUser}, #{lastUpdated}, 
+      #{disable}, #{deleteFlag}, #{redString1}, #{redString2}, #{redString3}, #{redString4}, 
+      #{redString5}, #{redString6}, #{title}, #{infoType}, #{bannerUrl}, #{firstUrl}, 
+      #{vedioUrl}, #{content}, #{trialContent}, #{allowCopy}, #{free}, #{originalPrice}, 
+      #{salePrice}, #{allowAward}, #{awardLimit}, #{publishStatus}, #{publishFutureTime}, 
+      #{hidden}, #{haltSales}, #{autoDisapproval}, #{manualDisapproval}, #{viewCount}, 
+      #{laudedCount}, #{commentCount}, #{remark})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.content.po.Information" >
+    insert into information
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="createdUser != null" >
+        created_user,
+      </if>
+      <if test="createdAt != null" >
+        created_at,
+      </if>
+      <if test="updatedUser != null" >
+        updated_user,
+      </if>
+      <if test="lastUpdated != null" >
+        last_updated,
+      </if>
+      <if test="disable != null" >
+        disable,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="redString1 != null" >
+        red_string1,
+      </if>
+      <if test="redString2 != null" >
+        red_string2,
+      </if>
+      <if test="redString3 != null" >
+        red_string3,
+      </if>
+      <if test="redString4 != null" >
+        red_string4,
+      </if>
+      <if test="redString5 != null" >
+        red_string5,
+      </if>
+      <if test="redString6 != null" >
+        red_string6,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="infoType != null" >
+        info_type,
+      </if>
+      <if test="bannerUrl != null" >
+        banner_url,
+      </if>
+      <if test="firstUrl != null" >
+        first_url,
+      </if>
+      <if test="vedioUrl != null" >
+        vedio_url,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="trialContent != null" >
+        trial_content,
+      </if>
+      <if test="allowCopy != null" >
+        allow_copy,
+      </if>
+      <if test="free != null" >
+        free,
+      </if>
+      <if test="originalPrice != null" >
+        original_price,
+      </if>
+      <if test="salePrice != null" >
+        sale_price,
+      </if>
+      <if test="allowAward != null" >
+        allow_award,
+      </if>
+      <if test="awardLimit != null" >
+        award_limit,
+      </if>
+      <if test="publishStatus != null" >
+        publish_status,
+      </if>
+      <if test="publishFutureTime != null" >
+        publish_future_time,
+      </if>
+      <if test="hidden != null" >
+        hidden,
+      </if>
+      <if test="haltSales != null" >
+        halt_sales,
+      </if>
+      <if test="autoDisapproval != null" >
+        auto_disapproval,
+      </if>
+      <if test="manualDisapproval != null" >
+        manual_disapproval,
+      </if>
+      <if test="viewCount != null" >
+        view_count,
+      </if>
+      <if test="laudedCount != null" >
+        lauded_count,
+      </if>
+      <if test="commentCount != null" >
+        comment_count,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="orgId != null" >
+        #{orgId},
+      </if>
+      <if test="createdUser != null" >
+        #{createdUser},
+      </if>
+      <if test="createdAt != null" >
+        #{createdAt},
+      </if>
+      <if test="updatedUser != null" >
+        #{updatedUser},
+      </if>
+      <if test="lastUpdated != null" >
+        #{lastUpdated},
+      </if>
+      <if test="disable != null" >
+        #{disable},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag},
+      </if>
+      <if test="redString1 != null" >
+        #{redString1},
+      </if>
+      <if test="redString2 != null" >
+        #{redString2},
+      </if>
+      <if test="redString3 != null" >
+        #{redString3},
+      </if>
+      <if test="redString4 != null" >
+        #{redString4},
+      </if>
+      <if test="redString5 != null" >
+        #{redString5},
+      </if>
+      <if test="redString6 != null" >
+        #{redString6},
+      </if>
+      <if test="title != null" >
+        #{title},
+      </if>
+      <if test="infoType != null" >
+        #{infoType},
+      </if>
+      <if test="bannerUrl != null" >
+        #{bannerUrl},
+      </if>
+      <if test="firstUrl != null" >
+        #{firstUrl},
+      </if>
+      <if test="vedioUrl != null" >
+        #{vedioUrl},
+      </if>
+      <if test="content != null" >
+        #{content},
+      </if>
+      <if test="trialContent != null" >
+        #{trialContent},
+      </if>
+      <if test="allowCopy != null" >
+        #{allowCopy},
+      </if>
+      <if test="free != null" >
+        #{free},
+      </if>
+      <if test="originalPrice != null" >
+        #{originalPrice},
+      </if>
+      <if test="salePrice != null" >
+        #{salePrice},
+      </if>
+      <if test="allowAward != null" >
+        #{allowAward},
+      </if>
+      <if test="awardLimit != null" >
+        #{awardLimit},
+      </if>
+      <if test="publishStatus != null" >
+        #{publishStatus},
+      </if>
+      <if test="publishFutureTime != null" >
+        #{publishFutureTime},
+      </if>
+      <if test="hidden != null" >
+        #{hidden},
+      </if>
+      <if test="haltSales != null" >
+        #{haltSales},
+      </if>
+      <if test="autoDisapproval != null" >
+        #{autoDisapproval},
+      </if>
+      <if test="manualDisapproval != null" >
+        #{manualDisapproval},
+      </if>
+      <if test="viewCount != null" >
+        #{viewCount},
+      </if>
+      <if test="laudedCount != null" >
+        #{laudedCount},
+      </if>
+      <if test="commentCount != null" >
+        #{commentCount},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Where_Condition" >
+    <where >
+      <if test="id != null and id != ''" >
+        id = #{id}
+      </if>
+      <if test="orgId != null and orgId != ''" >
+        AND org_id = #{orgId}
+      </if>
+      <if test="createdUser != null and createdUser != ''" >
+        AND created_user = #{createdUser}
+      </if>
+      <if test="createdAt != null" >
+        AND created_at = #{createdAt}
+      </if>
+      <if test="updatedUser != null and updatedUser != ''" >
+        AND updated_user = #{updatedUser}
+      </if>
+      <if test="lastUpdated != null" >
+        AND last_updated = #{lastUpdated}
+      </if>
+      <if test="disable != null" >
+        AND disable = #{disable}
+      </if>
+      <if test="deleteFlag != null" >
+        AND delete_flag = #{deleteFlag}
+      </if>
+      <if test="redString1 != null and redString1 != ''" >
+        AND red_string1 = #{redString1}
+      </if>
+      <if test="redString2 != null and redString2 != ''" >
+        AND red_string2 = #{redString2}
+      </if>
+      <if test="redString3 != null and redString3 != ''" >
+        AND red_string3 = #{redString3}
+      </if>
+      <if test="redString4 != null and redString4 != ''" >
+        AND red_string4 = #{redString4}
+      </if>
+      <if test="redString5 != null and redString5 != ''" >
+        AND red_string5 = #{redString5}
+      </if>
+      <if test="redString6 != null and redString6 != ''" >
+        AND red_string6 = #{redString6}
+      </if>
+      <if test="title != null and title != ''" >
+        AND title = #{title}
+      </if>
+      <if test="infoType != null and infoType != ''" >
+        AND info_type = #{infoType}
+      </if>
+      <if test="bannerUrl != null and bannerUrl != ''" >
+        AND banner_url = #{bannerUrl}
+      </if>
+      <if test="firstUrl != null and firstUrl != ''" >
+        AND first_url = #{firstUrl}
+      </if>
+      <if test="vedioUrl != null and vedioUrl != ''" >
+        AND vedio_url = #{vedioUrl}
+      </if>
+      <if test="content != null and content != ''" >
+        AND content = #{content}
+      </if>
+      <if test="trialContent != null and trialContent != ''" >
+        AND trial_content = #{trialContent}
+      </if>
+      <if test="allowCopy != null" >
+        AND allow_copy = #{allowCopy}
+      </if>
+      <if test="free != null" >
+        AND free = #{free}
+      </if>
+      <if test="originalPrice != null" >
+        AND original_price = #{originalPrice}
+      </if>
+      <if test="salePrice != null" >
+        AND sale_price = #{salePrice}
+      </if>
+      <if test="allowAward != null" >
+        AND allow_award = #{allowAward}
+      </if>
+      <if test="awardLimit != null" >
+        AND award_limit = #{awardLimit}
+      </if>
+      <if test="publishStatus != null and publishStatus != ''" >
+        AND publish_status = #{publishStatus}
+      </if>
+      <if test="publishFutureTime != null" >
+        AND publish_future_time = #{publishFutureTime}
+      </if>
+      <if test="hidden != null" >
+        AND hidden = #{hidden}
+      </if>
+      <if test="haltSales != null" >
+        AND halt_sales = #{haltSales}
+      </if>
+      <if test="autoDisapproval != null" >
+        AND auto_disapproval = #{autoDisapproval}
+      </if>
+      <if test="manualDisapproval != null" >
+        AND manual_disapproval = #{manualDisapproval}
+      </if>
+      <if test="viewCount != null" >
+        AND view_count = #{viewCount}
+      </if>
+      <if test="laudedCount != null" >
+        AND lauded_count = #{laudedCount}
+      </if>
+      <if test="commentCount != null" >
+        AND comment_count = #{commentCount}
+      </if>
+      <if test="remark != null and remark != ''" >
+        AND remark = #{remark}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.content.po.Information" resultMap="InformationResultMap" >
+    select 
+    <include refid="Information_Column_List" />
+    from information
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''" >
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''" >
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective" >
+    update information
+    <set >
+      <if test="po.id != null" >
+        id = #{po.id},
+      </if>
+      <if test="po.orgId != null" >
+        org_id = #{po.orgId},
+      </if>
+      <if test="po.createdUser != null" >
+        created_user = #{po.createdUser},
+      </if>
+      <if test="po.createdAt != null" >
+        created_at = #{po.createdAt},
+      </if>
+      <if test="po.updatedUser != null" >
+        updated_user = #{po.updatedUser},
+      </if>
+      <if test="po.lastUpdated != null" >
+        last_updated = #{po.lastUpdated},
+      </if>
+      <if test="po.disable != null" >
+        disable = #{po.disable},
+      </if>
+      <if test="po.deleteFlag != null" >
+        delete_flag = #{po.deleteFlag},
+      </if>
+      <if test="po.redString1 != null" >
+        red_string1 = #{po.redString1},
+      </if>
+      <if test="po.redString2 != null" >
+        red_string2 = #{po.redString2},
+      </if>
+      <if test="po.redString3 != null" >
+        red_string3 = #{po.redString3},
+      </if>
+      <if test="po.redString4 != null" >
+        red_string4 = #{po.redString4},
+      </if>
+      <if test="po.redString5 != null" >
+        red_string5 = #{po.redString5},
+      </if>
+      <if test="po.redString6 != null" >
+        red_string6 = #{po.redString6},
+      </if>
+      <if test="po.title != null" >
+        title = #{po.title},
+      </if>
+      <if test="po.infoType != null" >
+        info_type = #{po.infoType},
+      </if>
+      <if test="po.bannerUrl != null" >
+        banner_url = #{po.bannerUrl},
+      </if>
+      <if test="po.firstUrl != null" >
+        first_url = #{po.firstUrl},
+      </if>
+      <if test="po.vedioUrl != null" >
+        vedio_url = #{po.vedioUrl},
+      </if>
+      <if test="po.content != null" >
+        content = #{po.content},
+      </if>
+      <if test="po.trialContent != null" >
+        trial_content = #{po.trialContent},
+      </if>
+      <if test="po.allowCopy != null" >
+        allow_copy = #{po.allowCopy},
+      </if>
+      <if test="po.free != null" >
+        free = #{po.free},
+      </if>
+      <if test="po.originalPrice != null" >
+        original_price = #{po.originalPrice},
+      </if>
+      <if test="po.salePrice != null" >
+        sale_price = #{po.salePrice},
+      </if>
+      <if test="po.allowAward != null" >
+        allow_award = #{po.allowAward},
+      </if>
+      <if test="po.awardLimit != null" >
+        award_limit = #{po.awardLimit},
+      </if>
+      <if test="po.publishStatus != null" >
+        publish_status = #{po.publishStatus},
+      </if>
+      <if test="po.publishFutureTime != null" >
+        publish_future_time = #{po.publishFutureTime},
+      </if>
+      <if test="po.hidden != null" >
+        hidden = #{po.hidden},
+      </if>
+      <if test="po.haltSales != null" >
+        halt_sales = #{po.haltSales},
+      </if>
+      <if test="po.autoDisapproval != null" >
+        auto_disapproval = #{po.autoDisapproval},
+      </if>
+      <if test="po.manualDisapproval != null" >
+        manual_disapproval = #{po.manualDisapproval},
+      </if>
+      <if test="po.viewCount != null" >
+        view_count = #{po.viewCount},
+      </if>
+      <if test="po.laudedCount != null" >
+        lauded_count = #{po.laudedCount},
+      </if>
+      <if test="po.commentCount != null" >
+        comment_count = #{po.commentCount},
+      </if>
+      <if test="po.remark != null" >
+        remark = #{po.remark},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size > 0" >
+      <foreach collection="ids" item="listItem" open="or id in(" close=")" separator="," >
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+</mapper>
