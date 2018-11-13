@@ -127,6 +127,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
                 /*.and()
                 .csrf().requireCsrfProtectionMatcher(csrfRequestMatcher()).csrfTokenRepository(csrfTokenRepository())*/
                 .and()
+                .headers().frameOptions().disable()
+                .and()
                /* .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class)*/
 //                .addFilterAfter(optionsHttpMethodFilter(), HeaderWriterFilter.class)
                 .addFilterAfter(oAuth2AuthenticationProcessingFilter(), AbstractPreAuthenticatedProcessingFilter.class)
