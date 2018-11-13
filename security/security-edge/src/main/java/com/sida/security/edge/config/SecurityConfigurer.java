@@ -32,6 +32,9 @@ import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
@@ -128,6 +131,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .csrf().requireCsrfProtectionMatcher(csrfRequestMatcher()).csrfTokenRepository(csrfTokenRepository())*/
                 .and()
                 .headers().frameOptions().disable()
+                .and().cors().configurationSource(corsConfigurationSource())
                 .and()
                /* .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class)*/
 //                .addFilterAfter(optionsHttpMethodFilter(), HeaderWriterFilter.class)
@@ -137,6 +141,18 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
                 /*.addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class)*/
                 .logout().logoutUrl("/logout").logoutSuccessUrl("/login").invalidateHttpSession(true).permitAll();
 
+    }
+
+    private CorsConfigurationSource corsConfigurationSource() {
+        final UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
+        final CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.addAllowedOrigin("*");
+        corsConfiguration.addAllowedHeader("*");
+        corsConfiguration.addAllowedMethod("*");
+        corsConfiguration.setMaxAge(3600l);
+        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
+        return urlBasedCorsConfigurationSource;
     }
 
     @Override
