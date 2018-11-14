@@ -11,6 +11,7 @@ import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
@@ -18,6 +19,7 @@ import org.springframework.security.oauth2.provider.authentication.OAuth2Authent
 /***
  * Crete by
  */
+@EnableAspectJAutoProxy(exposeProxy = true)
 @SpringCloudApplication
 @EnableFeignClients
 @EnableResourceServer

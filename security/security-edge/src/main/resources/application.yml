@@ -62,6 +62,7 @@ zuul:
     operation-module:
       serviceId: @operation-module@
       path: /apis/operation/**
+  ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
 hystrix:
   metrics:
     enabled: true

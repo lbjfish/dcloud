@@ -7,6 +7,7 @@ import com.sida.dcloud.service.event.config.EventConstants;
 import com.sida.xiruo.common.util.PinYinUtil;
 import com.sida.xiruo.xframework.controller.BaseController;
 import com.sida.xiruo.xframework.util.BlankUtil;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
@@ -19,6 +20,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("companyInfo")
+@Api(description = "企业信息")
 public class CompanyInfoController extends BaseController {
     private static final Logger LOG = LoggerFactory.getLogger(CompanyInfoController.class);
 
@@ -48,6 +50,13 @@ public class CompanyInfoController extends BaseController {
     public Object findOne(@RequestParam("id") @ApiParam("id")String id) {
         CompanyInfo one = companyInfoService.selectByPrimaryKey(id);
         return toResult(one);
+    }
+
+    @RequestMapping(value = "/findMany", method = RequestMethod.GET)
+    @ApiOperation(value = "根据企业主键ids获取信息")
+    public Object findMany(@RequestParam("ids") @ApiParam("ids")String ids) {
+        Object result = (companyInfoService.selectNamesByIds(ids));
+        return result;
     }
 
     /********************************************************************************/

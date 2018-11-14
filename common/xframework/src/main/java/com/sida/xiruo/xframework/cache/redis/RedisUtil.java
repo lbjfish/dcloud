@@ -3,7 +3,13 @@ package com.sida.xiruo.xframework.cache.redis;
 import com.sida.xiruo.util.jedis.RedisKey;
 import com.sida.xiruo.xframework.util.BlankUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.interceptor.KeyGenerator;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.*;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
@@ -11,6 +17,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.lang.reflect.Method;
 import java.time.LocalTime;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -20,7 +27,8 @@ import java.util.concurrent.TimeUnit;
  * Created by huangbaidong
  * 2017/10/24 21:02
  */
-@Component
+@Configuration
+@EnableCaching//开启注解
 public class RedisUtil {
     private final static LocalTime DEFAULT_TIMEOUT_SECOND_POINT = LocalTime.of(2,0,0);
     private RedisTemplate<Serializable, Object> redisTemplate;
@@ -454,5 +462,30 @@ public class RedisUtil {
     public Object getRegionDatasByKey(String key) {
         return Optional.ofNullable(getEntriesFromMap(RedisKey.SYS_REGION_CACHE))
                 .orElse(new HashMap<>()).get(key);
+    }
+
+
+    @Bean
+    public CacheManager cacheManager(RedisTemplate<Object, Object> redisTemplate) {
+        RedisCacheManager cacheManager = new RedisCacheManager(redisTemplate);
+        // cacheManager.setCacheNames(Arrays.asList("users", "emptyUsers"));
+        cacheManager.setUsePrefix(true);
+        // Number of seconds before expiration. Defaults to unlimited (0)
+        cacheManager.setDefaultExpiration(1800L);
+        return cacheManager;
+    }
+
+    //自定义keyGenerator必须实现org.springframework.cache.interceptor.KeyGenerator接口
+    @Bean(name = "cahceKeyGenerator")
+    public KeyGenerator cahceKeyGenerator() {
+        return new KeyGenerator(){
+            @Override
+            public Object generate(Object target, Method method, Object... params) {
+                //first parameter is caching object
+                //second paramter is the name of the method, we like the caching key has nothing to do with method name
+                //third parameter is the list of parameters in the method being called
+                return target.getClass().toString() + ":id:" + params[0].toString();
+            }
+        };
     }
 }

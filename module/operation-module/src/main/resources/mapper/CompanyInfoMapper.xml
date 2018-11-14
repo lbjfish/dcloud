@@ -720,12 +720,22 @@
     <result column="personal_total" property="personTotal" jdbcType="VARCHAR" />
     <result column="log_url" property="logoUrl" jdbcType="VARCHAR" />
   </resultMap>
+  <resultMap id="IdAndNameDtoResultMap" type="com.sida.xiruo.po.common.IdAndNameDto" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+  </resultMap>
 
   <select id="selectByPrimaryKey" resultMap="CompanyInfoResultMap" parameterType="java.lang.String" >
     select
     <include refid="CompanyInfo_Column_List" />
     from company_info
     where id = #{id} and delete_flag = false
+  </select>
+  <select id="selectNamesByIds" resultMap="IdAndNameDtoResultMap" parameterType="java.lang.String" >
+    select
+    id,name
+    from company_info
+    where instr(#{ids}, id) &gt; 0 and delete_flag = false
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     update company_info set delete_flag = 1 where id = #{id}

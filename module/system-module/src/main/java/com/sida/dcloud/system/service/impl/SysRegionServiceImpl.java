@@ -461,14 +461,15 @@ public class SysRegionServiceImpl extends BaseServiceImpl<SysRegion> implements 
 
     @Override
     public List<SysRegionLayerDto> findSysRegionSingleLayerDtoByLevel(String level) {
-        if("CITY".equalsIgnoreCase(level)) {
-            return (List<SysRegionLayerDto>)systemCacheUtil.getRegionDataByKey(RedisKey.SYS_REGION_CACHE_WITH_CITY);
-        } else if("PROVINCE".equalsIgnoreCase(level)) {
-            return (List<SysRegionLayerDto>)systemCacheUtil.getRegionDataByKey(RedisKey.SYS_REGION_CACHE_WITH_PROVINCE);
-        } else if("COUNTRY".equalsIgnoreCase(level)) {
-            return (List<SysRegionLayerDto>)systemCacheUtil.getRegionDataByKey(RedisKey.SYS_REGION_CACHE_WITH_COUNTRY);
-        }
-       throw new ServiceException("参数有误");
+//        if("CITY".equalsIgnoreCase(level)) {
+//            return (List<SysRegionLayerDto>)systemCacheUtil.getRegionDataByKey(RedisKey.SYS_REGION_CACHE_WITH_CITY);
+//        } else if("PROVINCE".equalsIgnoreCase(level)) {
+//            return (List<SysRegionLayerDto>)systemCacheUtil.getRegionDataByKey(RedisKey.SYS_REGION_CACHE_WITH_PROVINCE);
+//        } else if("COUNTRY".equalsIgnoreCase(level)) {
+//            return (List<SysRegionLayerDto>)systemCacheUtil.getRegionDataByKey(RedisKey.SYS_REGION_CACHE_WITH_COUNTRY);
+//        }
+        return sysRegionMapper.findSysRegionSingleLayerDtoByLevel(level);
+//       throw new ServiceException("参数有误");
     }
 
     @Transactional(propagation = Propagation.REQUIRED)

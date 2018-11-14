@@ -4,6 +4,7 @@ import com.sida.dcloud.operation.po.TagLib;
 import com.sida.dcloud.operation.service.TagLibService;
 import com.sida.dcloud.operation.util.OperationRedisUtil;
 import com.sida.xiruo.xframework.controller.BaseController;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
@@ -21,6 +22,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("tagLib")
+@Api(description = "标签信息")
 public class TagLibController extends BaseController {
     private static final Logger LOG = LoggerFactory.getLogger(TagLibController.class);
 

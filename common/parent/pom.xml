@@ -240,7 +240,7 @@
                 <system-module>system-module-jlf</system-module>
                 <training-module>training-module-jlf</training-module>
                 <activity-module>activity-module-jlf</activity-module>
-                <content-module>content-module-jlf</content-module>
+                <content-module>content-module-lbj</content-module>
                 <operation-module>operation-module-jlf</operation-module>
 
             </properties>

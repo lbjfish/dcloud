@@ -31,7 +31,7 @@ public class CommonUserController extends BaseController {
      * 根据id获取用户信息 - 提供auth服务使用
      * @param userId
      * @return
-     */
+             */
     @RequestMapping(value = "/findCommonUserById", method = RequestMethod.GET)
     @ApiOperation(value = "根据主键id获取部分信息")
     public Object findCommonUserById(@RequestParam("userId") @ApiParam("用户id")String userId) {

@@ -8,6 +8,7 @@ import com.sida.dcloud.operation.po.CompanyInfo;
 import com.sida.dcloud.operation.service.CompanyInfoService;
 import com.sida.dcloud.operation.vo.CompanyInfoVo;
 import com.sida.dcloud.system.dto.SysRegionLayerDto;
+import com.sida.xiruo.po.common.IdAndNameDto;
 import com.sida.xiruo.util.jedis.RedisKey;
 import com.sida.xiruo.xframework.cache.redis.RedisUtil;
 import com.sida.xiruo.xframework.dao.IMybatisDao;
@@ -18,6 +19,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -55,6 +59,11 @@ public class CompanyInfoServiceImpl extends BaseServiceImpl<CompanyInfo> impleme
     }
 
     @Override
+    public Map<String, IdAndNameDto> selectNamesByIds(String ids) {
+        return companyInfoMapper.selectNamesByIds(ids);
+    }
+
+    @Override
     public List<CompanyInfoVo> findAllInList(CompanyInfo po) {
         Map<String, Object> map = (Map<String, Object>)redisUtil.getRegionDatasByKey(RedisKey.SYS_REGION_CACHE_WITH_ALL_BY_FLAT);
         List<CompanyInfoVo> voList = companyInfoMapper.findVoList(po);
@@ -86,6 +95,7 @@ public class CompanyInfoServiceImpl extends BaseServiceImpl<CompanyInfo> impleme
      * @return
      */
     @Override
+    @Cacheable(cacheNames = "CompanyInfo", key = "'id:' + #po.id")
     public int insert(CompanyInfo po) {
         boolean lock = distributedLock.lock(LOCK_KEY_CHECK_MULTI, RedisLock.KEEP_MILLS, RedisLock.RETRY_TIMES, RedisLock.SLEEP_MILLS);
         int result = -1;
@@ -160,5 +170,23 @@ public class CompanyInfoServiceImpl extends BaseServiceImpl<CompanyInfo> impleme
         }
 
         return result;
+    }
+
+    @Override
+    @Cacheable(cacheNames = "CompanyInfo", key = "'id:' + #id")
+    public CompanyInfo selectByPrimaryKey(Object id) {
+        return super.selectByPrimaryKey(id);
+    }
+
+    @CacheEvict(cacheNames="CompanyInfo", key="'id:' + #id", condition="#id != ''", allEntries = true)
+    @Override
+    public int deleteByPrimaryKey(Object id) {
+        return super.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    @CachePut(cacheNames="CompanyInfo", key="'id:' + #po.id", condition="#po.id != ''")
+    public int updateByPrimaryKeySelective(CompanyInfo po) {
+        return super.updateByPrimaryKeySelective(po);
     }
 }
