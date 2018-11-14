@@ -19,6 +19,9 @@ public class ConsultationInfo extends BaseEntity implements Serializable {
     @ApiModelProperty("企业id（关联operation.company_info的id）")
     private String companyId;
 
+    @ApiModelProperty("企业名称")
+    private String companyName;
+
     @ApiModelProperty("用户id（关联operation.sys_user_activity的id）")
     private String userId;
 
@@ -47,6 +50,14 @@ public class ConsultationInfo extends BaseEntity implements Serializable {
     private String remark;
 
     private static final long serialVersionUID = 1L;
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 
     public Boolean getDisable() {
         return disable;

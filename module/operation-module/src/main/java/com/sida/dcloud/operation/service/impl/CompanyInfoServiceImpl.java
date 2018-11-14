@@ -95,6 +95,7 @@ public class CompanyInfoServiceImpl extends BaseServiceImpl<CompanyInfo> impleme
      * @return
      */
     @Override
+    @Cacheable(cacheNames = "CompanyInfo", key = "'id:' + #po.id")
     public int insert(CompanyInfo po) {
         boolean lock = distributedLock.lock(LOCK_KEY_CHECK_MULTI, RedisLock.KEEP_MILLS, RedisLock.RETRY_TIMES, RedisLock.SLEEP_MILLS);
         int result = -1;
@@ -177,7 +178,7 @@ public class CompanyInfoServiceImpl extends BaseServiceImpl<CompanyInfo> impleme
         return super.selectByPrimaryKey(id);
     }
 
-    @CacheEvict(cacheNames="CompanyInfo", key="'id:' + #id", condition="#id != ''")
+    @CacheEvict(cacheNames="CompanyInfo", key="'id:' + #id", condition="#id != ''", allEntries = true)
     @Override
     public int deleteByPrimaryKey(Object id) {
         return super.deleteByPrimaryKey(id);

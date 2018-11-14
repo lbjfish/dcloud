@@ -380,10 +380,12 @@
 
   <insert id="batchInsert" parameterType="java.util.List" >
     insert into consultation_info (id, disable, delete_flag, note_id, company_id, user_id)
-    <foreach collection="list" item="po" open="" close="" separator="union all" >
+    <foreach collection="list" item="po" open="" close="" separator=" union all " >
+      (
       select #{po.id}, false, false, #{po.noteId}, #{po.companyId}, #{po.userId}
       from dual
-      where not exists (select * from consultation_info where delete_flag = false and note_id = #{po.noteId} and company_id = #{po.companyId}) and user_id = #{po.userId})
+      where not exists (select * from consultation_info where delete_flag = false and note_id = #{po.noteId} and company_id = #{po.companyId} and user_id = #{po.userId})
+      )
     </foreach>
   </insert>
 </mapper>

@@ -25,7 +25,7 @@ public interface OperationClient {
     @ApiOperation(value = "根据企业主键id获取信息")
     Object findOne(@RequestParam("id") @ApiParam("id")String id);
 
-    @RequestMapping(value = "/findMany", method = RequestMethod.GET)
+    @RequestMapping(value = "/companyInfo/findMany", method = RequestMethod.GET)
     @ApiOperation(value = "根据企业主键ids获取信息")
-    public Object findMany(@RequestParam("ids") @ApiParam("ids")String ids);
+    Object findMany(@RequestParam("ids") @ApiParam("ids")String ids);
 }

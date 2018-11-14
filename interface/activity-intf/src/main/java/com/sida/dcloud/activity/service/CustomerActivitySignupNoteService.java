@@ -22,6 +22,7 @@ public interface CustomerActivitySignupNoteService extends IBaseService<Customer
     String getCurrentThirdPartCode();
     int resendThirdPartCode();
     Map<String, Object> insertSignupNoteAndOrder(ActivitySignupNoteDto dto);
+    Map<String, Object> insertSignupNoteAndOrderWithTransaction(ActivitySignupNoteDto dto);
 
     void createOrderExpiredJob(ActivityOrder order);
     void dropOrderExpiredJob(String jobName);

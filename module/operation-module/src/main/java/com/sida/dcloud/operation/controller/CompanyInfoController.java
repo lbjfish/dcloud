@@ -55,7 +55,8 @@ public class CompanyInfoController extends BaseController {
     @RequestMapping(value = "/findMany", method = RequestMethod.GET)
     @ApiOperation(value = "根据企业主键ids获取信息")
     public Object findMany(@RequestParam("ids") @ApiParam("ids")String ids) {
-        return toResult(companyInfoService.selectNamesByIds(ids));
+        Object result = (companyInfoService.selectNamesByIds(ids));
+        return result;
     }
 
     /********************************************************************************/

@@ -22,6 +22,7 @@ import com.sida.xiruo.common.components.StringUtils;
 import com.sida.xiruo.po.common.IdAndNameDto;
 import com.sida.xiruo.po.common.TableMeta;
 import com.sida.xiruo.util.jedis.RedisKey;
+import com.sida.xiruo.xframework.common.SpringUtils;
 import com.sida.xiruo.xframework.controller.LoginManager;
 import com.sida.xiruo.xframework.dao.IMybatisDao;
 import com.sida.xiruo.xframework.lock.DistributedLock;
@@ -49,6 +50,8 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.aop.framework.AopContext;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -140,10 +143,15 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
         resMap.put("orderId", order.getId());
         resMap.put("userId", note.getUserId());
         resMap.put("activityId", note.getActivityId());
-        String companyIds = consultationInfoService.findCompanyIdsByNoteId(note.getId());
-        if(BlankUtil.isNotEmpty(companyIds)) {
-            Map<String, IdAndNameDto> map = (Map<String, IdAndNameDto>)operationClient.findMany(companyIds);
-            resMap.put("companyList", map.values());
+        ConsultationInfo info = new ConsultationInfo();
+        info.setNoteId(note.getId());
+        List<ConsultationInfo> conList = consultationInfoService.selectByCondition(info);
+        if(!conList.isEmpty()) {
+            Map<String, Map> map = (Map<String, Map>)operationClient.findMany(
+                conList.stream().map(ConsultationInfo::getCompanyId).reduce((id1, id2) -> id1 + "," + id2).get()
+            );
+            conList.forEach(con -> con.setCompanyName((String)map.get(con.getCompanyId()).get("name")));
+            resMap.put("conList", conList);
         }
         return resMap;
     }
@@ -303,9 +311,21 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
     }
 
     @Override
+    public Map<String, Object> insertSignupNoteAndOrder(ActivitySignupNoteDto dto) {
+        //为了事务生效 - insertSignupNoteAndOrderWithTransaction
+//        Map<String, Object> resMap = ((CustomerActivitySignupNoteService) AopContext.currentProxy()).insertSignupNoteAndOrderWithTransaction(dto);
+        Map<String, Object> resMap = ((CustomerActivitySignupNoteService) SpringUtils.getBean("customerActivitySignupNoteServiceImpl")).insertSignupNoteAndOrderWithTransaction(dto);
+        //创建订单支付超时任务
+        createOrderExpiredJob(dto.getActivityOrder());
+        //发送验证码到第三方
+        sendCodeToThirdPart(dto.getCustomerActivitySignupNote());
+        return resMap;
+    }
+
 //    @TxTransaction(isStart = true)
     @Transactional(propagation = Propagation.REQUIRED)
-    public Map<String, Object> insertSignupNoteAndOrder(ActivitySignupNoteDto dto) {
+    @Override
+    public Map<String, Object> insertSignupNoteAndOrderWithTransaction(ActivitySignupNoteDto dto) {
         Map<String, Object> resMap = new HashMap<>();
         ActivityInfo activityInfo = activityInfoService.selectByPrimaryKey(dto.getActivityId());
         checkValidationForActivityInfo(activityInfo);
@@ -333,6 +353,7 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
                 //插入报名表
                 result = super.insertSelective(dto.getCustomerActivitySignupNote());
                 if(BlankUtil.isNotEmpty(dto.getCompanyIds())) {
+                    Map<String, Map> map = (Map<String, Map>)operationClient.findMany(dto.getCompanyIds());
                     List<ConsultationInfo> conList = new ArrayList<>();
                     Arrays.stream(dto.getCompanyIds().split(",")).forEach(companyId -> {
                         ConsultationInfo info = new ConsultationInfo();
@@ -340,8 +361,11 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
                         info.setCompanyId(companyId);
                         info.setUserId(dto.getUserId());
                         info.setNoteId(note.getId());
+                        info.setCompanyName((String)map.get(companyId).get("name"));
+                        conList.add(info);
                     });
                     consultationInfoService.batchInsert(conList);
+                    resMap.put("conList", conList);
                 }
                 //插入订单
                 activityOrderService.insert(dto.getActivityOrder());
@@ -353,10 +377,6 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
 //                    operationClient.updateFaceUrl(map);
 //                    LoginManager.getUser().setFaceUrl(dto.getFaceUrl());
 //                });
-                //创建订单支付超时任务
-                createOrderExpiredJob(activityOrder);
-                //发送验证码到第三方
-                sendCodeToThirdPart(note);
             } catch(Exception e) {
                 LOG.error(getClass().getName() + ".updateByPrimaryKey method occured exception", e);
                 throw new ActivityException(e);
@@ -373,10 +393,6 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
         resMap.put("orderId", dto.getActivityOrder().getId());
         resMap.put("userId", dto.getUserId());
         resMap.put("activityId", dto.getActivityId());
-        if(BlankUtil.isNotEmpty(dto.getCompanyIds())) {
-            Map<String, IdAndNameDto> map = (Map<String, IdAndNameDto>)operationClient.findMany(dto.getCompanyIds());
-            resMap.put("companyList", map.values());
-        }
 
         return resMap;
     }
@@ -468,7 +484,7 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
                         // 检验返回码
                         int statusCode = response.getStatusLine().getStatusCode();
                         if (statusCode != HttpStatus.SC_OK) {
-                            throw new ActivityException("请求出错: " + statusCode);
+                            throw new ActivityException("发送校验码到第三方平台出错: " + statusCode);
                         } else {
                             //获取结果实体
                             entity = response.getEntity();
@@ -521,6 +537,8 @@ public class CustomerActivitySignupNoteServiceImpl extends BaseServiceImpl<Custo
      * @param po
      */
     private int sendCodeToThirdPart(CustomerActivitySignupNote po){
+        //todo 正式活动未开启暂时关闭
+        if(true) return 0;
         return sendCodeToThirdPart(new ArrayList<CustomerActivitySignupNote>() {{add(po);}});
     }
 
