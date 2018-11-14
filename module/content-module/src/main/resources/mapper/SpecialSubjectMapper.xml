@@ -1,0 +1,1027 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sida.dcloud.content.dao.SpecialSubjectMapper">
+  <resultMap id="SpecialSubjectResultMap" type="com.sida.dcloud.content.po.SpecialSubject">
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="org_id" jdbcType="VARCHAR" property="orgId" />
+    <result column="created_user" jdbcType="VARCHAR" property="createdUser" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_user" jdbcType="VARCHAR" property="updatedUser" />
+    <result column="last_updated" jdbcType="TIMESTAMP" property="lastUpdated" />
+    <result column="disable" jdbcType="BIT" property="disable" />
+    <result column="delete_flag" jdbcType="BIT" property="deleteFlag" />
+    <result column="red_string1" jdbcType="VARCHAR" property="redString1" />
+    <result column="red_string2" jdbcType="VARCHAR" property="redString2" />
+    <result column="red_string3" jdbcType="VARCHAR" property="redString3" />
+    <result column="red_string4" jdbcType="VARCHAR" property="redString4" />
+    <result column="red_string5" jdbcType="VARCHAR" property="redString5" />
+    <result column="red_string6" jdbcType="VARCHAR" property="redString6" />
+    <result column="subject_category" jdbcType="VARCHAR" property="subjectCategory" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="alias" jdbcType="VARCHAR" property="alias" />
+    <result column="total" jdbcType="INTEGER" property="total" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="SpecialSubject_Column_List">
+    id, org_id, created_user, created_at, updated_user, last_updated, disable, delete_flag, 
+    red_string1, red_string2, red_string3, red_string4, red_string5, red_string6, subject_category, 
+    name, code, alias, total, sort, remark
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.content.po.SpecialSubject">
+    insert into special_subject (id, org_id, created_user, created_at, updated_user, last_updated, 
+      disable, delete_flag, red_string1, red_string2, red_string3, red_string4, 
+      red_string5, red_string6, subject_category, name, code, alias, total, 
+      sort, remark)
+    values (#{id}, #{orgId}, #{createdUser}, #{createdAt}, #{updatedUser}, #{lastUpdated}, 
+      #{disable}, #{deleteFlag}, #{redString1}, #{redString2}, #{redString3}, #{redString4}, 
+      #{redString5}, #{redString6}, #{subjectCategory}, #{name}, #{code}, #{alias}, #{total}, 
+      #{sort}, #{remark})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.content.po.SpecialSubject">
+    insert into special_subject
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orgId != null">
+        org_id,
+      </if>
+      <if test="createdUser != null">
+        created_user,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedUser != null">
+        updated_user,
+      </if>
+      <if test="lastUpdated != null">
+        last_updated,
+      </if>
+      <if test="disable != null">
+        disable,
+      </if>
+      <if test="deleteFlag != null">
+        delete_flag,
+      </if>
+      <if test="redString1 != null">
+        red_string1,
+      </if>
+      <if test="redString2 != null">
+        red_string2,
+      </if>
+      <if test="redString3 != null">
+        red_string3,
+      </if>
+      <if test="redString4 != null">
+        red_string4,
+      </if>
+      <if test="redString5 != null">
+        red_string5,
+      </if>
+      <if test="redString6 != null">
+        red_string6,
+      </if>
+      <if test="subjectCategory != null">
+        subject_category,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="alias != null">
+        alias,
+      </if>
+      <if test="total != null">
+        total,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="orgId != null">
+        #{orgId},
+      </if>
+      <if test="createdUser != null">
+        #{createdUser},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt},
+      </if>
+      <if test="updatedUser != null">
+        #{updatedUser},
+      </if>
+      <if test="lastUpdated != null">
+        #{lastUpdated},
+      </if>
+      <if test="disable != null">
+        #{disable},
+      </if>
+      <if test="deleteFlag != null">
+        #{deleteFlag},
+      </if>
+      <if test="redString1 != null">
+        #{redString1},
+      </if>
+      <if test="redString2 != null">
+        #{redString2},
+      </if>
+      <if test="redString3 != null">
+        #{redString3},
+      </if>
+      <if test="redString4 != null">
+        #{redString4},
+      </if>
+      <if test="redString5 != null">
+        #{redString5},
+      </if>
+      <if test="redString6 != null">
+        #{redString6},
+      </if>
+      <if test="subjectCategory != null">
+        #{subjectCategory},
+      </if>
+      <if test="name != null">
+        #{name},
+      </if>
+      <if test="code != null">
+        #{code},
+      </if>
+      <if test="alias != null">
+        #{alias},
+      </if>
+      <if test="total != null">
+        #{total},
+      </if>
+      <if test="sort != null">
+        #{sort},
+      </if>
+      <if test="remark != null">
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Where_Condition">
+    <where>
+      <if test="id != null and id != ''">
+        id = #{id}
+      </if>
+      <if test="orgId != null and orgId != ''">
+        AND org_id = #{orgId}
+      </if>
+      <if test="createdUser != null and createdUser != ''">
+        AND created_user = #{createdUser}
+      </if>
+      <if test="createdAt != null">
+        AND created_at = #{createdAt}
+      </if>
+      <if test="updatedUser != null and updatedUser != ''">
+        AND updated_user = #{updatedUser}
+      </if>
+      <if test="lastUpdated != null">
+        AND last_updated = #{lastUpdated}
+      </if>
+      <if test="disable != null">
+        AND disable = #{disable}
+      </if>
+      <if test="deleteFlag != null">
+        AND delete_flag = #{deleteFlag}
+      </if>
+      <if test="redString1 != null and redString1 != ''">
+        AND red_string1 = #{redString1}
+      </if>
+      <if test="redString2 != null and redString2 != ''">
+        AND red_string2 = #{redString2}
+      </if>
+      <if test="redString3 != null and redString3 != ''">
+        AND red_string3 = #{redString3}
+      </if>
+      <if test="redString4 != null and redString4 != ''">
+        AND red_string4 = #{redString4}
+      </if>
+      <if test="redString5 != null and redString5 != ''">
+        AND red_string5 = #{redString5}
+      </if>
+      <if test="redString6 != null and redString6 != ''">
+        AND red_string6 = #{redString6}
+      </if>
+      <if test="subjectCategory != null and subjectCategory != ''">
+        AND subject_category = #{subjectCategory}
+      </if>
+      <if test="name != null and name != ''">
+        AND name = #{name}
+      </if>
+      <if test="code != null and code != ''">
+        AND code = #{code}
+      </if>
+      <if test="alias != null and alias != ''">
+        AND alias = #{alias}
+      </if>
+      <if test="total != null">
+        AND total = #{total}
+      </if>
+      <if test="sort != null">
+        AND sort = #{sort}
+      </if>
+      <if test="remark != null and remark != ''">
+        AND remark = #{remark}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.content.po.SpecialSubject" resultMap="SpecialSubjectResultMap">
+    select 
+    <include refid="SpecialSubject_Column_List" />
+    from special_subject
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''">
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''">
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective">
+    update special_subject
+    <set>
+      <if test="po.id != null">
+        id = #{po.id},
+      </if>
+      <if test="po.orgId != null">
+        org_id = #{po.orgId},
+      </if>
+      <if test="po.createdUser != null">
+        created_user = #{po.createdUser},
+      </if>
+      <if test="po.createdAt != null">
+        created_at = #{po.createdAt},
+      </if>
+      <if test="po.updatedUser != null">
+        updated_user = #{po.updatedUser},
+      </if>
+      <if test="po.lastUpdated != null">
+        last_updated = #{po.lastUpdated},
+      </if>
+      <if test="po.disable != null">
+        disable = #{po.disable},
+      </if>
+      <if test="po.deleteFlag != null">
+        delete_flag = #{po.deleteFlag},
+      </if>
+      <if test="po.redString1 != null">
+        red_string1 = #{po.redString1},
+      </if>
+      <if test="po.redString2 != null">
+        red_string2 = #{po.redString2},
+      </if>
+      <if test="po.redString3 != null">
+        red_string3 = #{po.redString3},
+      </if>
+      <if test="po.redString4 != null">
+        red_string4 = #{po.redString4},
+      </if>
+      <if test="po.redString5 != null">
+        red_string5 = #{po.redString5},
+      </if>
+      <if test="po.redString6 != null">
+        red_string6 = #{po.redString6},
+      </if>
+      <if test="po.subjectCategory != null">
+        subject_category = #{po.subjectCategory},
+      </if>
+      <if test="po.name != null">
+        name = #{po.name},
+      </if>
+      <if test="po.code != null">
+        code = #{po.code},
+      </if>
+      <if test="po.alias != null">
+        alias = #{po.alias},
+      </if>
+      <if test="po.total != null">
+        total = #{po.total},
+      </if>
+      <if test="po.sort != null">
+        sort = #{po.sort},
+      </if>
+      <if test="po.remark != null">
+        remark = #{po.remark},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size &gt; 0">
+      <foreach close=")" collection="ids" item="listItem" open="or id in(" separator=",">
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+  <resultMap id="SpecialSubjectResultMap" type="com.sida.dcloud.content.po.SpecialSubject">
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="org_id" jdbcType="VARCHAR" property="orgId" />
+    <result column="created_user" jdbcType="VARCHAR" property="createdUser" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_user" jdbcType="VARCHAR" property="updatedUser" />
+    <result column="last_updated" jdbcType="TIMESTAMP" property="lastUpdated" />
+    <result column="disable" jdbcType="BIT" property="disable" />
+    <result column="delete_flag" jdbcType="BIT" property="deleteFlag" />
+    <result column="red_string1" jdbcType="VARCHAR" property="redString1" />
+    <result column="red_string2" jdbcType="VARCHAR" property="redString2" />
+    <result column="red_string3" jdbcType="VARCHAR" property="redString3" />
+    <result column="red_string4" jdbcType="VARCHAR" property="redString4" />
+    <result column="red_string5" jdbcType="VARCHAR" property="redString5" />
+    <result column="red_string6" jdbcType="VARCHAR" property="redString6" />
+    <result column="subject_category" jdbcType="VARCHAR" property="subjectCategory" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="alias" jdbcType="VARCHAR" property="alias" />
+    <result column="total" jdbcType="INTEGER" property="total" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="SpecialSubject_Column_List">
+    id, org_id, created_user, created_at, updated_user, last_updated, disable, delete_flag, 
+    red_string1, red_string2, red_string3, red_string4, red_string5, red_string6, subject_category, 
+    name, code, alias, total, sort, remark
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.content.po.SpecialSubject">
+    insert into special_subject (id, org_id, created_user, created_at, updated_user, last_updated, 
+      disable, delete_flag, red_string1, red_string2, red_string3, red_string4, 
+      red_string5, red_string6, subject_category, name, code, alias, total, 
+      sort, remark)
+    values (#{id}, #{orgId}, #{createdUser}, #{createdAt}, #{updatedUser}, #{lastUpdated}, 
+      #{disable}, #{deleteFlag}, #{redString1}, #{redString2}, #{redString3}, #{redString4}, 
+      #{redString5}, #{redString6}, #{subjectCategory}, #{name}, #{code}, #{alias}, #{total}, 
+      #{sort}, #{remark})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.content.po.SpecialSubject">
+    insert into special_subject
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orgId != null">
+        org_id,
+      </if>
+      <if test="createdUser != null">
+        created_user,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedUser != null">
+        updated_user,
+      </if>
+      <if test="lastUpdated != null">
+        last_updated,
+      </if>
+      <if test="disable != null">
+        disable,
+      </if>
+      <if test="deleteFlag != null">
+        delete_flag,
+      </if>
+      <if test="redString1 != null">
+        red_string1,
+      </if>
+      <if test="redString2 != null">
+        red_string2,
+      </if>
+      <if test="redString3 != null">
+        red_string3,
+      </if>
+      <if test="redString4 != null">
+        red_string4,
+      </if>
+      <if test="redString5 != null">
+        red_string5,
+      </if>
+      <if test="redString6 != null">
+        red_string6,
+      </if>
+      <if test="subjectCategory != null">
+        subject_category,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="alias != null">
+        alias,
+      </if>
+      <if test="total != null">
+        total,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="orgId != null">
+        #{orgId},
+      </if>
+      <if test="createdUser != null">
+        #{createdUser},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt},
+      </if>
+      <if test="updatedUser != null">
+        #{updatedUser},
+      </if>
+      <if test="lastUpdated != null">
+        #{lastUpdated},
+      </if>
+      <if test="disable != null">
+        #{disable},
+      </if>
+      <if test="deleteFlag != null">
+        #{deleteFlag},
+      </if>
+      <if test="redString1 != null">
+        #{redString1},
+      </if>
+      <if test="redString2 != null">
+        #{redString2},
+      </if>
+      <if test="redString3 != null">
+        #{redString3},
+      </if>
+      <if test="redString4 != null">
+        #{redString4},
+      </if>
+      <if test="redString5 != null">
+        #{redString5},
+      </if>
+      <if test="redString6 != null">
+        #{redString6},
+      </if>
+      <if test="subjectCategory != null">
+        #{subjectCategory},
+      </if>
+      <if test="name != null">
+        #{name},
+      </if>
+      <if test="code != null">
+        #{code},
+      </if>
+      <if test="alias != null">
+        #{alias},
+      </if>
+      <if test="total != null">
+        #{total},
+      </if>
+      <if test="sort != null">
+        #{sort},
+      </if>
+      <if test="remark != null">
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Where_Condition">
+    <where>
+      <if test="id != null and id != ''">
+        id = #{id}
+      </if>
+      <if test="orgId != null and orgId != ''">
+        AND org_id = #{orgId}
+      </if>
+      <if test="createdUser != null and createdUser != ''">
+        AND created_user = #{createdUser}
+      </if>
+      <if test="createdAt != null">
+        AND created_at = #{createdAt}
+      </if>
+      <if test="updatedUser != null and updatedUser != ''">
+        AND updated_user = #{updatedUser}
+      </if>
+      <if test="lastUpdated != null">
+        AND last_updated = #{lastUpdated}
+      </if>
+      <if test="disable != null">
+        AND disable = #{disable}
+      </if>
+      <if test="deleteFlag != null">
+        AND delete_flag = #{deleteFlag}
+      </if>
+      <if test="redString1 != null and redString1 != ''">
+        AND red_string1 = #{redString1}
+      </if>
+      <if test="redString2 != null and redString2 != ''">
+        AND red_string2 = #{redString2}
+      </if>
+      <if test="redString3 != null and redString3 != ''">
+        AND red_string3 = #{redString3}
+      </if>
+      <if test="redString4 != null and redString4 != ''">
+        AND red_string4 = #{redString4}
+      </if>
+      <if test="redString5 != null and redString5 != ''">
+        AND red_string5 = #{redString5}
+      </if>
+      <if test="redString6 != null and redString6 != ''">
+        AND red_string6 = #{redString6}
+      </if>
+      <if test="subjectCategory != null and subjectCategory != ''">
+        AND subject_category = #{subjectCategory}
+      </if>
+      <if test="name != null and name != ''">
+        AND name = #{name}
+      </if>
+      <if test="code != null and code != ''">
+        AND code = #{code}
+      </if>
+      <if test="alias != null and alias != ''">
+        AND alias = #{alias}
+      </if>
+      <if test="total != null">
+        AND total = #{total}
+      </if>
+      <if test="sort != null">
+        AND sort = #{sort}
+      </if>
+      <if test="remark != null and remark != ''">
+        AND remark = #{remark}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.content.po.SpecialSubject" resultMap="SpecialSubjectResultMap">
+    select 
+    <include refid="SpecialSubject_Column_List" />
+    from special_subject
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''">
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''">
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective">
+    update special_subject
+    <set>
+      <if test="po.id != null">
+        id = #{po.id},
+      </if>
+      <if test="po.orgId != null">
+        org_id = #{po.orgId},
+      </if>
+      <if test="po.createdUser != null">
+        created_user = #{po.createdUser},
+      </if>
+      <if test="po.createdAt != null">
+        created_at = #{po.createdAt},
+      </if>
+      <if test="po.updatedUser != null">
+        updated_user = #{po.updatedUser},
+      </if>
+      <if test="po.lastUpdated != null">
+        last_updated = #{po.lastUpdated},
+      </if>
+      <if test="po.disable != null">
+        disable = #{po.disable},
+      </if>
+      <if test="po.deleteFlag != null">
+        delete_flag = #{po.deleteFlag},
+      </if>
+      <if test="po.redString1 != null">
+        red_string1 = #{po.redString1},
+      </if>
+      <if test="po.redString2 != null">
+        red_string2 = #{po.redString2},
+      </if>
+      <if test="po.redString3 != null">
+        red_string3 = #{po.redString3},
+      </if>
+      <if test="po.redString4 != null">
+        red_string4 = #{po.redString4},
+      </if>
+      <if test="po.redString5 != null">
+        red_string5 = #{po.redString5},
+      </if>
+      <if test="po.redString6 != null">
+        red_string6 = #{po.redString6},
+      </if>
+      <if test="po.subjectCategory != null">
+        subject_category = #{po.subjectCategory},
+      </if>
+      <if test="po.name != null">
+        name = #{po.name},
+      </if>
+      <if test="po.code != null">
+        code = #{po.code},
+      </if>
+      <if test="po.alias != null">
+        alias = #{po.alias},
+      </if>
+      <if test="po.total != null">
+        total = #{po.total},
+      </if>
+      <if test="po.sort != null">
+        sort = #{po.sort},
+      </if>
+      <if test="po.remark != null">
+        remark = #{po.remark},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size &gt; 0">
+      <foreach close=")" collection="ids" item="listItem" open="or id in(" separator=",">
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+  <resultMap id="SpecialSubjectResultMap" type="com.sida.dcloud.content.po.SpecialSubject">
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="org_id" jdbcType="VARCHAR" property="orgId" />
+    <result column="created_user" jdbcType="VARCHAR" property="createdUser" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_user" jdbcType="VARCHAR" property="updatedUser" />
+    <result column="last_updated" jdbcType="TIMESTAMP" property="lastUpdated" />
+    <result column="disable" jdbcType="BIT" property="disable" />
+    <result column="delete_flag" jdbcType="BIT" property="deleteFlag" />
+    <result column="red_string1" jdbcType="VARCHAR" property="redString1" />
+    <result column="red_string2" jdbcType="VARCHAR" property="redString2" />
+    <result column="red_string3" jdbcType="VARCHAR" property="redString3" />
+    <result column="red_string4" jdbcType="VARCHAR" property="redString4" />
+    <result column="red_string5" jdbcType="VARCHAR" property="redString5" />
+    <result column="red_string6" jdbcType="VARCHAR" property="redString6" />
+    <result column="subject_category" jdbcType="VARCHAR" property="subjectCategory" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="alias" jdbcType="VARCHAR" property="alias" />
+    <result column="total" jdbcType="INTEGER" property="total" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="SpecialSubject_Column_List">
+    id, org_id, created_user, created_at, updated_user, last_updated, disable, delete_flag, 
+    red_string1, red_string2, red_string3, red_string4, red_string5, red_string6, subject_category, 
+    name, code, alias, total, sort, remark
+  </sql>
+  <insert id="insert" parameterType="com.sida.dcloud.content.po.SpecialSubject">
+    insert into special_subject (id, org_id, created_user, created_at, updated_user, last_updated, 
+      disable, delete_flag, red_string1, red_string2, red_string3, red_string4, 
+      red_string5, red_string6, subject_category, name, code, alias, total, 
+      sort, remark)
+    values (#{id}, #{orgId}, #{createdUser}, #{createdAt}, #{updatedUser}, #{lastUpdated}, 
+      #{disable}, #{deleteFlag}, #{redString1}, #{redString2}, #{redString3}, #{redString4}, 
+      #{redString5}, #{redString6}, #{subjectCategory}, #{name}, #{code}, #{alias}, #{total}, 
+      #{sort}, #{remark})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sida.dcloud.content.po.SpecialSubject">
+    insert into special_subject
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orgId != null">
+        org_id,
+      </if>
+      <if test="createdUser != null">
+        created_user,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedUser != null">
+        updated_user,
+      </if>
+      <if test="lastUpdated != null">
+        last_updated,
+      </if>
+      <if test="disable != null">
+        disable,
+      </if>
+      <if test="deleteFlag != null">
+        delete_flag,
+      </if>
+      <if test="redString1 != null">
+        red_string1,
+      </if>
+      <if test="redString2 != null">
+        red_string2,
+      </if>
+      <if test="redString3 != null">
+        red_string3,
+      </if>
+      <if test="redString4 != null">
+        red_string4,
+      </if>
+      <if test="redString5 != null">
+        red_string5,
+      </if>
+      <if test="redString6 != null">
+        red_string6,
+      </if>
+      <if test="subjectCategory != null">
+        subject_category,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="alias != null">
+        alias,
+      </if>
+      <if test="total != null">
+        total,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="orgId != null">
+        #{orgId},
+      </if>
+      <if test="createdUser != null">
+        #{createdUser},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt},
+      </if>
+      <if test="updatedUser != null">
+        #{updatedUser},
+      </if>
+      <if test="lastUpdated != null">
+        #{lastUpdated},
+      </if>
+      <if test="disable != null">
+        #{disable},
+      </if>
+      <if test="deleteFlag != null">
+        #{deleteFlag},
+      </if>
+      <if test="redString1 != null">
+        #{redString1},
+      </if>
+      <if test="redString2 != null">
+        #{redString2},
+      </if>
+      <if test="redString3 != null">
+        #{redString3},
+      </if>
+      <if test="redString4 != null">
+        #{redString4},
+      </if>
+      <if test="redString5 != null">
+        #{redString5},
+      </if>
+      <if test="redString6 != null">
+        #{redString6},
+      </if>
+      <if test="subjectCategory != null">
+        #{subjectCategory},
+      </if>
+      <if test="name != null">
+        #{name},
+      </if>
+      <if test="code != null">
+        #{code},
+      </if>
+      <if test="alias != null">
+        #{alias},
+      </if>
+      <if test="total != null">
+        #{total},
+      </if>
+      <if test="sort != null">
+        #{sort},
+      </if>
+      <if test="remark != null">
+        #{remark},
+      </if>
+    </trim>
+  </insert>
+  <sql id="Where_Condition">
+    <where>
+      <if test="id != null and id != ''">
+        id = #{id}
+      </if>
+      <if test="orgId != null and orgId != ''">
+        AND org_id = #{orgId}
+      </if>
+      <if test="createdUser != null and createdUser != ''">
+        AND created_user = #{createdUser}
+      </if>
+      <if test="createdAt != null">
+        AND created_at = #{createdAt}
+      </if>
+      <if test="updatedUser != null and updatedUser != ''">
+        AND updated_user = #{updatedUser}
+      </if>
+      <if test="lastUpdated != null">
+        AND last_updated = #{lastUpdated}
+      </if>
+      <if test="disable != null">
+        AND disable = #{disable}
+      </if>
+      <if test="deleteFlag != null">
+        AND delete_flag = #{deleteFlag}
+      </if>
+      <if test="redString1 != null and redString1 != ''">
+        AND red_string1 = #{redString1}
+      </if>
+      <if test="redString2 != null and redString2 != ''">
+        AND red_string2 = #{redString2}
+      </if>
+      <if test="redString3 != null and redString3 != ''">
+        AND red_string3 = #{redString3}
+      </if>
+      <if test="redString4 != null and redString4 != ''">
+        AND red_string4 = #{redString4}
+      </if>
+      <if test="redString5 != null and redString5 != ''">
+        AND red_string5 = #{redString5}
+      </if>
+      <if test="redString6 != null and redString6 != ''">
+        AND red_string6 = #{redString6}
+      </if>
+      <if test="subjectCategory != null and subjectCategory != ''">
+        AND subject_category = #{subjectCategory}
+      </if>
+      <if test="name != null and name != ''">
+        AND name = #{name}
+      </if>
+      <if test="code != null and code != ''">
+        AND code = #{code}
+      </if>
+      <if test="alias != null and alias != ''">
+        AND alias = #{alias}
+      </if>
+      <if test="total != null">
+        AND total = #{total}
+      </if>
+      <if test="sort != null">
+        AND sort = #{sort}
+      </if>
+      <if test="remark != null and remark != ''">
+        AND remark = #{remark}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByCondition" parameterType="com.sida.dcloud.content.po.SpecialSubject" resultMap="SpecialSubjectResultMap">
+    select 
+    <include refid="SpecialSubject_Column_List" />
+    from special_subject
+    <include refid="Where_Condition" />
+    <if test="orderField != null and orderField != ''">
+      ORDER BY ${orderField}
+      <if test="orderString != null and orderString != ''">
+         ${orderString}
+      </if>
+    </if>
+  </select>
+  <update id="updateByIdsSelective">
+    update special_subject
+    <set>
+      <if test="po.id != null">
+        id = #{po.id},
+      </if>
+      <if test="po.orgId != null">
+        org_id = #{po.orgId},
+      </if>
+      <if test="po.createdUser != null">
+        created_user = #{po.createdUser},
+      </if>
+      <if test="po.createdAt != null">
+        created_at = #{po.createdAt},
+      </if>
+      <if test="po.updatedUser != null">
+        updated_user = #{po.updatedUser},
+      </if>
+      <if test="po.lastUpdated != null">
+        last_updated = #{po.lastUpdated},
+      </if>
+      <if test="po.disable != null">
+        disable = #{po.disable},
+      </if>
+      <if test="po.deleteFlag != null">
+        delete_flag = #{po.deleteFlag},
+      </if>
+      <if test="po.redString1 != null">
+        red_string1 = #{po.redString1},
+      </if>
+      <if test="po.redString2 != null">
+        red_string2 = #{po.redString2},
+      </if>
+      <if test="po.redString3 != null">
+        red_string3 = #{po.redString3},
+      </if>
+      <if test="po.redString4 != null">
+        red_string4 = #{po.redString4},
+      </if>
+      <if test="po.redString5 != null">
+        red_string5 = #{po.redString5},
+      </if>
+      <if test="po.redString6 != null">
+        red_string6 = #{po.redString6},
+      </if>
+      <if test="po.subjectCategory != null">
+        subject_category = #{po.subjectCategory},
+      </if>
+      <if test="po.name != null">
+        name = #{po.name},
+      </if>
+      <if test="po.code != null">
+        code = #{po.code},
+      </if>
+      <if test="po.alias != null">
+        alias = #{po.alias},
+      </if>
+      <if test="po.total != null">
+        total = #{po.total},
+      </if>
+      <if test="po.sort != null">
+        sort = #{po.sort},
+      </if>
+      <if test="po.remark != null">
+        remark = #{po.remark},
+      </if>
+    </set>
+    where 1=2
+    <if test="ids != null and ids.size &gt; 0">
+      <foreach close=")" collection="ids" item="listItem" open="or id in(" separator=",">
+        #{listItem}
+      </foreach>
+    </if>
+  </update>
+
+
+  <!-- ***************************************************************************** -->
+  <!-- 以上自动生成，以下自定义 -->
+
+  <resultMap id="SpecialSubjectVoResultMap" type="com.sida.dcloud.content.vo.SpecialSubjectVo" >
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+
+    <collection ofType="com.sida.dcloud.content.vo.SpecialSubjectImageVo" property="specialSubjectImageVoList" select="getSpecialSubjectImageVos" column="id">
+    </collection>
+
+    <collection ofType="com.sida.dcloud.content.vo.InformationVo" property="informationVoList" select="getInformationVos" column="id">
+    </collection>
+  </resultMap>
+
+  <resultMap id="SpecialSubjectImageVoResultMap" type="com.sida.dcloud.content.vo.SpecialSubjectImageVo" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="SpecialSubjectImageVoResultMap" type="com.sida.dcloud.content.vo.SpecialSubjectImageVo" >
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="banner_url" jdbcType="INTEGER" property="bannerUrl" />
+    <result column="view_count" jdbcType="INTEGER" property="viewCount" />
+    <result column="lauded_count" jdbcType="INTEGER" property="laudedCount" />
+    <result column="comment_count" jdbcType="INTEGER" property="commentCount" />
+  </resultMap>
+
+
+  <select id="getSpecialSubjectImageVos" parameterType="string" resultMap="SpecialSubjectImageVoResultMap">
+    select sui.id,sui.image
+    from special_subject_image_rel_subject surs
+    left join special_subject_image sui
+    on surs.subject_image_id = sui.id
+    where surs.special_subject_id = #{id}
+  </select>
+
+  <select id="getInformationVos" parameterType="string" resultMap="SpecialSubjectImageVoResultMap">
+    select i.id,i.title,i.banner_url,i.view_count,i.lauded_count,i.comment_count
+    from information_rel_subject irs
+    left join information i
+    on irs.info_id = i.id
+    where irs.subject_id = #{id}
+  </select>
+
+  <select id="findSpecialToChildsByType" parameterType="string" resultMap="SpecialSubjectVoResultMap">
+    select * from special_subject su
+    where su.subject_category = #{subjectCategory}
+  </select>
+</mapper>
