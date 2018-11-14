@@ -21,8 +21,11 @@ public class ConsultationInfoVo extends UserCentricDTO {
     @ApiModelProperty("企业名称")
     private String companyName;
 
-    @ApiModelProperty("对接时间")
-    private Date conTime;
+    @ApiModelProperty("对接开始时间")
+    private Date conStartTime;
+
+    @ApiModelProperty("对接结束时间")
+    private Date conEndTime;
 
     @ApiModelProperty("对接地点")
     private String conLocation;
@@ -61,12 +64,20 @@ public class ConsultationInfoVo extends UserCentricDTO {
         this.companyName = companyName;
     }
 
-    public Date getConTime() {
-        return conTime;
+    public Date getConStartTime() {
+        return conStartTime;
     }
 
-    public void setConTime(Date conTime) {
-        this.conTime = conTime;
+    public void setConStartTime(Date conStartTime) {
+        this.conStartTime = conStartTime;
+    }
+
+    public Date getConEndTime() {
+        return conEndTime;
+    }
+
+    public void setConEndTime(Date conEndTime) {
+        this.conEndTime = conEndTime;
     }
 
     public String getConLocation() {

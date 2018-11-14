@@ -14,7 +14,8 @@
     <result column="note_id" property="noteId" jdbcType="VARCHAR" />
     <result column="company_id" property="companyId" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="VARCHAR" />
-    <result column="con_time" property="conTime" jdbcType="TIMESTAMP" />
+    <result column="con_start_time" property="conStartTime" jdbcType="TIMESTAMP" />
+    <result column="con_end_time" property="conEndTime" jdbcType="TIMESTAMP" />
     <result column="con_location" property="conLocation" jdbcType="VARCHAR" />
     <result column="con_mode" property="conMode" jdbcType="VARCHAR" />
     <result column="con_scheduler" property="conScheduler" jdbcType="VARCHAR" />
@@ -25,18 +26,18 @@
   </resultMap>
   <sql id="ConsultationInfo_Column_List" >
     id, disable, delete_flag, red_string1, red_string2, red_string3, red_string4, red_string5, 
-    red_string6, note_id, company_id, user_id, con_time, con_location, con_mode, con_scheduler, 
-    con_result, con_effect, succeed, remark
+    red_string6, note_id, company_id, user_id, con_start_time, con_end_time, con_location, 
+    con_mode, con_scheduler, con_result, con_effect, succeed, remark
   </sql>
   <insert id="insert" parameterType="com.sida.dcloud.activity.po.ConsultationInfo" >
     insert into consultation_info (id, disable, delete_flag, red_string1, red_string2, red_string3, 
       red_string4, red_string5, red_string6, note_id, company_id, user_id, 
-      con_time, con_location, con_mode, con_scheduler, con_result, con_effect, 
-      succeed, remark)
+      con_start_time, con_end_time, con_location, con_mode, con_scheduler, con_result, 
+      con_effect, succeed, remark)
     values (#{id}, #{disable}, #{deleteFlag}, #{redString1}, #{redString2}, #{redString3}, 
       #{redString4}, #{redString5}, #{redString6}, #{noteId}, #{companyId}, #{userId}, 
-      #{conTime}, #{conLocation}, #{conMode}, #{conScheduler}, #{conResult}, #{conEffect}, 
-      #{succeed}, #{remark})
+      #{conStartTime}, #{conEndTime}, #{conLocation}, #{conMode}, #{conScheduler}, #{conResult}, 
+      #{conEffect}, #{succeed}, #{remark})
   </insert>
   <insert id="insertSelective" parameterType="com.sida.dcloud.activity.po.ConsultationInfo" >
     insert into consultation_info
@@ -77,8 +78,11 @@
       <if test="userId != null" >
         user_id,
       </if>
-      <if test="conTime != null" >
-        con_time,
+      <if test="conStartTime != null" >
+        con_start_time,
+      </if>
+      <if test="conEndTime != null" >
+        con_end_time,
       </if>
       <if test="conLocation != null" >
         con_location,
@@ -139,8 +143,11 @@
       <if test="userId != null" >
         #{userId},
       </if>
-      <if test="conTime != null" >
-        #{conTime},
+      <if test="conStartTime != null" >
+        #{conStartTime},
+      </if>
+      <if test="conEndTime != null" >
+        #{conEndTime},
       </if>
       <if test="conLocation != null" >
         #{conLocation},
@@ -203,8 +210,11 @@
       <if test="userId != null and userId != ''" >
         AND user_id = #{userId}
       </if>
-      <if test="conTime != null" >
-        AND con_time = #{conTime}
+      <if test="conStartTime != null" >
+        AND con_start_time = #{conStartTime}
+      </if>
+      <if test="conEndTime != null" >
+        AND con_end_time = #{conEndTime}
       </if>
       <if test="conLocation != null and conLocation != ''" >
         AND con_location = #{conLocation}
@@ -280,8 +290,11 @@
       <if test="po.userId != null" >
         user_id = #{po.userId},
       </if>
-      <if test="po.conTime != null" >
-        con_time = #{po.conTime},
+      <if test="po.conStartTime != null" >
+        con_start_time = #{po.conStartTime},
+      </if>
+      <if test="po.conEndTime != null" >
+        con_end_time = #{po.conEndTime},
       </if>
       <if test="po.conLocation != null" >
         con_location = #{po.conLocation},
@@ -320,7 +333,8 @@
     <result column="id" property="id" jdbcType="VARCHAR" />
     <result column="company_id" property="companyId" jdbcType="VARCHAR" />
     <result column="con_location" property="conLocation" jdbcType="VARCHAR" />
-    <result column="con_time" property="conTime" jdbcType="TIMESTAMP" />
+    <result column="con_start_time" property="conStartTime" jdbcType="TIMESTAMP" />
+    <result column="con_end_time" property="conEndTime" jdbcType="TIMESTAMP" />
     <result column="con_mode" property="conMode" jdbcType="TIMESTAMP" />
     <result column="con_scheduler" property="conScheduler" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -340,7 +354,7 @@
 
   <select id="findVoList" parameterType="com.sida.dcloud.activity.po.ConsultationInfo" resultMap="ConsultationInfoVoResultMap">
     select
-    id, company_name, con_location, con_time, con_mode, con_scheduler
+    id, company_name, con_location, con_start_time, con_end_time, con_mode, con_scheduler
     from consultation_info
     <where>
       delete_flag = false

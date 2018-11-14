@@ -25,8 +25,11 @@ public class ConsultationInfo extends BaseEntity implements Serializable {
     @ApiModelProperty("用户id（关联operation.sys_user_activity的id）")
     private String userId;
 
-    @ApiModelProperty("对接时间")
-    private Date conTime;
+    @ApiModelProperty("对接开始时间")
+    private Date conStartTime;
+
+    @ApiModelProperty("对接结束时间")
+    private Date conEndTime;
 
     @ApiModelProperty("对接地点")
     private String conLocation;
@@ -91,12 +94,20 @@ public class ConsultationInfo extends BaseEntity implements Serializable {
         this.userId = userId == null ? null : userId.trim();
     }
 
-    public Date getConTime() {
-        return conTime;
+    public Date getConStartTime() {
+        return conStartTime;
     }
 
-    public void setConTime(Date conTime) {
-        this.conTime = conTime;
+    public void setConStartTime(Date conStartTime) {
+        this.conStartTime = conStartTime;
+    }
+
+    public Date getConEndTime() {
+        return conEndTime;
+    }
+
+    public void setConEndTime(Date conEndTime) {
+        this.conEndTime = conEndTime;
     }
 
     public String getConLocation() {
