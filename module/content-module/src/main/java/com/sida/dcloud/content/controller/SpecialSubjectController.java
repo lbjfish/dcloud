@@ -26,7 +26,7 @@ public class SpecialSubjectController extends BaseController {
 
     @RequestMapping(value = "/findSubjectInfoByCategory", method = RequestMethod.GET)
     @ApiOperation(value = "根据活动商品id获取信息")
-    public Object findOne(@RequestParam("subjectCategory") @ApiParam("subjectCategory")String subjectCategory) {
+    public Object findOne(@RequestParam("subjectCategory") @ApiParam("专题分类")String subjectCategory) {
         SpecialSubjectVo one = specialSubjectService.findSpecialToChildsByType(subjectCategory);
         return toResult(one);
     }
